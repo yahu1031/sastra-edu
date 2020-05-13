@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../Home/Home.dart';
+import '../Home/Home.dart';
 import '../Services/authenticate.dart';
 import '../Services/user.dart';
 
@@ -20,7 +21,7 @@ class _WrapperState extends State<Wrapper> {
       return Authenticate();
     } else {
       user2 = user;
-      return Home();
+      return AdminHome();
     }
   }
 }
