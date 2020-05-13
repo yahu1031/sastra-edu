@@ -12,14 +12,14 @@ import 'software.dart';
 
 final Color backgroundColor = Colors.white;
 
-class Home extends StatefulWidget {
+class AdminHome extends StatefulWidget {
   final Function toggleProfile;
-  Home({this.toggleProfile});
+  AdminHome({this.toggleProfile});
   @override
-  _HomeState createState() => _HomeState();
+  _AdminHomeState createState() => _AdminHomeState();
 }
 
-class _HomeState extends State<Home> with TickerProviderStateMixin {
+class _AdminHomeState extends State<AdminHome> with TickerProviderStateMixin {
   bool isCollapsed = true;
   double screenWidth, screenHeight;
   final Duration duration = const Duration(milliseconds: 300);
@@ -31,7 +31,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   final AuthServices _auth = AuthServices();
 
   TabController tabController;
-//  String _timeString;
 
   @override
   void initState() {
@@ -42,11 +41,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         Tween<double>(begin: 0.5, end: 1).animate(_controller);
     _slideAnimation = Tween<Offset>(begin: Offset(-1, 0), end: Offset(0, 0))
         .animate(_controller);
-
-//    _timeString =
-//        "${DateTime.now().hour} : ${DateTime.now().minute} :${DateTime.now().second}";
-//    Timer.periodic(Duration(seconds: 1), (Timer t) => _getCurrentTime());
-
     tabController = new TabController(length: 4, vsync: this);
   }
 
@@ -123,10 +117,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: IconButton(
-                    icon: Icon(Icons.favorite_border),
+                    icon: Icon(Icons.person_add),
                     color: Colors.lightBlueAccent,
                     onPressed: () {
-                      print('Favorite');
+                      print('Add User');
                     },
                   ),
                 ),
@@ -134,10 +128,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: IconButton(
-                    icon: Icon(Icons.book),
+                    icon: Icon(Icons.note_add),
                     color: Colors.lightBlueAccent,
                     onPressed: () {
-                      print('Bookmarks');
+                      print('Add books');
                     },
                   ),
                 ),
@@ -185,14 +179,15 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         scale: _scaleAnimation,
         child: Material(
           animationDuration: duration,
+          // borderRadius: BorderRadius.all(Radius.circular(30)),
+          elevation: 8,
           color: backgroundColor,
           child: SingleChildScrollView(
             physics: NeverScrollableScrollPhysics(),
             child: Column(
               children: <Widget>[
                 Container(
-                  padding: const EdgeInsets.only(
-                      left: 16, right: 16, top: 30, bottom: 50.0),
+                  padding: const EdgeInsets.only(left: 16, right: 16, top: 48),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -236,7 +231,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                   left: 60.0,
                                 ),
                                 child: new Text(
-                                  'M-Book Edu',
+                                  'Sastra Edu',
                                   style: GoogleFonts.pacifico(
                                     fontSize: 30.0,
                                   ),
@@ -317,13 +312,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                               children: <Widget>[
                                 Container(
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 40.0),
+                                    padding: const EdgeInsets.all(40.0),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
                                           'Study time today',
@@ -387,8 +379,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.only(bottom: 50.0),
-                          height: MediaQuery.of(context).size.height -475.0,
+                          height: MediaQuery.of(context).size.height - 450.0,
                           child: TabBarView(
                             controller: tabController,
                             children: [
@@ -410,11 +401,4 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       ),
     );
   }
-
-//  void _getCurrentTime() {
-//    setState(() {
-//      _timeString =
-//          "${DateTime.now().hour} : ${DateTime.now().minute} :${DateTime.now().second}";
-//    });
-//  }
 }
