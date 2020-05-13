@@ -33,7 +33,6 @@ class _AllState extends State<All> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Container(
-            width: 210.0,
             child: Row(
               children: [
                 Container(

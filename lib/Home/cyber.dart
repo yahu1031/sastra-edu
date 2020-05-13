@@ -33,7 +33,7 @@ class _CyberState extends State<Cyber> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Container(
-            width: 210.0,
+            // width: 210.0,
             child: Row(
               children: [
                 Container(

@@ -33,7 +33,7 @@ class _LabState extends State<Lab> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Container(
-            width: 210.0,
+            // width: 210.0,
             child: Row(
               children: [
                 Container(

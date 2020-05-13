@@ -193,7 +193,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             child: Column(
               children: <Widget>[
                 Container(
-                  padding: const EdgeInsets.only(left: 16, right: 16, top: 48),
+                  padding: const EdgeInsets.only(
+                      left: 16, right: 16, top: 30, bottom: 50.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -318,10 +319,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                               children: <Widget>[
                                 Container(
                                   child: Padding(
-                                    padding: const EdgeInsets.all(40.0),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 40.0),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
                                           'Study time today',
@@ -385,7 +389,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                           ),
                         ),
                         Container(
-                          height: MediaQuery.of(context).size.height - 450.0,
+                          padding: EdgeInsets.only(bottom: 50.0),
+                          height: MediaQuery.of(context).size.height - 470.0,
                           child: TabBarView(
                             controller: tabController,
                             children: [
