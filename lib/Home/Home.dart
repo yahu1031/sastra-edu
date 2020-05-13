@@ -12,14 +12,14 @@ import 'software.dart';
 
 final Color backgroundColor = Colors.white;
 
-class AdminHome extends StatefulWidget {
+class Home extends StatefulWidget {
   final Function toggleProfile;
-  AdminHome({this.toggleProfile});
+  Home({this.toggleProfile});
   @override
-  _AdminHomeState createState() => _AdminHomeState();
+  _HomeState createState() => _HomeState();
 }
 
-class _AdminHomeState extends State<AdminHome> with TickerProviderStateMixin {
+class _HomeState extends State<Home> with TickerProviderStateMixin {
   bool isCollapsed = true;
   double screenWidth, screenHeight;
   final Duration duration = const Duration(milliseconds: 300);
