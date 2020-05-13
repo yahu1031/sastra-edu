@@ -31,6 +31,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   final AuthServices _auth = AuthServices();
 
   TabController tabController;
+//  String _timeString;
 
   @override
   void initState() {
@@ -41,6 +42,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         Tween<double>(begin: 0.5, end: 1).animate(_controller);
     _slideAnimation = Tween<Offset>(begin: Offset(-1, 0), end: Offset(0, 0))
         .animate(_controller);
+
+//    _timeString =
+//        "${DateTime.now().hour} : ${DateTime.now().minute} :${DateTime.now().second}";
+//    Timer.periodic(Duration(seconds: 1), (Timer t) => _getCurrentTime());
+
     tabController = new TabController(length: 4, vsync: this);
   }
 
@@ -117,10 +123,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: IconButton(
-                    icon: Icon(Icons.person_add),
+                    icon: Icon(Icons.favorite_border),
                     color: Colors.lightBlueAccent,
                     onPressed: () {
-                      print('Add User');
+                      print('Favorite');
                     },
                   ),
                 ),
@@ -128,10 +134,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: IconButton(
-                    icon: Icon(Icons.note_add),
+                    icon: Icon(Icons.book),
                     color: Colors.lightBlueAccent,
                     onPressed: () {
-                      print('Add books');
+                      print('Bookmarks');
                     },
                   ),
                 ),
@@ -179,7 +185,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         scale: _scaleAnimation,
         child: Material(
           animationDuration: duration,
-          // borderRadius: BorderRadius.all(Radius.circular(30)),
           elevation: 8,
           color: backgroundColor,
           child: SingleChildScrollView(
@@ -231,7 +236,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                   left: 60.0,
                                 ),
                                 child: new Text(
-                                  'Sastra Edu',
+                                  'M-Book Edu',
                                   style: GoogleFonts.pacifico(
                                     fontSize: 30.0,
                                   ),
@@ -312,10 +317,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                               children: <Widget>[
                                 Container(
                                   child: Padding(
-                                    padding: const EdgeInsets.all(40.0),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 40.0),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
                                           'Study time today',
@@ -379,7 +387,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                           ),
                         ),
                         Container(
-                          height: MediaQuery.of(context).size.height - 450.0,
+                          margin: EdgeInsets.only(bottom: 10.0),
+                          height: MediaQuery.of(context).size.height - 500.0,
                           child: TabBarView(
                             controller: tabController,
                             children: [
@@ -401,4 +410,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       ),
     );
   }
+
+//  void _getCurrentTime() {
+//    setState(() {
+//      _timeString =
+//          "${DateTime.now().hour} : ${DateTime.now().minute} :${DateTime.now().second}";
+//    });
+//  }
 }
