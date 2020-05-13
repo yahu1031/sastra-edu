@@ -185,7 +185,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         scale: _scaleAnimation,
         child: Material(
           animationDuration: duration,
-          borderRadius: BorderRadius.all(Radius.circular(30)),
+          // borderRadius: BorderRadius.all(Radius.circular(30)), 
           elevation: 8,
           color: backgroundColor,
           child: SingleChildScrollView(

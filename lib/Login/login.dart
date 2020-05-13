@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sastra_ebooks/Login/mailus.dart';
-import '../services/auth.dart';
+import '../Services/auth.dart';
 
 import 'forgotpassword.dart';
 
