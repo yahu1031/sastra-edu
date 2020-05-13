@@ -27,7 +27,7 @@ class _MyAppState extends State<MyApp> {
     return StreamProvider<User>.value(
       value: AuthServices().user,
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: true,
         home: Splash(),
       ),
     );
