@@ -21,7 +21,7 @@ class _WrapperState extends State<Wrapper> {
       return Authenticate();
     } else {
       user2 = user;
-      return AdminHome();
+      return Home();
     }
   }
 }

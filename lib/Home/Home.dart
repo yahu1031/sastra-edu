@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../Services/auth.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../splashscreen.dart';
 import 'all.dart';
 import 'cyber.dart';
 import 'lab.dart';
@@ -21,6 +22,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
   bool isCollapsed = true;
+  bool isData = false;
   double screenWidth, screenHeight;
   final Duration duration = const Duration(milliseconds: 300);
   AnimationController _controller;
@@ -65,12 +67,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
     return Scaffold(
       backgroundColor: backgroundColor,
-      body: Stack(
+      body: isData?Stack(
         children: <Widget>[
           menu(context),
           dashboard(context),
         ],
-      ),
+      ):Splash()
     );
   }
 
