@@ -54,7 +54,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 //    Timer.periodic(Duration(seconds: 1), (Timer t) => _getCurrentTime());
 
     tabController =
-        new TabController(length: widget.data["Tabs"].length - 1, vsync: this);
+        new TabController(length: widget.data["Tabs"].length, vsync: this);
   }
 
   @override
