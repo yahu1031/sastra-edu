@@ -21,8 +21,7 @@ class _AllState extends State<All> {
       backgroundColor: Colors.white,
       body: ListView.builder(
         scrollDirection: Axis.vertical,
-        itemBuilder: (BuildContext, index){
-
+        itemBuilder: (BuildContext context, index){
           return _buildListItems(widget.data[index]["Name"], book);
         },
         itemCount: (widget.data).length,
