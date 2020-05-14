@@ -17,8 +17,8 @@ class _LabState extends State<Lab> {
       body: ListView(
         scrollDirection: Axis.vertical,
         children: <Widget>[
-          _buildListItems('Book 1', book),
-          _buildListItems('Book 2', book),
+          _buildListItems('Book 1', Images.book),
+          _buildListItems('Book 2', Images.book),
         ],
       ),
     );

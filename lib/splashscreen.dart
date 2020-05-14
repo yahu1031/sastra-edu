@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:path_provider/path_provider.dart';
-// import 'package:sastra_ebooks/Services/wrapper.dart';
+import 'Services/paths.dart';
 import 'package:shimmer/shimmer.dart';
 
 import 'Services/wrapper.dart';
@@ -75,7 +75,7 @@ class _SplashState extends State<Splash> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset('assets/images/splash.png'),
+                Image.asset(Images.splashPic),
                 Shimmer.fromColors(
                   baseColor: Colors.blue[500],
                   highlightColor: Colors.lightBlueAccent,

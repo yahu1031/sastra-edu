@@ -17,14 +17,14 @@ class _SoftwareState extends State<Software> {
       body: ListView(
         scrollDirection: Axis.vertical,
         children: <Widget>[
-          _buildListItems(pressman, authPressman, rspressman),
-          _buildListItems(fundamental, authRajibmall, rajibmall),
-          _buildListItems('Book 1', '', book),
-          _buildListItems('Book 2', '', book),
-          _buildListItems('Book 3', '', book),
-          _buildListItems('Book 4', '', book),
-          _buildListItems('Book 5', '', book),
-          _buildListItems('Book 6', '', book),
+          _buildListItems(pressman, authPressman, Images.rspressman),
+          _buildListItems(fundamental, authRajibmall, Images.rajibmall),
+          _buildListItems('Book 1', '', Images.book),
+          _buildListItems('Book 2', '', Images.book),
+          _buildListItems('Book 3', '', Images.book),
+          _buildListItems('Book 4', '', Images.book),
+          _buildListItems('Book 5', '', Images.book),
+          _buildListItems('Book 6', '', Images.book),
         ],
       ),
     );
