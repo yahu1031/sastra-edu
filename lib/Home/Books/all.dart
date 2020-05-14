@@ -5,25 +5,35 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../Services/paths.dart';
 
 class All extends StatefulWidget {
+  final data;
+  All(this.data);
+
   @override
   _AllState createState() => _AllState();
 }
 
 class _AllState extends State<All> {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: ListView(
+      body: ListView.builder(
         scrollDirection: Axis.vertical,
-        children: <Widget>[
-          _buildListItems('Book 1', book),
-          _buildListItems('Book 2', book),
-          _buildListItems('Book 3', book),
-          _buildListItems('Book 4', book),
-          _buildListItems('Book 5', book),
-          _buildListItems('Book 6', book),
-        ],
+        itemBuilder: (BuildContext, index){
+
+          return _buildListItems(widget.data[index]["Name"], book);
+        },
+        itemCount: (widget.data).length,
+        // children: <Widget>[
+        //   _buildListItems('Book 1', book),
+        //   _buildListItems('Book 2', book),
+        //   _buildListItems('Book 3', book),
+        //   _buildListItems('Book 4', book),
+        //   _buildListItems('Book 5', book),
+        //   _buildListItems('Book 6', book),
+        // ],
       ),
     );
   }

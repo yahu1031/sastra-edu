@@ -30,6 +30,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   final AuthServices _auth = AuthServices();
   List<Tab> tab = [];
+  List<Widget> tabItems = [];
   TabController tabController;
 
   @override
@@ -39,6 +40,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       tab.add(
         Tab(child: Text(widget.data["Tabs"][i])),
       );
+      tabItems.add(All(widget.data[(widget.data["Tabs"][i])]));
     }
     _controller = AnimationController(vsync: this, duration: duration);
     _scaleAnimation = Tween<double>(begin: 1, end: 0.8).animate(_controller);
@@ -385,13 +387,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                           height: MediaQuery.of(context).size.height - 500.0,
                           child: TabBarView(
                             controller: tabController,
-                            children: [
-                              All(),
-                              Software(),
-                              Lab(),
-                              Cyber(),
-                              Cyber(),
-                            ],
+                            children: tabItems,
                           ),
                         ),
                       ],
