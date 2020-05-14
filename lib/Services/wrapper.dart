@@ -6,6 +6,8 @@ import '../Services/authenticate.dart';
 import '../Services/user.dart';
 
 class Wrapper extends StatefulWidget {
+  final data;
+  Wrapper(this.data);
   @override
   _WrapperState createState() => _WrapperState();
 }
@@ -21,7 +23,7 @@ class _WrapperState extends State<Wrapper> {
       return Authenticate();
     } else {
       user2 = user;
-      return Home();
+      return Home(widget.data);
     }
   }
 }

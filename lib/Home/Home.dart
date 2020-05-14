@@ -14,15 +14,14 @@ import 'software.dart';
 final Color backgroundColor = Colors.white;
 
 class Home extends StatefulWidget {
-  final Function toggleProfile;
-  Home({this.toggleProfile});
+  final data;
+  Home(this.data);
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
   bool isCollapsed = true;
-  bool isData = false;
   double screenWidth, screenHeight;
   final Duration duration = const Duration(milliseconds: 300);
   AnimationController _controller;
@@ -31,13 +30,18 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   Animation<Offset> _slideAnimation;
 
   final AuthServices _auth = AuthServices();
-
+  List<Tab> tab = [];
   TabController tabController;
 //  String _timeString;
 
   @override
   void initState() {
     super.initState();
+    for (int i = 0; i < widget.data["Tabs"].length; i++) {
+      tab.add(
+        Tab(child: Text(widget.data["Tabs"][i])),
+      );
+    }
     _controller = AnimationController(vsync: this, duration: duration);
     _scaleAnimation = Tween<double>(begin: 1, end: 0.8).animate(_controller);
     _menuScaleAnimation =
@@ -49,7 +53,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 //        "${DateTime.now().hour} : ${DateTime.now().minute} :${DateTime.now().second}";
 //    Timer.periodic(Duration(seconds: 1), (Timer t) => _getCurrentTime());
 
-    tabController = new TabController(length: 4, vsync: this);
+    tabController =
+        new TabController(length: widget.data["Tabs"].length - 1, vsync: this);
   }
 
   @override
@@ -66,14 +71,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     screenWidth = size.width;
 
     return Scaffold(
-      backgroundColor: backgroundColor,
-      body: isData?Stack(
-        children: <Widget>[
-          menu(context),
-          dashboard(context),
-        ],
-      ):Splash()
-    );
+        backgroundColor: backgroundColor,
+        body: Stack(
+          children: <Widget>[
+            menu(context),
+            dashboard(context),
+          ],
+        ));
   }
 
   Widget menu(context) {
@@ -379,12 +383,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                 fontSize: 14.0,
                                 fontWeight: FontWeight.w600,
                               ),
-                              tabs: [
-                                Tab(child: Text('All')),
-                                Tab(child: Text('Software')),
-                                Tab(child: Text('Lab')),
-                                Tab(child: Text('Cyber')),
-                              ],
+                              tabs: tab,
                             ),
                           ),
                         ),
@@ -397,6 +396,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                               All(),
                               Software(),
                               Lab(),
+                              Cyber(),
                               Cyber(),
                             ],
                           ),
