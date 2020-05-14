@@ -1,14 +1,12 @@
-import 'package:sastra_ebooks/Profile/profile.dart';
+import '../Profile/profile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../Services/Responsive/size_config.dart';
+import '../Services/paths.dart';
 import '../Services/auth.dart';
 import 'package:shimmer/shimmer.dart';
 
-import 'Books/all.dart';
-import 'Books/cyber.dart';
-import 'Books/lab.dart';
-import 'Books/software.dart';
+import 'Books/tabview.dart';
 
 final Color backgroundColor = Colors.white;
 
@@ -68,10 +66,44 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
     return Scaffold(
         backgroundColor: backgroundColor,
+        appBar: new AppBar(
+          elevation: 0.0,
+          backgroundColor: Colors.white,
+          title: Shimmer.fromColors(
+            baseColor: Colors.blue[500],
+            highlightColor: Colors.lightBlueAccent,
+            child: Container(
+              child: new Text(
+                'M-Book Edu',
+                style: GoogleFonts.pacifico(
+                  fontSize: 30.0,
+                ),
+              ),
+            ),
+          ),
+          leading: IconButton(
+            onPressed: () {
+              setState(() {
+                if (isCollapsed) {
+                  _controller.forward();
+                  print('Menu');
+                } else {
+                  _controller.reverse();
+                  print('Home');
+                }
+                isCollapsed = !isCollapsed;
+              });
+            },
+            icon: Icon(
+              Icons.menu,
+              color: Colors.lightBlueAccent,
+            ),
+          ),
+        ),
         body: Stack(
           children: <Widget>[
-            menu(context),
             dashboard(context),
+            menu(context),
           ],
         ));
   }
@@ -82,13 +114,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       child: ScaleTransition(
         scale: _menuScaleAnimation,
         child: Padding(
-          padding: const EdgeInsets.only(left: 20.0, right: 200.0),
+          padding: const EdgeInsets.only(left: 20.0, right: 230.0),
           child: Align(
             alignment: Alignment.centerLeft,
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 new Container(
                   child: InkWell(
@@ -100,8 +132,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       print('Profile');
                     },
                     child: new CircleAvatar(
-                      radius: 40.0,
-                      backgroundImage: AssetImage('assets/images/profile.jpg'),
+                      radius: 8 * SizeConfig.widthMultiplier,
+                      backgroundImage: AssetImage(Images.profile),
                     ),
                   ),
                   padding: const EdgeInsets.all(2.0),
@@ -110,9 +142,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     shape: BoxShape.circle,
                   ),
                 ),
-                SizedBox(height: 70),
+                SizedBox(height: 5 * SizeConfig.heightMultiplier),
                 Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: EdgeInsets.all(1 * SizeConfig.heightMultiplier),
                   child: IconButton(
                     icon: Icon(Icons.home),
                     color: Colors.lightBlueAccent,
@@ -121,9 +153,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     },
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 3 * SizeConfig.heightMultiplier),
                 Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: EdgeInsets.all(1 * SizeConfig.heightMultiplier),
                   child: IconButton(
                     icon: Icon(Icons.favorite_border),
                     color: Colors.lightBlueAccent,
@@ -132,9 +164,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     },
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 3 * SizeConfig.heightMultiplier),
                 Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: EdgeInsets.all(1 * SizeConfig.heightMultiplier),
                   child: IconButton(
                     icon: Icon(Icons.book),
                     color: Colors.lightBlueAccent,
@@ -143,9 +175,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     },
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 3 * SizeConfig.heightMultiplier),
                 Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: EdgeInsets.all(1 * SizeConfig.heightMultiplier),
                   child: IconButton(
                     icon: Icon(Icons.chat_bubble_outline),
                     color: Colors.lightBlueAccent,
@@ -154,9 +186,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     },
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 3 * SizeConfig.heightMultiplier),
                 Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: EdgeInsets.all(1 * SizeConfig.heightMultiplier),
                   child: IconButton(
                     icon: Icon(Icons.power_settings_new),
                     color: Colors.lightBlueAccent,
@@ -181,7 +213,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       duration: duration,
       top: 0,
       bottom: 0,
-      left: isCollapsed ? 0 : 0.25 * screenWidth,
+      left: isCollapsed ? 0 : 0.15 * screenWidth,
       right: isCollapsed ? 0 : -0.4 * screenWidth,
       child: ScaleTransition(
         scale: _scaleAnimation,
@@ -190,86 +222,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           elevation: 8,
           color: backgroundColor,
           child: SingleChildScrollView(
-            physics: NeverScrollableScrollPhysics(),
+            physics: ScrollPhysics(),
             child: Column(
               children: <Widget>[
-                Container(
-                  padding: const EdgeInsets.only(left: 16, right: 16, top: 48),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Material(
-                            color: Colors.transparent,
-                            child: InkWell(
-                              splashColor: Colors.white,
-                              child: SizedBox(
-                                width: 30,
-                                height: 30,
-                                child: SvgPicture.asset(
-                                  'assets/icons/menu.svg',
-                                  color: Colors.lightBlueAccent,
-                                ),
-                              ),
-                              onTap: () {
-                                setState(() {
-                                  if (isCollapsed) {
-                                    _controller.forward();
-                                    print('Menu');
-                                  } else {
-                                    _controller.reverse();
-                                    print('Home');
-                                  }
-                                  isCollapsed = !isCollapsed;
-                                });
-                              },
-                            ),
-                          ),
-                          Center(
-                            child: Shimmer.fromColors(
-                              baseColor: Colors.blue[500],
-                              highlightColor: Colors.lightBlueAccent,
-                              child: Container(
-                                margin: EdgeInsets.only(
-                                  right: 30.0,
-                                  left: 60.0,
-                                ),
-                                child: new Text(
-                                  'M-Book Edu',
-                                  style: GoogleFonts.pacifico(
-                                    fontSize: 30.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          ClipOval(
-                            child: Material(
-                              color: Colors.grey[100],
-                              child: SizedBox(
-                                width: 50,
-                                height: 50,
-                                child: IconButton(
-                                  icon: Icon(
-                                    Icons.search,
-                                    size: 30.0,
-                                  ),
-                                  color: Colors.lightBlueAccent,
-                                  onPressed: () {
-                                    print('Search');
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
                 Container(
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
@@ -303,7 +258,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                               image: const DecorationImage(
                                 alignment: Alignment.centerRight,
                                 image: AssetImage(
-                                  'assets/images/read.png',
+                                  Images.read,
                                 ),
                               ),
                               color: Colors.lightBlueAccent,

@@ -4,33 +4,30 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../Services/paths.dart';
 
-class Software extends StatefulWidget {
+class All extends StatefulWidget {
+  final data;
+  All(this.data);
+
   @override
-  _SoftwareState createState() => _SoftwareState();
+  _AllState createState() => _AllState();
 }
 
-class _SoftwareState extends State<Software> {
+class _AllState extends State<All> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: ListView(
+      body: ListView.builder(
         scrollDirection: Axis.vertical,
-        children: <Widget>[
-          _buildListItems(pressman, authPressman, rspressman),
-          _buildListItems(fundamental, authRajibmall, rajibmall),
-          _buildListItems('Book 1', '', book),
-          _buildListItems('Book 2', '', book),
-          _buildListItems('Book 3', '', book),
-          _buildListItems('Book 4', '', book),
-          _buildListItems('Book 5', '', book),
-          _buildListItems('Book 6', '', book),
-        ],
+        itemBuilder: (BuildContext context, index) {
+          return _buildListItems(widget.data[index]["Name"], Images.book);
+        },
+        itemCount: (widget.data).length,
       ),
     );
   }
 
-  _buildListItems(String bookName, String author, String imgPath) {
+  _buildListItems(String itemName, String imgPath) {
     return Padding(
       padding: EdgeInsets.all(15.0),
       child: Row(
@@ -55,17 +52,9 @@ class _SoftwareState extends State<Software> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      bookName,
+                      itemName,
                       style: GoogleFonts.notoSans(
                         fontSize: 14.0,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    SizedBox(height: 10.0),
-                    Text(
-                      author,
-                      style: GoogleFonts.notoSans(
-                        fontSize: 12.0,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
