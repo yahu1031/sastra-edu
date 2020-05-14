@@ -68,57 +68,77 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
     return Scaffold(
         backgroundColor: backgroundColor,
-        appBar: new AppBar(
-          elevation: 0.0,
-          backgroundColor: Colors.white,
-          title: !searching
-              ? Shimmer.fromColors(
-                  baseColor: Colors.blue[500],
-                  highlightColor: Colors.lightBlueAccent,
-                  child: Container(
-                    child: new Text(
-                      'M-Book Edu',
-                      style: GoogleFonts.pacifico(
-                        fontSize: 30.0,
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(10 * SizeConfig.heightMultiplier),
+          child: new AppBar(
+            elevation: 0.0,
+            backgroundColor: Colors.white,
+            title: !searching
+                ? Shimmer.fromColors(
+                    baseColor: Colors.blue[500],
+                    highlightColor: Colors.lightBlueAccent,
+                    child: Container(
+                      child: new Text(
+                        'M-Book Edu',
+                        style: GoogleFonts.pacifico(
+                          fontSize: 30.0,
+                        ),
                       ),
                     ),
+                  )
+                : TextField(
+                    onChanged: (value) {
+                      print(value);
+                    },
+                    style: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                        hintText: "Search Book Here",
+                        hintStyle:
+                            TextStyle(color: Colors.grey.withOpacity(0.5))),
                   ),
-                )
-              : TextField(
-                  onChanged: (value) {
-                    print(value);
-                  },
-                  style: TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
+            actions: <Widget>[
+              searching
+                  ? IconButton(
+                      icon: Icon(
+                        Icons.close,
+                        color: Colors.lightBlue,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          this.searching = false;
+                          print(searching);
+                        });
+                      },
+                    )
+                  : IconButton(
                       icon: Icon(
                         Icons.search,
-                        color: Colors.white,
+                        color: Colors.lightBlue,
                       ),
-                      hintText: "Search Country Here",
-                      hintStyle: TextStyle(color: Colors.white)),
-                ),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {},
-            ),
-          ],
-          leading: IconButton(
-            onPressed: () {
-              setState(() {
-                if (isCollapsed) {
-                  _controller.forward();
-                  print('Menu');
-                } else {
-                  _controller.reverse();
-                  print('Home');
-                }
-                isCollapsed = !isCollapsed;
-              });
-            },
-            icon: Icon(
-              Icons.menu,
-              color: Colors.lightBlueAccent,
+                      onPressed: () {
+                        setState(() {
+                          this.searching = true;
+                        });
+                      },
+                    ),
+            ],
+            leading: IconButton(
+              onPressed: () {
+                setState(() {
+                  if (isCollapsed) {
+                    _controller.forward();
+                    print('Menu');
+                  } else {
+                    _controller.reverse();
+                    print('Home');
+                  }
+                  isCollapsed = !isCollapsed;
+                });
+              },
+              icon: Icon(
+                Icons.menu,
+                color: Colors.lightBlueAccent,
+              ),
             ),
           ),
         ),
@@ -233,8 +253,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   Widget dashboard(context) {
     return AnimatedPositioned(
       duration: duration,
-      top: 0,
-      bottom: 0,
+      top: isCollapsed ? 0 : -0.1 * screenHeight,
+      bottom: isCollapsed ? 0 : -0.1 * screenHeight,
       left: isCollapsed ? 0 : 0.15 * screenWidth,
       right: isCollapsed ? 0 : -0.4 * screenWidth,
       child: ScaleTransition(
@@ -244,7 +264,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           elevation: 8,
           color: backgroundColor,
           child: SingleChildScrollView(
-            physics: ScrollPhysics(),
             child: Column(
               children: <Widget>[
                 Container(
@@ -273,7 +292,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                               maxHeight: 150.0,
                               maxWidth: 700.0,
                               minWidth: 250.0,
-                              // minHeight: 100.0,
                             ),
                             padding: EdgeInsets.only(right: 10.0),
                             decoration: BoxDecoration(
@@ -360,8 +378,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(bottom: 10.0),
-                          height: MediaQuery.of(context).size.height - 500.0,
+                          // margin: EdgeInsets.only(bottom: 10.0),
+                          height: MediaQuery.of(context).size.height - 200.0,
                           child: TabBarView(
                             controller: tabController,
                             children: tabItems,
