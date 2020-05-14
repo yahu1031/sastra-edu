@@ -379,7 +379,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         ),
                         Container(
                           // margin: EdgeInsets.only(bottom: 10.0),
-                          height: MediaQuery.of(context).size.height - 200.0,
+                          padding: EdgeInsets.only(left: 6.0, ),
+                          height: MediaQuery.of(context).size.height * 0.4,
                           child: TabBarView(
                             controller: tabController,
                             children: tabItems,
