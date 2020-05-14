@@ -7,7 +7,7 @@ class Images {
   static const String profile = "assets/images/profile.jpg";
   static const String rajibmall = "assets/images/rajibmall.jpeg";
   static const String read = "assets/images/read.png";
-  static const String rspressman = "assets/images/RSPressman.png";
+  static const String rspressman = "assets/images/RSPressman.jpeg";
 
 //SVG
   static const String home = "assets/icons/home.svg";

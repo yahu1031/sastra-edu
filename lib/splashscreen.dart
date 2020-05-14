@@ -75,7 +75,10 @@ class _SplashState extends State<Splash> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset(Images.splashPic),
+                Image.asset(
+                  Images.splashPic,
+                  height: 250,
+                ),
                 Shimmer.fromColors(
                   baseColor: Colors.blue[500],
                   highlightColor: Colors.lightBlueAccent,
