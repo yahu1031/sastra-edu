@@ -5,11 +5,10 @@ import 'package:google_fonts/google_fonts.dart';
 import '../Services/auth.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../splashscreen.dart';
-import 'all.dart';
-import 'cyber.dart';
-import 'lab.dart';
-import 'software.dart';
+import 'Books/all.dart';
+import 'Books/cyber.dart';
+import 'Books/lab.dart';
+import 'Books/software.dart';
 
 final Color backgroundColor = Colors.white;
 
@@ -32,7 +31,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   final AuthServices _auth = AuthServices();
   List<Tab> tab = [];
   TabController tabController;
-//  String _timeString;
 
   @override
   void initState() {
@@ -48,10 +46,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         Tween<double>(begin: 0.5, end: 1).animate(_controller);
     _slideAnimation = Tween<Offset>(begin: Offset(-1, 0), end: Offset(0, 0))
         .animate(_controller);
-
-//    _timeString =
-//        "${DateTime.now().hour} : ${DateTime.now().minute} :${DateTime.now().second}";
-//    Timer.periodic(Duration(seconds: 1), (Timer t) => _getCurrentTime());
 
     tabController =
         new TabController(length: widget.data["Tabs"].length, vsync: this);
@@ -108,9 +102,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       backgroundImage: AssetImage('assets/images/profile.jpg'),
                     ),
                   ),
-                  padding: const EdgeInsets.all(2.0), // borde width
+                  padding: const EdgeInsets.all(2.0),
                   decoration: new BoxDecoration(
-                    color: Colors.lightBlueAccent, // border color
+                    color: Colors.lightBlueAccent,
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -207,9 +201,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Material(
-                            color: Colors.transparent, // button color
+                            color: Colors.transparent,
                             child: InkWell(
-                              splashColor: Colors.white, // inkwell color
+                              splashColor: Colors.white,
                               child: SizedBox(
                                 width: 30,
                                 height: 30,
@@ -252,7 +246,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                           ),
                           ClipOval(
                             child: Material(
-                              color: Colors.grey[100], // button color
+                              color: Colors.grey[100],
                               child: SizedBox(
                                 width: 50,
                                 height: 50,
@@ -342,7 +336,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                         ),
                                         SizedBox(height: 20.0),
                                         Text(
-//                                          '$_timeString    minutes',
                                           'minutes',
                                           style: GoogleFonts.montserrat(
                                             fontSize: 15.0,
@@ -412,11 +405,4 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       ),
     );
   }
-
-//  void _getCurrentTime() {
-//    setState(() {
-//      _timeString =
-//          "${DateTime.now().hour} : ${DateTime.now().minute} :${DateTime.now().second}";
-//    });
-//  }
 }
