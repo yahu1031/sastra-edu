@@ -5,6 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../Services/paths.dart';
 
 class All extends StatefulWidget {
+  final data;
+  All(this.data);
+
   @override
   _AllState createState() => _AllState();
 }
@@ -14,16 +17,12 @@ class _AllState extends State<All> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: ListView(
+      body: ListView.builder(
         scrollDirection: Axis.vertical,
-        children: <Widget>[
-          _buildListItems('Book 1', Images.book),
-          _buildListItems('Book 2', Images.book),
-          _buildListItems('Book 3', Images.book),
-          _buildListItems('Book 4', Images.book),
-          _buildListItems('Book 5', Images.book),
-          _buildListItems('Book 6', Images.book),
-        ],
+        itemBuilder: (BuildContext context, index) {
+          return _buildListItems(widget.data[index]["Name"], Images.book);
+        },
+        itemCount: (widget.data).length,
       ),
     );
   }
