@@ -294,7 +294,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                               maxHeight: 150.0,
                               maxWidth: 700.0,
                               minWidth: 250.0,
-                              minHeight: 100.0,
+                              // minHeight: 100.0,
                             ),
                             padding: EdgeInsets.only(right: 10.0),
                             decoration: BoxDecoration(
