@@ -71,7 +71,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         backgroundColor: backgroundColor,
         appBar: new AppBar(
           elevation: 0.0,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.white,
           title: Shimmer.fromColors(
             baseColor: Colors.blue[500],
             highlightColor: Colors.lightBlueAccent,
