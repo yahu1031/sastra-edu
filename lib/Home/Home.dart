@@ -26,6 +26,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   Animation<double> _menuScaleAnimation;
   Animation<Offset> _slideAnimation;
 
+  bool searching = false;
+
   final AuthServices _auth = AuthServices();
   List<Tab> tab = [];
   List<Widget> tabItems = [];
@@ -69,18 +71,38 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         appBar: new AppBar(
           elevation: 0.0,
           backgroundColor: Colors.white,
-          title: Shimmer.fromColors(
-            baseColor: Colors.blue[500],
-            highlightColor: Colors.lightBlueAccent,
-            child: Container(
-              child: new Text(
-                'M-Book Edu',
-                style: GoogleFonts.pacifico(
-                  fontSize: 30.0,
+          title: !searching
+              ? Shimmer.fromColors(
+                  baseColor: Colors.blue[500],
+                  highlightColor: Colors.lightBlueAccent,
+                  child: Container(
+                    child: new Text(
+                      'M-Book Edu',
+                      style: GoogleFonts.pacifico(
+                        fontSize: 30.0,
+                      ),
+                    ),
+                  ),
+                )
+              : TextField(
+                  onChanged: (value) {
+                    print(value);
+                  },
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                      icon: Icon(
+                        Icons.search,
+                        color: Colors.white,
+                      ),
+                      hintText: "Search Country Here",
+                      hintStyle: TextStyle(color: Colors.white)),
                 ),
-              ),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {},
             ),
-          ),
+          ],
           leading: IconButton(
             onPressed: () {
               setState(() {

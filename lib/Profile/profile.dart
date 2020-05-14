@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:sastra_ebooks/Services/Responsive/size_config.dart';
 // import 'package:sastra_ebooks/Services/auth.dart';
 import '../Services/user.dart';
 import 'package:shimmer/shimmer.dart';
@@ -134,7 +135,9 @@ class _ProfileState extends State<Profile> {
             ),
           ),
           Container(
-            child: Column(
+            child: Wrap(
+              spacing: 2 * SizeConfig.imageSizeMultiplier,
+              runSpacing: 2.5 * SizeConfig.imageSizeMultiplier,
               children: <Widget>[
                 SizedBox(height: 50.0),
                 Container(
@@ -148,7 +151,7 @@ class _ProfileState extends State<Profile> {
                         child: Container(
                           height: 50.0,
                           child: Padding(
-                            padding: EdgeInsets.all(15.0),
+                            padding: EdgeInsets.all(10.0),
                             child: Row(
                               children: [
                                 Icon(
