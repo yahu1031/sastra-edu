@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'size_config.dart';
 
 class AppTheme {
@@ -23,22 +24,36 @@ class AppTheme {
   );
 
   static final TextTheme lightTextTheme = TextTheme(
+    // ignore: deprecated_member_use
     title: _titleLight,
+    // ignore: deprecated_member_use
     subtitle: _subTitleLight,
+    // ignore: deprecated_member_use
     button: _buttonLight,
+    // ignore: deprecated_member_use
     display1: _greetingLight,
+    // ignore: deprecated_member_use
     display2: _searchLight,
+    // ignore: deprecated_member_use
     body1: _selectedTabLight,
+    // ignore: deprecated_member_use
     body2: _unSelectedTabLight,
   );
 
   static final TextTheme darkTextTheme = TextTheme(
+    // ignore: deprecated_member_use
     title: _titleDark,
+    // ignore: deprecated_member_use
     subtitle: _subTitleDark,
+    // ignore: deprecated_member_use
     button: _buttonDark,
+    // ignore: deprecated_member_use
     display1: _greetingDark,
+    // ignore: deprecated_member_use
     display2: _searchDark,
+    // ignore: deprecated_member_use
     body1: _selectedTabDark,
+    // ignore: deprecated_member_use
     body2: _unSelectedTabDark,
   );
 
@@ -81,15 +96,21 @@ class AppTheme {
 
   static final TextStyle _titleDark = _titleLight.copyWith(color: Colors.white);
 
-  static final TextStyle _subTitleDark = _subTitleLight.copyWith(color: Colors.white70);
+  static final TextStyle _subTitleDark =
+      _subTitleLight.copyWith(color: Colors.white70);
 
-  static final TextStyle _buttonDark = _buttonLight.copyWith(color: Colors.black);
+  static final TextStyle _buttonDark =
+      _buttonLight.copyWith(color: Colors.black);
 
-  static final TextStyle _greetingDark = _greetingLight.copyWith(color: Colors.black);
+  static final TextStyle _greetingDark =
+      _greetingLight.copyWith(color: Colors.black);
 
-  static final TextStyle _searchDark = _searchDark.copyWith(color: Colors.black);
+  static final TextStyle _searchDark =
+      _searchDark.copyWith(color: Colors.black);
 
-  static final TextStyle _selectedTabDark = _selectedTabDark.copyWith(color: Colors.white);
+  static final TextStyle _selectedTabDark =
+      _selectedTabDark.copyWith(color: Colors.white);
 
-  static final TextStyle _unSelectedTabDark = _selectedTabDark.copyWith(color: Colors.white70);
+  static final TextStyle _unSelectedTabDark =
+      _selectedTabDark.copyWith(color: Colors.white70);
 }

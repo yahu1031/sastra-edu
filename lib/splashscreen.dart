@@ -6,13 +6,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:provider/provider.dart';
-import 'Home/Home.dart';
-import 'Services/paths.dart';
 import 'package:shimmer/shimmer.dart';
 
+import 'Home/Home.dart';
+import 'Services/paths.dart';
 import 'Services/user.dart';
-import 'Services/wrapper.dart';
 
 class Splash extends StatefulWidget {
   final User user;
