@@ -1,14 +1,14 @@
 // ignore: implementation_imports
-import 'package:flutter/src/widgets/async.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:sastra_ebooks/Services/Responsive/size_config.dart';
-// import 'package:sastra_ebooks/Services/auth.dart';
-import '../Services/user.dart';
+import 'package:sastra_ebooks/Services/auth.dart';
 import 'package:shimmer/shimmer.dart';
+
+import '../Services/user.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -18,7 +18,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   bool switchState = false;
 
-  // final AuthServices _auth = AuthServices();
+  final AuthServices _auth = AuthServices();
 
   @override
   Widget build(BuildContext context) {
@@ -336,11 +336,12 @@ class _ProfileState extends State<Profile> {
                     child: Column(
                       children: <Widget>[
                         InkWell(
-                          onTap: () {
-                            // await _auth.signOut();
-                            // setState(() {
-                            print('Logged out');
-                            // });
+                          onTap: () async {
+                            await _auth.signOut();
+                            setState(() {
+                              print('Logged out');
+//                              SystemNavigator.pop();
+                            });
                           },
                           child: Container(
                             height: 50.0,

@@ -6,13 +6,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:provider/provider.dart';
-import 'Home/Home.dart';
-import 'Services/paths.dart';
 import 'package:shimmer/shimmer.dart';
 
+import 'Home/Home.dart';
+import 'Services/paths.dart';
 import 'Services/user.dart';
-import 'Services/wrapper.dart';
 
 class Splash extends StatefulWidget {
   final User user;
@@ -23,7 +21,7 @@ class Splash extends StatefulWidget {
 
 class _SplashState extends State<Splash> {
   String url =
-      "https://drive.google.com/u/0/uc?id=1ANttpLgFzBaFQZCk1loFZC0NwR5DPo4f&export=download"; //! This is the default url if no condition matches below
+      "https://drive.google.com/u/0/uc?id=1kP_in6iL-xxOPC9OjNaOzHVtXy4bWkFe&export=download"; //! This is the default url if no condition matches below
   String progressString;
   bool isData = false;
   var dir;
@@ -46,7 +44,7 @@ class _SplashState extends State<Splash> {
           print(str.substring(0, 3));
           if (str.substring(0, 3) == "120") {
             url =
-                "https://drive.google.com/u/0/uc?id=1ANttpLgFzBaFQZCk1loFZC0NwR5DPo4f&export=download";
+                "https://drive.google.com/u/0/uc?id=17X0oNQR9RFl4DJgwVE7Fjg-d4Fxr14QQ&export=download"; //! json url for Fourth Year books
           } else if (str.substring(0, 3) == "121") {
             debugPrint("Third year books");
             url =
@@ -54,10 +52,12 @@ class _SplashState extends State<Splash> {
 
           } else if (str.substring(0, 3) == "122") {
             debugPrint("Second year books");
-            url = ""; //! json url for Second Year books
+            url =
+                "https://drive.google.com/u/0/uc?id=1fuT9cbbRnLLoWsBfE5ifcDpnYjrfCvI2&export=download"; //! json url for Second Year books
           } else if (str.substring(0, 3) == "123") {
             debugPrint("First year books");
-            url = ""; //! json url for first year
+            url =
+                "https://drive.google.com/u/0/uc?id=1kP_in6iL-xxOPC9OjNaOzHVtXy4bWkFe&export=download"; //! json url for first year
           }
           getJsonData().then((value) {
             print("Going to Wrapper");
