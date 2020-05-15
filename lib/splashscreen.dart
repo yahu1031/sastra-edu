@@ -44,13 +44,19 @@ class _SplashState extends State<Splash> {
         } else {
           print("String:$str");
           print(str.substring(0, 3));
-          if (str.substring(0, 3) == "121") {
+          if (str.substring(0, 3) == "120") {
             url =
                 "https://drive.google.com/u/0/uc?id=1ANttpLgFzBaFQZCk1loFZC0NwR5DPo4f&export=download";
+          } else if (str.substring(0, 3) == "121") {
+            debugPrint("Third year books");
+            url = ""; //! json url for Third Year books
+
           } else if (str.substring(0, 3) == "122") {
+            debugPrint("Second year books");
             url = ""; //! json url for Second Year books
           } else if (str.substring(0, 3) == "123") {
-            url = ""; //! json url for Third Year books
+            debugPrint("First year books");
+            url = ""; //! json url for first year
           }
           getJsonData().then((value) {
             print("Going to Wrapper");
