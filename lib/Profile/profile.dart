@@ -57,10 +57,10 @@ class _ProfileState extends State<Profile> {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 7.0),
               child: StreamBuilder(
-                stream: Firestore.instance
+                stream: user != null?Firestore.instance
                     .collection('Data')
                     .document(user.uid)
-                    .snapshots(),
+                    .snapshots():null,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (!snapshot.hasData) {
                     return CircularProgressIndicator();
