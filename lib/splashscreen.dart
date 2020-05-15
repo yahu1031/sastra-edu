@@ -21,7 +21,7 @@ class Splash extends StatefulWidget {
 
 class _SplashState extends State<Splash> {
   String url =
-      "https://drive.google.com/u/0/uc?id=1ANttpLgFzBaFQZCk1loFZC0NwR5DPo4f&export=download"; //! This is the default url if no condition matches below
+      "https://drive.google.com/u/0/uc?id=1kP_in6iL-xxOPC9OjNaOzHVtXy4bWkFe&export=download"; //! This is the default url if no condition matches below
   String progressString;
   bool isData = false;
   var dir;
@@ -44,17 +44,20 @@ class _SplashState extends State<Splash> {
           print(str.substring(0, 3));
           if (str.substring(0, 3) == "120") {
             url =
-                "https://drive.google.com/u/0/uc?id=1ANttpLgFzBaFQZCk1loFZC0NwR5DPo4f&export=download";
+                "https://drive.google.com/u/0/uc?id=17X0oNQR9RFl4DJgwVE7Fjg-d4Fxr14QQ&export=download"; //! json url for Fourth Year books
           } else if (str.substring(0, 3) == "121") {
             debugPrint("Third year books");
-            url = ""; //! json url for Third Year books
+            url =
+                "https://drive.google.com/u/0/uc?id=1IX8m8zKhu64fSlaSdbso3JJWolxGhMxV&export=download"; //! json url for Third Year books
 
           } else if (str.substring(0, 3) == "122") {
             debugPrint("Second year books");
-            url = ""; //! json url for Second Year books
+            url =
+                "https://drive.google.com/u/0/uc?id=1fuT9cbbRnLLoWsBfE5ifcDpnYjrfCvI2&export=download"; //! json url for Second Year books
           } else if (str.substring(0, 3) == "123") {
             debugPrint("First year books");
-            url = ""; //! json url for first year
+            url =
+                "https://drive.google.com/u/0/uc?id=1kP_in6iL-xxOPC9OjNaOzHVtXy4bWkFe&export=download"; //! json url for first year
           }
           getJsonData().then((value) {
             print("Going to Wrapper");
