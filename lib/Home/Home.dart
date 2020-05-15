@@ -239,7 +239,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     color: Colors.lightBlueAccent,
                     onPressed: () async {
                       await _auth.signOut();
-                      SystemNavigator.pop();//!  have added a systemwide exit because if a user log out he doesn't want to use the app, the app is not faacebook that user have different ids
+                      SystemNavigator
+                          .pop(); //!  have added a systemwide exit because if a user log out he doesn't want to use the app, the app is not faacebook that user have different ids
                       setState(() {
                         print('Logged out');
                       });
@@ -381,15 +382,18 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                             ),
                           ),
                         ),
-                        Container(
-                          // margin: EdgeInsets.only(bottom: 10.0),
-                          padding: EdgeInsets.only(
-                            left: 6.0,
-                          ),
-                          height: MediaQuery.of(context).size.height * 0.4,
-                          child: TabBarView(
-                            controller: tabController,
-                            children: tabItems,
+                        SafeArea(
+                          child: Container(
+                            // margin: EdgeInsets.only(bottom: 10.0),
+                            padding: EdgeInsets.only(
+                              left: 6.0,
+                              bottom: MediaQuery.of(context).size.height * 0.05,
+                            ),
+                            height: MediaQuery.of(context).size.height * 0.4,
+                            child: TabBarView(
+                              controller: tabController,
+                              children: tabItems,
+                            ),
                           ),
                         ),
                       ],
