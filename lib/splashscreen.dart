@@ -29,7 +29,6 @@ class _SplashState extends State<Splash> {
   String str;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     // Timer(Duration(milliseconds: 5000), () => goToWrapper());
     if (widget.user != null) {

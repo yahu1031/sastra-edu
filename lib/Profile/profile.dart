@@ -6,10 +6,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:sastra_ebooks/Services/Responsive/size_config.dart';
 import 'package:sastra_ebooks/Services/auth.dart';
-import 'package:sastra_ebooks/Services/authenticate.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../Services/user.dart';
+import '../Services/wrapper.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -342,7 +342,7 @@ class _ProfileState extends State<Profile> {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Authenticate()));
+                                    builder: (context) => Wrapper()));
 
                             print('Logged out');
 //                              SystemNavigator.pop();
