@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:sastra_ebooks/Services/Responsive/size_config.dart';
 import 'package:sastra_ebooks/Services/auth.dart';
+import 'package:sastra_ebooks/Services/authenticate.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../Services/user.dart';
@@ -338,10 +339,13 @@ class _ProfileState extends State<Profile> {
                         InkWell(
                           onTap: () async {
                             await _auth.signOut();
-                            setState(() {
-                              print('Logged out');
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Authenticate()));
+
+                            print('Logged out');
 //                              SystemNavigator.pop();
-                            });
                           },
                           child: Container(
                             height: 50.0,

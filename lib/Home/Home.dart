@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:sastra_ebooks/Services/authenticate.dart';
 
 import '../Profile/profile.dart';
 import 'package:flutter/material.dart';
@@ -238,11 +239,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     color: Colors.lightBlueAccent,
                     onPressed: () async {
                       await _auth.signOut();
-                      SystemNavigator
-                          .pop(); //!  have added a systemwide exit because if a user log out he doesn't want to use the app, the app is not faacebook that user have different ids
-                      setState(() {
-                        print('Logged out');
-                      });
+                      //!  have added a systemwide exit because if a user log out he doesn't want to use the app, the app is not faacebook that user have different ids
+                      Navigator.pushReplacement(context,  MaterialPageRoute(builder: (context) => Authenticate()));
+
+                      print('Logged out');
                     },
                   ),
                 ),
