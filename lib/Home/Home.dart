@@ -1,3 +1,6 @@
+import 'package:flutter/services.dart';
+import 'package:sastra_ebooks/Services/authenticate.dart';
+
 import '../Profile/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -236,6 +239,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     color: Colors.lightBlueAccent,
                     onPressed: () async {
                       await _auth.signOut();
+                      SystemNavigator.pop();
                       setState(() {
                         print('Logged out');
                       });
@@ -379,7 +383,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         ),
                         Container(
                           // margin: EdgeInsets.only(bottom: 10.0),
-                          padding: EdgeInsets.only(left: 6.0, ),
+                          padding: EdgeInsets.only(
+                            left: 6.0,
+                          ),
                           height: MediaQuery.of(context).size.height * 0.4,
                           child: TabBarView(
                             controller: tabController,

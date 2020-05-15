@@ -6,32 +6,60 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
+import 'Home/Home.dart';
 import 'Services/paths.dart';
 import 'package:shimmer/shimmer.dart';
 
+import 'Services/user.dart';
 import 'Services/wrapper.dart';
 
 class Splash extends StatefulWidget {
+  final User user;
+  Splash(this.user);
   @override
   _SplashState createState() => _SplashState();
 }
 
 class _SplashState extends State<Splash> {
   String url =
-      "https://drive.google.com/u/0/uc?id=1ANttpLgFzBaFQZCk1loFZC0NwR5DPo4f&export=download";
+      "https://drive.google.com/u/0/uc?id=1ANttpLgFzBaFQZCk1loFZC0NwR5DPo4f&export=download"; //! This is the default url if no condition matches below
   String progressString;
   bool isData = false;
   var dir;
   var data;
+  String str;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     // Timer(Duration(milliseconds: 5000), () => goToWrapper());
-    getJsonData().then((value) {
-      print("Going to Wrapper");
-      goToWrapper();
-    });
+    if (widget.user != null) {
+      str = "";
+      for (int i = 0; i < (widget.user.email).length; i++) {
+        String char = widget.user.email.substring(i, (i + 1));
+        print(char);
+        if (char != '@') {
+          str = str + char;
+        } else {
+          print("String:$str");
+          print(str.substring(0, 3));
+          if (str.substring(0, 3) == "121") {
+            url =
+                "https://drive.google.com/u/0/uc?id=1ANttpLgFzBaFQZCk1loFZC0NwR5DPo4f&export=download";
+          } else if (str.substring(0, 3) == "122") {
+            url = ""; //! json url for Second Year books
+          } else if (str.substring(0, 3) == "123") {
+            url = ""; //! json url for Third Year books
+          }
+          getJsonData().then((value) {
+            print("Going to Wrapper");
+            goToWrapper();
+          });
+          break;
+        }
+      }
+    }
   }
 
   Future getJsonData() async {
@@ -50,7 +78,9 @@ class _SplashState extends State<Splash> {
           });
         },
       );
-    } catch (e) {}
+    } catch (e) {
+      //! Here write a dialog that your internet connection ain't working
+    }
     File file = File("${dir.path}/books.json");
 
     setState(() {
@@ -100,7 +130,7 @@ class _SplashState extends State<Splash> {
 
   goToWrapper() {
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => Wrapper(data)),
+      MaterialPageRoute(builder: (context) => Home(data)),
     );
   }
 }

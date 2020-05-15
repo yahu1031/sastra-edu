@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../Home/Home.dart';
+import 'package:sastra_ebooks/splashscreen.dart';
 import '../Services/authenticate.dart';
 import '../Services/user.dart';
 
 class Wrapper extends StatefulWidget {
-  final data;
-  Wrapper(this.data);
   @override
   _WrapperState createState() => _WrapperState();
 }
@@ -22,7 +20,7 @@ class _WrapperState extends State<Wrapper> {
       return Authenticate();
     } else {
       user2 = user;
-      return Home(widget.data);
+      return Splash(user);
     }
   }
 }
