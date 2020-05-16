@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sastra_ebooks/Home/Books/pdf.dart';
 
 import '../../Services/paths.dart';
 
@@ -28,42 +29,52 @@ class _AllState extends State<All> {
   }
 
   _buildListItems(String itemName, String imgPath) {
-    return Padding(
-      padding: EdgeInsets.all(15.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Container(
-            child: Row(
-              children: [
-                Container(
-                  height: 75.0,
-                  width: 75.0,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(7.0),
-                    color: Colors.grey.withOpacity(0.1),
-                  ),
-                  child: Center(
-                    child: Image.asset(imgPath, height: 50.0, width: 50.0),
-                  ),
-                ),
-                SizedBox(width: 20.0),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      itemName,
-                      style: GoogleFonts.notoSans(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Pdf(),
           ),
-        ],
+        );
+      },
+      child: Padding(
+        padding: EdgeInsets.all(15.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Container(
+              child: Row(
+                children: [
+                  Container(
+                    height: 75.0,
+                    width: 75.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(7.0),
+                      color: Colors.grey.withOpacity(0.1),
+                    ),
+                    child: Center(
+                      child: Image.asset(imgPath, height: 50.0, width: 50.0),
+                    ),
+                  ),
+                  SizedBox(width: 20.0),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        itemName,
+                        style: GoogleFonts.notoSans(
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
