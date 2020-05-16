@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:sastra_ebooks/Services/Responsive/size_config.dart';
@@ -25,8 +26,10 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
     return new Scaffold(
+      backgroundColor: Colors.white,
       appBar: new AppBar(
         elevation: 0.0,
+        centerTitle: true,
         backgroundColor: Colors.transparent,
         title: Shimmer.fromColors(
           baseColor: Colors.blue[500],
@@ -57,10 +60,12 @@ class _ProfileState extends State<Profile> {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 7.0),
               child: StreamBuilder(
-                stream: user != null?Firestore.instance
-                    .collection('Data')
-                    .document(user.uid)
-                    .snapshots():null,
+                stream: user != null
+                    ? Firestore.instance
+                        .collection('Data')
+                        .document(user.uid)
+                        .snapshots()
+                    : null,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (!snapshot.hasData) {
                     return CircularProgressIndicator();
@@ -153,51 +158,6 @@ class _ProfileState extends State<Profile> {
                       children: <Widget>[
                         InkWell(
                           onTap: () {
-                            setState(() {});
-                          },
-                          child: Container(
-                            height: 50.0,
-                            child: Padding(
-                              padding: EdgeInsets.all(10.0),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.brightness_3,
-                                    color: Colors.lightBlueAccent,
-                                  ),
-                                  SizedBox(width: 20.0),
-                                  Text(
-                                    "Dark mode",
-                                    textAlign: TextAlign.center,
-                                    style: GoogleFonts.notoSans(fontSize: 17.0),
-                                  ),
-                                  SizedBox(
-                                    width: 100.0,
-                                  ),
-                                  CupertinoSwitch(
-                                    activeColor: Colors.lightBlueAccent,
-                                    value: switchState,
-                                    onChanged: (bool value) {
-                                      setState(() {
-                                        switchState = value;
-                                      });
-                                      print(value);
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 10.0),
-                    child: Column(
-                      children: <Widget>[
-                        InkWell(
-                          onTap: () {
                             print('Notifictaions');
                           },
                           child: Container(
@@ -215,44 +175,6 @@ class _ProfileState extends State<Profile> {
                                     "Notifictaions",
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.notoSans(fontSize: 17.0),
-                                  ),
-                                  SizedBox(
-                                    width: 100.0,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 10.0),
-                    child: Column(
-                      children: <Widget>[
-                        InkWell(
-                          onTap: () {
-                            print('Books Preference');
-                          },
-                          child: Container(
-                            height: 50.0,
-                            child: Padding(
-                              padding: EdgeInsets.all(15.0),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.book,
-                                    color: Colors.lightBlueAccent,
-                                  ),
-                                  SizedBox(width: 15.0),
-                                  Text(
-                                    "Books Preferences",
-                                    textAlign: TextAlign.center,
-                                    style: GoogleFonts.notoSans(fontSize: 17.0),
-                                  ),
-                                  SizedBox(
-                                    width: 100.0,
                                   ),
                                 ],
                               ),
@@ -286,9 +208,6 @@ class _ProfileState extends State<Profile> {
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.notoSans(fontSize: 17.0),
                                   ),
-                                  SizedBox(
-                                    width: 100.0,
-                                  ),
                                 ],
                               ),
                             ),
@@ -321,9 +240,82 @@ class _ProfileState extends State<Profile> {
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.notoSans(fontSize: 17.0),
                                   ),
-                                  SizedBox(
-                                    width: 100.0,
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(bottom: 10.0),
+                    child: Column(
+                      children: <Widget>[
+                        InkWell(
+                          onTap: () {
+                            print('Books Preference');
+                          },
+                          child: Container(
+                            height: 50.0,
+                            child: Padding(
+                              padding: EdgeInsets.all(15.0),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.info_outline,
+                                    color: Colors.lightBlueAccent,
                                   ),
+                                  SizedBox(width: 15.0),
+                                  Text(
+                                    "About Us",
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.notoSans(fontSize: 17.0),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(bottom: 10.0),
+                    child: Column(
+                      children: <Widget>[
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              print("Buy us coffee");
+                            });
+                          },
+                          child: Container(
+                            height: 50.0,
+                            child: Padding(
+                              padding: EdgeInsets.all(10.0),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.local_cafe,
+                                    color: Colors.lightBlueAccent,
+                                  ),
+                                  SizedBox(width: 20.0),
+                                  Text(
+                                    "Buy us a coffee",
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.notoSans(fontSize: 17.0),
+                                  ),
+                                  // CupertinoSwitch(
+                                  //   activeColor: Colors.lightBlueAccent,
+                                  //   value: switchState,
+                                  //   onChanged: (bool value) {
+                                  //     setState(() {
+                                  //       switchState = value;
+                                  //     });
+                                  //     print(value);
+                                  //   },
+                                  // ),
                                 ],
                               ),
                             ),
@@ -343,9 +335,7 @@ class _ProfileState extends State<Profile> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => Wrapper()));
-
                             print('Logged out');
-//                              SystemNavigator.pop();
                           },
                           child: Container(
                             height: 50.0,
@@ -362,9 +352,6 @@ class _ProfileState extends State<Profile> {
                                     "LOGOUT",
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.notoSans(fontSize: 17.0),
-                                  ),
-                                  SizedBox(
-                                    width: 100.0,
                                   ),
                                 ],
                               ),

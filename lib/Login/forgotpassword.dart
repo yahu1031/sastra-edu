@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 class ForgotPassword extends StatefulWidget {
   @override
   _ForgotPasswordState createState() => _ForgotPasswordState();
@@ -27,6 +26,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             ),
           )
         : Scaffold(
+            backgroundColor: Colors.white,
             resizeToAvoidBottomPadding: false,
             /*-----Form-----*/
             body: Form(

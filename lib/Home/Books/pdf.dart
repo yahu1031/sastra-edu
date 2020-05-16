@@ -33,14 +33,27 @@ class _PdfState extends State<Pdf> {
           ),
         ];
       },
-      body: Center(
-        child: Text("The Parrot"),
+      body: Expanded(
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30.0),
+              topRight: Radius.circular(30.0),
+            ),
+            color: Colors.white,
+          ),
+          child: Center(
+            child: Text("The Parrot"),
+          ),
+        ),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: nested());
+    return Scaffold(
+      body: nested(),
+    );
   }
 }

@@ -28,8 +28,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   Animation<double> _menuScaleAnimation;
   Animation<Offset> _slideAnimation;
 
-  bool searching = false;
-
   final AuthServices _auth = AuthServices();
   List<Tab> tab = [];
   List<Widget> tabItems = [];
@@ -69,69 +67,36 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     screenWidth = size.width;
 
     return Scaffold(
+        resizeToAvoidBottomPadding: false,
         backgroundColor: backgroundColor,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(10 * SizeConfig.heightMultiplier),
           child: new AppBar(
+            centerTitle: true,
             elevation: 0.0,
             backgroundColor: Colors.white,
-            title: !searching
-                ? Shimmer.fromColors(
-                    baseColor: Colors.blue[500],
-                    highlightColor: Colors.lightBlueAccent,
-                    child: Container(
-                      child: new Text(
-                        'M-Book Edu',
-                        style: GoogleFonts.pacifico(
-                          fontSize: 30.0,
-                        ),
-                      ),
-                    ),
-                  )
-                : TextField(
-                    onChanged: (value) {
-                      print(value);
-                    },
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                        hintText: "Search Book Here",
-                        hintStyle:
-                            TextStyle(color: Colors.grey.withOpacity(0.5))),
+            title: Shimmer.fromColors(
+              baseColor: Colors.blue[500],
+              highlightColor: Colors.lightBlueAccent,
+              child: Container(
+                child: new Text(
+                  'M-Book Edu',
+                  style: GoogleFonts.pacifico(
+                    fontSize: 30.0,
                   ),
-            actions: <Widget>[
-              searching
-                  ? IconButton(
-                      icon: Icon(
-                        Icons.close,
-                        color: Colors.lightBlue,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          this.searching = false;
-                          print(searching);
-                        });
-                      },
-                    )
-                  : IconButton(
-                      icon: Icon(
-                        Icons.search,
-                        color: Colors.lightBlue,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          this.searching = true;
-                        });
-                      },
-                    ),
-            ],
+                ),
+              ),
+            ),
             leading: IconButton(
               onPressed: () {
                 setState(() {
                   if (isCollapsed) {
                     _controller.forward();
+                    FocusScope.of(context).unfocus();
                     print('Menu');
                   } else {
                     _controller.reverse();
+                    FocusScope.of(context).unfocus();
                     print('Home');
                   }
                   isCollapsed = !isCollapsed;
@@ -162,7 +127,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           child: Align(
             alignment: Alignment.centerLeft,
             child: Column(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
@@ -239,7 +204,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     onPressed: () async {
                       await _auth.signOut();
                       //!  have added a systemwide exit because if a user log out he doesn't want to use the app, the app is not faacebook that user have different ids
-                      Navigator.pushReplacement(context,  MaterialPageRoute(builder: (context) => Authenticate()));
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Authenticate()));
 
                       print('Logged out');
                     },
@@ -256,8 +224,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   Widget dashboard(context) {
     return AnimatedPositioned(
       duration: duration,
-      top: isCollapsed ? 0 : -0.1 * screenHeight,
-      bottom: isCollapsed ? 0 : -0.1 * screenHeight,
+      top: isCollapsed ? 0 : -0.09 * screenHeight,
+      bottom: isCollapsed ? 0 : -0.05 * screenHeight,
       left: isCollapsed ? 0 : 0.15 * screenWidth,
       right: isCollapsed ? 0 : -0.4 * screenWidth,
       child: ScaleTransition(
@@ -271,11 +239,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               children: <Widget>[
                 Container(
                   child: Padding(
-                    padding: const EdgeInsets.all(20.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        SizedBox(height: 30.0),
+                        // SizedBox(height: 30.0),
                         Text(
                           'Your',
                           style: GoogleFonts.notoSans(
@@ -288,6 +256,27 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                               fontSize: 40.0,
                               fontWeight: FontWeight.bold),
                         ),
+                        Container(
+                          padding: EdgeInsets.only(left: 5.0),
+                          decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: TextField(
+                            textAlign: TextAlign.left,
+                            decoration: InputDecoration(
+                              hintText: 'Search for books',
+                              hintStyle: GoogleFonts.notoSans(fontSize: 14.0),
+                              border: InputBorder.none,
+                              fillColor: Colors.grey.withOpacity(0.5),
+                              prefixIcon: Icon(
+                                Icons.search,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
+                        ),
+
                         SizedBox(height: 20.0),
                         Center(
                           child: Container(
@@ -382,11 +371,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         ),
                         SafeArea(
                           child: Container(
-                            // margin: EdgeInsets.only(bottom: 10.0),
-                            padding: EdgeInsets.only(
-                              left: 6.0,
-                              bottom: MediaQuery.of(context).size.height * 0.05,
-                            ),
+                            margin: EdgeInsets.only(bottom: 10.0),
                             height: MediaQuery.of(context).size.height * 0.4,
                             child: TabBarView(
                               controller: tabController,

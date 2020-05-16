@@ -20,6 +20,8 @@ dependencies:
   path_provider: ^1.6.8
   url_launcher: ^5.4.5
 
+
+  flutter_icons: ^1.1.0
   image_picker:
   #firebase
   firebase: ^7.3.0

@@ -27,6 +27,7 @@ class _MailUsState extends State<MailUs> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       resizeToAvoidBottomPadding: false,
       /*-----Form-----*/
       body: Form(
