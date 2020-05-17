@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:sastra_ebooks/Profile/yourself.dart';
 import 'package:sastra_ebooks/Services/Responsive/size_config.dart';
 import 'package:sastra_ebooks/Services/auth.dart';
 import 'package:shimmer/shimmer.dart';
@@ -84,6 +85,10 @@ class _ProfileState extends State<Profile> {
                               InkWell(
                                 onTap: () {
                                   print('profile');
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => YourSelf()));
                                 },
                                 child: Container(
                                   child: Row(
