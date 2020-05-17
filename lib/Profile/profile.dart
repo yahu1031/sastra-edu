@@ -285,6 +285,7 @@ class _ProfileState extends State<Profile> {
                     child: Column(
                       children: <Widget>[
                         InkWell(
+                          splashColor: Colors.white,
                           onTap: () {
                             setState(() {
                               print("Buy us coffee");
