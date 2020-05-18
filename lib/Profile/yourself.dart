@@ -18,6 +18,7 @@ class YourSelf extends StatefulWidget {
 
 class _YourSelfState extends State<YourSelf> {
   File _image;
+  bool isProfileUpdated = false;
   @override
   Widget build(BuildContext context) {
     Future getImage() async {
@@ -72,16 +73,23 @@ class _YourSelfState extends State<YourSelf> {
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 15.0),
-            child: IconButton(
-              onPressed: () {
-                uploadPic(context);
-              },
-              icon: Icon(
-                Icons.done,
-                size: 35.0,
-                color: Colors.lightBlueAccent,
-              ),
-            ),
+            child: isProfileUpdated
+                ? IconButton(
+                    onPressed: () {
+                      try {
+                        isProfileUpdated = false;
+                        uploadPic(context);
+                      } catch (e) {
+                        isProfileUpdated = true;
+                      }
+                    },
+                    icon: Icon(
+                      Icons.done,
+                      size: 35.0,
+                      color: Colors.lightBlueAccent,
+                    ),
+                  )
+                : Container(),
           ),
         ],
       ),
@@ -94,7 +102,12 @@ class _YourSelfState extends State<YourSelf> {
                 child: GestureDetector(
                   onTap: () {
                     print("Dp");
-                    getImage();
+                    try {
+                      isProfileUpdated = true;
+                      getImage();
+                    } catch (e) {
+                      isProfileUpdated = false;
+                    }
                   },
                   child: CircleAvatar(
                     radius: 100,
