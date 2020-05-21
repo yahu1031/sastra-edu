@@ -106,7 +106,7 @@ class _ProfileState extends State<Profile> {
                                             Text(
                                               ds["name"],
                                               style: GoogleFonts.notoSans(
-                                                fontSize: 4 *
+                                                fontSize: 3 *
                                                     SizeConfig.textMultiplier,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold,
@@ -167,7 +167,7 @@ class _ProfileState extends State<Profile> {
                           child: Container(
                             height: 50.0,
                             child: Padding(
-                              padding: EdgeInsets.all(15.0),
+                              padding: EdgeInsets.symmetric(horizontal: 20.0),
                               child: Row(
                                 children: [
                                   Icon(
@@ -199,7 +199,7 @@ class _ProfileState extends State<Profile> {
                           child: Container(
                             height: 50.0,
                             child: Padding(
-                              padding: EdgeInsets.all(15.0),
+                              padding: EdgeInsets.symmetric(horizontal:20.0),
                               child: Row(
                                 children: [
                                   Icon(
@@ -231,7 +231,7 @@ class _ProfileState extends State<Profile> {
                           child: Container(
                             height: 50.0,
                             child: Padding(
-                              padding: EdgeInsets.all(15.0),
+                              padding: EdgeInsets.symmetric(horizontal:20.0),
                               child: Row(
                                 children: [
                                   Icon(
@@ -263,7 +263,7 @@ class _ProfileState extends State<Profile> {
                           child: Container(
                             height: 50.0,
                             child: Padding(
-                              padding: EdgeInsets.all(15.0),
+                              padding: EdgeInsets.symmetric(horizontal:20.0),
                               child: Row(
                                 children: [
                                   Icon(
@@ -298,7 +298,7 @@ class _ProfileState extends State<Profile> {
                           child: Container(
                             height: 50.0,
                             child: Padding(
-                              padding: EdgeInsets.all(10.0),
+                              padding: EdgeInsets.symmetric(horizontal:20.0),
                               child: Row(
                                 children: [
                                   Icon(
@@ -345,7 +345,7 @@ class _ProfileState extends State<Profile> {
                           child: Container(
                             height: 50.0,
                             child: Padding(
-                              padding: EdgeInsets.all(15.0),
+                              padding: EdgeInsets.symmetric(horizontal:20.0),
                               child: Row(
                                 children: [
                                   Icon(

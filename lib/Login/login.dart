@@ -2,15 +2,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sastra_ebooks/Login/mailus.dart';
+import 'package:sastra_ebooks/Services/dialogs.dart';
 import '../Services/auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+//import 'package:firebase_messaging/firebase_messaging.dart';
 import '../Services/Responsive/size_config.dart';
 
 import 'forgotpassword.dart';
 
 class Login extends StatefulWidget {
   final Function toggleView;
-  Login({this.toggleView});
+  final String title;
+  Login({Key key,this.title, this.toggleView}) : super(key: key);
+//  Login({});
+
 
   @override
   _LoginState createState() => _LoginState();
@@ -19,7 +23,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   String _email, _password, _error = '';
   bool loading = false;
-
+  bool tappedYes = false;
 
 
   final _formKey = GlobalKey<FormState>();
@@ -200,11 +204,14 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                         print(_email);
                                         print(_password);
                                         if (result == null) {
-                                          setState(() {
-                                            _error =
-                                                'Could not match the credentials.';
-                                            loading = false;
-                                          });
+                                          final action =
+                                          await Dialogs.yesAbortDialog(context, 'Error', "Sorry, your credentials did not match. Do you want to try again?");
+                                          if (action == DialogAction.yes) {
+                                            setState(() => tappedYes = true);
+                                          } else {
+                                            setState(() => tappedYes = false);
+                                          }
+                                          loading = false;
                                         }
                                       }
                                     },
@@ -228,13 +235,13 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                   ),
                                 ),
                                 SizedBox(height: 1 * SizeConfig.heightMultiplier),
-                                Center(
-                                  child: Text(
-                                    _error,
-                                    style: TextStyle(
-                                        color: Colors.red, fontSize: 14.0),
-                                  ),
-                                ),
+//                                Center(
+//                                  child: Text(
+//                                    _error,
+//                                    style: TextStyle(
+//                                        color: Colors.red, fontSize: 14.0),
+//                                  ),
+//                                ),
                               ],
                             ),
                           ),
