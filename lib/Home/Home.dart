@@ -128,7 +128,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             alignment: Alignment.centerLeft,
             child: Column(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 new Container(
@@ -151,52 +151,54 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     shape: BoxShape.circle,
                   ),
                 ),
-                SizedBox(height: 5 * SizeConfig.heightMultiplier),
-                Padding(
-                  padding: EdgeInsets.all(1 * SizeConfig.heightMultiplier),
-                  child: IconButton(
-                    icon: Icon(Icons.home),
-                    color: Colors.lightBlueAccent,
-                    onPressed: () {
-                      print('Home');
-                    },
-                  ),
-                ),
-                SizedBox(height: 3 * SizeConfig.heightMultiplier),
-                Padding(
-                  padding: EdgeInsets.all(1 * SizeConfig.heightMultiplier),
-                  child: IconButton(
-                    icon: Icon(Icons.favorite_border),
-                    color: Colors.lightBlueAccent,
-                    onPressed: () {
-                      print('Favorite');
-                    },
-                  ),
-                ),
-                SizedBox(height: 3 * SizeConfig.heightMultiplier),
-                Padding(
-                  padding: EdgeInsets.all(1 * SizeConfig.heightMultiplier),
-                  child: IconButton(
-                    icon: Icon(Icons.book),
-                    color: Colors.lightBlueAccent,
-                    onPressed: () {
-                      print('Bookmarks');
-                    },
-                  ),
-                ),
-                SizedBox(height: 3 * SizeConfig.heightMultiplier),
-                Padding(
-                  padding: EdgeInsets.all(1 * SizeConfig.heightMultiplier),
-                  child: IconButton(
-                    icon: Icon(Icons.chat_bubble_outline),
-                    color: Colors.lightBlueAccent,
-                    onPressed: () {
-                      print('Class');
-                    },
-                  ),
-                ),
-                SizedBox(height: 3 * SizeConfig.heightMultiplier),
-                Padding(
+//                SizedBox(height: 5 * SizeConfig.heightMultiplier),
+                Column(
+                  children:[
+                    Padding(
+                      padding: EdgeInsets.all(1 * SizeConfig.heightMultiplier),
+                      child: IconButton(
+                        icon: Icon(Icons.home),
+                        color: Colors.lightBlueAccent,
+                        onPressed: () {
+                          print('Home');
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                    Padding(
+                      padding: EdgeInsets.all(1 * SizeConfig.heightMultiplier),
+                      child: IconButton(
+                        icon: Icon(Icons.favorite_border),
+                        color: Colors.lightBlueAccent,
+                        onPressed: () {
+                          print('Favorite');
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                    Padding(
+                      padding: EdgeInsets.all(1 * SizeConfig.heightMultiplier),
+                      child: IconButton(
+                        icon: Icon(Icons.book),
+                        color: Colors.lightBlueAccent,
+                        onPressed: () {
+                          print('Bookmarks');
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                    Padding(
+                      padding: EdgeInsets.all(1 * SizeConfig.heightMultiplier),
+                      child: IconButton(
+                        icon: Icon(Icons.chat_bubble_outline),
+                        color: Colors.lightBlueAccent,
+                        onPressed: () {
+                          print('Class');
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                    Padding(
                   padding: EdgeInsets.all(1 * SizeConfig.heightMultiplier),
                   child: IconButton(
                     icon: Icon(Icons.power_settings_new),
@@ -212,6 +214,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       print('Logged out');
                     },
                   ),
+                ),
+                  ],
                 ),
               ],
             ),

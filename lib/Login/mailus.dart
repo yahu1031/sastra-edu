@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import '../Services/Responsive/size_config.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MailUs extends StatefulWidget {
@@ -38,7 +38,7 @@ class _MailUsState extends State<MailUs> with SingleTickerProviderStateMixin {
           children: <Widget>[
             /*-----Title 1-----*/
             Padding(
-              padding: const EdgeInsets.fromLTRB(15.0, 150.0, 0.0, 0.0),
+              padding: EdgeInsets.fromLTRB(15.0, 15 * SizeConfig.heightMultiplier, 0.0, 0.0),
               child: Container(
                 child: RichText(
                   text: TextSpan(
@@ -46,14 +46,14 @@ class _MailUsState extends State<MailUs> with SingleTickerProviderStateMixin {
                       TextSpan(
                         text: 'Trouble ',
                         style: GoogleFonts.montserrat(
-                            fontSize: 70.0,
+                            fontSize: 18 * SizeConfig.widthMultiplier,
                             color: Colors.black,
                             fontWeight: FontWeight.bold),
                       ),
                       TextSpan(
                         text: '?',
                         style: GoogleFonts.montserrat(
-                            fontSize: 80.0,
+                            fontSize: 20 * SizeConfig.widthMultiplier,
                             color: Colors.lightBlueAccent,
                             fontWeight: FontWeight.bold),
                       ),
@@ -62,10 +62,10 @@ class _MailUsState extends State<MailUs> with SingleTickerProviderStateMixin {
                 ),
               ),
             ),
-            SizedBox(height: 50.0),
+            SizedBox(height: 1*SizeConfig.heightMultiplier),
             /*-----Container-----*/
             Container(
-              padding: EdgeInsets.fromLTRB(20.0, 35.0, 20.0, 0.0),
+              padding: EdgeInsets.fromLTRB(20.0, 10 * SizeConfig.widthMultiplier, 20.0, 0.0),
               child: Column(
                 children: <Widget>[
                   /*-----Reg Number-----*/
@@ -88,7 +88,7 @@ class _MailUsState extends State<MailUs> with SingleTickerProviderStateMixin {
                     ),
                     keyboardType: TextInputType.number,
                   ),
-                  SizedBox(height: 20.0),
+                  SizedBox(height: 2 * SizeConfig.heightMultiplier),
                   /*-----Name-----*/
                   TextFormField(
                     validator: (input) {
@@ -111,11 +111,10 @@ class _MailUsState extends State<MailUs> with SingleTickerProviderStateMixin {
                       ),
                     ),
                   ),
-                  SizedBox(height: 15.0),
                 ],
               ),
             ),
-            SizedBox(height: 50.0),
+            SizedBox(height: 10 * SizeConfig.heightMultiplier),
             /*-----MailUs Button-----*/
             Container(
               padding: EdgeInsets.only(left: 20.0, right: 20.0),
@@ -145,7 +144,7 @@ class _MailUsState extends State<MailUs> with SingleTickerProviderStateMixin {
                 ),
               ),
             ),
-            SizedBox(height: 30.0),
+            SizedBox(height: 5 * SizeConfig.heightMultiplier),
             /*-----MailUs Account-----*/
             Padding(
               padding: const EdgeInsets.only(top: 30.0),

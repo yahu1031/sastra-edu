@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sastra_ebooks/Login/mailus.dart';
 import '../Services/auth.dart';
-
+import 'package:firebase_messaging/firebase_messaging.dart';
 import '../Services/Responsive/size_config.dart';
 
 import 'forgotpassword.dart';
@@ -19,6 +19,8 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   String _email, _password, _error = '';
   bool loading = false;
+
+
 
   final _formKey = GlobalKey<FormState>();
   final AuthServices _auth = AuthServices();
@@ -65,6 +67,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                 /*-----Title 1-----*/
                                 Padding(
                                   padding: EdgeInsets.only(
+                                      bottom: 2 * SizeConfig.heightMultiplier,
                                       top: 2 * SizeConfig.heightMultiplier,
                                       left: 1 * SizeConfig.widthMultiplier),
                                   // padding: const EdgeInsets.fromLTRB(15.0, 110.0, 0.0, 0.0),
@@ -75,21 +78,21 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                           TextSpan(
                                             text: 'Hello \n',
                                             style: GoogleFonts.montserrat(
-                                                fontSize: 80.0,
+                                                fontSize: 20 * SizeConfig.widthMultiplier,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           TextSpan(
                                             text: 'There ',
                                             style: GoogleFonts.montserrat(
-                                                fontSize: 80.0,
+                                                fontSize: 20 * SizeConfig.widthMultiplier,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           TextSpan(
                                             text: '.',
                                             style: GoogleFonts.montserrat(
-                                                fontSize: 80.0,
+                                                fontSize: 20 * SizeConfig.widthMultiplier,
                                                 color: Colors.lightBlueAccent,
                                                 fontWeight: FontWeight.bold),
                                           ),
@@ -110,7 +113,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                       /*-----Reg Number-----*/
                                       TextFormField(
                                         validator: (input) => input.isEmpty
-                                            ? 'Please Enter Mail'
+                                            ? 'Please Enter Reg Number'
                                             : null,
                                         onChanged: (input) =>
                                             setState(() => _email = input),
@@ -128,7 +131,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                         keyboardType: TextInputType.number,
                                       ),
                                       SizedBox(
-                                          height: SizeConfig.heightMultiplier),
+                                          height: 5 * SizeConfig.heightMultiplier),
                                       /*-----Password-----*/
                                       TextFormField(
                                         validator: (input) => input.isEmpty
@@ -193,6 +196,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                         dynamic result = await _auth
                                             .signInWithEmailAndPassword(
                                                 _email, _password);
+//                                        _messaging.getToken().then((token) => print(token));
                                         print(_email);
                                         print(_password);
                                         if (result == null) {
@@ -223,7 +227,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: 10.0),
+                                SizedBox(height: 1 * SizeConfig.heightMultiplier),
                                 Center(
                                   child: Text(
                                     _error,
@@ -237,7 +241,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                         ),
                         /*-----MailUs Account-----*/
                         Padding(
-                          padding: const EdgeInsets.only(top: 30.0),
+                          padding: EdgeInsets.only(top: 3 * SizeConfig.heightMultiplier),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
