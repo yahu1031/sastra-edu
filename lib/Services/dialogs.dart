@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 enum DialogAction { yes, abort }
 
@@ -17,19 +18,12 @@ class Dialogs {
             borderRadius: BorderRadius.circular(10),
           ),
           title: Text(title, style: TextStyle(color: Colors.blue),),
-          content: Text(body),
+          content: Text(body, style: GoogleFonts.notoSans(fontSize: 18, fontWeight: FontWeight.w500),),
           actions: <Widget>[
             FlatButton(
               onPressed: () => Navigator.of(context).pop(DialogAction.abort),
               child: const Text(
-                'No',
-                style: TextStyle(color: Colors.lightBlue),
-              ),
-            ),
-            FlatButton(
-              onPressed: () => Navigator.of(context).pop(DialogAction.yes),
-              child: const Text(
-                'Yes',
+                'Ok',
                 style: TextStyle(color: Colors.lightBlue),
               ),
             ),

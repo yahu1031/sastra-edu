@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,19 +14,17 @@ import 'forgotpassword.dart';
 class Login extends StatefulWidget {
   final Function toggleView;
   final String title;
-  Login({Key key,this.title, this.toggleView}) : super(key: key);
+  Login({Key key, this.title, this.toggleView}) : super(key: key);
 //  Login({});
-
 
   @override
   _LoginState createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
-  String _email, _password, _error = '';
+  String _email, _password;
   bool loading = false;
   bool tappedYes = false;
-
 
   final _formKey = GlobalKey<FormState>();
   final AuthServices _auth = AuthServices();
@@ -82,21 +82,24 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                           TextSpan(
                                             text: 'Hello \n',
                                             style: GoogleFonts.montserrat(
-                                                fontSize: 20 * SizeConfig.widthMultiplier,
+                                                fontSize: 20 *
+                                                    SizeConfig.widthMultiplier,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           TextSpan(
                                             text: 'There ',
                                             style: GoogleFonts.montserrat(
-                                                fontSize: 20 * SizeConfig.widthMultiplier,
+                                                fontSize: 20 *
+                                                    SizeConfig.widthMultiplier,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           TextSpan(
                                             text: '.',
                                             style: GoogleFonts.montserrat(
-                                                fontSize: 20 * SizeConfig.widthMultiplier,
+                                                fontSize: 20 *
+                                                    SizeConfig.widthMultiplier,
                                                 color: Colors.lightBlueAccent,
                                                 fontWeight: FontWeight.bold),
                                           ),
@@ -116,9 +119,6 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                     children: <Widget>[
                                       /*-----Reg Number-----*/
                                       TextFormField(
-                                        validator: (input) => input.isEmpty
-                                            ? 'Please Enter Reg Number'
-                                            : null,
                                         onChanged: (input) =>
                                             setState(() => _email = input),
                                         decoration: InputDecoration(
@@ -135,14 +135,10 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                         keyboardType: TextInputType.number,
                                       ),
                                       SizedBox(
-                                          height: 5 * SizeConfig.heightMultiplier),
+                                          height:
+                                              5 * SizeConfig.heightMultiplier),
                                       /*-----Password-----*/
                                       TextFormField(
-                                        validator: (input) => input.isEmpty
-                                            ? 'Please Enter Mail'
-                                            : input.length < 6
-                                                ? 'Password must be more than 6 characters.'
-                                                : null,
                                         onChanged: (input) =>
                                             setState(() => _password = input),
                                         decoration: InputDecoration(
@@ -187,7 +183,8 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                     ],
                                   ),
                                 ),
-                                SizedBox(height: SizeConfig.heightMultiplier),
+                                SizedBox(
+                                    height: 5 * SizeConfig.heightMultiplier),
                                 /*-----Login Button-----*/
                                 Container(
                                   padding:
@@ -196,23 +193,48 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                   child: GestureDetector(
                                     onTap: () async {
                                       if (_formKey.currentState.validate()) {
-                                        setState(() => loading = true);
                                         dynamic result = await _auth
                                             .signInWithEmailAndPassword(
                                                 _email, _password);
-//                                        _messaging.getToken().then((token) => print(token));
-                                        print(_email);
-                                        print(_password);
-                                        if (result == null) {
-                                          final action =
-                                          await Dialogs.yesAbortDialog(context, 'Error', "Sorry, your credentials did not match. Do you want to try again?");
-                                          if (action == DialogAction.yes) {
-                                            setState(() => tappedYes = true);
-                                          } else {
-                                            setState(() => tappedYes = false);
-                                          }
+                                        if (_email == null &&
+                                            _password == null) {
+                                          Dialogs.yesAbortDialog(
+                                              context,
+                                              'Sorry 😞',
+                                              "Please fill the credentials. Credentials must not be empty.");
                                           loading = false;
+                                        } else if (_email == null) {
+                                          Dialogs.yesAbortDialog(
+                                              context,
+                                              'Register Number',
+                                              "You are missing your Register number. please enter it.");
+                                          loading = false;
+                                        } else if (_password == null) {
+                                          Dialogs.yesAbortDialog(
+                                              context,
+                                              'Password',
+                                              "You are missing your password. please enter it.");
+                                          loading = false;
+                                        } else if (_password.length < 6) {
+                                          Dialogs.yesAbortDialog(
+                                              context,
+                                              'Password',
+                                              'Your password must be more than 6 characters.');
+                                          loading = false;
+                                        } else if (result == null) {
+                                          Dialogs.yesAbortDialog(
+                                              context,
+                                              'Sorry 😞',
+                                              "Your credentials did not match. Please try with Correct credentials.");
+                                          loading = false;
+                                        } else {
+                                          setState(() {
+                                            loading = true;
+                                          });
+                                          print(_email);
+                                          print(_password);
                                         }
+//                                        _messaging.getToken().then((token) => print(token));
                                       }
                                     },
                                     child: Material(
@@ -234,21 +256,16 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: 1 * SizeConfig.heightMultiplier),
-//                                Center(
-//                                  child: Text(
-//                                    _error,
-//                                    style: TextStyle(
-//                                        color: Colors.red, fontSize: 14.0),
-//                                  ),
-//                                ),
+                                SizedBox(
+                                    height: 3 * SizeConfig.heightMultiplier),
                               ],
                             ),
                           ),
                         ),
                         /*-----MailUs Account-----*/
                         Padding(
-                          padding: EdgeInsets.only(top: 3 * SizeConfig.heightMultiplier),
+                          padding: EdgeInsets.only(
+                              top: 3 * SizeConfig.heightMultiplier),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
