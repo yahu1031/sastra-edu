@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sastra_ebooks/Login/mailus.dart';
 import 'package:sastra_ebooks/Services/dialogs.dart';
@@ -119,6 +120,9 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                     children: <Widget>[
                                       /*-----Reg Number-----*/
                                       TextFormField(
+                                        inputFormatters: [
+                                          LengthLimitingTextInputFormatter(9),
+                                          ],
                                         onChanged: (input) =>
                                             setState(() => _email = input),
                                         decoration: InputDecoration(
@@ -146,11 +150,6 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                           labelStyle: GoogleFonts.notoSans(
                                             fontWeight: FontWeight.w500,
                                             color: Colors.lightBlueAccent,
-                                          ),
-                                          focusedErrorBorder:
-                                              UnderlineInputBorder(
-                                            borderSide:
-                                                BorderSide(color: Colors.red),
                                           ),
                                           focusedBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
@@ -209,7 +208,14 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                               'Register Number',
                                               "You are missing your Register number. please enter it.");
                                           loading = false;
-                                        } else if (_password == null) {
+                                        } else if (_email.length < 9) {
+                                          Dialogs.yesAbortDialog(
+                                              context,
+                                              'Register Number',
+                                              'Your register number must be 9 characters.');
+                                          loading = false;
+                                        }
+                                        else if (_password == null) {
                                           Dialogs.yesAbortDialog(
                                               context,
                                               'Password',

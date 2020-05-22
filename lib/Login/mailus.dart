@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sastra_ebooks/Services/dialogs.dart';
 import '../Services/Responsive/size_config.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -91,20 +92,12 @@ class _MailUsState extends State<MailUs> with SingleTickerProviderStateMixin {
                   SizedBox(height: 2 * SizeConfig.heightMultiplier),
                   /*-----Name-----*/
                   TextFormField(
-                    validator: (input) {
-                      if (input.isEmpty)
-                        return 'Please provide your full name as per ID-Card';
-                      return null;
-                    },
                     onSaved: (input) => setState(() => _name = input),
                     decoration: InputDecoration(
                       labelText: 'Name',
                       labelStyle: GoogleFonts.notoSans(
                         fontWeight: FontWeight.w500,
                         color: Colors.lightBlueAccent,
-                      ),
-                      focusedErrorBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.red),
                       ),
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.lightBlueAccent),

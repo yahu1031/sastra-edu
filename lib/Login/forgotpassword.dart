@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sastra_ebooks/Services/auth.dart';
+import 'package:sastra_ebooks/Services/dialogs.dart';
 
 class ForgotPassword extends StatefulWidget {
   @override
@@ -9,7 +12,7 @@ class ForgotPassword extends StatefulWidget {
 class _ForgotPasswordState extends State<ForgotPassword> {
   String _email;
   bool loading = false;
-
+  final AuthServices _auth = AuthServices();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -76,8 +79,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       children: <Widget>[
                         /*-----Email-----*/
                         TextFormField(
-                          validator: (input) =>
-                              input.isEmpty ? 'Please Enter Mail' : null,
                           onChanged: (input) => setState(() => _email = input),
                           decoration: InputDecoration(
                             labelText: 'EMAIL',
@@ -96,13 +97,27 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     ),
                   ),
                   SizedBox(height: 50.0),
-                  /*-----Login Button-----*/
+                  /*-----Submit Button-----*/
                   Container(
                     padding: EdgeInsets.only(left: 20.0, right: 20.0),
                     height: 50.0,
                     child: GestureDetector(
                       onTap: () async {
+                        if(_email == null){ Dialogs.yesAbortDialog(
+                            context,
+                            'Sorry 😞',
+                            "Please fill the Mail address. Email must not be empty.");}
+                        else if(!_email.contains('@gmail.com'))
+                          {Dialogs.yesAbortDialog(
+                              context,
+                              'Error 😞',
+                              "Please enter correct Email address, (@example.com - domain is missing.)");}
                         print(_email);
+                        await _auth.resetPassword(_email);
+                        Dialogs.yesAbortDialog(
+                            context,
+                            'Success 😉',
+                            "You will receive a mail in short time to reset password.");
                       },
                       child: Material(
                         borderRadius: BorderRadius.circular(25.0),
