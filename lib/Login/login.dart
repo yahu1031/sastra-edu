@@ -195,6 +195,9 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                         dynamic result = await _auth
                                             .signInWithEmailAndPassword(
                                                 _email, _password);
+                                        setState(() {
+                                          loading = true;
+                                        });
                                         if (_email == null &&
                                             _password == null) {
                                           Dialogs.yesAbortDialog(
@@ -234,9 +237,6 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                               "Your credentials did not match. Please try with Correct credentials.");
                                           loading = false;
                                         } else {
-                                          setState(() {
-                                            loading = true;
-                                          });
                                           print(_email);
                                           print(_password);
                                         }
