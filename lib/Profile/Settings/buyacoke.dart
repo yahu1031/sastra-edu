@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:upi_india/upi_india.dart';
 import '../../Services/Responsive/size_config.dart';
 import '../../Services/paths.dart';
 import 'package:shimmer/shimmer.dart';
@@ -15,9 +16,71 @@ class Buyacoffee extends StatefulWidget {
 
 class _BuyacoffeeState extends State<Buyacoffee> {
   var quantity = 1;
+  var amount = 20;
+
+  Future<UpiIndiaResponse> _transaction;
+  UpiIndia _upiIndia = UpiIndia();
+  List<UpiIndiaApp> apps;
+
+  @override
+  void initState() {
+    _upiIndia.getAllUpiApps().then((value) {
+      setState(() {
+        apps = value;
+      });
+    });
+    super.initState();
+  }
+
+  Future<UpiIndiaResponse> initiateTransaction(String app) async {
+    return _upiIndia.startTransaction(
+      app: app,
+      receiverUpiId: '7989152378@ybl',
+      receiverName: 'Minnu',
+      transactionRefId: 'TestingId',
+      transactionNote: 'Not actual. Just an example.',
+      amount: 1.00,
+    );
+  }
+
+  Widget displayUpiApps() {
+    if (apps == null)
+      return Center(child: CircularProgressIndicator());
+    else if (apps.length == 0)
+      return Center(child: Text("No apps found to handle transaction."));
+    else
+      return Wrap(
+        direction: Axis.horizontal,
+        spacing: 10.0,
+        runSpacing: 20.0,
+        children: apps.map<Widget>((UpiIndiaApp app) {
+          return GestureDetector(
+            onTap: () {
+              _transaction = initiateTransaction(app.app);
+              setState(() {});
+            },
+            child: Container(
+              height: 70,
+              width: 70,
+              child: Column(
+                children: <Widget>[
+                  Image.memory(
+                    app.icon,
+                    height: 50,
+                    width: 50,
+                  ),
+                  Text(app.name, style: GoogleFonts.notoSans(fontSize: 12.0),),
+                ],
+              ),
+            ),
+          );
+        }).toList(),
+      );
+  }
 
   @override
   Widget build(BuildContext context) {
+    String Amount;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: new AppBar(
@@ -51,7 +114,6 @@ class _BuyacoffeeState extends State<Buyacoffee> {
           padding: const EdgeInsets.all(20.0),
           child: Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -91,7 +153,7 @@ class _BuyacoffeeState extends State<Buyacoffee> {
                         IconButton(
                           iconSize: 17.0,
                           icon:
-                              Icon(Icons.add, color: Colors.white, size: 24.0),
+                          Icon(Icons.add, color: Colors.white, size: 24.0),
                           onPressed: () {
                             adjustQuantity('PLUS');
                           },
@@ -102,7 +164,7 @@ class _BuyacoffeeState extends State<Buyacoffee> {
                 ),
                 SizedBox(height: 7 * SizeConfig.heightMultiplier),
                 Text(
-                  '\₹' + (20 * quantity).toString(),
+                  '\₹' + (amount * quantity).toString(),
                   style: GoogleFonts.notoSans(
                       fontSize: 40.0,
                       color: Colors.black,
@@ -144,7 +206,14 @@ class _BuyacoffeeState extends State<Buyacoffee> {
                     height: 50.0,
                     child: GestureDetector(
                       onTap: () async {
-//              initiateTransaction()
+                        showModalBottomSheet<void>(context: context, builder: (BuildContext context) {
+                          return Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Container(
+                              child: displayUpiApps(),
+                            ),
+                          );
+                        });
                       },
                       child: Material(
                         borderRadius: BorderRadius.circular(10.0),
@@ -173,6 +242,71 @@ class _BuyacoffeeState extends State<Buyacoffee> {
                     ),
                   ),
                 ),
+                Expanded(
+                  flex: 2,
+                  child: FutureBuilder(
+                    future: _transaction,
+                    builder: (BuildContext context,
+                        AsyncSnapshot<UpiIndiaResponse> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        if (snapshot.hasError) {
+                          return Center(child: Text('An Unknown error has occured'));
+                        }
+                        UpiIndiaResponse _upiResponse;
+                        _upiResponse = snapshot.data;
+                        if (_upiResponse.error != null) {
+                          String text = '';
+                          switch (snapshot.data.error) {
+                            case UpiIndiaResponseError.APP_NOT_INSTALLED:
+                              text = "Requested app not installed on device";
+                              break;
+                            case UpiIndiaResponseError.INVALID_PARAMETERS:
+                              text = "Requested app cannot handle the transaction";
+                              break;
+                            case UpiIndiaResponseError.NULL_RESPONSE:
+                              text = "requested app didn't returned any response";
+                              break;
+                            case UpiIndiaResponseError.USER_CANCELLED:
+                              text = "You cancelled the transaction";
+                              break;
+                          }
+                          return Center(
+                            child: Text(text),
+                          );
+                        }
+                        String txnId = _upiResponse.transactionId;
+                        String resCode = _upiResponse.responseCode;
+                        String txnRef = _upiResponse.transactionRefId;
+                        String status = _upiResponse.status;
+                        String approvalRef = _upiResponse.approvalRefNo;
+                        switch (status) {
+                          case UpiIndiaResponseStatus.SUCCESS:
+                            print('Transaction Successful');
+                            break;
+                          case UpiIndiaResponseStatus.SUBMITTED:
+                            print('Transaction Submitted');
+                            break;
+                          case UpiIndiaResponseStatus.FAILURE:
+                            print('Transaction Failed');
+                            break;
+                          default:
+                            print('Received an Unknown transaction status');
+                        }
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+//                      Text('Transaction Id: $txnId\n'),
+//                      Text('Response Code: $resCode\n'),
+//                      Text('Reference Id: $txnRef\n'),
+//                      Text('Status: $status\n'),
+//                      Text('Approval No: $approvalRef'),
+                          ],
+                        );
+                      } else
+                        return Text(' ');
+                    },
+                  ),
+                )
               ],
             ),
           ),
