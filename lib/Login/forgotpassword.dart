@@ -1,8 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sastra_ebooks/Services/auth.dart';
-import 'package:sastra_ebooks/Services/dialogs.dart';
+import '../Services/auth.dart';
+import '../Services/dialogs.dart';
 
 class ForgotPassword extends StatefulWidget {
   @override

@@ -12,6 +12,7 @@ class Images {
 //SVG
   static const String home = "assets/icons/home.svg";
   static const String menu = "assets/icons/menu.svg";
+  static const String coke = "assets/images/coke.svg";
 }
 
 //Books Names

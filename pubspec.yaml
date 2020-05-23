@@ -17,9 +17,10 @@ dependencies:
   dio: ^3.0.9
   material_design_icons_flutter:
   flutter_svg: ^0.17.4
-  path_provider: ^1.6.8
+  path_provider:
+  upi_india:
   url_launcher:
-  flutter_offline: "^0.3.0"
+  flutter_offline: ^0.3.0
 
   flutter_icons: ^1.1.0
   font_awesome_flutter:

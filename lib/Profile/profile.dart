@@ -2,15 +2,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:sastra_ebooks/Profile/Settings/buyacoke.dart';
+import 'package:sastra_ebooks/Profile/Settings/contactus.dart';
+import 'package:sastra_ebooks/Profile/Settings/support.dart';
 import 'package:sastra_ebooks/Profile/yourself.dart';
 import 'package:sastra_ebooks/Services/Responsive/size_config.dart';
 import 'package:sastra_ebooks/Services/auth.dart';
+import 'package:sastra_ebooks/Services/paths.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../Services/user.dart';
 import '../Services/wrapper.dart';
+import 'Settings/about.dart';
+import 'Settings/notifications.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -162,6 +169,8 @@ class _ProfileState extends State<Profile> {
                       children: <Widget>[
                         InkWell(
                           onTap: () {
+                            Navigator.push(context, MaterialPageRoute(
+                                builder: (context) => Notifications()));
                             print('Notifictaions');
                           },
                           child: Container(
@@ -194,6 +203,8 @@ class _ProfileState extends State<Profile> {
                       children: <Widget>[
                         InkWell(
                           onTap: () {
+                            Navigator.push(context, MaterialPageRoute(
+                                builder: (context) => Support()));
                             print('Support');
                           },
                           child: Container(
@@ -226,6 +237,8 @@ class _ProfileState extends State<Profile> {
                       children: <Widget>[
                         InkWell(
                           onTap: () {
+                            Navigator.push(context, MaterialPageRoute(
+                                builder: (context) => Contactus()));
                             print('Contact Us');
                           },
                           child: Container(
@@ -258,7 +271,9 @@ class _ProfileState extends State<Profile> {
                       children: <Widget>[
                         InkWell(
                           onTap: () {
-                            print('Books Preference');
+                            Navigator.push(context, MaterialPageRoute(
+                                builder: (context) => About()));
+                            print('About Us');
                           },
                           child: Container(
                             height: 50.0,
@@ -292,7 +307,9 @@ class _ProfileState extends State<Profile> {
                           splashColor: Colors.white,
                           onTap: () {
                             setState(() {
-                              print("Buy us coffee");
+                              Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) => Buyacoffee()));
+                              print("Buy us coke");
                             });
                           },
                           child: Container(
@@ -301,26 +318,13 @@ class _ProfileState extends State<Profile> {
                               padding: EdgeInsets.symmetric(horizontal:20.0),
                               child: Row(
                                 children: [
-                                  Icon(
-                                    Icons.local_cafe,
-                                    color: Colors.lightBlueAccent,
-                                  ),
+                                  SvgPicture.asset(Images.coke, color: Colors.lightBlueAccent, height: 20.0),
                                   SizedBox(width: 20.0),
                                   Text(
-                                    "Buy us a coffee",
+                                    "Buy us a coke",
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.notoSans(fontSize: 17.0),
                                   ),
-                                  // CupertinoSwitch(
-                                  //   activeColor: Colors.lightBlueAccent,
-                                  //   value: switchState,
-                                  //   onChanged: (bool value) {
-                                  //     setState(() {
-                                  //       switchState = value;
-                                  //     });
-                                  //     print(value);
-                                  //   },
-                                  // ),
                                 ],
                               ),
                             ),

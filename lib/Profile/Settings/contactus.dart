@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
 
-class Notifications extends StatefulWidget {
+class Contactus extends StatefulWidget {
   @override
-  _NotificationsState createState() => _NotificationsState();
+  _ContactusState createState() => _ContactusState();
 }
 
-class _NotificationsState extends State<Notifications> {
+class _ContactusState extends State<Contactus> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +21,7 @@ class _NotificationsState extends State<Notifications> {
           highlightColor: Colors.lightBlueAccent,
           child: Container(
             child: new Text(
-              'Notifications',
+              'Contact Us',
               style: GoogleFonts.pacifico(
                 fontSize: 30.0,
               ),
