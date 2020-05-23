@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sastra_ebooks/Services/Responsive/size_config.dart';
-import 'package:sastra_ebooks/Services/paths.dart';
+import '../../Services/Responsive/size_config.dart';
+import '../../Services/paths.dart';
 import 'package:shimmer/shimmer.dart';
 
 import 'package:upi_india/upi_india.dart';
