@@ -7,7 +7,6 @@ import '../../Services/Responsive/size_config.dart';
 import '../../Services/paths.dart';
 import 'package:shimmer/shimmer.dart';
 
-import 'package:upi_india/upi_india.dart';
 
 class Buyacoffee extends StatefulWidget {
   @override
@@ -15,33 +14,7 @@ class Buyacoffee extends StatefulWidget {
 }
 
 class _BuyacoffeeState extends State<Buyacoffee> {
-  UpiIndia _upiIndia = UpiIndia();
-
-  List<UpiIndiaApp> apps;
-
   var quantity = 1;
-
-  @override
-  void initState() {
-    _upiIndia.getAllUpiApps().then((value) {
-      setState(() {
-        apps = value;
-      });
-    });
-    super.initState();
-  }
-
-  Future<UpiIndiaResponse> initiateTransaction(String app) async {
-    return _upiIndia.startTransaction(
-      app:
-          apps[0].app, //  I took only the first app from List<UpiIndiaApp> app.
-      receiverUpiId: '7989152378@ybl',
-      receiverName: 'Minnu',
-      transactionRefId: 'TestingId',
-      transactionNote: 'Not actual. Just an example.',
-      amount: 1.00,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,17 +66,18 @@ class _BuyacoffeeState extends State<Buyacoffee> {
                           child: SvgPicture.asset(Images.coke,
                               height: 30.0, width: 30.0, color: Colors.white)),
                     ),
-                    SizedBox(width: 30.0,),
+                    SizedBox(
+                      width: 30.0,
+                    ),
                     Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5.0),
                           color: Colors.lightBlueAccent),
-
                       child: Row(children: <Widget>[
                         IconButton(
                             iconSize: 17.0,
-                            icon:
-                                Icon(Icons.remove, color: Colors.white, size: 24.0),
+                            icon: Icon(Icons.remove,
+                                color: Colors.white, size: 24.0),
                             onPressed: () {
                               adjustQuantity('MINUS');
                             }),
@@ -116,7 +90,8 @@ class _BuyacoffeeState extends State<Buyacoffee> {
                         ),
                         IconButton(
                           iconSize: 17.0,
-                          icon: Icon(Icons.add, color: Colors.white, size: 24.0),
+                          icon:
+                              Icon(Icons.add, color: Colors.white, size: 24.0),
                           onPressed: () {
                             adjustQuantity('PLUS');
                           },
