@@ -260,6 +260,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                               fontSize: 40.0,
                               fontWeight: FontWeight.bold),
                         ),
+                        SizedBox(height: 10.0),
                         Container(
                           padding: EdgeInsets.only(left: 5.0),
                           decoration: BoxDecoration(

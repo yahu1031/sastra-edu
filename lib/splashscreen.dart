@@ -35,12 +35,12 @@ class _SplashState extends State<Splash> {
       str = "";
       for (int i = 0; i < (widget.user.email).length; i++) {
         String char = widget.user.email.substring(i, (i + 1));
-        print(char);
+//        print(char);
         if (char != '@') {
           str = str + char;
         } else {
-          print("String:$str");
-          print(str.substring(0, 3));
+//          print("String:$str");
+//          print(str.substring(0, 3));
           if (str.substring(0, 3) == "120") {
             url =
                 "https://drive.google.com/u/0/uc?id=17X0oNQR9RFl4DJgwVE7Fjg-d4Fxr14QQ&export=download"; //! json url for Fourth Year books
@@ -95,7 +95,7 @@ class _SplashState extends State<Splash> {
       isData = false;
       // debugPrint(data[0]["doctors"].length.toString());
     });
-    print(data);
+//    print(data);
     if (progressString == "Refreshing") {
       isData = true;
     }
@@ -108,26 +108,9 @@ class _SplashState extends State<Splash> {
       body: Stack(fit: StackFit.expand, children: <Widget>[
         Center(
           child: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Image.asset(
-                  Images.splashPic,
-                  height: 250,
-                ),
-                Shimmer.fromColors(
-                  baseColor: Colors.blue[500],
-                  highlightColor: Colors.lightBlueAccent,
-                  child: new Text(
-                    'M-Book Edu',
-                    style: GoogleFonts.pacifico(
-                      fontSize: 50.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
+            child: Image.asset(
+              Images.splashPic,
+              height: 250,
             ),
           ),
         ),

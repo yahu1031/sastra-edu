@@ -9,12 +9,12 @@ import '../../Services/paths.dart';
 import 'package:shimmer/shimmer.dart';
 
 
-class Buyacoffee extends StatefulWidget {
+class Buyacoke extends StatefulWidget {
   @override
-  _BuyacoffeeState createState() => _BuyacoffeeState();
+  _BuyacokeState createState() => _BuyacokeState();
 }
 
-class _BuyacoffeeState extends State<Buyacoffee> {
+class _BuyacokeState extends State<Buyacoke> {
   var quantity = 1;
   var amount = 20;
 
