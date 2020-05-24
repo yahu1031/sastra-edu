@@ -39,7 +39,7 @@ class _BuyacokeState extends State<Buyacoke> {
       receiverName: 'Minnu',
       transactionRefId: 'TestingId',
       transactionNote: 'Not actual. Just an example.',
-      amount: 1.00,
+      amount: (amount * quantity).toDouble(),
     );
   }
 
@@ -80,7 +80,6 @@ class _BuyacokeState extends State<Buyacoke> {
 
   @override
   Widget build(BuildContext context) {
-    String Amount;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: new AppBar(
@@ -292,16 +291,17 @@ class _BuyacokeState extends State<Buyacoke> {
                           default:
                             print('Received an Unknown transaction status');
                         }
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text('Transaction Id: $txnId\n'),
-                            Text('Response Code: $resCode\n'),
-                            Text('Reference Id: $txnRef\n'),
-                            Text('Status: $status\n'),
-                            Text('Approval No: $approvalRef'),
-                          ],
-                        );
+                        return Text("hello");
+//                        return Column(
+//                          mainAxisAlignment: MainAxisAlignment.center,
+//                          children: <Widget>[
+//                            Text('Transaction Id: $txnId\n'),
+//                            Text('Response Code: $resCode\n'),
+//                            Text('Reference Id: $txnRef\n'),
+//                            Text('Status: $status\n'),
+//                            Text('Approval No: $approvalRef'),
+//                          ],
+//                        );
                       } else
                         return Text(' ');
                     },
