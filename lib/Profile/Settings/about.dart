@@ -1,12 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sastra_ebooks/Services/Responsive/size_config.dart';
-import 'package:sastra_ebooks/Services/paths.dart';
+import 'package:sastra_ebooks/Profile/Settings/buyacoke.dart';
+import '../../Services/Responsive/size_config.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:upi_india/upi_india.dart';
-import 'package:upi_india/upi_india_app.dart';
-import 'package:upi_india/upi_india_response.dart';
 
 class About extends StatefulWidget {
   @override
@@ -20,20 +17,7 @@ class _AboutState extends State<About> {
       backgroundColor: Colors.white,
       appBar: new AppBar(
         elevation: 0.0,
-        centerTitle: true,
         backgroundColor: Colors.transparent,
-        title: Shimmer.fromColors(
-          baseColor: Colors.blue[500],
-          highlightColor: Colors.lightBlueAccent,
-          child: Container(
-            child: new Text(
-              'About Us',
-              style: GoogleFonts.pacifico(
-                fontSize: 30.0,
-              ),
-            ),
-          ),
-        ),
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -44,13 +28,69 @@ class _AboutState extends State<About> {
           ),
         ),
       ),
-      body:Container(
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              Text(""),
-              Text("hi"),
-            ],
+      body: Container(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                RichText(
+                  text: TextSpan(
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: 'Who are we',
+                        style: GoogleFonts.montserrat(
+                            fontSize: 10 * SizeConfig.widthMultiplier,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      TextSpan(
+                        text: ' ?',
+                        style: GoogleFonts.montserrat(
+                            fontSize: 10 * SizeConfig.widthMultiplier,
+                            color: Colors.lightBlueAccent,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 20.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal:20.0),
+                  child: RichText(
+                    text: TextSpan(
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: "We are students like you, might be one among you 😉. "
+                              "We have noticed students are facing issues with sharing their Text books/Notes/References PDFs. "
+                              "So, we came up with the idea of M-Books(Mobile Books).Welcome to M-books, a library containing all your required textbooks, notes, references. "
+                              "You can handle the books using login system. We do not have user's sign-up 😂 . So main Admin only will access users. "
+                              "We are integrated with college student details. So that, student can access books depending their graduating courses . "
+                              "I hope you guys will support us . ",
+                          style: GoogleFonts.notoSans(color: Colors.black, fontWeight: FontWeight.normal),
+                        ),
+                        TextSpan(
+                          text: 'Get us a coke',
+                          style: GoogleFonts.notoSans(color: Colors.lightBlueAccent,fontWeight: FontWeight.normal),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => Buyacoke()),
+                              );
+                            }
+                        ),
+                        TextSpan(
+                          text: ' , to support us 😉.',
+                          style: GoogleFonts.notoSans(color: Colors.black,fontWeight: FontWeight.normal),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
