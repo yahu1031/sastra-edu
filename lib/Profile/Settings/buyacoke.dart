@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sastra_ebooks/Services/dialogs.dart';
 import 'package:upi_india/upi_india.dart';
 import '../../Services/Responsive/size_config.dart';
 import '../../Services/paths.dart';
@@ -35,9 +37,9 @@ class _BuyacokeState extends State<Buyacoke> {
   Future<UpiIndiaResponse> initiateTransaction(String app) async {
     return _upiIndia.startTransaction(
       app: app,
-      receiverUpiId: '***************',
+      receiverUpiId: '7989152378@ybl',
       receiverName: 'Minnu',
-      transactionRefId: 'TestingId',
+      transactionRefId: "",
       transactionNote: 'Not actual. Just an example.',
       amount: (amount * quantity).toDouble(),
     );
@@ -248,7 +250,8 @@ class _BuyacokeState extends State<Buyacoke> {
                         AsyncSnapshot<UpiIndiaResponse> snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
                         if (snapshot.hasError) {
-                          return Center(child: Text('An Unknown error has occurred'));
+//                          Dialogs.yesAbortDialog(context,'Sorry 😞',"An Unknown error has occurred.");
+                              return Center(child: Text('An Unknown error has occurred'));
                         }
                         UpiIndiaResponse _upiResponse;
                         _upiResponse = snapshot.data;
