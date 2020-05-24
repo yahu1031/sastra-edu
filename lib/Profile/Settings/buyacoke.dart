@@ -35,7 +35,7 @@ class _BuyacokeState extends State<Buyacoke> {
   Future<UpiIndiaResponse> initiateTransaction(String app) async {
     return _upiIndia.startTransaction(
       app: app,
-      receiverUpiId: '7989152378@ybl',
+      receiverUpiId: '9440175970@ybl',
       receiverName: 'Minnu',
       transactionRefId: 'TestingId',
       transactionNote: 'Not actual. Just an example.',
@@ -241,71 +241,67 @@ class _BuyacokeState extends State<Buyacoke> {
                     ),
                   ),
                 ),
-                Expanded(
-                  flex: 2,
-                  child: FutureBuilder(
-                    future: _transaction,
-                    builder: (BuildContext context,
-                        AsyncSnapshot<UpiIndiaResponse> snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        if (snapshot.hasError) {
-                          return Center(child: Text('An Unknown error has occured'));
-                        }
-                        UpiIndiaResponse _upiResponse;
-                        _upiResponse = snapshot.data;
-                        if (_upiResponse.error != null) {
-                          String text = '';
-                          switch (snapshot.data.error) {
-                            case UpiIndiaResponseError.APP_NOT_INSTALLED:
-                              text = "Requested app not installed on device";
-                              break;
-                            case UpiIndiaResponseError.INVALID_PARAMETERS:
-                              text = "Requested app cannot handle the transaction";
-                              break;
-                            case UpiIndiaResponseError.NULL_RESPONSE:
-                              text = "requested app didn't returned any response";
-                              break;
-                            case UpiIndiaResponseError.USER_CANCELLED:
-                              text = "You cancelled the transaction";
-                              break;
-                          }
-                          return Center(
-                            child: Text(text),
-                          );
-                        }
-                        String txnId = _upiResponse.transactionId;
-                        String resCode = _upiResponse.responseCode;
-                        String txnRef = _upiResponse.transactionRefId;
-                        String status = _upiResponse.status;
-                        String approvalRef = _upiResponse.approvalRefNo;
-                        switch (status) {
-                          case UpiIndiaResponseStatus.SUCCESS:
-                            print('Transaction Successful');
+                FutureBuilder(
+                  future: _transaction,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<UpiIndiaResponse> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      if (snapshot.hasError) {
+                        return Center(child: Text('An Unknown error has occurred'));
+                      }
+                      UpiIndiaResponse _upiResponse;
+                      _upiResponse = snapshot.data;
+                      if (_upiResponse.error != null) {
+                        String text = '';
+                        switch (snapshot.data.error) {
+                          case UpiIndiaResponseError.APP_NOT_INSTALLED:
+                            text = "Requested app not installed on device";
                             break;
-                          case UpiIndiaResponseStatus.SUBMITTED:
-                            print('Transaction Submitted');
+                          case UpiIndiaResponseError.INVALID_PARAMETERS:
+                            text = "Requested app cannot handle the transaction";
                             break;
-                          case UpiIndiaResponseStatus.FAILURE:
-                            print('Transaction Failed');
+                          case UpiIndiaResponseError.NULL_RESPONSE:
+                            text = "requested app didn't returned any response";
                             break;
-                          default:
-                            print('Received an Unknown transaction status');
+                          case UpiIndiaResponseError.USER_CANCELLED:
+                            text = "You cancelled the transaction";
+                            break;
                         }
-                        return Text("hello");
-//                        return Column(
-//                          mainAxisAlignment: MainAxisAlignment.center,
-//                          children: <Widget>[
-//                            Text('Transaction Id: $txnId\n'),
-//                            Text('Response Code: $resCode\n'),
-//                            Text('Reference Id: $txnRef\n'),
-//                            Text('Status: $status\n'),
-//                            Text('Approval No: $approvalRef'),
-//                          ],
-//                        );
-                      } else
-                        return Text(' ');
-                    },
-                  ),
+                        return Center(
+                          child: Text(text),
+                        );
+                      }
+                      String txnId = _upiResponse.transactionId;
+                      String resCode = _upiResponse.responseCode;
+                      String txnRef = _upiResponse.transactionRefId;
+                      String status = _upiResponse.status;
+                      String approvalRef = _upiResponse.approvalRefNo;
+                      switch (status) {
+                        case UpiIndiaResponseStatus.SUCCESS:
+                          print('Transaction Successful');
+                          break;
+                        case UpiIndiaResponseStatus.SUBMITTED:
+                          print('Transaction Submitted');
+                          break;
+                        case UpiIndiaResponseStatus.FAILURE:
+                          print('Transaction Failed');
+                          break;
+                        default:
+                          print('Received an Unknown transaction status');
+                      }
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                      Text('Transaction Id: $txnId\n'),
+                      Text('Response Code: $resCode\n'),
+                      Text('Reference Id: $txnRef\n'),
+                      Text('Status: $status\n'),
+                      Text('Approval No: $approvalRef'),
+                        ],
+                      );
+                    } else
+                      return Text(' ');
+                  },
                 )
               ],
             ),

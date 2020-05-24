@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sastra_ebooks/Profile/Settings/buyacoke.dart';
 import '../../Services/Responsive/size_config.dart';
-import 'package:shimmer/shimmer.dart';
 
 class About extends StatefulWidget {
   @override

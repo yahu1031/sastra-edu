@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:sastra_ebooks/Services/paths.dart';
 
 class Pdf extends StatefulWidget {
   @override

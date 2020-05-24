@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-enum DialogAction { yes, abort }
+enum DialogAction { abort }
 
 class Dialogs {
   static Future<DialogAction> yesAbortDialog(
