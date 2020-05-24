@@ -308,7 +308,7 @@ class _ProfileState extends State<Profile> {
                           onTap: () {
                             setState(() {
                               Navigator.push(context, MaterialPageRoute(
-                                  builder: (context) => Buyacoffee()));
+                                  builder: (context) => Buyacoke()));
                               print("Buy us coke");
                             });
                           },
