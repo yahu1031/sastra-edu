@@ -295,11 +295,11 @@ class _BuyacokeState extends State<Buyacoke> {
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-//                      Text('Transaction Id: $txnId\n'),
-//                      Text('Response Code: $resCode\n'),
-//                      Text('Reference Id: $txnRef\n'),
-//                      Text('Status: $status\n'),
-//                      Text('Approval No: $approvalRef'),
+                            Text('Transaction Id: $txnId\n'),
+                            Text('Response Code: $resCode\n'),
+                            Text('Reference Id: $txnRef\n'),
+                            Text('Status: $status\n'),
+                            Text('Approval No: $approvalRef'),
                           ],
                         );
                       } else
