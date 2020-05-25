@@ -8,7 +8,7 @@ import 'package:path/path.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:sastra_ebooks/Services/Responsive/size_config.dart';
+import '../Services/Responsive/size_config.dart';
 import 'package:shimmer/shimmer.dart';
 
 class YourSelf extends StatefulWidget {

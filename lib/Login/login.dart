@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sastra_ebooks/Login/mailus.dart';
+import 'mailus.dart';
 import 'package:sastra_ebooks/Services/dialogs.dart';
 import '../Services/auth.dart';
 //import 'package:firebase_messaging/firebase_messaging.dart';
@@ -33,11 +33,17 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
     return loading
         ? Scaffold(
             backgroundColor: Colors.white,
-            body: Center(
-              child: CircularProgressIndicator(
-                strokeWidth: 5,
-                valueColor:
-                    AlwaysStoppedAnimation<Color>(Colors.lightBlueAccent),
+            body: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
+                FocusScope.of(context).requestFocus(new FocusNode());
+              },
+              child: Center(
+                child: CircularProgressIndicator(
+                  strokeWidth: 5,
+                  valueColor:
+                      AlwaysStoppedAnimation<Color>(Colors.lightBlueAccent),
+                ),
               ),
             ),
           )
@@ -73,7 +79,6 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                       bottom: 2 * SizeConfig.heightMultiplier,
                                       top: 2 * SizeConfig.heightMultiplier,
                                       left: 1 * SizeConfig.widthMultiplier),
-                                  // padding: const EdgeInsets.fromLTRB(15.0, 110.0, 0.0, 0.0),
                                   child: Container(
                                     child: RichText(
                                       text: TextSpan(
@@ -120,7 +125,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                       TextFormField(
                                         inputFormatters: [
                                           LengthLimitingTextInputFormatter(9),
-                                          ],
+                                        ],
                                         onChanged: (input) =>
                                             setState(() => _email = input),
                                         decoration: InputDecoration(
@@ -215,8 +220,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                               'Register Number',
                                               'Your register number must be 9 characters.');
                                           loading = false;
-                                        }
-                                        else if (_password == null) {
+                                        } else if (_password == null) {
                                           Dialogs.yesAbortDialog(
                                               context,
                                               'Password',
@@ -316,5 +320,3 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
     );
   }
 }
-
-

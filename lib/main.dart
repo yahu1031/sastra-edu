@@ -2,7 +2,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:sastra_ebooks/Services/wrapper.dart';
+import 'Services/wrapper.dart';
 
 import 'Services/Responsive/size_config.dart';
 import 'Services/Responsive/styling.dart';
@@ -18,7 +18,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   final FirebaseMessaging _messaging = FirebaseMessaging();
 
   @override

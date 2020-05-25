@@ -19,11 +19,17 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     return loading
         ? Scaffold(
             backgroundColor: Colors.white,
-            body: Center(
-              child: CircularProgressIndicator(
-                strokeWidth: 5,
-                valueColor:
-                    AlwaysStoppedAnimation<Color>(Colors.lightBlueAccent),
+            body: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
+                FocusScope.of(context).requestFocus(new FocusNode());
+              },
+              child: Center(
+                child: CircularProgressIndicator(
+                  strokeWidth: 5,
+                  valueColor:
+                      AlwaysStoppedAnimation<Color>(Colors.lightBlueAccent),
+                ),
               ),
             ),
           )
@@ -102,20 +108,16 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     height: 50.0,
                     child: GestureDetector(
                       onTap: () async {
-                        if(_email == null){ Dialogs.yesAbortDialog(
-                            context,
-                            'Sorry 😞',
-                            "Please fill the Mail address. Email must not be empty.");}
-                        else if(!_email.contains('@gmail.com'))
-                          {Dialogs.yesAbortDialog(
-                              context,
-                              'Error 😞',
-                              "Please enter correct Email address, (@example.com - domain is missing.)");}
+                        if (_email == null) {
+                          Dialogs.yesAbortDialog(context, 'Sorry 😞',
+                              "Please fill the Mail address. Email must not be empty.");
+                        } else if (!_email.contains('@gmail.com')) {
+                          Dialogs.yesAbortDialog(context, 'Error 😞',
+                              "Please enter correct Email address, (@example.com - domain is missing.)");
+                        }
                         print(_email);
                         await _auth.resetPassword(_email);
-                        Dialogs.yesAbortDialog(
-                            context,
-                            'Success 😉',
+                        Dialogs.yesAbortDialog(context, 'Success 😉',
                             "You will receive a mail in short time to reset password.");
                       },
                       child: Material(

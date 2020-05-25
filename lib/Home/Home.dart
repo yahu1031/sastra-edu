@@ -1,4 +1,4 @@
-import 'package:sastra_ebooks/Services/authenticate.dart';
+import '../Services/authenticate.dart';
 
 import '../Profile/profile.dart';
 import 'package:flutter/material.dart';
@@ -109,11 +109,17 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             ),
           ),
         ),
-        body: Stack(
-          children: <Widget>[
-            dashboard(context),
-            menu(context),
-          ],
+        body: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () {
+            FocusScope.of(context).requestFocus(new FocusNode());
+          },
+          child: Stack(
+            children: <Widget>[
+              dashboard(context),
+              menu(context),
+            ],
+          ),
         ));
   }
 
@@ -153,7 +159,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 ),
 //                SizedBox(height: 5 * SizeConfig.heightMultiplier),
                 Column(
-                  children:[
+                  children: [
                     Padding(
                       padding: EdgeInsets.all(1 * SizeConfig.heightMultiplier),
                       child: IconButton(
@@ -199,22 +205,21 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     ),
                     SizedBox(height: 3 * SizeConfig.heightMultiplier),
                     Padding(
-                  padding: EdgeInsets.all(1 * SizeConfig.heightMultiplier),
-                  child: IconButton(
-                    icon: Icon(Icons.power_settings_new),
-                    color: Colors.lightBlueAccent,
-                    onPressed: () async {
-                      await _auth.signOut();
-                      //!  have added a systemwide exit because if a user log out he doesn't want to use the app, the app is not faacebook that user have different ids
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Authenticate()));
+                      padding: EdgeInsets.all(1 * SizeConfig.heightMultiplier),
+                      child: IconButton(
+                        icon: Icon(Icons.power_settings_new),
+                        color: Colors.lightBlueAccent,
+                        onPressed: () async {
+                          await _auth.signOut();
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Authenticate()));
 
-                      print('Logged out');
-                    },
-                  ),
-                ),
+                          print('Logged out');
+                        },
+                      ),
+                    ),
                   ],
                 ),
               ],
