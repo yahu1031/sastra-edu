@@ -17,6 +17,7 @@ import 'package:shimmer/shimmer.dart';
 import '../Services/user.dart';
 import '../Services/wrapper.dart';
 import 'Settings/about.dart';
+import 'Settings/support.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -206,13 +207,13 @@ class _ProfileState extends State<Profile> {
                       children: <Widget>[
                         InkWell(
                           onTap: () {
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => Support()));
-                            // print('Support');
-                            Dialogs.yesAbortDialog(context, 'Sorry 😞',
-                                "Sorry, Page isn't designed yet.");
+                             Navigator.push(
+                                 context,
+                                 MaterialPageRoute(
+                                     builder: (context) => Support()));
+                             print('Support');
+//                            Dialogs.yesAbortDialog(context, 'Sorry 😞',
+//                                "Sorry, Page isn't designed yet.");
                           },
                           child: Container(
                             height: 50.0,

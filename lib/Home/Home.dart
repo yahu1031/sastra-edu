@@ -1,3 +1,6 @@
+import 'package:sastra_ebooks/Home/menu/bookmark.dart';
+import 'package:sastra_ebooks/Home/menu/favorite.dart';
+
 import '../Services/authenticate.dart';
 
 import '../Profile/profile.dart';
@@ -177,7 +180,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         icon: Icon(Icons.favorite_border),
                         color: Colors.lightBlueAccent,
                         onPressed: () {
-                          print('Favorite');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Favorite()),
+                          );
                         },
                       ),
                     ),
@@ -185,10 +191,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     Padding(
                       padding: EdgeInsets.all(1 * SizeConfig.heightMultiplier),
                       child: IconButton(
-                        icon: Icon(Icons.book),
+                        icon: Icon(Icons.bookmark_border),
                         color: Colors.lightBlueAccent,
                         onPressed: () {
-                          print('Bookmarks');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Bookmark()),
+                          );
                         },
                       ),
                     ),
