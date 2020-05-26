@@ -17,7 +17,7 @@ class Buyacoke extends StatefulWidget {
 class _BuyacokeState extends State<Buyacoke> {
   var quantity = 1;
   var amount = 20;
-  String _name;
+  String _name, _comment = '';
 
   Future<UpiIndiaResponse> _transaction;
   UpiIndia _upiIndia = UpiIndia();
@@ -39,7 +39,7 @@ class _BuyacokeState extends State<Buyacoke> {
       receiverUpiId: '9492713613@ybl',
       receiverName: 'Minnu',
       transactionRefId: 'TestingId',
-      transactionNote: 'Not actual. Just an example.',
+      transactionNote: '$_name \n' + '$_comment',
       // amount: (amount * quantity).toDouble(),
       amount: 1.00,
     );
@@ -58,8 +58,9 @@ class _BuyacokeState extends State<Buyacoke> {
         children: apps.map<Widget>((UpiIndiaApp app) {
           return GestureDetector(
             onTap: () async {
-              _transaction = initiateTransaction(app.app);
-              UpiIndiaResponse _transactionResult = await _transaction;
+              // _transaction = initiateTransaction(app.app);
+              UpiIndiaResponse _transactionResult =
+                  await initiateTransaction(app.app);
 
               showDialog(
                 barrierDismissible: false,
@@ -231,6 +232,7 @@ class _BuyacokeState extends State<Buyacoke> {
                   ),
                   SizedBox(height: 7 * SizeConfig.heightMultiplier),
                   TextFormField(
+                    onChanged: (input) => setState(() => _comment = input),
                     decoration: InputDecoration(
                       labelText: 'Feel free to comment',
                       labelStyle: GoogleFonts.notoSans(
