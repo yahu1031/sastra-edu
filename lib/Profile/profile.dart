@@ -7,17 +7,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:sastra_ebooks/Profile/Settings/buyacoke.dart';
 import 'package:sastra_ebooks/Profile/Settings/contactus.dart';
-import 'package:sastra_ebooks/Profile/Settings/support.dart';
 import 'package:sastra_ebooks/Profile/yourself.dart';
 import 'package:sastra_ebooks/Services/Responsive/size_config.dart';
 import 'package:sastra_ebooks/Services/auth.dart';
+import 'package:sastra_ebooks/Services/dialogs.dart';
 import 'package:sastra_ebooks/Services/paths.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../Services/user.dart';
 import '../Services/wrapper.dart';
 import 'Settings/about.dart';
-import 'Settings/notifications.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -169,11 +168,13 @@ class _ProfileState extends State<Profile> {
                       children: <Widget>[
                         InkWell(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Notifications()));
-                            print('Notifications');
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => Notifications()));
+                            // print('Notifications');
+                            Dialogs.yesAbortDialog(context, 'Sorry 😞',
+                                "Sorry, Page isn't designed yet.");
                           },
                           child: Container(
                             height: 50.0,
@@ -205,11 +206,13 @@ class _ProfileState extends State<Profile> {
                       children: <Widget>[
                         InkWell(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Support()));
-                            print('Support');
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => Support()));
+                            // print('Support');
+                            Dialogs.yesAbortDialog(context, 'Sorry 😞',
+                                "Sorry, Page isn't designed yet.");
                           },
                           child: Container(
                             height: 50.0,

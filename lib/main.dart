@@ -2,12 +2,11 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:sastra_ebooks/Profile/Settings/buyacoke.dart';
-
 import 'Services/Responsive/size_config.dart';
 import 'Services/Responsive/styling.dart';
 import 'Services/auth.dart';
 import 'Services/user.dart';
+import 'Services/wrapper.dart';
 
 void main() => runApp(MyApp());
 
@@ -44,8 +43,7 @@ class _MyAppState extends State<MyApp> {
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: AppTheme.lightTheme,
-            // home: Wrapper(),
-            home: Buyacoke(),
+            home: Wrapper(),
           ),
         );
       });

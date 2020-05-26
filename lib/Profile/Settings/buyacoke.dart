@@ -36,11 +36,12 @@ class _BuyacokeState extends State<Buyacoke> {
   Future<UpiIndiaResponse> initiateTransaction(String app) async {
     return _upiIndia.startTransaction(
       app: app,
-      receiverUpiId: '7989152378@ybl',
+      receiverUpiId: '9492713613@ybl',
       receiverName: 'Minnu',
       transactionRefId: 'TestingId',
       transactionNote: 'Not actual. Just an example.',
-      amount: (amount * quantity).toDouble(),
+      // amount: (amount * quantity).toDouble(),
+      amount: 1.00,
     );
   }
 
@@ -58,7 +59,38 @@ class _BuyacokeState extends State<Buyacoke> {
           return GestureDetector(
             onTap: () async {
               _transaction = initiateTransaction(app.app);
+              UpiIndiaResponse _transactionResult = await _transaction;
 
+              showDialog(
+                barrierDismissible: false,
+                context: context,
+                child: Center(
+                  child: AlertDialog(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    title: Text('Transaction Details'),
+                    content: Text(
+                        'Transaction Id: ${_transactionResult.transactionId}\n'
+                        'Response Code: ${_transactionResult.responseCode}\n'
+                        'Reference Id: ${_transactionResult.transactionRefId}\n'
+                        'Status: ${_transactionResult.status}\n'
+                        'Approval No: ${_transactionResult.approvalRefNo}\n'),
+                    actions: <Widget>[
+                      Center(
+                        child: FlatButton(
+                          onPressed: () =>
+                              Navigator.of(context).pop(DialogAction.abort),
+                          child: const Text(
+                            'Ok',
+                            style: TextStyle(color: Colors.lightBlue),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
               setState(() {});
             },
             child: Container(
@@ -298,11 +330,7 @@ class _BuyacokeState extends State<Buyacoke> {
                               child: Text(text),
                             );
                           }
-                          String txnId = _upiResponse.transactionId;
-                          String resCode = _upiResponse.responseCode;
-                          String txnRef = _upiResponse.transactionRefId;
                           String status = _upiResponse.status;
-                          String approvalRef = _upiResponse.approvalRefNo;
                           switch (status) {
                             case UpiIndiaResponseStatus.SUCCESS:
                               print('Transaction Successful');
@@ -316,16 +344,6 @@ class _BuyacokeState extends State<Buyacoke> {
                             default:
                               print('Received an Unknown transaction status');
                           }
-                          return Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text('Transaction Id: $txnId\n'),
-                              Text('Response Code: $resCode\n'),
-                              Text('Reference Id: $txnRef\n'),
-                              Text('Status: $status\n'),
-                              Text('Approval No: $approvalRef'),
-                            ],
-                          );
                         } else
                           return Text(' ');
                       },
@@ -344,12 +362,14 @@ class _BuyacokeState extends State<Buyacoke> {
     switch (pressed) {
       case 'PLUS':
         setState(() {
-          quantity += 1;
+          if (quantity != 10) {
+            quantity += 1;
+          }
         });
         return;
       case 'MINUS':
         setState(() {
-          if (quantity != 0) {
+          if (quantity != 1) {
             quantity -= 1;
           }
         });

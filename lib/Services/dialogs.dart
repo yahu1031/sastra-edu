@@ -5,10 +5,10 @@ enum DialogAction { abort }
 
 class Dialogs {
   static Future<DialogAction> yesAbortDialog(
-      BuildContext context,
-      String title,
-      String body,
-      ) async {
+    BuildContext context,
+    String title,
+    String body,
+  ) async {
     final action = await showDialog(
       context: context,
       barrierDismissible: false,
@@ -17,8 +17,15 @@ class Dialogs {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          title: Text(title, style: TextStyle(color: Colors.blue),),
-          content: Text(body, style: GoogleFonts.notoSans(fontSize: 18, fontWeight: FontWeight.w500),),
+          title: Text(
+            title,
+            style: TextStyle(color: Colors.blue),
+          ),
+          content: Text(
+            body,
+            style:
+                GoogleFonts.notoSans(fontSize: 18, fontWeight: FontWeight.w500),
+          ),
           actions: <Widget>[
             FlatButton(
               onPressed: () => Navigator.of(context).pop(DialogAction.abort),
