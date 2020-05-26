@@ -169,9 +169,11 @@ class _ProfileState extends State<Profile> {
                       children: <Widget>[
                         InkWell(
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(
-                                builder: (context) => Notifications()));
-                            print('Notifictaions');
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Notifications()));
+                            print('Notifications');
                           },
                           child: Container(
                             height: 50.0,
@@ -185,7 +187,7 @@ class _ProfileState extends State<Profile> {
                                   ),
                                   SizedBox(width: 20.0),
                                   Text(
-                                    "Notifictaions",
+                                    "Notifications",
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.notoSans(fontSize: 17.0),
                                   ),
@@ -203,14 +205,16 @@ class _ProfileState extends State<Profile> {
                       children: <Widget>[
                         InkWell(
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(
-                                builder: (context) => Support()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Support()));
                             print('Support');
                           },
                           child: Container(
                             height: 50.0,
                             child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal:20.0),
+                              padding: EdgeInsets.symmetric(horizontal: 20.0),
                               child: Row(
                                 children: [
                                   Icon(
@@ -237,14 +241,16 @@ class _ProfileState extends State<Profile> {
                       children: <Widget>[
                         InkWell(
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(
-                                builder: (context) => Contactus()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Contactus()));
                             print('Contact Us');
                           },
                           child: Container(
                             height: 50.0,
                             child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal:20.0),
+                              padding: EdgeInsets.symmetric(horizontal: 20.0),
                               child: Row(
                                 children: [
                                   Icon(
@@ -271,14 +277,16 @@ class _ProfileState extends State<Profile> {
                       children: <Widget>[
                         InkWell(
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(
-                                builder: (context) => About()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => About()));
                             print('About Us');
                           },
                           child: Container(
                             height: 50.0,
                             child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal:20.0),
+                              padding: EdgeInsets.symmetric(horizontal: 20.0),
                               child: Row(
                                 children: [
                                   Icon(
@@ -307,18 +315,22 @@ class _ProfileState extends State<Profile> {
                           splashColor: Colors.white,
                           onTap: () {
                             setState(() {
-                              Navigator.push(context, MaterialPageRoute(
-                                  builder: (context) => Buyacoke()));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Buyacoke()));
                               print("Buy us coke");
                             });
                           },
                           child: Container(
                             height: 50.0,
                             child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal:20.0),
+                              padding: EdgeInsets.symmetric(horizontal: 20.0),
                               child: Row(
                                 children: [
-                                  SvgPicture.asset(Images.coke, color: Colors.lightBlueAccent, height: 20.0),
+                                  SvgPicture.asset(Images.coke,
+                                      color: Colors.lightBlueAccent,
+                                      height: 20.0),
                                   SizedBox(width: 20.0),
                                   Text(
                                     "Buy us a coke",
@@ -349,7 +361,7 @@ class _ProfileState extends State<Profile> {
                           child: Container(
                             height: 50.0,
                             child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal:20.0),
+                              padding: EdgeInsets.symmetric(horizontal: 20.0),
                               child: Row(
                                 children: [
                                   Icon(

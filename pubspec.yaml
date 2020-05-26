@@ -13,6 +13,7 @@ dependencies:
     sdk: flutter
   google_fonts:
   shimmer: ^1.1.1
+  rflutter_alert:
   intl: ^0.16.1
   dio: ^3.0.9
   material_design_icons_flutter:
@@ -49,4 +50,3 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
-    - assets/
