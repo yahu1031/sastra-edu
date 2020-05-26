@@ -103,7 +103,6 @@ class _SupportState extends State<Support> {
                                     child: Form(
                                       child: Column(
                                         mainAxisAlignment: MainAxisAlignment.center,
-                                        mainAxisSize: MainAxisSize.max,
                                         children: <Widget>[
                                           TextFormField(
                                             decoration: InputDecoration(
