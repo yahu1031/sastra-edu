@@ -210,8 +210,45 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         color: Colors.lightBlueAccent,
                         onPressed: () {
                           print('Class');
-                          Dialogs.yesAbortDialog(context, 'Sorry 😞',
-                                "Sorry, Classroom isn't designed yet.");
+                          showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (BuildContext context) {
+                          return AlertDialog(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            title: Center(
+                              child: Text(
+                                '😞',
+                              ),
+                            ),
+                            content: Wrap(
+                              crossAxisAlignment: WrapCrossAlignment.center,
+                              children: <Widget>[
+                                Center(child: Image.asset(Images.coding, height: 100.0,)),
+                                Text(
+                                  "Sorry, we are coding your Classroom 😉.",
+                                  style:
+                                  GoogleFonts.notoSans(fontSize: 18, fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
+                            actions: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(top:10.0),
+                                child: FlatButton(
+                                  onPressed: () => Navigator.of(context).pop(DialogAction.abort),
+                                  child: const Text(
+                                    'Ok',
+                                    style: TextStyle(color: Colors.lightBlue),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );});
+//                          Dialogs.yesAbortDialog(context, 'Sorry 😞',
+//                                "Sorry, Classroom isn't designed yet.");
                         },
                       ),
                     ),
