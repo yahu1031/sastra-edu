@@ -114,7 +114,9 @@ class _SplashState extends State<Splash> {
                   Images.splashPic,
                   height: 250,
                 ),
-                SizedBox(height: 10 * SizeConfig.heightMultiplier,),
+                SizedBox(
+                  height: 10 * SizeConfig.heightMultiplier,
+                ),
                 CircularProgressIndicator(),
               ],
             ),
