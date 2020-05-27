@@ -5,6 +5,7 @@ class Images {
   static const String splashPic = "assets/images/splash.png";
   static const String book = "assets/images/book.png";
   static const String coding = "assets/images/coding.png";
+  static const String service = "assets/images/service_unavailable.png";
   static const String profile = "assets/images/profile.jpg";
   static const String rajibmall = "assets/images/rajibmall.jpeg";
   static const String read = "assets/images/read.png";
