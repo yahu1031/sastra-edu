@@ -1,5 +1,4 @@
-import 'package:sastra_ebooks/Home/menu/bookmark.dart';
-import 'package:sastra_ebooks/Home/menu/favorite.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:sastra_ebooks/Services/dialogs.dart';
 
 import '../Services/authenticate.dart';
@@ -204,10 +203,14 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                     Center(child: Image.asset(Images.service, height: 100.0,)),
                                     Padding(
                                       padding: const EdgeInsets.only(top:30.0),
-                                      child: Text(
-                                        "Sorry, This service gonna work from next update 😉.",
-                                        style:
-                                        GoogleFonts.notoSans(fontSize: 18, fontWeight: FontWeight.w500),
+                                      child: FadeAnimatedTextKit(
+                                          text: [
+                                            "Sorry, This service gonna work from next update 😉.",
+                                          ],
+                                          repeatForever: true,
+                                          textStyle: GoogleFonts.notoSans(fontSize: 18, fontWeight: FontWeight.w500),
+                                          textAlign: TextAlign.start,
+                                          alignment: AlignmentDirectional.topStart // or Alignment.topLeft
                                       ),
                                     ),
                                   ],
@@ -260,10 +263,15 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                     Center(child: Image.asset(Images.service, height: 100.0,)),
                                     Padding(
                                       padding: const EdgeInsets.only(top:30.0),
-                                      child: Text(
-                                        "Sorry, This service gonna work from next update 😉.",
-                                        style:
-                                        GoogleFonts.notoSans(fontSize: 18, fontWeight: FontWeight.w500),
+                                      child:
+                                      FadeAnimatedTextKit(
+                                        text: [
+                                          "Sorry, This service gonna work from next update 😉.",
+                                        ],
+                                        repeatForever: true,
+                                        textStyle: GoogleFonts.notoSans(fontSize: 18, fontWeight: FontWeight.w500),
+                                        textAlign: TextAlign.start,
+                                        alignment: AlignmentDirectional.topStart // or Alignment.topLeft
                                       ),
                                     ),
                                   ],
@@ -293,7 +301,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         icon: Icon(Icons.chat_bubble_outline),
                         color: Colors.lightBlueAccent,
                         onPressed: () {
-                          print('Class');
                           showDialog(
                             context: context,
                             barrierDismissible: false,
@@ -311,10 +318,14 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                   crossAxisAlignment: WrapCrossAlignment.center,
                                   children: <Widget>[
                                     Center(child: Image.asset(Images.coding, height: 100.0,)),
-                                    Text(
-                                      "Sorry, we are coding your Classroom 😉.",
-                                      style:
-                                      GoogleFonts.notoSans(fontSize: 18, fontWeight: FontWeight.w500),
+                                    TyperAnimatedTextKit(
+                                      text:[
+                                        "Sorry, we are currently coding your Classroom 😉",
+                                      ],
+                                      textStyle: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500,color: Colors.black),
+                                      textAlign: TextAlign.center,
+                                      speed: Duration(milliseconds: 100),
+                                      pause: Duration(seconds: 3),
                                     ),
                                   ],
                                 ),

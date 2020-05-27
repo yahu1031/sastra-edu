@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sastra_ebooks/Services/paths.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
 
 class Pdf extends StatefulWidget {
   @override

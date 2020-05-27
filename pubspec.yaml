@@ -19,6 +19,7 @@ dependencies:
   material_design_icons_flutter:
   flutter_svg: ^0.17.4
   path_provider:
+  animated_text_kit:
   flutter_pdfview:
   upi_india:
   url_launcher:

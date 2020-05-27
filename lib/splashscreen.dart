@@ -2,8 +2,10 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sastra_ebooks/Services/Responsive/size_config.dart';
 
@@ -118,6 +120,17 @@ class _SplashState extends State<Splash> {
                   height: 10 * SizeConfig.heightMultiplier,
                 ),
                 CircularProgressIndicator(),
+                SizedBox(
+                  height: 10 * SizeConfig.heightMultiplier,
+                ),
+                TyperAnimatedTextKit(
+                  text:[
+                    "We are fetching books for you...",
+                  ],
+                  textStyle: GoogleFonts.poppins(color: Colors.lightBlueAccent),
+                  textAlign: TextAlign.start,
+                  speed: Duration(milliseconds: 100),
+                ),
               ],
             ),
           ),

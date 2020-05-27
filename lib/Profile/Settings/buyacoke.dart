@@ -19,9 +19,9 @@ class _BuyacokeState extends State<Buyacoke> {
   var amount = 20;
   String _name, _comment = '';
 
-  Future<UpiIndiaResponse> _transaction;
+  Future<UpiResponse> _transaction;
   UpiIndia _upiIndia = UpiIndia();
-  List<UpiIndiaApp> apps;
+  List<UpiApp> apps;
 
   @override
   void initState() {
@@ -33,7 +33,7 @@ class _BuyacokeState extends State<Buyacoke> {
     super.initState();
   }
 
-  Future<UpiIndiaResponse> initiateTransaction(String app) async {
+  Future<UpiResponse> initiateTransaction(String app) async {
     return _upiIndia.startTransaction(
       app: app,
       receiverUpiId: '9492713613@ybl',
@@ -55,11 +55,11 @@ class _BuyacokeState extends State<Buyacoke> {
         direction: Axis.horizontal,
         spacing: 10.0,
         runSpacing: 20.0,
-        children: apps.map<Widget>((UpiIndiaApp app) {
+        children: apps.map<Widget>((UpiApp app) {
           return GestureDetector(
             onTap: () async {
               // _transaction = initiateTransaction(app.app);
-              UpiIndiaResponse _transactionResult =
+              UpiResponse _transactionResult =
                   await initiateTransaction(app.app);
 
               showDialog(
@@ -301,30 +301,31 @@ class _BuyacokeState extends State<Buyacoke> {
                     flex: 2,
                     child: FutureBuilder(
                       future: _transaction,
+                      // ignore: missing_return
                       builder: (BuildContext context,
-                          AsyncSnapshot<UpiIndiaResponse> snapshot) {
+                          AsyncSnapshot<UpiResponse> snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
                           if (snapshot.hasError) {
                             return Center(
                                 child: Text('An Unknown error has occurred'));
                           }
-                          UpiIndiaResponse _upiResponse;
+                          UpiResponse _upiResponse;
                           _upiResponse = snapshot.data;
                           if (_upiResponse.error != null) {
                             String text = '';
                             switch (snapshot.data.error) {
-                              case UpiIndiaResponseError.APP_NOT_INSTALLED:
+                              case UpiError.APP_NOT_INSTALLED:
                                 text = "Requested app not installed on device";
                                 break;
-                              case UpiIndiaResponseError.INVALID_PARAMETERS:
+                              case UpiError.INVALID_PARAMETERS:
                                 text =
                                     "Requested app cannot handle the transaction";
                                 break;
-                              case UpiIndiaResponseError.NULL_RESPONSE:
+                              case UpiError.NULL_RESPONSE:
                                 text =
                                     "requested app didn't returned any response";
                                 break;
-                              case UpiIndiaResponseError.USER_CANCELLED:
+                              case UpiError.USER_CANCELLED:
                                 text = "You cancelled the transaction";
                                 break;
                             }
@@ -334,13 +335,13 @@ class _BuyacokeState extends State<Buyacoke> {
                           }
                           String status = _upiResponse.status;
                           switch (status) {
-                            case UpiIndiaResponseStatus.SUCCESS:
+                            case UpiPaymentStatus.SUCCESS:
                               print('Transaction Successful');
                               break;
-                            case UpiIndiaResponseStatus.SUBMITTED:
+                            case UpiPaymentStatus.SUBMITTED:
                               print('Transaction Submitted');
                               break;
-                            case UpiIndiaResponseStatus.FAILURE:
+                            case UpiPaymentStatus.FAILURE:
                               print('Transaction Failed');
                               break;
                             default:

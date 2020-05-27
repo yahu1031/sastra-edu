@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:sastra_ebooks/Services/dialogs.dart';
+import '../../Services/dialogs.dart';
 
 import '../../Services/Responsive/size_config.dart';
 
