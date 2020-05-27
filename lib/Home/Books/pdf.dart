@@ -14,7 +14,7 @@ class _PdfState extends State<Pdf> {
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
-          const SliverAppBar(
+          SliverAppBar(
             pinned: false,
             expandedHeight: 200.0,
             flexibleSpace: FlexibleSpaceBar(
