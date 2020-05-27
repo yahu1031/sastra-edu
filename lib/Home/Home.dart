@@ -1,5 +1,6 @@
 import 'package:sastra_ebooks/Home/menu/bookmark.dart';
 import 'package:sastra_ebooks/Home/menu/favorite.dart';
+import 'package:sastra_ebooks/Services/dialogs.dart';
 
 import '../Services/authenticate.dart';
 
@@ -209,6 +210,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         color: Colors.lightBlueAccent,
                         onPressed: () {
                           print('Class');
+                          Dialogs.yesAbortDialog(context, 'Sorry 😞',
+                                "Sorry, Classroom isn't designed yet.");
                         },
                       ),
                     ),
