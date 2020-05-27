@@ -8,6 +8,6 @@ class Classroom extends StatefulWidget {
 class _ClassroomState extends State<Classroom> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold();
   }
 }
