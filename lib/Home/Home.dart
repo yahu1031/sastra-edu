@@ -1,16 +1,13 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:sastra_ebooks/Services/dialogs.dart';
-
-import '../Services/authenticate.dart';
-
-import '../Profile/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer/shimmer.dart';
+
+import '../Services/dialogs.dart';
+import '../Services/authenticate.dart';
+import '../Profile/profile.dart';
 import '../Services/Responsive/size_config.dart';
 import '../Services/paths.dart';
 import '../Services/auth.dart';
-import 'package:shimmer/shimmer.dart';
-
 import 'Books/tabview.dart';
 
 final Color backgroundColor = Colors.white;
@@ -160,7 +157,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     shape: BoxShape.circle,
                   ),
                 ),
-//                SizedBox(height: 5 * SizeConfig.heightMultiplier),
+                SizedBox(height: 5 * SizeConfig.heightMultiplier),
                 Column(
                   children: [
                     Padding(
@@ -184,7 +181,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 //                            context,
 //                            MaterialPageRoute(builder: (context) => Favorite()),
 //                          );
-                        Dialogs.serviceDialog(context);
+                          Dialogs.serviceDialog(context);
                         },
                       ),
                     ),
@@ -199,53 +196,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 //                            context,
 //                            MaterialPageRoute(builder: (context) => Bookmark()),
 //                          );
-                          showDialog(
-                            context: context,
-                            barrierDismissible: false,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                title: Center(
-                                  child: Text(
-                                    '',
-                                  ),
-                                ),
-                                content: Wrap(
-                                  crossAxisAlignment: WrapCrossAlignment.center,
-                                  children: <Widget>[
-                                    Center(child: Image.asset(Images.service, height: 100.0,)),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top:30.0),
-                                      child:
-                                      FadeAnimatedTextKit(
-                                        text: [
-                                          "Sorry, This service gonna work from next update 😉.",
-                                        ],
-                                        repeatForever: true,
-                                        textStyle: GoogleFonts.notoSans(fontSize: 18, fontWeight: FontWeight.w500),
-                                        textAlign: TextAlign.start,
-                                        alignment: AlignmentDirectional.topStart // or Alignment.topLeft
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                actions: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.only(top:10.0),
-                                    child: FlatButton(
-                                      onPressed: () => Navigator.of(context).pop(DialogAction.abort),
-                                      child: const Text(
-                                        'Ok',
-                                        style: TextStyle(color: Colors.lightBlue),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
+                          Dialogs.serviceDialog(context);
                         },
                       ),
                     ),
