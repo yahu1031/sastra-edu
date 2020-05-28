@@ -22,6 +22,7 @@ dependencies:
   animated_text_kit:
   flutter_pdfview:
   upi_india:
+  http:
   url_launcher:
   flutter_offline: ^0.3.0
 

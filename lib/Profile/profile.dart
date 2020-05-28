@@ -174,8 +174,7 @@ class _ProfileState extends State<Profile> {
                             //     MaterialPageRoute(
                             //         builder: (context) => Notifications()));
                             // print('Notifications');
-                            Dialogs.yesAbortDialog(context, 'Sorry 😞',
-                                "Sorry, Page isn't designed yet.");
+                            Dialogs.notfoundDialog(context);
                           },
                           child: Container(
                             height: 50.0,
@@ -212,8 +211,6 @@ class _ProfileState extends State<Profile> {
                                  MaterialPageRoute(
                                      builder: (context) => Support()));
                              print('Support');
-//                            Dialogs.yesAbortDialog(context, 'Sorry 😞',
-//                                "Sorry, Page isn't designed yet.");
                           },
                           child: Container(
                             height: 50.0,

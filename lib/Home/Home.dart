@@ -184,52 +184,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 //                            context,
 //                            MaterialPageRoute(builder: (context) => Favorite()),
 //                          );
-                          showDialog(
-                            context: context,
-                            barrierDismissible: false,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                title: Center(
-                                  child: Text(
-                                    '',
-                                  ),
-                                ),
-                                content: Wrap(
-                                  crossAxisAlignment: WrapCrossAlignment.center,
-                                  children: <Widget>[
-                                    Center(child: Image.asset(Images.service, height: 100.0,)),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top:30.0),
-                                      child: FadeAnimatedTextKit(
-                                          text: [
-                                            "Sorry, This service gonna work from next update 😉.",
-                                          ],
-                                          repeatForever: true,
-                                          textStyle: GoogleFonts.notoSans(fontSize: 18, fontWeight: FontWeight.w500),
-                                          textAlign: TextAlign.start,
-                                          alignment: AlignmentDirectional.topStart // or Alignment.topLeft
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                actions: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.only(top:10.0),
-                                    child: FlatButton(
-                                      onPressed: () => Navigator.of(context).pop(DialogAction.abort),
-                                      child: const Text(
-                                        'Ok',
-                                        style: TextStyle(color: Colors.lightBlue),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
+                        Dialogs.serviceDialog(context);
                         },
                       ),
                     ),
@@ -301,49 +256,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         icon: Icon(Icons.chat_bubble_outline),
                         color: Colors.lightBlueAccent,
                         onPressed: () {
-                          showDialog(
-                            context: context,
-                            barrierDismissible: false,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                title: Center(
-                                  child: Text(
-                                    '',
-                                  ),
-                                ),
-                                content: Wrap(
-                                  crossAxisAlignment: WrapCrossAlignment.center,
-                                  children: <Widget>[
-                                    Center(child: Image.asset(Images.coding, height: 100.0,)),
-                                    TyperAnimatedTextKit(
-                                      text:[
-                                        "Sorry, we are currently coding your Classroom 😉",
-                                      ],
-                                      textStyle: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500,color: Colors.black),
-                                      textAlign: TextAlign.center,
-                                      speed: Duration(milliseconds: 100),
-                                      pause: Duration(seconds: 3),
-                                    ),
-                                  ],
-                                ),
-                                actions: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.only(top:10.0),
-                                    child: FlatButton(
-                                      onPressed: () => Navigator.of(context).pop(DialogAction.abort),
-                                      child: const Text(
-                                        'Ok',
-                                        style: TextStyle(color: Colors.lightBlue),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
+                          Dialogs.codingDialog(context);
                         },
                       ),
                     ),

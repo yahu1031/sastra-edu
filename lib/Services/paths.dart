@@ -4,6 +4,7 @@ class Images {
 //IMAGES
   static const String splashPic = "assets/images/splash.png";
   static const String book = "assets/images/book.png";
+  static const String notfound = "assets/images/404error.png";
   static const String coding = "assets/images/coding.png";
   static const String service = "assets/images/service_unavailable.png";
   static const String profile = "assets/images/profile.jpg";

@@ -34,7 +34,7 @@ class _AllState extends State<All> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => Pdf(),
+            builder: (context) => PdfViewerPage(),
           ),
         );
       },

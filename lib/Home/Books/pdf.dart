@@ -1,32 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:sastra_ebooks/Services/paths.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
+import '../../Services/api.dart';
 
-class Pdf extends StatefulWidget {
+class PdfViewerPage extends StatefulWidget {
   @override
-  _PdfState createState() => _PdfState();
+  _PdfViewerPageState createState() => _PdfViewerPageState();
 }
 
-class _PdfState extends State<Pdf> {
+class _PdfViewerPageState extends State<PdfViewerPage> {
+  String localPath;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    ApiServiceProvider.loadPDF().then((value) {
+      setState(() {
+        localPath = value;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            pinned: false,
-            expandedHeight: 200.0,
-            flexibleSpace: FlexibleSpaceBar(
-              title: Text('PDF Name'),
-              centerTitle: true,
-                background: Image.asset(
-                Images.book,
-                fit: BoxFit.cover,
-              ), 
-            ),
-          ),
-        ],
+      appBar: AppBar(
+        title: Text("CodingBoot Flutter PDF Viewer",style: TextStyle(fontWeight: FontWeight.bold),),
       ),
+      body: localPath != null
+          ? PDFView(
+        filePath: localPath,
+      )
+          : Center(child: CircularProgressIndicator()),
     );
   }
 }
