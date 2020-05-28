@@ -12,7 +12,6 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     ApiServiceProvider.loadPDF().then((value) {
@@ -27,12 +26,22 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        centerTitle: true,
         elevation: 0.0,
         backgroundColor: Colors.white,
         title: Text(
-          "Book Name",
+          "Software Engineering",
           style:
               TextStyle(color: Colors.lightBlue, fontWeight: FontWeight.bold),
+        ),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.lightBlueAccent,
+          ),
         ),
       ),
       body: localPath != null
