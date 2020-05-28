@@ -21,20 +21,22 @@ class _AllState extends State<All> {
       body: ListView.builder(
         scrollDirection: Axis.vertical,
         itemBuilder: (BuildContext context, index) {
-          return _buildListItems(widget.data[index]["Name"], Images.book);
+          return _buildListItems(widget.data[index]["Name"], Images.book,
+              widget.data[index]["Link"]);
         },
         itemCount: (widget.data).length,
       ),
     );
   }
 
-  _buildListItems(String itemName, String imgPath) {
+  _buildListItems(String itemName, String imgPath, String url) {
     return InkWell(
       onTap: () {
+        print(url);
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => PdfViewerPage(),
+            builder: (context) => PdfViewerPage(itemName, url),
           ),
         );
       },

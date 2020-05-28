@@ -3,6 +3,11 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import '../../Services/api.dart';
 
 class PdfViewerPage extends StatefulWidget {
+  final itemName;
+  final url;
+
+  const PdfViewerPage(this.itemName, this.url);
+
   @override
   _PdfViewerPageState createState() => _PdfViewerPageState();
 }
@@ -14,7 +19,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
   void initState() {
     super.initState();
 
-    ApiServiceProvider.loadPDF().then((value) {
+    ApiServiceProvider(widget.url).loadPDF().then((value) {
       setState(() {
         localPath = value;
       });
@@ -30,7 +35,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
         elevation: 0.0,
         backgroundColor: Colors.white,
         title: Text(
-          "Software Engineering",
+          widget.itemName,
           style:
               TextStyle(color: Colors.lightBlue, fontWeight: FontWeight.bold),
         ),

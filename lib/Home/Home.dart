@@ -67,60 +67,61 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     screenWidth = size.width;
 
     return Scaffold(
-        resizeToAvoidBottomPadding: false,
-        backgroundColor: backgroundColor,
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(10 * SizeConfig.heightMultiplier),
-          child: new AppBar(
-            centerTitle: true,
-            elevation: 0.0,
-            backgroundColor: Colors.white,
-            title: Shimmer.fromColors(
-              baseColor: Colors.blue[500],
-              highlightColor: Colors.lightBlueAccent,
-              child: Container(
-                child: new Text(
-                  'M-Book Edu',
-                  style: GoogleFonts.pacifico(
-                    fontSize: 30.0,
-                  ),
+      resizeToAvoidBottomPadding: false,
+      backgroundColor: backgroundColor,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(10 * SizeConfig.heightMultiplier),
+        child: new AppBar(
+          centerTitle: true,
+          elevation: 0.0,
+          backgroundColor: Colors.white,
+          title: Shimmer.fromColors(
+            baseColor: Colors.blue[500],
+            highlightColor: Colors.lightBlueAccent,
+            child: Container(
+              child: new Text(
+                'M-Book Edu',
+                style: GoogleFonts.pacifico(
+                  fontSize: 30.0,
                 ),
               ),
             ),
-            leading: IconButton(
-              onPressed: () {
-                setState(() {
-                  if (isCollapsed) {
-                    _controller.forward();
-                    FocusScope.of(context).unfocus();
-                    print('Menu');
-                  } else {
-                    _controller.reverse();
-                    FocusScope.of(context).unfocus();
-                    print('Home');
-                  }
-                  isCollapsed = !isCollapsed;
-                });
-              },
-              icon: Icon(
-                Icons.menu,
-                color: Colors.lightBlueAccent,
-              ),
+          ),
+          leading: IconButton(
+            onPressed: () {
+              setState(() {
+                if (isCollapsed) {
+                  _controller.forward();
+                  FocusScope.of(context).unfocus();
+                  print('Menu');
+                } else {
+                  _controller.reverse();
+                  FocusScope.of(context).unfocus();
+                  print('Home');
+                }
+                isCollapsed = !isCollapsed;
+              });
+            },
+            icon: Icon(
+              Icons.menu,
+              color: Colors.lightBlueAccent,
             ),
           ),
         ),
-        body: GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () {
-            FocusScope.of(context).requestFocus(new FocusNode());
-          },
-          child: Stack(
-            children: <Widget>[
-              dashboard(context),
-              menu(context),
-            ],
-          ),
-        ));
+      ),
+      body: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          FocusScope.of(context).requestFocus(new FocusNode());
+        },
+        child: Stack(
+          children: <Widget>[
+            dashboard(context),
+            menu(context),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget menu(context) {
