@@ -41,7 +41,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
         title: Text(
           widget.itemName,
           style:
-              TextStyle(color: Colors.lightBlue, fontWeight: FontWeight.bold),
+          TextStyle(color: Colors.lightBlue, fontWeight: FontWeight.bold),
         ),
         leading: IconButton(
           onPressed: () {
@@ -55,70 +55,72 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
       ),
       body: localPath != null
           ? Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Stack(
-                  children: <Widget>[
-                    PDFView(
-                      enableSwipe: true,
-                      pageSnap: true,
-                      swipeHorizontal: true,
-                      filePath: localPath,
-                      onError: (e) {
-                        print(e);
-                      },
-                      onRender: (_pages) {
-                        setState(() {
-                          _totalPages = _pages;
-                          pdfReady = true;
-                        });
-                      },
-                      onViewCreated: (PDFViewController vc) {
-                        _pdfViewController = vc;
-                      },
-                      onPageChanged: (int page, int total) {
-                        setState(() {});
-                      },
-                      onPageError: (page, e) {},
-                    ),
-                  ],
-                ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Stack(
+            children: <Widget>[
+              PDFView(
+                enableSwipe: true,
+                pageSnap: true,
+                swipeHorizontal: true,
+                filePath: localPath,
+                onError: (e) {
+                  print(e);
+                },
+                onRender: (_pages) {
+                  setState(() {
+                    _totalPages = _pages;
+                    pdfReady = true;
+                  });
+                },
+                onViewCreated: (PDFViewController vc) {
+                  _pdfViewController = vc;
+                },
+                onPageChanged: (int page, int total) {
+                  setState(() {
+                    _currentPage = page;
+                  });
+                  print(_currentPage);
+                },
+                onPageError: (page, e) {},
               ),
-            )
+            ],
+          ),
+        ),
+      )
           : Center(child: CircularProgressIndicator()),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           _currentPage > 0
               ? Padding(
-                  padding: const EdgeInsets.only(left: 32.0),
-                  child: FloatingActionButton.extended(
-                    backgroundColor: Colors.lightBlueAccent,
-                    label: Icon(
-                      Icons.arrow_back_ios,
-                      size: 10.0,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      _currentPage -= 1;
-                      _pdfViewController.setPage(_currentPage);
-                    },
-                  ),
-                )
+            padding: const EdgeInsets.only(left: 32.0),
+            child: FloatingActionButton.extended(
+              backgroundColor: Colors.lightBlueAccent,
+              label: Icon(
+                Icons.arrow_back_ios,
+                size: 10.0,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                // _currentPage -= 1;
+                _pdfViewController.setPage(_currentPage - 1);
+              },
+            ),
+          )
               : Offstage(),
           _currentPage + 1 < _totalPages
               ? FloatingActionButton.extended(
-                  backgroundColor: Colors.lightBlueAccent,
-                  label: Icon(
-                    Icons.arrow_forward_ios,
-                    size: 10.0,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    _currentPage += 1;
-                    _pdfViewController.setPage(_currentPage);
-                  },
-                )
+            backgroundColor: Colors.lightBlueAccent,
+            label: Icon(
+              Icons.arrow_forward_ios,
+              size: 10.0,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              _pdfViewController.setPage(_currentPage + 1);
+            },
+          )
               : Offstage(),
         ],
       ),

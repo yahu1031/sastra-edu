@@ -61,16 +61,16 @@ class Dialogs {
           content: Wrap(
             crossAxisAlignment: WrapCrossAlignment.center,
             children: <Widget>[
-              Center(child: Image.asset(Images.coding, height: 100.0,)),
+              Center(child: Image.asset(Images.service, height: 100.0,)),
               Padding(
                 padding: const EdgeInsets.only(top: 25.0),
-                child: TyperAnimatedTextKit(
+                child: FadeAnimatedTextKit(
+                  repeatForever: true,
                   text:[
-                    "Sorry, we are currently coding your Classroom 😉.",
+                    "Sorry, This service is not available right now 😉.",
                   ],
                   textStyle: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500,color: Colors.black),
                   textAlign: TextAlign.center,
-                  speed: Duration(milliseconds: 100),
                 ),
               ),
             ],

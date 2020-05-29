@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../Books/pdf.dart';
 
-import '../../Services/paths.dart';
 
 class All extends StatefulWidget {
   final data;
@@ -21,15 +20,15 @@ class _AllState extends State<All> {
       body: ListView.builder(
         scrollDirection: Axis.vertical,
         itemBuilder: (BuildContext context, index) {
-          return _buildListItems(widget.data[index]["Name"], Images.book,
-              widget.data[index]["Link"]);
+          return _buildListItems(widget.data[index]["Name"],widget.data[index]["Images"],
+              widget.data[index]["Author"],widget.data[index]['Edition'].toString(), widget.data[index]["Link"]);
         },
         itemCount: (widget.data).length,
       ),
     );
   }
 
-  _buildListItems(String itemName, String imgPath, String url) {
+  _buildListItems(String itemName, String imgPath, String author, edition, String url) {
     return InkWell(
       onTap: () {
         print(url);
@@ -56,7 +55,7 @@ class _AllState extends State<All> {
                       color: Colors.grey.withOpacity(0.1),
                     ),
                     child: Center(
-                      child: Image.asset(imgPath, height: 50.0, width: 50.0),
+                      child: Image.network(imgPath, height: 50.0, width: 50.0),
                     ),
                   ),
                   SizedBox(width: 20.0),
@@ -65,10 +64,31 @@ class _AllState extends State<All> {
                     children: <Widget>[
                       Text(
                         itemName,
-                        style: GoogleFonts.notoSans(
+                        style: GoogleFonts.poppins(
                           fontSize: 14.0,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w600,
                         ),
+                      ),
+                      SizedBox(height: 5.0),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            author + " , ",
+                            style: GoogleFonts.poppins(
+                              fontSize: 10.0,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          SizedBox(width: 3.0),
+                          Text(
+                            "Edition - " + edition,
+                            style: GoogleFonts.poppins(
+                              fontSize: 10.0,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
