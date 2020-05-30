@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
+import 'package:sastra_ebooks/Profile/profile.dart';
+import 'package:sastra_ebooks/profilePicture.dart';
 
 import '../Services/user.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -76,6 +78,9 @@ class _YourSelfState extends State<YourSelf> {
       setState(() {
         print("Profile Picture uploaded");
         imageUrl = proPicUrl;
+        ProfilePicture(
+          imageUrl: imageUrl,
+        );
       });
     }
 
@@ -152,15 +157,7 @@ class _YourSelfState extends State<YourSelf> {
                       child: new SizedBox(
                         width: 190.0,
                         height: 190.0,
-                        child: (_image != null)
-                            ? Image.file(
-                                _image,
-                                fit: BoxFit.fill,
-                              )
-                            : Image.network(
-                                imageUrl == null ? "" : imageUrl,
-                                fit: BoxFit.fill,
-                              ),
+                        child: ProfilePicture(),
                       ),
                     ),
                   ),

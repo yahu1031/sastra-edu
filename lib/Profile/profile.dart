@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:sastra_ebooks/profilePicture.dart';
 import '../Profile/Settings/buyacoke.dart';
 import '../Profile/Settings/contactus.dart';
 import '../Profile/yourself.dart';
@@ -28,7 +30,6 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   bool switchState = false;
   File _image;
-
 
   final AuthServices _auth = AuthServices();
 
@@ -143,18 +144,13 @@ class _ProfileState extends State<Profile> {
                                         ),
                                       ),
                                       Container(
-                                        child: CircleAvatar(
-                                          radius: 40.0,
-                                          backgroundColor: Colors.white,
-                                          child: (_image != null)
-                                              ? Image.file(
-                                            _image,
-                                            fit: BoxFit.fill,
-                                          )
-                                              : (_image == null) ? Image.network(
-                                            ds["pro_pic"] == null ? "" : ds["pro_pic"],
-                                            fit: BoxFit.fill,
-                                          ) : CircularProgressIndicator(),
+                                        width: 100,
+                                        height: 100,
+                                        child: ClipRRect(
+                                          clipBehavior: Clip.hardEdge,
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                          child: ProfilePicture(),
                                         ),
                                       ),
                                     ],

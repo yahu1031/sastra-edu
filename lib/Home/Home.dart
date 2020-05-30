@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:sastra_ebooks/profilePicture.dart';
 import '../Services/user.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -156,37 +156,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     );
                     print('Profile');
                   },
-                  child: new CircleAvatar(
-                    radius: 10 * SizeConfig.imageSizeMultiplier,
-                    child: StreamBuilder(
-                      stream: widget.user != null
-                          ? Firestore.instance
-                          .collection('Data')
-                          .document(widget.user.uid)
-                          .snapshots()
-                          : null,
-                      builder: (BuildContext context, AsyncSnapshot snapshot) {
-                        if (!snapshot.hasData) {
-                          return CircularProgressIndicator();
-                        }
-                        return ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: 1,
-                          padding: const EdgeInsets.only(top: 50.0),
-                          itemBuilder: (context, index) {
-                            var ds = snapshot.data;
-                            return (_image != null)
-                                ? Image.file(
-                              _image,
-                              fit: BoxFit.fill,
-                            )
-                                : Image.network(
-                              ds["pro_pic"] == null ? "" : ds["pro_pic"],
-                              fit: BoxFit.fill,
-                            );
-                          },
-                        );
-                      },
+                  child: Container(
+                    width: 100,
+                    height: 100,
+                    child: ClipRRect(
+                      clipBehavior: Clip.hardEdge,
+                      borderRadius: BorderRadius.circular(50),
+                      child: ProfilePicture(),
                     ),
                   ),
                 ),

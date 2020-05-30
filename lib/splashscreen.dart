@@ -3,11 +3,13 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sastra_ebooks/Services/Responsive/size_config.dart';
+import 'package:sastra_ebooks/profilePicture.dart';
 
 import 'Home/Home.dart';
 import 'Services/paths.dart';
@@ -59,7 +61,15 @@ class _SplashState extends State<Splash> {
             url =
                 "https://drive.google.com/u/0/uc?id=1kP_in6iL-xxOPC9OjNaOzHVtXy4bWkFe&export=download"; //! json url for first year
           }
-          getJsonData().then((value) {
+
+          getJsonData().then((value) async {
+            var document = await Firestore.instance
+                .collection('Data')
+                .document(widget.user.uid)
+                .get();
+
+            ProfilePicture(imageUrl: document.data['pro_pic']);
+
             print("Going to Wrapper");
             goToWrapper();
           });
@@ -124,7 +134,7 @@ class _SplashState extends State<Splash> {
                   height: 10 * SizeConfig.heightMultiplier,
                 ),
                 TyperAnimatedTextKit(
-                  text:[
+                  text: [
                     "We are fetching books for you...",
                   ],
                   textStyle: GoogleFonts.poppins(color: Colors.lightBlueAccent),

@@ -25,6 +25,7 @@ dependencies:
   http:
   url_launcher:
   flutter_offline: ^0.3.0
+  cached_network_image: ^2.2.0+1
 
   flutter_icons: ^1.1.0
   font_awesome_flutter:
