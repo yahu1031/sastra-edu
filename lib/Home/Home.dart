@@ -140,7 +140,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       child: ScaleTransition(
         scale: _menuScaleAnimation,
         child: Padding(
-          padding: const EdgeInsets.only(left: 20.0, right: 230.0),
+          padding: const EdgeInsets.only(left: 15.0, right: 230.0),
           child: Align(
             alignment: Alignment.centerLeft,
             child: Column(
@@ -157,8 +157,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     print('Profile');
                   },
                   child: Container(
-                    width: 100,
-                    height: 100,
+                    width: 20 * SizeConfig.widthMultiplier,
+                    height: 20 * SizeConfig.widthMultiplier,
                     child: ClipRRect(
                       clipBehavior: Clip.hardEdge,
                       borderRadius: BorderRadius.circular(50),
