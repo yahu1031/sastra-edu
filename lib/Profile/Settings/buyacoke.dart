@@ -36,12 +36,12 @@ class _BuyacokeState extends State<Buyacoke> {
   Future<UpiResponse> initiateTransaction(String app) async {
     return _upiIndia.startTransaction(
       app: app,
-      receiverUpiId: '9492713613@ybl',
+      receiverUpiId: '7989152378@ybl',
       receiverName: 'Minnu',
       transactionRefId: 'TestingId',
       transactionNote: '$_name \n' + '$_comment',
-      // amount: (amount * quantity).toDouble(),
-      amount: 1.00,
+      amount: (amount * quantity).toDouble(),
+      // amount: 1.00,
     );
   }
 

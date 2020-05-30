@@ -12,6 +12,10 @@ import '../Services/Responsive/size_config.dart';
 import 'package:shimmer/shimmer.dart';
 
 class YourSelf extends StatefulWidget {
+  final BuildContext context;
+
+  YourSelf(this.context);
+
   @override
   _YourSelfState createState() => _YourSelfState();
 }
@@ -20,21 +24,28 @@ class _YourSelfState extends State<YourSelf> {
   File _image;
   bool isProfileUpdated = false;
   String imageUrl;
-  User user = Provider.of<User>(context);
-  @override
-  void initState() async {
-    imageUrl = (await Firestore.instance.document('Data/${user.uid}').get())
-        .data['pro_pic']
-        .toString();
+  User user;
+
+  void initState() {
+    user = Provider.of<User>(widget.context);
+    getProfileImage();
     super.initState();
+  }
+
+  void getProfileImage() async {
+    String imageUrlTemp =
+        (await Firestore.instance.document('Data/${user.uid}').get())
+            .data['pro_pic']
+            .toString();
+    setState(() {
+      imageUrl = imageUrlTemp;
+    });
+
+    print(imageUrl);
   }
 
   @override
   Widget build(BuildContext context) {
-
-
-
-
     Future getImage() async {
       var image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
@@ -189,7 +200,7 @@ class _YourSelfState extends State<YourSelf> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => YourSelf(),
+                                    builder: (context) => YourSelf(context),
                                   ),
                                 );
                               },

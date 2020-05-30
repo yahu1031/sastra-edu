@@ -93,9 +93,11 @@ class _ProfileState extends State<Profile> {
                                 onTap: () {
                                   print('profile');
                                   Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => YourSelf()));
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => YourSelf(context),
+                                    ),
+                                  );
                                 },
                                 child: Container(
                                   child: Row(
@@ -206,11 +208,11 @@ class _ProfileState extends State<Profile> {
                       children: <Widget>[
                         InkWell(
                           onTap: () {
-                             Navigator.push(
-                                 context,
-                                 MaterialPageRoute(
-                                     builder: (context) => Support()));
-                             print('Support');
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Support()));
+                            print('Support');
                           },
                           child: Container(
                             height: 50.0,
