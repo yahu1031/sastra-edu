@@ -156,41 +156,38 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     );
                     print('Profile');
                   },
-                  child: StreamBuilder(
-                    stream: widget.user != null
-                        ? Firestore.instance
-                        .collection('Data')
-                        .document(widget.user.uid)
-                        .snapshots()
-                        : null,
-                    builder: (BuildContext context, AsyncSnapshot snapshot) {
-                      if (!snapshot.hasData) {
-                        return CircularProgressIndicator();
-                      }
-                      return ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: 1,
-                        padding: const EdgeInsets.only(top: 50.0),
-                        itemBuilder: (context, index) {
-                          var ds = snapshot.data;
-                          return new Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 1 * SizeConfig.widthMultiplier),
-                            child: CircleAvatar(
-                            radius: 8 * SizeConfig.widthMultiplier,
-                              backgroundColor: Colors.white,
-                              child: (_image != null)
-                                  ? CircularProgressIndicator()
-                                  : Image.network(
-                                ds["pro_pic"] == null ? "" : ds["pro_pic"],
-                                fit: BoxFit.fill,
-                              )
-//                                        : CircularProgressIndicator(),
-                            ),
-                          );
-                        },
-                      );
-                    },
+                  child: new CircleAvatar(
+                    radius: 10 * SizeConfig.imageSizeMultiplier,
+                    child: StreamBuilder(
+                      stream: widget.user != null
+                          ? Firestore.instance
+                          .collection('Data')
+                          .document(widget.user.uid)
+                          .snapshots()
+                          : null,
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        if (!snapshot.hasData) {
+                          return CircularProgressIndicator();
+                        }
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: 1,
+                          padding: const EdgeInsets.only(top: 50.0),
+                          itemBuilder: (context, index) {
+                            var ds = snapshot.data;
+                            return (_image != null)
+                                ? Image.file(
+                              _image,
+                              fit: BoxFit.fill,
+                            )
+                                : Image.network(
+                              ds["pro_pic"] == null ? "" : ds["pro_pic"],
+                              fit: BoxFit.fill,
+                            );
+                          },
+                        );
+                      },
+                    ),
                   ),
                 ),
                 SizedBox(height: 5 * SizeConfig.heightMultiplier),
