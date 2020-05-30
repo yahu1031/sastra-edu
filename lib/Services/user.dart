@@ -17,3 +17,13 @@ class UserData {
     this.year,
   });
 }
+
+class Helpers{
+  String helperName;
+  String helperCountry;
+  String picPath;
+  String level;
+
+  Helpers({this.helperName, this.helperCountry, this.picPath, this.level});
+
+}

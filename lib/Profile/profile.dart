@@ -1,17 +1,18 @@
-// ignore: implementation_imports
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:sastra_ebooks/Profile/Settings/buyacoke.dart';
-import 'package:sastra_ebooks/Profile/Settings/contactus.dart';
-import 'package:sastra_ebooks/Profile/yourself.dart';
-import 'package:sastra_ebooks/Services/Responsive/size_config.dart';
-import 'package:sastra_ebooks/Services/auth.dart';
-import 'package:sastra_ebooks/Services/dialogs.dart';
-import 'package:sastra_ebooks/Services/paths.dart';
+import '../Profile/Settings/buyacoke.dart';
+import '../Profile/Settings/contactus.dart';
+import '../Profile/yourself.dart';
+import '../Services/Responsive/size_config.dart';
+import '../Services/auth.dart';
+import '../Services/dialogs.dart';
+import '../Services/paths.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../Services/user.dart';
@@ -26,6 +27,8 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   bool switchState = false;
+  File _image;
+
 
   final AuthServices _auth = AuthServices();
 
@@ -140,10 +143,18 @@ class _ProfileState extends State<Profile> {
                                         ),
                                       ),
                                       Container(
-                                        child: new CircleAvatar(
+                                        child: CircleAvatar(
                                           radius: 40.0,
-                                          backgroundImage: AssetImage(
-                                              'assets/images/profile.jpg'),
+                                          backgroundColor: Colors.white,
+                                          child: (_image != null)
+                                              ? Image.file(
+                                            _image,
+                                            fit: BoxFit.fill,
+                                          )
+                                              : (_image == null) ? Image.network(
+                                            ds["pro_pic"] == null ? "" : ds["pro_pic"],
+                                            fit: BoxFit.fill,
+                                          ) : CircularProgressIndicator(),
                                         ),
                                       ),
                                     ],

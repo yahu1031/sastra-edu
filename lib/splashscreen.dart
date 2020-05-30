@@ -141,7 +141,7 @@ class _SplashState extends State<Splash> {
 
   goToWrapper() {
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => Home(data)),
+      MaterialPageRoute(builder: (context) => Home(data, context)),
     );
   }
 }

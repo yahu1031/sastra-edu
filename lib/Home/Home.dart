@@ -1,5 +1,10 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import '../Services/user.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../Services/dialogs.dart';
@@ -13,14 +18,18 @@ import 'Books/tabview.dart';
 final Color backgroundColor = Colors.white;
 
 class Home extends StatefulWidget {
+  final BuildContext context;
   final data;
-  Home(this.data);
+  Home(this.data, this.context);
+  User user;
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
   bool isCollapsed = true;
+
+  File _image;
   double screenWidth, screenHeight;
   final Duration duration = const Duration(milliseconds: 300);
   AnimationController _controller;
@@ -36,6 +45,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    widget.user = Provider.of<User>(widget.context);
     for (int i = 0; i < widget.data["Tabs"].length; i++) {
       tab.add(
         Tab(child: Text(widget.data["Tabs"][i])),
@@ -138,24 +148,49 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                new Container(
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Profile()),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Profile()),
+                    );
+                    print('Profile');
+                  },
+                  child: StreamBuilder(
+                    stream: widget.user != null
+                        ? Firestore.instance
+                        .collection('Data')
+                        .document(widget.user.uid)
+                        .snapshots()
+                        : null,
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      if (!snapshot.hasData) {
+                        return CircularProgressIndicator();
+                      }
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: 1,
+                        padding: const EdgeInsets.only(top: 50.0),
+                        itemBuilder: (context, index) {
+                          var ds = snapshot.data;
+                          return new Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 1 * SizeConfig.widthMultiplier),
+                            child: CircleAvatar(
+                            radius: 8 * SizeConfig.widthMultiplier,
+                              backgroundColor: Colors.white,
+                              child: (_image != null)
+                                  ? CircularProgressIndicator()
+                                  : Image.network(
+                                ds["pro_pic"] == null ? "" : ds["pro_pic"],
+                                fit: BoxFit.fill,
+                              )
+//                                        : CircularProgressIndicator(),
+                            ),
+                          );
+                        },
                       );
-                      print('Profile');
                     },
-                    child: new CircleAvatar(
-                      radius: 8 * SizeConfig.widthMultiplier,
-                      backgroundImage: AssetImage(Images.profile),
-                    ),
-                  ),
-                  padding: const EdgeInsets.all(2.0),
-                  decoration: new BoxDecoration(
-                    color: Colors.lightBlueAccent,
-                    shape: BoxShape.circle,
                   ),
                 ),
                 SizedBox(height: 5 * SizeConfig.heightMultiplier),

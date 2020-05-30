@@ -6,6 +6,7 @@ class Images {
   static const String book = "assets/images/book.png";
   static const String fetchError = "assets/images/fetchError.png";
   static const String notfound = "assets/images/404error.png";
+  static const String tonAn = "assets/images/helpers/pp2.jpg";
   static const String coding = "assets/images/coding.png";
   static const String service = "assets/images/service_unavailable.png";
   static const String profile = "assets/images/profile.jpg";
