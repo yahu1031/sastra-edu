@@ -353,6 +353,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                   child: TextField(
                                     textAlign: TextAlign.left,
                                     decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.all(15.0),
                                       hintText: 'Search for books',
                                       hintStyle:
                                           GoogleFonts.notoSans(fontSize: 14.0),
