@@ -8,8 +8,10 @@ import 'Books/pdf.dart';
 
 class SearchBooks extends StatefulWidget {
   final Map data;
+  final TextEditingController textEditingController;
 
-  SearchBooks(this.data);
+  SearchBooks(this.data, this.textEditingController);
+
   @override
   _SearchBooksState createState() => _SearchBooksState();
 }
@@ -167,6 +169,7 @@ class _SearchBooksState extends State<SearchBooks> {
                     ),
                     child: TextField(
                       autofocus: true,
+                      controller: widget.textEditingController,
                       textAlign: TextAlign.left,
                       onChanged: (String searchQuery) =>
                           getSuggestions(searchQuery),

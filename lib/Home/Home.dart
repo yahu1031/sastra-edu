@@ -29,8 +29,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
   bool isCollapsed = true;
-  int characterCount = 0;
-  List searchResults = [];
+  TextEditingController textEditingController = TextEditingController();
 
   File _image;
   double screenWidth, screenHeight;
@@ -73,55 +72,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  void getSuggestions(String searchQuery) async {
-    print('--------------------------');
-    print('previousCharacterCount: $characterCount');
-    print('searchQuery: $searchQuery');
-    searchQuery = searchQuery.toLowerCase();
-
-    // runs complete search again if textField was empty or the user deleted a character
-    if (searchQuery.isNotEmpty &&
-        (characterCount > searchQuery.length || characterCount == 0)) {
-      searchResults = [];
-      for (int i = 0; i < widget.data["Tabs"].length; i++) {
-        for (Map book in widget.data[widget.data["Tabs"][i]]) {
-          if (book["Name"].toLowerCase().startsWith(searchQuery)) {
-            searchResults.add(book);
-          }
-        }
-      }
-      // runs if searchQuery is empty and clears all searchResults
-    } else if (searchQuery.isEmpty && searchResults.isNotEmpty) {
-      searchResults = [];
-
-      // runs if character is added to searchQuery, it removes all searchResults which don't match the searchQuery anymore
-    } else {
-      List<int> pendingRemoves = [];
-      //print(searchResults.length);
-      for (int i = 0; i < searchResults.length; i++) {
-        Map book = searchResults[i];
-        if (!book["Name"].toLowerCase().startsWith(searchQuery)) {
-          pendingRemoves.add(i);
-        }
-      }
-      print('middle');
-      print('pendingRemoves: $pendingRemoves');
-      pendingRemoves = List.from(pendingRemoves.reversed);
-      print('pendingRemovesReversed: $pendingRemoves');
-
-      for (int i = 0; i < pendingRemoves.length; i++) {
-        searchResults.removeAt(pendingRemoves[i]);
-      }
-    }
-    characterCount = searchQuery.length;
-    setState(() {});
-    print('searchResults: $searchResults');
-    print('characterCount: $characterCount');
-  }
-
   gotToSearchBooks() {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => SearchBooks(widget.data)),
+      MaterialPageRoute(
+          builder: (context) =>
+              SearchBooks(widget.data, textEditingController)),
     );
   }
 
@@ -351,6 +306,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   child: TextField(
+                                    controller: textEditingController,
                                     textAlign: TextAlign.left,
                                     decoration: InputDecoration(
                                       hintText: 'Search for books',
