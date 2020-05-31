@@ -1,13 +1,12 @@
 import 'dart:io';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:sastra_ebooks/profilePicture.dart';
+import '../Profile/profilePicture.dart';
 import '../Profile/Settings/buyacoke.dart';
 import '../Profile/Settings/contactus.dart';
 import '../Profile/yourself.dart';

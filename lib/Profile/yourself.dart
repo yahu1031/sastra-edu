@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 import 'package:sastra_ebooks/Profile/profile.dart';
-import 'package:sastra_ebooks/profilePicture.dart';
+import '../Profile/profilePicture.dart';
 
 import '../Services/user.dart';
 import 'package:firebase_storage/firebase_storage.dart';

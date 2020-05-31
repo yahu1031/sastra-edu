@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:sastra_ebooks/Home/searchBooks.dart';
-import 'package:sastra_ebooks/profilePicture.dart';
+import '../Profile/profilePicture.dart';
 import '../Services/user.dart';
 import 'package:shimmer/shimmer.dart';
 
