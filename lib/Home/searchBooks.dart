@@ -151,7 +151,7 @@ class _SearchBooksState extends State<SearchBooks> {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: EdgeInsets.symmetric(vertical: 20.0,horizontal: 20),
         child: Container(
           height: MediaQuery.of(context).size.height,
           child: Column(
@@ -168,12 +168,14 @@ class _SearchBooksState extends State<SearchBooks> {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: TextField(
+//                      padding: const EdgeInsets.all(10.0),
                       autofocus: true,
                       controller: widget.textEditingController,
                       textAlign: TextAlign.left,
                       onChanged: (String searchQuery) =>
                           getSuggestions(searchQuery),
                       decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(15.0),
                         hintText: 'Search for books',
                         hintStyle: GoogleFonts.notoSans(fontSize: 14.0),
                         border: InputBorder.none,
