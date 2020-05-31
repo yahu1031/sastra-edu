@@ -29,7 +29,7 @@ class _SearchBooksState extends State<SearchBooks> {
 //    print('--------------------------');
 //    print('previousCharacterCount: $characterCount');
 //    print('searchQuery: $searchQuery');
-//    searchQuery = searchQuery.toLowerCase();
+    searchQuery = searchQuery.toLowerCase();
 
     /// runs complete search again if is not empty
     if (searchQuery.isNotEmpty) {
