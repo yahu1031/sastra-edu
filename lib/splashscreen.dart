@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sastra_ebooks/Services/Responsive/size_config.dart';
-import 'package:sastra_ebooks/profilePicture.dart';
+import 'file:///C:/Users/ton-A/AndroidStudioProjects/sastra-edu/lib/Profile/profilePicture.dart';
 
 import 'Home/Home.dart';
 import 'Services/paths.dart';

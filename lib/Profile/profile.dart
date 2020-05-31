@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:sastra_ebooks/profilePicture.dart';
+import 'file:///C:/Users/ton-A/AndroidStudioProjects/sastra-edu/lib/Profile/profilePicture.dart';
 import '../Profile/Settings/buyacoke.dart';
 import '../Profile/Settings/contactus.dart';
 import '../Profile/yourself.dart';
