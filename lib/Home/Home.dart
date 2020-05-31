@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:sastra_ebooks/Home/searchBooks.dart';
 import 'package:sastra_ebooks/profilePicture.dart';
 import '../Services/user.dart';
 import 'package:shimmer/shimmer.dart';
@@ -116,6 +117,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     setState(() {});
     print('searchResults: $searchResults');
     print('characterCount: $characterCount');
+  }
+
+  gotToSearchBooks() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => SearchBooks(widget.data)),
+    );
   }
 
   @override
@@ -331,31 +338,37 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                               fontWeight: FontWeight.bold),
                         ),
                         SizedBox(height: 10.0),
-                        Container(
-                          padding: EdgeInsets.only(left: 5.0),
-                          decoration: BoxDecoration(
-                            color: Colors.grey.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: TextField(
-                            enableSuggestions: true,
-                            onChanged: (String searchQuery) =>
-                                getSuggestions(searchQuery),
-                            textAlign: TextAlign.left,
-                            decoration: InputDecoration(
-                              hintText: 'Search for books',
-                              hintStyle: GoogleFonts.notoSans(fontSize: 14.0),
-                              border: InputBorder.none,
-                              fillColor: Colors.grey.withOpacity(0.5),
-                              prefixIcon: Icon(
-                                Icons.search,
-                                color: Colors.grey,
+                        GestureDetector(
+                          onTapDown: (_) => gotToSearchBooks(),
+                          child: AbsorbPointer(
+                            child: Hero(
+                              tag: 'searchBooks',
+                              child: Material(
+                                child: Container(
+                                  padding: EdgeInsets.only(left: 5.0),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.withOpacity(0.1),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  child: TextField(
+                                    textAlign: TextAlign.left,
+                                    decoration: InputDecoration(
+                                      hintText: 'Search for books',
+                                      hintStyle:
+                                          GoogleFonts.notoSans(fontSize: 14.0),
+                                      border: InputBorder.none,
+                                      fillColor: Colors.grey.withOpacity(0.5),
+                                      prefixIcon: Icon(
+                                        Icons.search,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
                         ),
-                        Text(searchResults.toString()),
-
                         SizedBox(height: 20.0),
                         Center(
                           child: Container(
