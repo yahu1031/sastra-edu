@@ -8,8 +8,10 @@ import 'Books/pdf.dart';
 
 class SearchBooks extends StatefulWidget {
   final Map data;
+  final TextEditingController textEditingController;
 
-  SearchBooks(this.data);
+  SearchBooks(this.data, this.textEditingController);
+
   @override
   _SearchBooksState createState() => _SearchBooksState();
 }
@@ -149,7 +151,7 @@ class _SearchBooksState extends State<SearchBooks> {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       body: Padding(
-        padding: EdgeInsets.symmetric(vertical: 20.0,horizontal: 20),
+        padding: EdgeInsets.all(20.0),
         child: Container(
           height: MediaQuery.of(context).size.height,
           child: Column(
@@ -166,8 +168,8 @@ class _SearchBooksState extends State<SearchBooks> {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: TextField(
-//                      padding: const EdgeInsets.all(10.0),
                       autofocus: true,
+                      controller: widget.textEditingController,
                       textAlign: TextAlign.left,
                       onChanged: (String searchQuery) =>
                           getSuggestions(searchQuery),

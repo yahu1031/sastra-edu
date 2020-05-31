@@ -12,27 +12,27 @@ dependencies:
   flutter:
     sdk: flutter
   google_fonts:
-  shimmer: ^1.1.1
+  shimmer:
   rflutter_alert:
   intl: ^0.16.1
   dio: ^3.0.9
   material_design_icons_flutter:
-  flutter_svg: ^0.17.4
+  flutter_svg:
   path_provider:
   animated_text_kit:
   flutter_pdfview:
   upi_india:
   http:
   url_launcher:
-  flutter_offline: ^0.3.0
-  cached_network_image: ^2.2.0+1
+  flutter_offline:
+  cached_network_image:
 
-  flutter_icons: ^1.1.0
+  flutter_icons:
   font_awesome_flutter:
   image_picker:
 
   #firebase
-  firebase: ^7.3.0
+  firebase:
   firebase_storage:
   firebase_core:
   firebase_auth:

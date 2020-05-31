@@ -20,6 +20,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
   bool pdfReady = false;
   PDFViewController _pdfViewController;
 
+
   @override
   void initState() {
     super.initState();
@@ -40,7 +41,8 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
         elevation: 0.0,
         backgroundColor: Colors.white,
         title: Text(
-          widget.itemName,
+        widget.itemName.replaceAll("\n", ""),
+
           style:
               TextStyle(color: Colors.lightBlue, fontWeight: FontWeight.bold),
         ),
@@ -55,42 +57,34 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
         ),
       ),
       body: localPath != null
-          ? Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Stack(
-                  children: <Widget>[
-                    PDFView(
-                      enableSwipe: true,
-                      pageSnap: true,
-                      swipeHorizontal: true,
-                      filePath: localPath,
-                      onError: (e) {
-                        Dialogs.fetchDataError(context);
-                      },
-                      onRender: (_pages) {
-                        setState(() {
-                          _totalPages = _pages;
-                          pdfReady = true;
-                        });
-                      },
-                      onViewCreated: (PDFViewController vc) {
-                        _pdfViewController = vc;
-                      },
-                      onPageChanged: (int page, int total) {
-                        setState(() {
-                          _currentPage = page;
-                        });
-                        print(_currentPage);
-                      },
-                      onPageError: (page, e) {
-                        print("hello");
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            )
+          ? PDFView(
+            fitPolicy: FitPolicy.WIDTH,
+            pageFling: true,
+            enableSwipe: true,
+            fitEachPage: true,
+            filePath: localPath,
+            onError: (e) {
+              Dialogs.fetchDataError(context);
+            },
+            onRender: (_pages) {
+              setState(() {
+                _totalPages = _pages;
+                pdfReady = true;
+              });
+            },
+            onViewCreated: (PDFViewController vc) {
+              _pdfViewController = vc;
+            },
+            onPageChanged: (int page, int total) {
+              setState(() {
+                _currentPage = page;
+              });
+              print(_currentPage);
+            },
+            onPageError: (page, e) {
+              print("hello");
+            },
+          )
           : Center(child: CircularProgressIndicator()),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -101,8 +95,8 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
                   child: FloatingActionButton.extended(
                     backgroundColor: Colors.lightBlueAccent,
                     label: Icon(
-                      Icons.arrow_back_ios,
-                      size: 10.0,
+                      Icons.keyboard_arrow_up,
+                      size: 30.0,
                       color: Colors.white,
                     ),
                     onPressed: () {
@@ -116,8 +110,8 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
               ? FloatingActionButton.extended(
                   backgroundColor: Colors.lightBlueAccent,
                   label: Icon(
-                    Icons.arrow_forward_ios,
-                    size: 10.0,
+                    Icons.keyboard_arrow_down,
+                    size: 30.0,
                     color: Colors.white,
                   ),
                   onPressed: () {
