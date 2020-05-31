@@ -91,7 +91,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       }
       // runs if searchQuery is empty and clears all searchResults
     } else if (searchQuery.isEmpty && searchResults.isNotEmpty) {
-      searchResults = [];
+      searchResults = null;
 
       // runs if character is added to searchQuery, it removes all searchResults which don't match the searchQuery anymore
     } else {
@@ -354,8 +354,23 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                             ),
                           ),
                         ),
-                        Text(searchResults.toString()),
-
+                        SizedBox(height: 10.0),
+                        Container(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal:20.0,vertical:10.0),
+                              child: Text(searchResults.toString(),),
+                            ),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(5.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                blurRadius: 2.0,
+                              )
+                            ],
+                          ),
+                        ),
                         SizedBox(height: 20.0),
                         Center(
                           child: Container(
@@ -474,13 +489,16 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 class DataSearch extends SearchDelegate {
   @override
   List<Widget> buildActions(BuildContext context) {
-    // TODO: implement buildActions
+    return [IconButton(icon: Icon(Icons.close), onPressed: (){},)];
     throw UnimplementedError();
   }
 
   @override
   Widget buildLeading(BuildContext context) {
-    // TODO: implement buildLeading
+    return IconButton(
+      icon: AnimatedIcon(icon: AnimatedIcons.menu_arrow, progress: transitionAnimation,),
+      onPressed: (){},
+    );
     throw UnimplementedError();
   }
 
