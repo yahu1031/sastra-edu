@@ -28,6 +28,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
   bool isCollapsed = true;
+  int characterCount = 0;
+  List searchResults = [];
 
   File _image;
   double screenWidth, screenHeight;
@@ -68,6 +70,52 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     _controller.dispose();
     tabController.dispose();
     super.dispose();
+  }
+
+  void getSuggestions(String searchQuery) async {
+    print('--------------------------');
+    print('previousCharacterCount: $characterCount');
+    print('searchQuery: $searchQuery');
+    searchQuery = searchQuery.toLowerCase();
+
+    // runs complete search again if textField was empty or the user deleted a character
+    if (searchQuery.isNotEmpty &&
+        (characterCount > searchQuery.length || characterCount == 0)) {
+      searchResults = [];
+      for (int i = 0; i < widget.data["Tabs"].length; i++) {
+        for (Map book in widget.data[widget.data["Tabs"][i]]) {
+          if (book["Name"].toLowerCase().startsWith(searchQuery)) {
+            searchResults.add(book);
+          }
+        }
+      }
+      // runs if searchQuery is empty and clears all searchResults
+    } else if (searchQuery.isEmpty && searchResults.isNotEmpty) {
+      searchResults = [];
+
+      // runs if character is added to searchQuery, it removes all searchResults which don't match the searchQuery anymore
+    } else {
+      List<int> pendingRemoves = [];
+      //print(searchResults.length);
+      for (int i = 0; i < searchResults.length; i++) {
+        Map book = searchResults[i];
+        if (!book["Name"].toLowerCase().startsWith(searchQuery)) {
+          pendingRemoves.add(i);
+        }
+      }
+      print('middle');
+      print('pendingRemoves: $pendingRemoves');
+      pendingRemoves = List.from(pendingRemoves.reversed);
+      print('pendingRemovesReversed: $pendingRemoves');
+
+      for (int i = 0; i < pendingRemoves.length; i++) {
+        searchResults.removeAt(pendingRemoves[i]);
+      }
+    }
+    characterCount = searchQuery.length;
+    setState(() {});
+    print('searchResults: $searchResults');
+    print('characterCount: $characterCount');
   }
 
   @override
@@ -290,14 +338,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           child: TextField(
-                            onChanged: (text){
-                              text = text.toLowerCase();
-                              if (list.containsKey("Name")) {
-                                if (list["Name"] == text) {
-                                  // your list of map contains key "id" which has value 3
-                                }
-                              }
-                            },
+                            enableSuggestions: true,
+                            onChanged: (String searchQuery) =>
+                                getSuggestions(searchQuery),
                             textAlign: TextAlign.left,
                             decoration: InputDecoration(
                               hintText: 'Search for books',
@@ -311,6 +354,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                             ),
                           ),
                         ),
+                        Text(searchResults.toString()),
 
                         SizedBox(height: 20.0),
                         Center(
@@ -427,7 +471,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   }
 }
 
-class DataSearch extends SearchDelegate{
+class DataSearch extends SearchDelegate {
   @override
   List<Widget> buildActions(BuildContext context) {
     // TODO: implement buildActions
@@ -451,5 +495,4 @@ class DataSearch extends SearchDelegate{
     // TODO: implement buildSuggestions
     throw UnimplementedError();
   }
-
 }

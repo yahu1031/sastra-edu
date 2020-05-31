@@ -194,17 +194,13 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                   height: 50.0,
                                   child: GestureDetector(
                                     onTap: () async {
-                                      print('hey1');
-
                                       if (_formKey.currentState.validate()) {
                                         dynamic result = await _auth
                                             .signInWithEmailAndPassword(
                                                 _email, _password);
-                                        print('hey2');
                                         setState(() {
                                           loading = true;
                                         });
-                                        print('hey3');
 
                                         if (_email == null &&
                                             _password == null) {
