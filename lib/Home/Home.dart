@@ -161,7 +161,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     height: 20 * SizeConfig.widthMultiplier,
                     child: ClipRRect(
                       clipBehavior: Clip.hardEdge,
-                      borderRadius: BorderRadius.circular(50),
+                      borderRadius: BorderRadius.circular(100),
                       child: ProfilePicture(),
                     ),
                   ),
@@ -290,6 +290,14 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           child: TextField(
+                            onChanged: (text){
+                              text = text.toLowerCase();
+                              if (list.containsKey("Name")) {
+                                if (list["Name"] == text) {
+                                  // your list of map contains key "id" which has value 3
+                                }
+                              }
+                            },
                             textAlign: TextAlign.left,
                             decoration: InputDecoration(
                               hintText: 'Search for books',
@@ -417,4 +425,31 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       ),
     );
   }
+}
+
+class DataSearch extends SearchDelegate{
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    // TODO: implement buildActions
+    throw UnimplementedError();
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    // TODO: implement buildLeading
+    throw UnimplementedError();
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    // TODO: implement buildResults
+    throw UnimplementedError();
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    // TODO: implement buildSuggestions
+    throw UnimplementedError();
+  }
+
 }

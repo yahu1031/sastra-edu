@@ -157,7 +157,7 @@ class Dialogs {
                 padding: const EdgeInsets.only(top: 25.0),
                 child: TyperAnimatedTextKit(
                   text: [
-                    "Sorry, we are currently coding your Classroom 😉.",
+                    "Sorry, we are currently coding your Classroom .",
                   ],
                   textStyle: GoogleFonts.poppins(
                       fontSize: 18,
