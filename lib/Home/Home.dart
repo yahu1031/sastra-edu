@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:sastra_ebooks/Home/searchBooks.dart';
-import '../Profile/profilePicture.dart';
-import '../Services/user.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../Home/searchBooks.dart';
+import '../Profile/profilePicture.dart';
+import '../Services/user.dart';
 import '../Services/dialogs.dart';
 import '../Services/authenticate.dart';
 import '../Profile/profile.dart';
 import '../Services/Responsive/size_config.dart';
 import '../Services/paths.dart';
 import '../Services/auth.dart';
-import 'Books/tabview.dart';
+import './Books/tabview.dart';
 
 final Color backgroundColor = Colors.white;
 
