@@ -8,6 +8,7 @@ version: 1.0.0+1
 environment:
   sdk: ">=2.7.0 <3.0.0"
 
+# need to add version numbers!
 dependencies:
   flutter:
     sdk: flutter
@@ -20,7 +21,7 @@ dependencies:
   flutter_svg:
   path_provider:
   animated_text_kit:
-  flutter_pdfview:
+  flutter_pdfview: 1.0.2+1
   upi_india:
   http:
   url_launcher:
