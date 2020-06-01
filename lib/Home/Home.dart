@@ -1,23 +1,22 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:sastra_ebooks/Home/searchBooks.dart';
-import '../Profile/profilePicture.dart';
-import '../Services/user.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../Home/searchBooks.dart';
+import '../Profile/profilePicture.dart';
+import '../Services/user.dart';
 import '../Services/dialogs.dart';
 import '../Services/authenticate.dart';
 import '../Profile/profile.dart';
 import '../Services/Responsive/size_config.dart';
 import '../Services/paths.dart';
 import '../Services/auth.dart';
-import 'Books/tabview.dart';
+import './Books/tabview.dart';
 
 final Color backgroundColor = Colors.white;
 
+// ignore: must_be_immutable
 class Home extends StatefulWidget {
   final BuildContext context;
   final data;
@@ -31,7 +30,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   bool isCollapsed = true;
   TextEditingController textEditingController = TextEditingController();
 
-  File _image;
   double screenWidth, screenHeight;
   final Duration duration = const Duration(milliseconds: 300);
   AnimationController _controller;
@@ -438,31 +436,5 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         ),
       ),
     );
-  }
-}
-
-class DataSearch extends SearchDelegate {
-  @override
-  List<Widget> buildActions(BuildContext context) {
-    // TODO: implement buildActions
-    throw UnimplementedError();
-  }
-
-  @override
-  Widget buildLeading(BuildContext context) {
-    // TODO: implement buildLeading
-    throw UnimplementedError();
-  }
-
-  @override
-  Widget buildResults(BuildContext context) {
-    // TODO: implement buildResults
-    throw UnimplementedError();
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    // TODO: implement buildSuggestions
-    throw UnimplementedError();
   }
 }

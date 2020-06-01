@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
-import 'package:sastra_ebooks/Profile/profile.dart';
 import '../Profile/profilePicture.dart';
 
 import '../Services/user.dart';
@@ -49,6 +48,7 @@ class _YourSelfState extends State<YourSelf> {
   @override
   Widget build(BuildContext context) {
     Future getImage() async {
+      // ignore: deprecated_member_use
       var image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
       setState(() {
@@ -191,17 +191,10 @@ class _YourSelfState extends State<YourSelf> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
 //                          textDirection: TextDirection.ltr,
                           children: [
-                            InkWell(
-                              onTap: () {
-                                print('profile');
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => YourSelf(context),
-                                  ),
-                                );
-                              },
+                            Container(
                               child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: <Widget>[
                                   Text(
                                     ds["name"],
@@ -211,19 +204,40 @@ class _YourSelfState extends State<YourSelf> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
+                                  SizedBox(
+                                    height: 10.0,
+                                  ),
                                   Text(
                                     ds["year"],
                                     style: GoogleFonts.notoSans(
-                                        fontSize: 3 * SizeConfig.textMultiplier,
+                                        fontSize:
+                                            3 * SizeConfig.textMultiplier,
                                         color: Colors.lightBlueAccent,
                                         fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(
+                                    height: 10.0,
                                   ),
                                   Text(
                                     ds["regNo"].toString(),
                                     style: GoogleFonts.notoSans(
-                                        fontSize:
-                                            2.2 * SizeConfig.textMultiplier,
-                                        color: Colors.black),
+                                      fontSize:
+                                          2.2 * SizeConfig.textMultiplier,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10.0,
+                                  ),
+                                  Text(
+                                    ds["branch"].toString(),
+                                    style: GoogleFonts.notoSans(
+                                      fontSize:
+                                          2.2 * SizeConfig.textMultiplier,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ],
                               ),
