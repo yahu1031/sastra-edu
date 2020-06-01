@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
@@ -28,7 +29,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
   bool isCollapsed = true;
-  TextEditingController textEditingController = TextEditingController();
+  TextEditingController _textEditingController = TextEditingController();
 
   double screenWidth, screenHeight;
   final Duration duration = const Duration(milliseconds: 300);
@@ -67,6 +68,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   void dispose() {
     _controller.dispose();
     tabController.dispose();
+    _textEditingController.dispose();
     super.dispose();
   }
 
@@ -74,7 +76,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     Navigator.of(context).push(
       MaterialPageRoute(
           builder: (context) =>
-              SearchBooks(widget.data, textEditingController)),
+              SearchBooks(widget.data, _textEditingController)),
     );
   }
 
@@ -304,7 +306,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   child: TextField(
-                                    controller: textEditingController,
+                                    controller: _textEditingController,
                                     textAlign: TextAlign.left,
                                     decoration: InputDecoration(
                                       contentPadding: EdgeInsets.all(15.0),

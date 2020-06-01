@@ -64,6 +64,7 @@ class _YourSelfState extends State<YourSelf> {
           FirebaseStorage.instance.ref().child(fileName);
       StorageUploadTask uploadTask = firebaseStorageRef.putFile(_image);
       StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
+
       if (taskSnapshot.error == null) {
         String dwurl = await taskSnapshot.ref.getDownloadURL();
         print(dwurl);
@@ -210,8 +211,7 @@ class _YourSelfState extends State<YourSelf> {
                                   Text(
                                     ds["year"],
                                     style: GoogleFonts.notoSans(
-                                        fontSize:
-                                            3 * SizeConfig.textMultiplier,
+                                        fontSize: 3 * SizeConfig.textMultiplier,
                                         color: Colors.lightBlueAccent,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -221,8 +221,7 @@ class _YourSelfState extends State<YourSelf> {
                                   Text(
                                     ds["regNo"].toString(),
                                     style: GoogleFonts.notoSans(
-                                      fontSize:
-                                          2.2 * SizeConfig.textMultiplier,
+                                      fontSize: 2.2 * SizeConfig.textMultiplier,
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -233,8 +232,7 @@ class _YourSelfState extends State<YourSelf> {
                                   Text(
                                     ds["branch"].toString(),
                                     style: GoogleFonts.notoSans(
-                                      fontSize:
-                                          2.2 * SizeConfig.textMultiplier,
+                                      fontSize: 2.2 * SizeConfig.textMultiplier,
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,
                                     ),
