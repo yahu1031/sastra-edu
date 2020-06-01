@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'Books/pdf.dart';
 
-// Todo: fix auto focus issue
 
 class SearchBooks extends StatefulWidget {
   final Map data;

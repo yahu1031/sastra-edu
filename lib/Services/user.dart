@@ -19,11 +19,10 @@ class UserData {
 }
 
 class Helpers{
-  String helperName;
-  String helperCountry;
   String picPath;
+  String helperName;
   String level;
 
-  Helpers({this.helperName, this.helperCountry, this.picPath, this.level});
+  Helpers({ this.picPath, this.helperName, this.level});
 
 }

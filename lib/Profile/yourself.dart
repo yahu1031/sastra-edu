@@ -1,7 +1,8 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import '../Profile/profilePicture.dart';
+import './profilePicture.dart';
 
 import '../Services/user.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -35,9 +36,9 @@ class _YourSelfState extends State<YourSelf> {
 
   void getProfileImage() async {
     String imageUrlTemp =
-        (await Firestore.instance.document('Data/${user.uid}').get())
-            .data['pro_pic']
-            .toString();
+    (await Firestore.instance.document('Data/${user.uid}').get())
+        .data['pro_pic']
+        .toString();
     setState(() {
       imageUrl = imageUrlTemp;
     });
@@ -61,7 +62,7 @@ class _YourSelfState extends State<YourSelf> {
       String proPicUrl;
       String fileName = basename(_image.path);
       StorageReference firebaseStorageRef =
-          FirebaseStorage.instance.ref().child(fileName);
+      FirebaseStorage.instance.ref().child(fileName);
       StorageUploadTask uploadTask = firebaseStorageRef.putFile(_image);
       StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
       if (taskSnapshot.error == null) {
@@ -116,86 +117,87 @@ class _YourSelfState extends State<YourSelf> {
             padding: const EdgeInsets.only(right: 15.0),
             child: isProfileUpdated
                 ? IconButton(
-                    onPressed: () {
-                      try {
-                        isProfileUpdated = false;
-                        uploadPic(context);
-                      } catch (e) {
-                        isProfileUpdated = true;
-                      }
-                    },
-                    icon: Icon(
-                      Icons.done,
-                      size: 35.0,
-                      color: Colors.lightBlueAccent,
-                    ),
-                  )
+              onPressed: () {
+                try {
+                  isProfileUpdated = false;
+                  uploadPic(context);
+                } catch (e) {
+                  isProfileUpdated = true;
+                }
+              },
+              icon: Icon(
+                Icons.done,
+                size: 35.0,
+                color: Colors.lightBlueAccent,
+              ),
+            )
                 : Container(),
           ),
         ],
       ),
       body: Container(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 30.0),
-              child: Center(
-                child: GestureDetector(
-                  onTap: () {
-                    print("Dp");
-                    try {
-                      isProfileUpdated = true;
-                      getImage();
-                    } catch (e) {
-                      isProfileUpdated = false;
-                    }
-                  },
-                  child: CircleAvatar(
-                    radius: 100,
-                    backgroundColor: Colors.lightBlueAccent,
-                    child: ClipOval(
-                      child: new SizedBox(
-                        width: 190.0,
-                        height: 190.0,
-                        child: ProfilePicture(),
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 10.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(top: 30.0),
+                    child: Center(
+                      child: GestureDetector(
+                        onTap: () {
+                          print("Dp");
+                          try {
+                            isProfileUpdated = true;
+                            getImage();
+                          } catch (e) {
+                            isProfileUpdated = false;
+                          }
+                        },
+                        child: CircleAvatar(
+                          radius: 100,
+                          backgroundColor: Colors.lightBlueAccent,
+                          child: ClipOval(
+                            child: new SizedBox(
+                              width: 190.0,
+                              height: 190.0,
+                              child: ProfilePicture(),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 7.0),
-              child: StreamBuilder(
-                stream: user != null
-                    ? Firestore.instance
-                        .collection('Data')
-                        .document(user.uid)
-                        .snapshots()
-                    : null,
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (!snapshot.hasData) {
-                    return CircularProgressIndicator();
-                  }
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: 1,
-                    padding: const EdgeInsets.only(top: 50.0),
-                    itemBuilder: (context, index) {
-                      var ds = snapshot.data;
-                      return new Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 1 * SizeConfig.widthMultiplier),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-//                          textDirection: TextDirection.ltr,
-                          children: [
-                            Container(
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 7.0),
+                    child: StreamBuilder(
+                      stream: user != null
+                          ? Firestore.instance
+                          .collection('Data')
+                          .document(user.uid)
+                          .snapshots()
+                          : null,
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        if (!snapshot.hasData) {
+                          return CircularProgressIndicator();
+                        }
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: 1,
+                          padding: const EdgeInsets.only(top: 50.0),
+                          itemBuilder: (context, index) {
+                            var ds = snapshot.data;
+                            return new Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 1 * SizeConfig.widthMultiplier),
                               child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                textDirection: TextDirection.ltr,
+                                children: [
                                   Text(
                                     ds["name"],
                                     style: GoogleFonts.notoSans(
@@ -204,53 +206,57 @@ class _YourSelfState extends State<YourSelf> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: 10.0,
-                                  ),
+                                  SizedBox(height:20.0),
                                   Text(
                                     ds["year"],
                                     style: GoogleFonts.notoSans(
-                                        fontSize:
-                                            3 * SizeConfig.textMultiplier,
+                                        fontSize: 3 * SizeConfig.textMultiplier,
                                         color: Colors.lightBlueAccent,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  SizedBox(
-                                    height: 10.0,
-                                  ),
+                                  SizedBox(height:20.0),
                                   Text(
                                     ds["regNo"].toString(),
                                     style: GoogleFonts.notoSans(
-                                      fontSize:
-                                          2.2 * SizeConfig.textMultiplier,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                        fontSize:
+                                        2.2 * SizeConfig.textMultiplier,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
                                   ),
-                                  SizedBox(
-                                    height: 10.0,
-                                  ),
+                                  SizedBox(height:20.0),
                                   Text(
-                                    ds["branch"].toString(),
+                                    ds["branch"].toString() + " Engineering",
                                     style: GoogleFonts.notoSans(
-                                      fontSize:
-                                          2.2 * SizeConfig.textMultiplier,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                        fontSize:
+                                        2.2 * SizeConfig.textMultiplier,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  );
-                },
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
+              RichText(
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                        text: 'Made with ',
+                        style: GoogleFonts.poppins(fontWeight: FontWeight.w300, color: Colors.black54,)
+                    ),
+                    TextSpan(
+                      text: '💚 .',
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

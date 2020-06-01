@@ -58,11 +58,11 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
           ? PDFView(
               fitPolicy: FitPolicy.WIDTH,
               pageFling: true,
-              enableSwipe: true,
               fitEachPage: true,
               filePath: localPath,
-              onError: (e) {
-                Dialogs.fetchDataError(context);
+              onError: (e) async {
+                await Dialogs.fetchDataError(context);
+                Navigator.of(context).pop();
               },
               onRender: (_pages) {
                 setState(() {
