@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
-import 'package:sastra_ebooks/Profile/profile.dart';
 import '../Profile/profilePicture.dart';
 
 import '../Services/user.dart';
@@ -49,6 +48,7 @@ class _YourSelfState extends State<YourSelf> {
   @override
   Widget build(BuildContext context) {
     Future getImage() async {
+      // ignore: deprecated_member_use
       var image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
       setState(() {
