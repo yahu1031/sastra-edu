@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../Books/pdf.dart';
 
@@ -32,12 +33,14 @@ class _AllState extends State<All> {
     return Column(
       children: <Widget>[
         InkWell(
-          onTap: () {
+          onTap: () async {
             print(url);
+            var fetchedFile = await DefaultCacheManager().getSingleFile(url);
+            print(fetchedFile);
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => PdfViewerPage(itemName, url),
+                builder: (context) => PdfViewerPage(itemName, fetchedFile),
               ),
             );
           },

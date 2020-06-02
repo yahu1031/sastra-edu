@@ -2,10 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'mailus.dart';
-import 'package:sastra_ebooks/Services/dialogs.dart';
+import '../Login/signup.dart';
+import '../Services/dialogs.dart';
 import '../Services/auth.dart';
-//import 'package:firebase_messaging/firebase_messaging.dart';
 import '../Services/Responsive/size_config.dart';
 
 import 'forgotpassword.dart';
@@ -14,7 +13,6 @@ class Login extends StatefulWidget {
   final Function toggleView;
   final String title;
   Login({Key key, this.title, this.toggleView}) : super(key: key);
-//  Login({});
 
   @override
   _LoginState createState() => _LoginState();
@@ -50,7 +48,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
         : Scaffold(
             resizeToAvoidBottomPadding: false,
             /*-----Form-----*/
-            body: SingleChildScrollView(
+            body: Center(
               child: Container(
                 color: Colors.white,
                 child: SafeArea(
@@ -294,7 +292,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                 ),
                               ),
                             ),
-                            /*-----MailUs Account-----*/
+                            /*-----Signup Account-----*/
                             Padding(
                               padding: EdgeInsets.only(
                                   top: 3 * SizeConfig.heightMultiplier),
@@ -308,9 +306,9 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                   ),
                                   SizedBox(width: 10.0),
                                   InkWell(
-                                    onTap: () => mailUs(),
+                                    onTap: () => signUp(),
                                     child: Text(
-                                      'MailUs',
+                                      'Sign Up',
                                       style: GoogleFonts.notoSans(
                                         fontWeight: FontWeight.w600,
                                         color: Colors.lightBlueAccent,
@@ -339,10 +337,10 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
     );
   }
 
-  void mailUs() {
+  void signUp() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => MailUs()),
+      MaterialPageRoute(builder: (context) => SignUp()),
     );
   }
 }

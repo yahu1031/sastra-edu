@@ -5,9 +5,9 @@ import '../../Services/api.dart';
 
 class PdfViewerPage extends StatefulWidget {
   final itemName;
-  final url;
+  final fetchedFile;
 
-  const PdfViewerPage(this.itemName, this.url);
+  const PdfViewerPage(this.itemName, this.fetchedFile);
 
   @override
   _PdfViewerPageState createState() => _PdfViewerPageState();
@@ -24,7 +24,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
   void initState() {
     super.initState();
 
-    ApiServiceProvider(widget.url).loadPDF().then((value) {
+    ApiServiceProvider(widget.fetchedFile).loadPDF().then((value) {
       setState(() {
         localPath = value;
       });
