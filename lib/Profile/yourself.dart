@@ -65,6 +65,7 @@ class _YourSelfState extends State<YourSelf> {
       FirebaseStorage.instance.ref().child(fileName);
       StorageUploadTask uploadTask = firebaseStorageRef.putFile(_image);
       StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
+
       if (taskSnapshot.error == null) {
         String dwurl = await taskSnapshot.ref.getDownloadURL();
         print(dwurl);
@@ -218,19 +219,22 @@ class _YourSelfState extends State<YourSelf> {
                                   Text(
                                     ds["regNo"].toString(),
                                     style: GoogleFonts.notoSans(
-                                        fontSize:
-                                        2.2 * SizeConfig.textMultiplier,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold),
+                                      fontSize: 2.2 * SizeConfig.textMultiplier,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10.0,
                                   ),
                                   SizedBox(height:20.0),
                                   Text(
                                     ds["branch"].toString() + " Engineering",
                                     style: GoogleFonts.notoSans(
-                                        fontSize:
-                                        2.2 * SizeConfig.textMultiplier,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold),
+                                      fontSize: 2.2 * SizeConfig.textMultiplier,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ],
                               ),

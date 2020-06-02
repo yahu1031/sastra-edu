@@ -4,52 +4,57 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'Books/pdf.dart';
 
+// Todo: - fix auto focus issue
 
 class SearchBooks extends StatefulWidget {
-  final Map data;
-  final TextEditingController textEditingController;
+  final Map _data;
+  final TextEditingController _textEditingController;
 
-  SearchBooks(this.data, this.textEditingController);
+  SearchBooks(this._data, this._textEditingController);
 
   @override
   _SearchBooksState createState() => _SearchBooksState();
 }
 
 class _SearchBooksState extends State<SearchBooks> {
-  int characterCount = 0;
-  List searchResults = [];
+  int _characterCount = 0;
+  List _searchResults = [];
 
   @override
   void initState() {
     super.initState();
+
+    final String searchQuery = widget._textEditingController.text;
+
+    if (searchQuery.length != 0) getSuggestions(searchQuery);
   }
 
   void getSuggestions(String searchQuery) async {
-//    print('--------------------------');
-//    print('previousCharacterCount: $characterCount');
-//    print('searchQuery: $searchQuery');
     searchQuery = searchQuery.toLowerCase();
 
     /// runs complete search again if is not empty
     if (searchQuery.isNotEmpty) {
-      searchResults = [];
-      for (int i = 0; i < widget.data["Tabs"].length; i++) {
-        for (Map book in widget.data[widget.data["Tabs"][i]]) {
-          if (book["Name"].toLowerCase().contains(searchQuery)) {
-            searchResults.add(book);
+      _searchResults = [];
+
+      for (int i = 0; i < widget._data["Tabs"].length; i++) {
+        for (Map book in widget._data[widget._data["Tabs"][i]]) {
+          final String bookName = book["Name"];
+          if (bookName.toLowerCase().contains(searchQuery)) {
+            if (bookName.startsWith(searchQuery)) {
+              _searchResults.insert(0, book);
+            } else {
+              _searchResults.add(book);
+            }
           }
         }
       }
 
       /// runs if searchQuery is empty and clears all searchResults
-    } else if (searchQuery.isEmpty && searchResults.isNotEmpty) {
-      searchResults = [];
-    }
+    } else if (searchQuery.isEmpty && _searchResults.isNotEmpty)
+      _searchResults = [];
 
-    characterCount = searchQuery.length;
+    _characterCount = searchQuery.length;
     setState(() {});
-//    print('searchResults: $searchResults');
-//    print('characterCount: $characterCount');
   }
 
   _buildListItems(
@@ -149,7 +154,7 @@ class _SearchBooksState extends State<SearchBooks> {
                     ),
                     child: TextField(
                       autofocus: true,
-                      controller: widget.textEditingController,
+                      controller: widget._textEditingController,
                       textAlign: TextAlign.left,
                       onChanged: (String searchQuery) =>
                           getSuggestions(searchQuery),
@@ -172,7 +177,7 @@ class _SearchBooksState extends State<SearchBooks> {
                 //height: MediaQuery.of(context).size.height,
                 child: ListView(
                   children: <Widget>[
-                    for (Map book in searchResults)
+                    for (Map book in _searchResults)
                       _buildListItems(book["Name"], book["Images"],
                           book['Author'], book['Edition'], book["Link"])
                   ],
