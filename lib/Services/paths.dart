@@ -9,9 +9,7 @@ class Images {
   static const String tonAn = "assets/images/helpers/pp2.jpg";
   static const String coding = "assets/images/coding.png";
   static const String service = "assets/images/service_unavailable.png";
-  static const String shankar = "assets/images/helpers/shankar.jpg";
-  static const String ishu = "assets/images/helpers/ishu.png";
-  static const String profile = "assets/images/helpers/minnu.jpg";
+  static const String profile = "assets/images/profile.jpg";
   static const String rajibmall = "assets/images/rajibmall.jpeg";
   static const String read = "assets/images/read.png";
   static const String rspressman = "assets/images/RSPressman.jpeg";

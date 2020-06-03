@@ -43,7 +43,7 @@ class AuthServices {
   Future registerWithEmailAndPassword(String _email, String _password) async {
     try {
       AuthResult result = await _firebaseAuth.createUserWithEmailAndPassword(
-          email: _email + "@gmail.com", password: _password);
+          email: _email + "@sastra.ac.in", password: _password);
       FirebaseUser user = result.user;
       return _userFromFirebaseUser(user);
     } catch (e) {
@@ -65,16 +65,15 @@ class AuthServices {
   }
 
   //Singin with mail & password
-  Future signInWithEmailAndPassword(String _email, String _password) async {
+  Future<User> signInWithEmailAndPassword(
+      String _email, String _password) async {
     try {
       AuthResult result = await _firebaseAuth.signInWithEmailAndPassword(
-          email: _email + "@gmail.com", password: _password);
+          email: _email + "@sastra.ac.in", password: _password);
       FirebaseUser user = result.user;
-      print(user);
       return _userFromFirebaseUser(user);
     } catch (e) {
-      print(_email);
-      print(_password);
+      print(e);
     }
   }
 

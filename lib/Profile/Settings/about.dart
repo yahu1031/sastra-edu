@@ -14,49 +14,41 @@ class About extends StatefulWidget {
 class _AboutState extends State<About> {
   List<Helpers> helpers = [
     Helpers(
-      picPath: Images.profile,
-      helperName: 'Minnu',
+      picPath: Images.tonAn,
+      helperName: 'Ton An',
+      helperCountry: 'country 1',
       level: 'Intermediate'
     ),
     Helpers(
       picPath: Images.tonAn,
-      helperName: 'Ton An',
+      helperName: 'name 2',
+      helperCountry: 'country 2',
       level: 'Intermediate'
     ),
     Helpers(
-      picPath: Images.ishu,
-      helperName: 'Ishu',
-      level: 'Intermediate'
-    ),
-    Helpers(
-      picPath: Images.shankar,
-      helperName: 'Shankar Narayan',
+      picPath: Images.tonAn,
+      helperName: 'name 3',
+      helperCountry: 'country 3',
       level: 'Intermediate'
     ),
   ];
 
   Widget helpersTemplate(helpers) {
     return Card(
-      color: Colors.white,
-      shadowColor: const Color(0x29000000),
-      elevation: 15.0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20.0),
-      ),
       child: Container(
         width: 100 * SizeConfig.widthMultiplier,
         height: 100.0,
-//        decoration: BoxDecoration(
-//          borderRadius: BorderRadius.circular(20.0),
-//          color: Colors.white,
-//          boxShadow: [
-//            BoxShadow(
-//              color: const Color(0x29000000),
-//              offset: Offset(3, 3),
-//              blurRadius: 20,
-//            )
-//          ],
-//        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20.0),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0x29000000),
+              offset: Offset(3, 3),
+              blurRadius: 20,
+            )
+          ],
+        ),
         child: Row(
           children: <Widget>[
             Padding(
@@ -75,15 +67,15 @@ class _AboutState extends State<About> {
                   child: Text(
                     helpers.helperName,
                     style: GoogleFonts.poppins(
-                        fontSize: 20.0, fontWeight: FontWeight.bold),
+                        fontSize: 12.0, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Text(
-                    helpers.level,
+                    helpers.helperCountry,
                     style: GoogleFonts.poppins(
-                        fontSize: 14.0, color: Colors.lightBlueAccent, fontWeight: FontWeight.w400),
+                        fontSize: 12.0, fontWeight: FontWeight.normal),
                   ),
                 ),
               ],
@@ -182,23 +174,6 @@ class _AboutState extends State<About> {
                     ),
                   ),
                   SizedBox(height: 20.0),
-                  RichText(text: TextSpan(
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: 'My ',
-                        style: GoogleFonts.montserrat(
-                            fontSize: 10 * SizeConfig.widthMultiplier,
-                            color: Colors.lightBlueAccent,
-                            fontWeight: FontWeight.bold),            ),
-                      TextSpan(
-                        text: 'Team',
-                        style: GoogleFonts.montserrat(
-                            fontSize: 10 * SizeConfig.widthMultiplier,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),            ),
-                    ],
-                  ),),
-                  SizedBox(height: 20.0,),
                   Container(
                     width: 100 * SizeConfig.widthMultiplier,
                     child: Column(

@@ -5,9 +5,9 @@ import '../../Services/api.dart';
 
 class PdfViewerPage extends StatefulWidget {
   final itemName;
-  final fetchedFile;
+  final url;
 
-  const PdfViewerPage(this.itemName, this.fetchedFile);
+  const PdfViewerPage(this.itemName, this.url);
 
   @override
   _PdfViewerPageState createState() => _PdfViewerPageState();
@@ -24,7 +24,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
   void initState() {
     super.initState();
 
-    ApiServiceProvider(widget.fetchedFile).loadPDF().then((value) {
+    ApiServiceProvider(widget.url).loadPDF().then((value) {
       setState(() {
         localPath = value;
       });
@@ -58,11 +58,11 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
           ? PDFView(
               fitPolicy: FitPolicy.WIDTH,
               pageFling: true,
+              enableSwipe: true,
               fitEachPage: true,
               filePath: localPath,
-              onError: (e) async {
-                await Dialogs.fetchDataError(context);
-                Navigator.of(context).pop();
+              onError: (e) {
+                Dialogs.fetchDataError(context);
               },
               onRender: (_pages) {
                 setState(() {

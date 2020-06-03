@@ -1,10 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sastra_ebooks/Components/Buttons/roundedButton/roundedButton.dart';
+import 'package:sastra_ebooks/Components/customTextFormField/children/regNumbTextFormField.dart';
+import 'package:sastra_ebooks/Components/customTextFormField/customTextFormField.dart';
+import 'package:sastra_ebooks/textStyles.dart';
 import '../Services/Responsive/size_config.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:sastra_ebooks/constants.dart';
+
+// Todo: - Add real support email
 
 class MailUs extends StatefulWidget {
+  static const String id = '/mailUs';
   final Function toggleView;
   MailUs({this.toggleView});
 
@@ -13,14 +21,29 @@ class MailUs extends StatefulWidget {
 }
 
 class _MailUsState extends State<MailUs> with SingleTickerProviderStateMixin {
-  String _name, _regNo;
+  String _name, _regNum;
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  static const supportEmail = 'example@email.com';
 
   void customLaunch(command) async {
     if (await canLaunch(command)) {
       await launch(command);
     } else {
       print(' could not launch $command');
+    }
+  }
+
+  void sendEmail() async {
+    if (_regNum != null && _name != null) {
+      final String mailtoUrl =
+          'mailto:$supportEmail?subject=$_name%20-%20$_regNum';
+
+      if (await canLaunch(mailtoUrl)) {
+        await launch(mailtoUrl);
+      } else {
+        print(' could not launch $mailtoUrl');
+      }
     }
   }
 
@@ -39,7 +62,8 @@ class _MailUsState extends State<MailUs> with SingleTickerProviderStateMixin {
           key: _formKey,
           /*-----Column-----*/
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               /*-----Title 1-----*/
               Padding(
@@ -50,18 +74,12 @@ class _MailUsState extends State<MailUs> with SingleTickerProviderStateMixin {
                     text: TextSpan(
                       children: <TextSpan>[
                         TextSpan(
-                          text: 'Trouble ',
-                          style: GoogleFonts.montserrat(
-                              fontSize: 18 * SizeConfig.widthMultiplier,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold),
+                          text: 'Got\nTrouble',
+                          style: headline2TextStyle,
                         ),
                         TextSpan(
-                          text: '?',
-                          style: GoogleFonts.montserrat(
-                              fontSize: 20 * SizeConfig.widthMultiplier,
-                              color: Colors.lightBlueAccent,
-                              fontWeight: FontWeight.bold),
+                          text: ' ?',
+                          style: headline2HighlightTextStyle,
                         ),
                       ],
                     ),
@@ -75,84 +93,46 @@ class _MailUsState extends State<MailUs> with SingleTickerProviderStateMixin {
                     20.0, 10 * SizeConfig.widthMultiplier, 20.0, 0.0),
                 child: Column(
                   children: <Widget>[
-                    /*-----Reg Number-----*/
-                    TextFormField(
-                      validator: (input) {
-                        if (input.isEmpty)
-                          return 'Please provide your Register Number';
-                        return null;
-                      },
-                      onSaved: (input) => setState(() => _regNo = input),
-                      decoration: InputDecoration(
-                        labelText: 'Reg Number',
-                        labelStyle: GoogleFonts.notoSans(
-                          fontWeight: FontWeight.w500,
-                          color: Colors.lightBlueAccent,
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.lightBlueAccent),
-                        ),
-                      ),
-                      keyboardType: TextInputType.number,
+                    ///*-----Reg Number-----*///
+                    RegNumTextFormField(
+                      onChanged: (String _input) => _regNum = _input,
                     ),
+//                    TextFormField(
+//                      validator: (input) {
+//                        if (input.isEmpty)
+//                          return 'Please provide your Register Number';
+//                        return null;
+//                      },
+//                      onSaved: (input) => setState(() => _regNum = input),
+//                    ),
                     SizedBox(height: 2 * SizeConfig.heightMultiplier),
-                    /*-----Name-----*/
-                    TextFormField(
-                      onSaved: (input) => setState(() => _name = input),
-                      decoration: InputDecoration(
-                        labelText: 'Name',
-                        labelStyle: GoogleFonts.notoSans(
-                          fontWeight: FontWeight.w500,
-                          color: Colors.lightBlueAccent,
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.lightBlueAccent),
-                        ),
-                      ),
+
+                    ///*-----Name-----*///
+                    CustomTextFormField(
+                      onChanged: (String _input) => _name = _input,
+                      labelText: kNameString,
                     ),
                   ],
                 ),
               ),
               SizedBox(height: 10 * SizeConfig.heightMultiplier),
+
               /*-----MailUs Button-----*/
-              Container(
-                padding: EdgeInsets.only(left: 20.0, right: 20.0),
-                height: 50.0,
-                child: Material(
-                  borderRadius: BorderRadius.circular(25.0),
-                  shadowColor: Colors.lightBlueAccent.withOpacity(0.2),
-                  color: Colors.lightBlueAccent,
-                  elevation: 7.0,
-                  child: GestureDetector(
-                    onTap: () {
-                      customLaunch(
-                          'mailto:your@email.com?subject=test%20subject&body=$_name%20$_regNo%20body');
-                      // print(_name);
-                      // print(_regNo);
-                    },
-                    child: Center(
-                      child: Text(
-                        'Mail Us',
-                        style: GoogleFonts.notoSans(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 20,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+              RoundedButton(
+                onPressed: sendEmail,
+                labelText: kMailUsString,
               ),
               SizedBox(height: 5 * SizeConfig.heightMultiplier),
-              /*-----MailUs Account-----*/
+
+              ///*-----MailUs Account-----*///
               Padding(
                 padding: const EdgeInsets.only(top: 30.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      "You know your Account ?",
-                      style: GoogleFonts.notoSans(fontWeight: FontWeight.w600),
+                      "All good?",
+                      style: subtitle1TextStyle,
                     ),
                     SizedBox(width: 10.0),
                     InkWell(
@@ -161,10 +141,7 @@ class _MailUsState extends State<MailUs> with SingleTickerProviderStateMixin {
                       },
                       child: Text(
                         'Login',
-                        style: GoogleFonts.notoSans(
-                          fontWeight: FontWeight.w600,
-                          color: Colors.lightBlueAccent,
-                        ),
+                        style: subtitle1HighlightTextStyle,
                       ),
                     ),
                   ],

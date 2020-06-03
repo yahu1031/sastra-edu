@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import './profilePicture.dart';
+import 'package:sastra_ebooks/constants.dart';
+import '../Profile/profilePicture.dart';
 
 import '../Services/user.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -36,9 +36,9 @@ class _YourSelfState extends State<YourSelf> {
 
   void getProfileImage() async {
     String imageUrlTemp =
-    (await Firestore.instance.document('Data/${user.uid}').get())
-        .data['pro_pic']
-        .toString();
+        (await Firestore.instance.document('Data/${user.uid}').get())
+            .data['pro_pic']
+            .toString();
     setState(() {
       imageUrl = imageUrlTemp;
     });
@@ -62,7 +62,7 @@ class _YourSelfState extends State<YourSelf> {
       String proPicUrl;
       String fileName = basename(_image.path);
       StorageReference firebaseStorageRef =
-      FirebaseStorage.instance.ref().child(fileName);
+          FirebaseStorage.instance.ref().child(fileName);
       StorageUploadTask uploadTask = firebaseStorageRef.putFile(_image);
       StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
 
@@ -118,32 +118,30 @@ class _YourSelfState extends State<YourSelf> {
             padding: const EdgeInsets.only(right: 15.0),
             child: isProfileUpdated
                 ? IconButton(
-              onPressed: () {
-                try {
-                  isProfileUpdated = false;
-                  uploadPic(context);
-                } catch (e) {
-                  isProfileUpdated = true;
-                }
-              },
-              icon: Icon(
-                Icons.done,
-                size: 35.0,
-                color: Colors.lightBlueAccent,
-              ),
-            )
+                    onPressed: () {
+                      try {
+                        isProfileUpdated = false;
+                        uploadPic(context);
+                      } catch (e) {
+                        isProfileUpdated = true;
+                      }
+                    },
+                    icon: Icon(
+                      Icons.done,
+                      size: 35.0,
+                      color: Colors.lightBlueAccent,
+                    ),
+                  )
                 : Container(),
           ),
         ],
       ),
       body: Container(
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 10.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Column(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Container(
+              child: Column(
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.only(top: 30.0),
@@ -177,9 +175,9 @@ class _YourSelfState extends State<YourSelf> {
                     child: StreamBuilder(
                       stream: user != null
                           ? Firestore.instance
-                          .collection('Data')
-                          .document(user.uid)
-                          .snapshots()
+                              .collection('Data')
+                              .document(user.uid)
+                              .snapshots()
                           : null,
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
                         if (!snapshot.hasData) {
@@ -196,44 +194,60 @@ class _YourSelfState extends State<YourSelf> {
                                   horizontal: 1 * SizeConfig.widthMultiplier),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                textDirection: TextDirection.ltr,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+//                          textDirection: TextDirection.ltr,
                                 children: [
-                                  Text(
-                                    ds["name"],
-                                    style: GoogleFonts.notoSans(
-                                      fontSize: 4 * SizeConfig.textMultiplier,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  SizedBox(height:20.0),
-                                  Text(
-                                    ds["year"],
-                                    style: GoogleFonts.notoSans(
-                                        fontSize: 3 * SizeConfig.textMultiplier,
-                                        color: Colors.lightBlueAccent,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  SizedBox(height:20.0),
-                                  Text(
-                                    ds["regNo"].toString(),
-                                    style: GoogleFonts.notoSans(
-                                      fontSize: 2.2 * SizeConfig.textMultiplier,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10.0,
-                                  ),
-                                  SizedBox(height:20.0),
-                                  Text(
-                                    ds["branch"].toString() + " Engineering",
-                                    style: GoogleFonts.notoSans(
-                                      fontSize: 2.2 * SizeConfig.textMultiplier,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
+                                  Container(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: <Widget>[
+                                        Text(
+                                          ds["name"],
+                                          style: GoogleFonts.notoSans(
+                                            fontSize:
+                                                4 * SizeConfig.textMultiplier,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 10.0,
+                                        ),
+                                        Text(
+                                          ds["year"],
+                                          style: GoogleFonts.notoSans(
+                                              fontSize:
+                                                  3 * SizeConfig.textMultiplier,
+                                              color: Colors.lightBlueAccent,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        SizedBox(
+                                          height: 10.0,
+                                        ),
+                                        Text(
+                                          ds["regNo"].toString(),
+                                          style: GoogleFonts.notoSans(
+                                            fontSize:
+                                                2.2 * SizeConfig.textMultiplier,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 10.0,
+                                        ),
+                                        Text(
+                                          ds["branch"].toString(),
+                                          style: GoogleFonts.notoSans(
+                                            fontSize:
+                                                2.2 * SizeConfig.textMultiplier,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ],
@@ -246,21 +260,26 @@ class _YourSelfState extends State<YourSelf> {
                   ),
                 ],
               ),
-              RichText(
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: RichText(
                 text: TextSpan(
                   children: <TextSpan>[
                     TextSpan(
-                        text: 'Made with ',
-                        style: GoogleFonts.poppins(fontWeight: FontWeight.w300, color: Colors.black54,)
-                    ),
+                        text: kfootbar1,
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w300,
+                          color: Colors.black54,
+                        )),
                     TextSpan(
-                      text: '💚 .',
+                      text: kfootbar2,
                     ),
                   ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

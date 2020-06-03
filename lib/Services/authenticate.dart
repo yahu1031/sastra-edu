@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sastra_ebooks/Login/signup.dart';
 import '../Login/login.dart';
+import '../Login/mailus.dart';
 
 class Authenticate extends StatefulWidget {
   @override
@@ -22,7 +22,7 @@ class _AuthenticateState extends State<Authenticate> {
     if (showSignIn) {
       return Login(toggleView: toggleView);
     } else {
-      return SignUp(toggleView: toggleView);
+      return MailUs(toggleView: toggleView);
     }
   }
 }
