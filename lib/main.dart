@@ -1,12 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:sastra_ebooks/Login/forgotpassword.dart';
-import 'package:sastra_ebooks/Login/mailus.dart';
-import 'package:sastra_ebooks/loadingScreen.dart';
 import 'Services/Responsive/size_config.dart';
 import 'Services/auth.dart';
 import 'Services/user.dart';
@@ -21,17 +16,20 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final FirebaseMessaging _messaging = FirebaseMessaging();
+
   @override
   void initState() {
     super.initState();
+    _messaging.getToken().then((token) => print(token));
   }
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-//        statusBarColor: Colors.transparent,
-          ),
+        statusBarColor: Colors.transparent,
+      ),
     );
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -42,43 +40,9 @@ class _MyAppState extends State<MyApp> {
         return StreamProvider<User>.value(
           value: AuthServices().user,
           child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+//            theme: AppTheme.lightTheme,
             home: Wrapper(),
-            routes: {
-              ForgotPassword.id: (context) => ForgotPassword(),
-              MailUs.id: (context) => MailUs(),
-              //Splash.id: (context) => Splash(),
-            },
-            onGenerateRoute: (settings) {
-              if (settings.name == LoadingScreen.id) {
-                final User user = settings.arguments;
-                return MaterialPageRoute(
-                  builder: (context) => LoadingScreen(user),
-                );
-              }
-              return null;
-            },
-            theme: ThemeData(
-              textTheme: TextTheme(
-                headline1: GoogleFonts.montserrat(
-                    fontSize: 20 * SizeConfig.widthMultiplier,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold),
-                headline2: GoogleFonts.montserrat(
-                    fontSize: 50,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold),
-                headline6: GoogleFonts.notoSans(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.lightBlueAccent,
-                ),
-                subtitle2: GoogleFonts.notoSans(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.lightBlueAccent,
-                ),
-              ),
-            ),
           ),
         );
       });
