@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sastra_ebooks/splashscreen.dart';
+import 'package:sastra_ebooks/loadingScreen.dart';
 import '../Services/authenticate.dart';
 import '../Services/user.dart';
 
@@ -20,7 +20,7 @@ class _WrapperState extends State<Wrapper> {
       return Authenticate();
     } else {
       user2 = user;
-      return Splash(user);
+      return LoadingScreen(user);
     }
   }
 }
