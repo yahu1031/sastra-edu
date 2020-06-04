@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sastra_ebooks/Components/Buttons/textFieldButton/textFieldButton.dart';
 
-import '../../../constants.dart';
+import '../../../misc/constants.dart';
 import '../customTextFormField.dart';
 
 class PasswordTextFormField extends StatefulWidget {
@@ -17,6 +17,7 @@ class PasswordTextFormField extends StatefulWidget {
 class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
   FocusNode focusNode;
   bool obscureText = true;
+  bool wasNotEdited = true;
 
   @override
   void initState() {
@@ -36,9 +37,16 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
     return CustomTextFormField(
       onChanged: widget.onChanged,
       labelText: kPasswordString,
+      validator: (String _input) {
+        if (_input.isEmpty) {
+          return kPasswordFieldEmptyString;
+        }
+        return null;
+      },
+      autovalidate: true,
       keyboardType: TextInputType.number,
       obscureText: obscureText,
-      initialValue: '10111999',
+      //initialValue: '10111999',
       suffixIcon: TextFieldButton(
         onPressed: () => setState(() {
           obscureText = !obscureText;

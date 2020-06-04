@@ -5,18 +5,17 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sastra_ebooks/Components/Buttons/roundedButton/roundedButton.dart';
 import 'package:sastra_ebooks/Components/customTextFormField/children/passwordTextFormField.dart';
-import 'package:sastra_ebooks/Components/customTextFormField/children/regNumbTextFormField.dart';
+import 'package:sastra_ebooks/Components/customTextFormField/children/regNumTextFormField.dart';
+import 'package:sastra_ebooks/Components/largeHeading.dart';
+import 'package:sastra_ebooks/Components/tappableSubtitle.dart';
 import 'package:sastra_ebooks/Components/tappableText.dart';
-import 'file:///F:/OneDrive/Desktop/eBooks/sastra-edu/lib/Components/customTextFormField/customTextFormField.dart';
+import 'package:sastra_ebooks/Dialogs/loadingDialog.dart';
 import 'package:sastra_ebooks/Services/user.dart';
-import 'package:sastra_ebooks/constants.dart';
 import 'package:sastra_ebooks/loadingScreen.dart';
-import 'file:///F:/OneDrive/Desktop/eBooks/sastra-edu/lib/Dialogs/loadingDialog.dart';
-import 'package:sastra_ebooks/textStyles.dart';
 import 'mailus.dart';
 import 'package:sastra_ebooks/Services/dialogs.dart';
 import '../Services/auth.dart';
-import '../Services/Responsive/size_config.dart';
+import '../Misc/constants.dart';
 
 import 'forgotpassword.dart';
 
@@ -44,24 +43,15 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
         _password,
       );
       Navigator.pop(context);
-      if (_regNum == null && _password == null) {
-        Dialogs.yesAbortDialog(context, kSorryString,
-            "Please fill the credentials. Credentials must not be empty.");
-      } else if (_regNum == null) {
-        Dialogs.yesAbortDialog(context, 'Register Number',
-            "You are missing your Register number. please enter it.");
-      } else if (_regNum.length < 9) {
-        Dialogs.yesAbortDialog(context, 'Register Number',
-            'Your register number must be 9 characters.');
-      } else if (_password == null) {
-        Dialogs.yesAbortDialog(context, 'Password',
-            "You are missing your password. please enter it.");
+      if (_regNum.length < 9) {
+        Dialogs.yesAbortDialog(
+            context, kRegNumTooShortString, kRegNumTooShortExplainString);
       } else if (_password.length < 6) {
-        Dialogs.yesAbortDialog(context, 'Password',
-            'Your password must be more than 6 chasracters.');
+        Dialogs.yesAbortDialog(
+            context, kPasswordTooShortString, kPasswordTooShortExplainString);
       } else if (user == null) {
-        Dialogs.yesAbortDialog(context, kSorryString,
-            "Your credentials did not match. Please try with Correct credentials.");
+        Dialogs.yesAbortDialog(
+            context, kSorryString, kInvalidCredentialsExplainString);
       } else {
         Navigator.pushReplacementNamed(context, LoadingScreen.id,
             arguments: user);
@@ -77,107 +67,83 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
       ///*-----Login-Form-----*///
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          padding: EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              ///*-----Title -----*///
+              LargeHeading(
+                text: 'Hello\nThere',
+                highlightText: ' .',
+                size: Heading.extraLarge,
+              ),
+
+              SizedBox(height: 20),
+
               Form(
                 key: _formKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    ///*-----Title -----*///
-                    Padding(
-                      padding: EdgeInsets.only(
-                          bottom: 2 * SizeConfig.heightMultiplier,
-                          top: 2 * SizeConfig.heightMultiplier,
-                          left: 1 * SizeConfig.widthMultiplier),
-                      child: RichText(
-                        text: TextSpan(
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: 'Hello\nThere',
-                              style: headline1TextStyle,
-                            ),
-                            TextSpan(
-                              text: ' .',
-                              style: headline1HighlightTextStyle,
-                            ),
-                          ],
+                    ///*-----TextFormFields-----*///
+                    RegNumTextFormField(
+                      onChanged: (String _input) => setState(
+                        () => _regNum = _input,
+                      ),
+                    ),
+
+                    SizedBox(
+                      height: 20,
+                    ),
+
+                    ///*-----Password-----*///
+                    PasswordTextFormField(
+                      onChanged: (String _input) {
+                        setState(
+                          () => _password = _input,
+                        );
+                      },
+                    ),
+
+                    SizedBox(height: 10),
+
+                    ///*-----Forgot Password-----*///
+                    Container(
+                      alignment: Alignment.topRight,
+                      padding: EdgeInsets.only(top: 10, left: 5),
+                      child: TappableText(
+                        kForgotPasswordString,
+                        onTap: () => Navigator.pushNamed(
+                          context,
+                          ForgotPassword.id,
                         ),
                       ),
                     ),
 
-                    ///*-----TextFormFields-----*///
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 1 * SizeConfig.widthMultiplier,
-                        vertical: 1 * SizeConfig.heightMultiplier,
-                      ),
-                      child: Column(
-                        children: <Widget>[
-                          ///*-----Reg Number-----*///
-                          RegNumTextFormField(
-                            onChanged: (String _input) => setState(
-                              () => _regNum = _input,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 5 * SizeConfig.heightMultiplier,
-                          ),
-
-                          ///*-----Password-----*///
-                          PasswordTextFormField(
-                            onChanged: (String _input) => setState(
-                              () => _password = _input,
-                            ),
-                          ),
-                          SizedBox(height: SizeConfig.heightMultiplier),
-
-                          ///*-----Forgot Password-----*///
-                          Container(
-                              alignment: Alignment.topRight,
-                              padding: EdgeInsets.only(
-                                  top: SizeConfig.heightMultiplier,
-                                  left: SizeConfig.widthMultiplier),
-                              child: TappableText(
-                                kForgotPasswordString,
-                                onTap: () => Navigator.pushNamed(
-                                  context,
-                                  ForgotPassword.id,
-                                ),
-                              )),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 5 * SizeConfig.heightMultiplier),
+                    SizedBox(height: 60),
 
                     ///*-----Login Button-----*///
                     RoundedButton(
                       onPressed: logIn,
-                      labelText: kLogInString,
+                      labelText: kLoginString,
                     ),
-                    SizedBox(height: 3 * SizeConfig.heightMultiplier),
                   ],
                 ),
               ),
-              /*-----MailUs Account-----*/
-              Padding(
-                padding: EdgeInsets.only(top: 3 * SizeConfig.heightMultiplier),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      kCantFindAccString,
-                      style: subtitle1TextStyle,
-                    ),
-                    SizedBox(width: 10.0),
-                    TappableText(
-                      kMailUsString,
-                      onTap: () => Navigator.pushNamed(context, MailUs.id),
-                    )
-                  ],
+
+              SizedBox(
+                height: 60,
+              ),
+
+              ///*-----MailUs Account-----*///
+              TappableSubtitle(
+                descriptionText: kCantFindAccString,
+                actionText: kMailUsString,
+                onActionTap: () => Navigator.pushNamed(
+                  context,
+                  MailUs.id,
                 ),
               ),
             ],

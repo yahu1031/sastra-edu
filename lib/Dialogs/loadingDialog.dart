@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
+import '../misc/constants.dart';
 
 void showLoadingDialog(BuildContext context) {
   showDialog(

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sastra_ebooks/constants.dart';
+import 'file:///F:/OneDrive/Desktop/eBooks/sastra-edu/lib/misc/constants.dart';
 
-import 'Services/Responsive/size_config.dart';
+import '../Services/Responsive/size_config.dart';
 
 /// TextStyles ///
 ///
 /// Headline1
 final TextStyle headline1TextStyle = GoogleFonts.montserrat(
-  fontSize: 20 * SizeConfig.widthMultiplier,
+  fontSize: 100,
   fontWeight: FontWeight.w700,
   color: kDarkColor,
 );

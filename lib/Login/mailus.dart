@@ -2,15 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sastra_ebooks/Components/Buttons/roundedButton/roundedButton.dart';
-import 'package:sastra_ebooks/Components/customTextFormField/children/regNumbTextFormField.dart';
+import 'package:sastra_ebooks/Components/customTextFormField/children/regNumTextFormField.dart';
 import 'package:sastra_ebooks/Components/customTextFormField/customTextFormField.dart';
-import 'package:sastra_ebooks/textStyles.dart';
-import '../Services/Responsive/size_config.dart';
+import 'package:sastra_ebooks/Components/largeHeading.dart';
+import 'package:sastra_ebooks/Components/tappableSubtitle.dart';
+import '../Misc/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:sastra_ebooks/constants.dart';
 
-// Todo: - Add real support email
-
+/* Todo:  - Add real support email
+          - Add error message if no email app can be opened
+*/
 class MailUs extends StatefulWidget {
   static const String id = '/mailUs';
   final Function toggleView;
@@ -26,23 +27,15 @@ class _MailUsState extends State<MailUs> with SingleTickerProviderStateMixin {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   static const supportEmail = 'example@email.com';
 
-  void customLaunch(command) async {
-    if (await canLaunch(command)) {
-      await launch(command);
-    } else {
-      print(' could not launch $command');
-    }
-  }
-
   void sendEmail() async {
-    if (_regNum != null && _name != null) {
+    if (_formKey.currentState.validate()) {
       final String mailtoUrl =
           'mailto:$supportEmail?subject=$_name%20-%20$_regNum';
 
       if (await canLaunch(mailtoUrl)) {
         await launch(mailtoUrl);
       } else {
-        print(' could not launch $mailtoUrl');
+        print('Couldn\'t open an email app');
       }
     }
   }
@@ -53,99 +46,67 @@ class _MailUsState extends State<MailUs> with SingleTickerProviderStateMixin {
       backgroundColor: Colors.white,
       resizeToAvoidBottomPadding: false,
       /*-----Form-----*/
-      body: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: () {
-          FocusScope.of(context).requestFocus(new FocusNode());
-        },
-        child: Form(
-          key: _formKey,
-          /*-----Column-----*/
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              /*-----Title 1-----*/
-              Padding(
-                padding: EdgeInsets.fromLTRB(
-                    15.0, 15 * SizeConfig.heightMultiplier, 0.0, 0.0),
-                child: Container(
-                  child: RichText(
-                    text: TextSpan(
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: 'Got\nTrouble',
-                          style: headline2TextStyle,
-                        ),
-                        TextSpan(
-                          text: ' ?',
-                          style: headline2HighlightTextStyle,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+              ///*-----Title-----*///
+              LargeHeading(
+                text: 'Got\nTrouble',
+                highlightText: ' ?',
+                size: Heading.large,
               ),
-              SizedBox(height: 1 * SizeConfig.heightMultiplier),
-              /*-----Container-----*/
-              Container(
-                padding: EdgeInsets.fromLTRB(
-                    20.0, 10 * SizeConfig.widthMultiplier, 20.0, 0.0),
+
+              SizedBox(height: 10),
+
+              ///*-----MailUs Form-----*///
+              Form(
+                key: _formKey,
+                /*-----Column-----*/
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    ///*-----Reg Number-----*///
+                    ///*-----RegNum Input-----*///
                     RegNumTextFormField(
                       onChanged: (String _input) => _regNum = _input,
                     ),
-//                    TextFormField(
-//                      validator: (input) {
-//                        if (input.isEmpty)
-//                          return 'Please provide your Register Number';
-//                        return null;
-//                      },
-//                      onSaved: (input) => setState(() => _regNum = input),
-//                    ),
-                    SizedBox(height: 2 * SizeConfig.heightMultiplier),
 
-                    ///*-----Name-----*///
+                    SizedBox(height: 20),
+
+                    ///*-----Name Input-----*///
                     CustomTextFormField(
                       onChanged: (String _input) => _name = _input,
                       labelText: kNameString,
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 10 * SizeConfig.heightMultiplier),
-
-              /*-----MailUs Button-----*/
-              RoundedButton(
-                onPressed: sendEmail,
-                labelText: kMailUsString,
-              ),
-              SizedBox(height: 5 * SizeConfig.heightMultiplier),
-
-              ///*-----MailUs Account-----*///
-              Padding(
-                padding: const EdgeInsets.only(top: 30.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      "All good?",
-                      style: subtitle1TextStyle,
-                    ),
-                    SizedBox(width: 10.0),
-                    InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
+                      autovalidate: true,
+                      validator: (String _input) {
+                        if (_input.isEmpty) {
+                          return kNameFieldEmptyString;
+                        }
+                        return null;
                       },
-                      child: Text(
-                        'Login',
-                        style: subtitle1HighlightTextStyle,
-                      ),
+                    ),
+
+                    SizedBox(height: 100),
+
+                    ///*-----MailUs Button-----*///
+                    RoundedButton(
+                      onPressed: sendEmail,
+                      labelText: kMailUsString,
                     ),
                   ],
                 ),
+              ),
+              SizedBox(height: 50),
+
+              ///*-----GoTo Login-----*///
+              TappableSubtitle(
+                descriptionText: kAllGoodQString,
+                actionText: kLoginString,
+                onActionTap: () => Navigator.pop(context),
               ),
             ],
           ),

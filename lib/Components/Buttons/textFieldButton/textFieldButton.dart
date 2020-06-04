@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+// Todo: - Change backgroundColor when activated
+
 class TextFieldButton extends StatefulWidget {
   final VoidCallback onPressed;
   final Color highlightColor;
@@ -36,25 +38,24 @@ class _TextFieldButtonState extends State<TextFieldButton> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTapDown: (TapDownDetails tapDownDetails) {
-        setState(() {
-          _pressed = true;
-        });
-      },
       onTapUp: (TapUpDetails tapUpDetails) {
         setState(() {
-          _pressed = false;
+          _pressed = !_pressed;
         });
         widget.onPressed();
       },
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-          return InkWell(
-              onTap: onPressed,
+          return AnimatedContainer(
+            width: constraints.minHeight,
+            height: constraints.minHeight,
+            decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              highlightColor: widget.highlightColor,
-              splashColor: widget.highlightColor,
-              child: widget.child);
+              color: _pressed ? widget.highlightColor : Colors.transparent,
+            ),
+            duration: Duration(milliseconds: 200),
+            child: widget.child,
+          );
         },
       ),
     );

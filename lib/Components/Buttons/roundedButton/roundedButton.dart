@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../textStyles.dart';
+import '../../../misc/textStyles.dart';
 
 class RoundedButton extends StatelessWidget {
   final VoidCallback onPressed;

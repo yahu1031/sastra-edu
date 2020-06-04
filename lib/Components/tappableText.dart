@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../textStyles.dart';
+import '../misc/textStyles.dart';
 
 class TappableText extends StatelessWidget {
   final String data;
