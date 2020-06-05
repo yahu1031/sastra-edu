@@ -60,7 +60,7 @@ class _MailUsState extends State<MailUs> with SingleTickerProviderStateMixin {
                 size: Heading.large,
               ),
 
-              SizedBox(height: 10),
+              SizedBox(height: 40),
 
               ///*-----MailUs Form-----*///
               Form(
@@ -90,7 +90,7 @@ class _MailUsState extends State<MailUs> with SingleTickerProviderStateMixin {
                       },
                     ),
 
-                    SizedBox(height: 100),
+                    SizedBox(height: 60),
 
                     ///*-----MailUs Button-----*///
                     RoundedButton(
@@ -100,7 +100,8 @@ class _MailUsState extends State<MailUs> with SingleTickerProviderStateMixin {
                   ],
                 ),
               ),
-              SizedBox(height: 50),
+
+              SizedBox(height: 60),
 
               ///*-----GoTo Login-----*///
               TappableSubtitle(

@@ -1,5 +1,4 @@
 import 'package:sastra_ebooks/Home/Books/tabview.dart';
-import 'package:sastra_ebooks/Services/authenticate.dart';
 
 import '../Profile/profile.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,6 @@ import '../Services/Responsive/size_config.dart';
 import '../Services/paths.dart';
 import '../Services/auth.dart';
 import 'package:shimmer/shimmer.dart';
-
 
 final Color backgroundColor = Colors.white;
 
@@ -50,7 +48,7 @@ class _AdminPageState extends State<AdminPage> with TickerProviderStateMixin {
         .animate(_controller);
 
     tabController =
-    new TabController(length: widget.data["Tabs"].length, vsync: this);
+        new TabController(length: widget.data["Tabs"].length, vsync: this);
   }
 
   @override
@@ -153,7 +151,7 @@ class _AdminPageState extends State<AdminPage> with TickerProviderStateMixin {
                 ),
 //                SizedBox(height: 5 * SizeConfig.heightMultiplier),
                 Column(
-                  children:[
+                  children: [
                     Padding(
                       padding: EdgeInsets.all(1 * SizeConfig.heightMultiplier),
                       child: IconButton(
@@ -314,16 +312,16 @@ class _AdminPageState extends State<AdminPage> with TickerProviderStateMixin {
                                         horizontal: 40.0),
                                     child: Column(
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                       mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
                                           'Study time today',
                                           style: GoogleFonts.montserrat(
                                             fontSize: 15.0,
                                             color:
-                                            Colors.black.withOpacity(0.7),
+                                                Colors.black.withOpacity(0.7),
                                             fontWeight: FontWeight.w600,
                                           ),
                                         ),
@@ -333,7 +331,7 @@ class _AdminPageState extends State<AdminPage> with TickerProviderStateMixin {
                                           style: GoogleFonts.montserrat(
                                             fontSize: 15.0,
                                             color:
-                                            Colors.white.withOpacity(0.7),
+                                                Colors.white.withOpacity(0.7),
                                             fontWeight: FontWeight.w600,
                                           ),
                                         ),
@@ -360,7 +358,7 @@ class _AdminPageState extends State<AdminPage> with TickerProviderStateMixin {
                               indicatorColor: Colors.transparent,
                               labelColor: Colors.lightBlueAccent,
                               unselectedLabelColor:
-                              Colors.grey.withOpacity(0.5),
+                                  Colors.grey.withOpacity(0.5),
                               labelStyle: GoogleFonts.notoSans(
                                 fontSize: 18.0,
                                 fontWeight: FontWeight.w700,

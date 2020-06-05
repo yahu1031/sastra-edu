@@ -57,3 +57,5 @@ const Color kDarkColor = Colors.black;
 const Color kLightColor = Colors.white;
 
 const Color kHighlightColor = Colors.lightBlueAccent;
+
+const Color kLightTranslucentGrey = Color(0x269e9e9e);

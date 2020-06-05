@@ -8,6 +8,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sastra_ebooks/Home/Books/book.dart';
+import 'package:sastra_ebooks/Home/Books/bookCategory.dart';
 import 'package:sastra_ebooks/Services/Responsive/size_config.dart';
 import 'Profile/profilePicture.dart';
 
@@ -34,24 +36,27 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   void initState() {
     super.initState();
+    onLoad();
     // Timer(Duration(milliseconds: 5000), () => goToWrapper());
+  }
+
+  void onLoad() async {
     if (widget.user != null) {
       str = "";
       for (int i = 0; i < (widget.user.email).length; i++) {
         String char = widget.user.email.substring(i, (i + 1));
-//        print(char);
+        //        print(char);
         if (char != '@') {
           str = str + char;
         } else {
-//          print("String:$str");
-//          print(str.substring(0, 3));
           if (str.substring(0, 3) == "120") {
             url =
                 "https://drive.google.com/u/0/uc?id=17X0oNQR9RFl4DJgwVE7Fjg-d4Fxr14QQ&export=download"; //! json url for Fourth Year books
           } else if (str.substring(0, 3) == "121") {
             debugPrint("Third year books");
             url =
-                "https://drive.google.com/u/0/uc?id=1IX8m8zKhu64fSlaSdbso3JJWolxGhMxV&export=download"; //! json url for Third Year books
+                "https://1drv.ws/u/s!Ag5A1hcdHrA-jtUlGstoRsFgBPDNxQ?e=93mR3O"; //! json url for Third Year books
+            //"https://drive.google.com/u/0/uc?id=1IX8m8zKhu64fSlaSdbso3JJWolxGhMxV&export=download"; //! json url for Third Year books
 
           } else if (str.substring(0, 3) == "122") {
             debugPrint("Second year books");
@@ -63,24 +68,30 @@ class _LoadingScreenState extends State<LoadingScreen> {
                 "https://drive.google.com/u/0/uc?id=1kP_in6iL-xxOPC9OjNaOzHVtXy4bWkFe&export=download"; //! json url for first year
           }
 
-          getJsonData().then((value) async {
-            var document = await Firestore.instance
-                .collection('Data')
-                .document(widget.user.uid)
-                .get();
+          await getBooksJson();
+          //BookCategory(name: );
 
-            ProfilePicture(imageUrl: document.data['pro_pic']);
+//          var document = await Firestore.instance
+//              .collection('Data')
+//              .document(widget.user.uid)
+//              .get();
 
-            print("Going to Wrapper");
-            goToWrapper();
-          });
-          break;
+          fetchBooksFromJson();
+
+          ProfilePicture(
+            imageUrl:
+                'https://media.playcentral.de/wp-content/uploads/2019/11/03172349/newspic-81334-652x367.jpg',
+            //imageUrl: document.data['pro_pic'],
+          );
+
+          print("Going to Wrapper");
+          goToWrapper();
         }
       }
     }
   }
 
-  Future getJsonData() async {
+  Future<void> getBooksJson() async {
     Dio dio = Dio();
     dir = await getApplicationDocumentsDirectory();
     try {
@@ -98,7 +109,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
       );
     } catch (e) {
       //! Here write a dialog that your internet connection ain't working
+      print('OHOH!');
     }
+
     File file = File("${dir.path}/books.json");
 
     setState(() {
@@ -111,6 +124,35 @@ class _LoadingScreenState extends State<LoadingScreen> {
     if (progressString == "Refreshing") {
       isData = true;
     }
+  }
+
+  Future<void> fetchBooksFromJson() async {
+    final Map bookCategories = data["Categories"];
+
+    bookCategories.forEach(
+      (key, value) {
+        final String categoryName = key;
+        final List booksJson = value;
+        final List<Book> booksOfCategory = [];
+
+        for (Map book in booksJson) {
+          booksOfCategory.add(
+            Book(
+              id: book['id'],
+              author: book['Author'],
+              name: book["Name"],
+              edition: book['Edition'],
+              imgUrl: book["Images"],
+              url: book["Link"],
+            ),
+          );
+        }
+
+        BookCategory(name: categoryName, books: booksOfCategory);
+      },
+    );
+//    print('bookCategories ' +
+//        BookCategory.bookCategoryInstancesList[1].books.toString());
   }
 
   @override

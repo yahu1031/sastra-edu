@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-// Todo: - Change backgroundColor when activated
-
 class TextFieldButton extends StatefulWidget {
   final VoidCallback onPressed;
   final Color highlightColor;
@@ -20,7 +18,6 @@ class TextFieldButton extends StatefulWidget {
 
 class _TextFieldButtonState extends State<TextFieldButton> {
   VoidCallback onPressed;
-
   bool _pressed = false;
 
   @override
@@ -46,15 +43,22 @@ class _TextFieldButtonState extends State<TextFieldButton> {
       },
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-          return AnimatedContainer(
+          return Container(
             width: constraints.minHeight,
             height: constraints.minHeight,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: _pressed ? widget.highlightColor : Colors.transparent,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: AnimatedContainer(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: _pressed ? widget.highlightColor : Colors.transparent,
+                ),
+                duration: Duration(milliseconds: 200),
+                child: widget.child,
+              ),
             ),
-            duration: Duration(milliseconds: 200),
-            child: widget.child,
           );
         },
       ),

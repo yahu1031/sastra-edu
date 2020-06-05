@@ -15,21 +15,12 @@ class PasswordTextFormField extends StatefulWidget {
 }
 
 class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
-  FocusNode focusNode;
   bool obscureText = true;
   bool wasNotEdited = true;
 
   @override
   void initState() {
     super.initState();
-    focusNode = FocusNode();
-    focusNode.addListener(() => setState(() {}));
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    focusNode.dispose();
   }
 
   @override
@@ -51,15 +42,12 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
         onPressed: () => setState(() {
           obscureText = !obscureText;
         }),
-        highlightColor: focusNode.hasFocus
-            ? Colors.blueAccent.withOpacity(.15)
-            : Colors.grey.withOpacity(.3),
+        highlightColor: Colors.blueAccent.withOpacity(.15),
         child: Icon(
           Icons.visibility,
-          color: focusNode.hasFocus ? kHighlightColor : Colors.grey,
+          color: kHighlightColor,
         ),
       ),
-      focusNode: focusNode,
     );
   }
 }

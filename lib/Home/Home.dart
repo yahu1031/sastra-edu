@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:sastra_ebooks/Components/bookListItem.dart';
+import 'package:sastra_ebooks/Components/bookSearchTextField.dart';
+import 'package:sastra_ebooks/Components/searchTextField.dart';
+import 'package:sastra_ebooks/Home/Books/bookCategory.dart';
+import 'package:sastra_ebooks/Misc/constants.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../Home/searchBooks.dart';
 import '../Profile/profilePicture.dart';
 import '../Services/user.dart';
 import '../Services/dialogs.dart';
-import '../Services/authenticate.dart';
 import '../Profile/profile.dart';
-import '../Services/Responsive/size_config.dart';
 import '../Services/paths.dart';
 import '../Services/auth.dart';
-import './Books/tabview.dart';
+import 'Books/book.dart';
+
+/* Todo: - add indicator in the menu which shows on which screen you are currently one. e.g. a colored background behind the home icon
+         - only enable overscroll glow if the listview is actually big enough to be scrollable.
+ */
 
 final Color backgroundColor = Colors.white;
 
@@ -38,45 +45,63 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   Animation<Offset> _slideAnimation;
 
   final AuthServices _auth = AuthServices();
-  List<Tab> tab = [];
-  List<Widget> tabItems = [];
+  final List<Tab> tabs = [];
+  final List<Widget> tabItems = [];
   TabController tabController;
+
+  void loadBookTabs() {
+    for (BookCategory bookCategory in BookCategory.bookCategoryInstancesList) {
+      final List<BookListItem> bookListItems = [];
+
+      tabs.add(
+        Tab(
+          child: Text(bookCategory.name),
+        ),
+      );
+
+      for (Book book in bookCategory.books) {
+        bookListItems.add(
+          BookListItem(
+            book: book,
+          ),
+        );
+      }
+      tabItems.add(
+        ScrollConfiguration(
+          behavior: ScrollBehavior(),
+          child: ListView(
+            scrollDirection: Axis.vertical,
+            children: bookListItems,
+          ),
+        ),
+      );
+    }
+
+    tabController = new TabController(
+        length: BookCategory.bookCategoryInstancesList.length, vsync: this);
+  }
 
   @override
   void initState() {
     super.initState();
     widget.user = Provider.of<User>(widget.context);
-    for (int i = 0; i < widget.data["Tabs"].length; i++) {
-      tab.add(
-        Tab(child: Text(widget.data["Tabs"][i])),
-      );
-      tabItems.add(All(widget.data[(widget.data["Tabs"][i])]));
-    }
+
+    loadBookTabs();
+
     _controller = AnimationController(vsync: this, duration: duration);
     _scaleAnimation = Tween<double>(begin: 1, end: 0.8).animate(_controller);
     _menuScaleAnimation =
         Tween<double>(begin: 0.5, end: 1).animate(_controller);
     _slideAnimation = Tween<Offset>(begin: Offset(-1, 0), end: Offset(0, 0))
         .animate(_controller);
-
-    tabController =
-        new TabController(length: widget.data["Tabs"].length, vsync: this);
   }
 
   @override
   void dispose() {
+    super.dispose();
     _controller.dispose();
     tabController.dispose();
     _textEditingController.dispose();
-    super.dispose();
-  }
-
-  gotToSearchBooks() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-          builder: (context) =>
-              SearchBooks(widget.data, _textEditingController)),
-    );
   }
 
   @override
@@ -89,7 +114,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       resizeToAvoidBottomPadding: false,
       backgroundColor: backgroundColor,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(10 * SizeConfig.heightMultiplier),
+        preferredSize: Size.fromHeight(70),
         child: new AppBar(
           centerTitle: true,
           elevation: 0.0,
@@ -108,31 +133,27 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           ),
           leading: IconButton(
             onPressed: () {
-              setState(() {
-                if (isCollapsed) {
-                  _controller.forward();
-                  FocusScope.of(context).unfocus();
-                  print('Menu');
-                } else {
-                  _controller.reverse();
-                  FocusScope.of(context).unfocus();
-                  print('Home');
-                }
-                isCollapsed = !isCollapsed;
-              });
+              if (isCollapsed) {
+                setState(() {
+                  isCollapsed = false;
+                });
+                _controller.forward();
+              } else {
+                setState(() {
+                  isCollapsed = true;
+                });
+                _controller.reverse();
+              }
             },
             icon: Icon(
               Icons.menu,
-              color: Colors.lightBlueAccent,
+              color: kHighlightColor,
             ),
           ),
         ),
       ),
       body: GestureDetector(
         behavior: HitTestBehavior.opaque,
-        onTap: () {
-          FocusScope.of(context).requestFocus(new FocusNode());
-        },
         child: Stack(
           children: <Widget>[
             dashboard(context),
@@ -153,7 +174,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           child: Align(
             alignment: Alignment.centerLeft,
             child: Column(
-              mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
@@ -166,8 +186,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     print('Profile');
                   },
                   child: Container(
-                    width: 20 * SizeConfig.widthMultiplier,
-                    height: 20 * SizeConfig.widthMultiplier,
+                    width: 20 * 5.0,
+                    height: 20 * 5.0,
                     child: ClipRRect(
                       clipBehavior: Clip.hardEdge,
                       borderRadius: BorderRadius.circular(100),
@@ -175,22 +195,28 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     ),
                   ),
                 ),
-                SizedBox(height: 5 * SizeConfig.heightMultiplier),
+                SizedBox(height: 5 * 10.0),
                 Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(1 * SizeConfig.heightMultiplier),
+                      padding: EdgeInsets.all(1 * 10.0),
                       child: IconButton(
                         icon: Icon(Icons.home),
                         color: Colors.lightBlueAccent,
                         onPressed: () {
+                          _controller.reverse();
+
+                          setState(() {
+                            isCollapsed = true;
+                          });
+
                           print('Home');
                         },
                       ),
                     ),
-                    SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                    SizedBox(height: 3 * 10.0),
                     Padding(
-                      padding: EdgeInsets.all(1 * SizeConfig.heightMultiplier),
+                      padding: EdgeInsets.all(1 * 10.0),
                       child: IconButton(
                         icon: Icon(Icons.favorite_border),
                         color: Colors.lightBlueAccent,
@@ -203,9 +229,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         },
                       ),
                     ),
-                    SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                    SizedBox(height: 3 * 10.0),
                     Padding(
-                      padding: EdgeInsets.all(1 * SizeConfig.heightMultiplier),
+                      padding: EdgeInsets.all(1 * 10.0),
                       child: IconButton(
                         icon: Icon(Icons.bookmark_border),
                         color: Colors.lightBlueAccent,
@@ -218,9 +244,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         },
                       ),
                     ),
-                    SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                    SizedBox(height: 3 * 10.0),
                     Padding(
-                      padding: EdgeInsets.all(1 * SizeConfig.heightMultiplier),
+                      padding: EdgeInsets.all(1 * 10.0),
                       child: IconButton(
                         icon: Icon(Icons.chat_bubble_outline),
                         color: Colors.lightBlueAccent,
@@ -229,9 +255,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         },
                       ),
                     ),
-                    SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                    SizedBox(height: 3 * 10.0),
                     Padding(
-                      padding: EdgeInsets.all(1 * SizeConfig.heightMultiplier),
+                      padding: EdgeInsets.all(1 * 10.0),
                       child: IconButton(
                         icon: Icon(Icons.power_settings_new),
                         color: Colors.lightBlueAccent,
@@ -257,123 +283,136 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   }
 
   Widget dashboard(context) {
+    print(MediaQuery.of(context).size.height);
     return AnimatedPositioned(
       duration: duration,
       top: isCollapsed ? 0 : -0.09 * screenHeight,
       bottom: isCollapsed ? 0 : -0.05 * screenHeight,
-      left: isCollapsed ? 0 : 0.15 * screenWidth,
-      right: isCollapsed ? 0 : -0.4 * screenWidth,
+      left: isCollapsed ? 0 : 0.2 * screenWidth,
+      right: isCollapsed ? 0 : -0.2 * screenWidth,
       child: ScaleTransition(
         scale: _scaleAnimation,
-        child: Material(
-          animationDuration: duration,
-          elevation: 8,
-          color: backgroundColor,
-          child: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                Container(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        // SizedBox(height: 30.0),
-                        Text(
-                          'Your',
-                          style: GoogleFonts.notoSans(
-                              color: Colors.black, fontSize: 40.0),
+        child: IgnorePointer(
+          ignoring: !isCollapsed,
+          child: Material(
+            animationDuration: duration,
+            elevation: 8,
+            color: backgroundColor,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Text(
+                      'Your',
+                      style: GoogleFonts.notoSans(
+                          color: Colors.black, fontSize: 40.0),
+                    ),
+                    Text(
+                      'Bookshelf.',
+                      style: GoogleFonts.montserrat(
+                          color: Colors.black,
+                          fontSize: 40.0,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 10.0),
+                    GestureDetector(
+                      onTapDown: (_) =>
+                          Navigator.pushNamed(context, SearchBooks.id),
+                      child: AbsorbPointer(
+                        child: BookSearchTextField(),
+//                        Hero(
+//                          tag: 'searchBooks',
+//                          child: Material(
+//                            child: Container(
+//                              padding: EdgeInsets.only(left: 5.0),
+//                              decoration: BoxDecoration(
+//                                color: Colors.grey.withOpacity(0.1),
+//                                borderRadius: BorderRadius.circular(10.0),
+//                              ),
+//                              child: TextField(
+//                                controller: _textEditingController,
+//                                textAlign: TextAlign.left,
+//                                decoration: InputDecoration(
+//                                  contentPadding: EdgeInsets.all(15.0),
+//                                  hintText: 'Search for books',
+//                                  hintStyle:
+//                                      GoogleFonts.notoSans(fontSize: 14.0),
+//                                  border: InputBorder.none,
+//                                  fillColor: Colors.grey.withOpacity(0.5),
+//                                  prefixIcon: Icon(
+//                                    Icons.search,
+//                                    color: Colors.grey,
+//                                  ),
+//                                ),
+//                              ),
+//                            ),
+//                          ),
+//                        ),
+                      ),
+                    ),
+                    SizedBox(height: 30.0),
+                    Center(
+                      child: Container(
+                        constraints: BoxConstraints(
+                          maxHeight: 150.0,
+                          maxWidth: 700.0,
+                          minWidth: 250.0,
                         ),
-                        Text(
-                          'Bookshelf.',
-                          style: GoogleFonts.montserrat(
-                              color: Colors.black,
-                              fontSize: 40.0,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(height: 10.0),
-                        GestureDetector(
-                          onTapDown: (_) => gotToSearchBooks(),
-                          child: AbsorbPointer(
-                            child: Hero(
-                              tag: 'searchBooks',
-                              child: Material(
-                                child: Container(
-                                  padding: EdgeInsets.only(left: 5.0),
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey.withOpacity(0.1),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  child: TextField(
-                                    controller: _textEditingController,
-                                    textAlign: TextAlign.left,
-                                    decoration: InputDecoration(
-                                      contentPadding: EdgeInsets.all(15.0),
-                                      hintText: 'Search for books',
-                                      hintStyle:
-                                          GoogleFonts.notoSans(fontSize: 14.0),
-                                      border: InputBorder.none,
-                                      fillColor: Colors.grey.withOpacity(0.5),
-                                      prefixIcon: Icon(
-                                        Icons.search,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                        padding: EdgeInsets.only(right: 10.0),
+                        decoration: BoxDecoration(
+                          image: const DecorationImage(
+                            alignment: Alignment.centerRight,
+                            image: AssetImage(
+                              Images.read,
                             ),
                           ),
+                          color: Colors.lightBlueAccent,
+                          borderRadius: BorderRadius.circular(20.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey,
+                              blurRadius: 2.0,
+                            )
+                          ],
                         ),
-                        SizedBox(height: 20.0),
-                        Center(
-                          child: Container(
-                            constraints: BoxConstraints(
-                              maxHeight: 150.0,
-                              maxWidth: 700.0,
-                              minWidth: 250.0,
-                            ),
-                            padding: EdgeInsets.only(right: 10.0),
-                            decoration: BoxDecoration(
-                              image: const DecorationImage(
-                                alignment: Alignment.centerRight,
-                                image: AssetImage(
-                                  Images.read,
-                                ),
-                              ),
-                              color: Colors.lightBlueAccent,
-                              borderRadius: BorderRadius.circular(20.0),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey,
-                                  blurRadius: 2.0,
-                                )
-                              ],
-                            ),
-                            child: Row(
-                              children: <Widget>[
-                                Container(
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 40.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          'Study time today',
+                        child: Row(
+                          children: <Widget>[
+                            Container(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 40.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Text(
+                                      'Study time today',
+                                      style: GoogleFonts.montserrat(
+                                        fontSize: 15.0,
+                                        color: Colors.black.withOpacity(0.7),
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+
+                                    SizedBox(height: 20.0),
+
+                                    RichText(
+                                      text: TextSpan(children: [
+                                        TextSpan(
+                                          text: '10',
                                           style: GoogleFonts.montserrat(
                                             fontSize: 15.0,
-                                            color:
-                                                Colors.black.withOpacity(0.7),
+                                            color: Colors.white,
                                             fontWeight: FontWeight.w600,
                                           ),
                                         ),
-                                        SizedBox(height: 20.0),
-                                        Text(
-                                          'minutes',
+                                        TextSpan(
+                                          text: '  minutes',
                                           style: GoogleFonts.montserrat(
                                             fontSize: 15.0,
                                             color:
@@ -381,57 +420,55 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                             fontWeight: FontWeight.w600,
                                           ),
                                         ),
-                                      ],
+                                      ]),
                                     ),
-                                  ),
+//                                  Text(
+//                                    'minutes',
+//                                    style: GoogleFonts.montserrat(
+//                                      fontSize: 15.0,
+//                                      color: Colors.white.withOpacity(0.7),
+//                                      fontWeight: FontWeight.w600,
+//                                    ),
+//                                  ),
+                                  ],
                                 ),
-                                Flex(direction: Axis.horizontal, children: [
-                                  Container(
-                                    decoration: BoxDecoration(),
-                                  ),
-                                ]),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 30.0),
-                        Padding(
-                          padding: EdgeInsets.only(left: 20.0),
-                          child: Center(
-                            child: TabBar(
-                              controller: tabController,
-                              isScrollable: true,
-                              indicatorColor: Colors.transparent,
-                              labelColor: Colors.lightBlueAccent,
-                              unselectedLabelColor:
-                                  Colors.grey.withOpacity(0.5),
-                              labelStyle: GoogleFonts.notoSans(
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.w700,
                               ),
-                              unselectedLabelStyle: GoogleFonts.notoSans(
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.w600,
-                              ),
-                              tabs: tab,
                             ),
-                          ),
+//                          Flex(direction: Axis.horizontal, children: [
+//                            Container(
+//                              decoration: BoxDecoration(),
+//                            ),
+//                          ]),
+                          ],
                         ),
-                        SafeArea(
-                          child: Container(
-                            margin: EdgeInsets.only(bottom: 10.0),
-                            height: MediaQuery.of(context).size.height * 0.4,
-                            child: TabBarView(
-                              controller: tabController,
-                              children: tabItems,
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
+                    SizedBox(height: 30.0),
+                    TabBar(
+                      controller: tabController,
+                      isScrollable: true,
+                      indicatorColor: Colors.transparent,
+                      labelColor: Colors.lightBlueAccent,
+                      unselectedLabelColor: Colors.grey.withOpacity(0.5),
+                      labelStyle: GoogleFonts.notoSans(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      unselectedLabelStyle: GoogleFonts.notoSans(
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      tabs: tabs,
+                    ),
+                    Expanded(
+                      child: TabBarView(
+                        controller: tabController,
+                        children: tabItems,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ),

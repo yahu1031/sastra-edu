@@ -9,7 +9,7 @@ import 'package:sastra_ebooks/Components/customTextFormField/children/regNumText
 import 'package:sastra_ebooks/Components/largeHeading.dart';
 import 'package:sastra_ebooks/Components/tappableSubtitle.dart';
 import 'package:sastra_ebooks/Components/tappableText.dart';
-import 'package:sastra_ebooks/Dialogs/loadingDialog.dart';
+import 'package:sastra_ebooks/Dialogs/dialogs.dart' as Dialogs;
 import 'package:sastra_ebooks/Services/user.dart';
 import 'package:sastra_ebooks/loadingScreen.dart';
 import 'mailus.dart';
@@ -20,10 +20,7 @@ import '../Misc/constants.dart';
 import 'forgotpassword.dart';
 
 class Login extends StatefulWidget {
-  final Function toggleView;
-  final String title;
-
-  Login({this.title, this.toggleView});
+  static const id = '/loginScreen';
 
   @override
   _LoginState createState() => _LoginState();
@@ -37,7 +34,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
 
   void logIn() async {
     if (_formKey.currentState.validate()) {
-      showLoadingDialog(context);
+      Dialogs.showLoadingDialog(context);
       final User user = await _auth.signInWithEmailAndPassword(
         _regNum,
         _password,
@@ -79,7 +76,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                 size: Heading.extraLarge,
               ),
 
-              SizedBox(height: 20),
+              SizedBox(height: 40),
 
               Form(
                 key: _formKey,
@@ -107,12 +104,11 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                       },
                     ),
 
-                    SizedBox(height: 10),
+                    SizedBox(height: 20),
 
                     ///*-----Forgot Password-----*///
-                    Container(
+                    Align(
                       alignment: Alignment.topRight,
-                      padding: EdgeInsets.only(top: 10, left: 5),
                       child: TappableText(
                         kForgotPasswordString,
                         onTap: () => Navigator.pushNamed(

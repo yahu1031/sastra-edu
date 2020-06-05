@@ -67,6 +67,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   size: Heading.large,
                 ),
 
+                SizedBox(
+                  height: 40,
+                ),
+
                 ///*-----Container-----*///
                 CustomTextFormField(
                   onChanged: (input) => setState(() => _email = input),
@@ -81,7 +85,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   },
                 ),
 
-                SizedBox(height: 50.0),
+                SizedBox(height: 60.0),
 
                 ///*-----Submit Button-----*///
                 RoundedButton(
@@ -89,7 +93,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   labelText: kResetPasswordString,
                 ),
 
-                SizedBox(height: 50.0),
+                SizedBox(height: 60.0),
 
                 ///*-----GoTo Login-----*///
                 TappableSubtitle(

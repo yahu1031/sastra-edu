@@ -6,6 +6,17 @@ import '../Services/Responsive/size_config.dart';
 
 /// TextStyles ///
 ///
+/// Body1
+final TextStyle body1TextStyle = GoogleFonts.notoSans(
+  fontSize: 16,
+  fontWeight: FontWeight.w400,
+  color: kDarkColor,
+);
+
+final TextStyle body1HighlightTextStyle = body1TextStyle.copyWith(
+  color: Colors.lightBlueAccent,
+);
+
 /// Headline1
 final TextStyle headline1TextStyle = GoogleFonts.montserrat(
   fontSize: 100,
@@ -25,6 +36,17 @@ final TextStyle headline2TextStyle = GoogleFonts.montserrat(
 );
 
 final TextStyle headline2HighlightTextStyle = headline2TextStyle.copyWith(
+  color: kHighlightColor,
+);
+
+/// Headline5
+final TextStyle headline5TextStyle = GoogleFonts.montserrat(
+  fontSize: 20,
+  fontWeight: FontWeight.w500,
+  color: kDarkColor,
+);
+
+final TextStyle headline5HighlightTextStyle = headline5TextStyle.copyWith(
   color: kHighlightColor,
 );
 
