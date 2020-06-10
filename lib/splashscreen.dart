@@ -50,7 +50,7 @@ class _SplashState extends State<Splash> {
           } else if (str.substring(0, 3) == "121") {
             debugPrint("Third year books");
             url =
-                "https://drive.google.com/u/0/uc?id=1IX8m8zKhu64fSlaSdbso3JJWolxGhMxV&export=download"; //! json url for Third Year books
+                "https://drive.google.com/u/0/uc?id=1eWz6G7jON2T6uTo4ZqxQ63Z73YpaWhNY&export=download"; //! json url for Third Year books
 
           } else if (str.substring(0, 3) == "122") {
             debugPrint("Second year books");
