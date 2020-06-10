@@ -300,7 +300,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   Text(
-                                    "Can't you find your Account ?",
+                                    "Don't you have an Account ?",
                                     style: GoogleFonts.notoSans(
                                         fontWeight: FontWeight.w600),
                                   ),
