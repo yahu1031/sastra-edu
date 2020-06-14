@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sastra_ebooks/Misc/constants.dart';
 
 import '../../../misc/textStyles.dart';
 
@@ -22,7 +23,7 @@ class RoundedButton extends StatelessWidget {
         color: Colors.lightBlueAccent,
         elevation: 7,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
+          padding: const EdgeInsets.symmetric(horizontal: kPadding),
           child: Text(
             this.labelText,
             style: buttonLabelTextStyle,

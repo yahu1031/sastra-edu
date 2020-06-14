@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sastra_ebooks/Components/Buttons/roundedButton/roundedButton.dart';
-import 'package:sastra_ebooks/Components/customTextFormField/customTextFormField.dart';
-import 'package:sastra_ebooks/Components/largeHeading.dart';
-import 'package:sastra_ebooks/Components/tappableSubtitle.dart';
-import 'package:sastra_ebooks/Components/tappableText.dart';
+import 'package:sastra_ebooks/Components/Buttons/tappableSubtitle.dart';
+import 'package:sastra_ebooks/Components/CustomScaffold.dart';
+import 'package:sastra_ebooks/Components/Headings/largeHeading.dart';
+import 'package:sastra_ebooks/Components/customAppBar.dart';
+import 'package:sastra_ebooks/Components/textFields/customTextFormField/customTextFormField.dart';
 import 'package:sastra_ebooks/Dialogs/loadingDialog.dart';
 import 'package:sastra_ebooks/Misc/constants.dart';
 
 import '../Services/auth.dart';
 import '../Services/dialogs.dart';
-import '../misc/textStyles.dart';
 
 class ForgotPassword extends StatefulWidget {
   static const String id = '/forgotPassword';
@@ -47,62 +46,53 @@ class _ForgotPasswordState extends State<ForgotPassword> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      resizeToAvoidBottomPadding: false,
+    return CustomScaffold(
+      appBar: CustomAppBar(
+        context,
+        backButton: true,
+      ),
       /*-----Form-----*/
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                ///*-----Title-----*///
-                LargeHeading(
-                  text: 'Lost\nPassword',
-                  highlightText: ' ?',
-                  size: Heading.large,
-                ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: kPadding),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              ///*-----Title-----*///
+              LargeHeading(
+                text: 'Lost\nPassword',
+                highlightText: ' ?',
+                size: HeadingSize.large,
+              ),
 
-                SizedBox(
-                  height: 40,
-                ),
+              SizedBox(
+                height: 40,
+              ),
 
-                ///*-----Container-----*///
-                CustomTextFormField(
-                  onChanged: (input) => setState(() => _email = input),
-                  labelText: kEmailString,
-                  keyboardType: TextInputType.emailAddress,
-                  autovalidate: true,
-                  validator: (String _input) {
-                    if (_input.isEmpty) {
-                      return kEmailFieldEmptyString;
-                    }
-                    return null;
-                  },
-                ),
+              ///*-----Container-----*///
+              CustomTextFormField(
+                onChanged: (input) => setState(() => _email = input),
+                labelText: kEmailString,
+                keyboardType: TextInputType.emailAddress,
+                autovalidate: true,
+                validator: (String _input) {
+                  if (_input.isEmpty) {
+                    return kEmailFieldEmptyString;
+                  }
+                  return null;
+                },
+              ),
 
-                SizedBox(height: 60.0),
+              SizedBox(height: 60.0),
 
-                ///*-----Submit Button-----*///
-                RoundedButton(
-                  onPressed: forgotPassword,
-                  labelText: kResetPasswordString,
-                ),
-
-                SizedBox(height: 60.0),
-
-                ///*-----GoTo Login-----*///
-                TappableSubtitle(
-                  descriptionText: kDoUKnowCredentialsString,
-                  actionText: kLoginString,
-                  onActionTap: () => Navigator.pop(context),
-                ),
-              ],
-            ),
+              ///*-----Submit Button-----*///
+              RoundedButton(
+                onPressed: forgotPassword,
+                labelText: kResetPasswordString,
+              ),
+            ],
           ),
         ),
       ),

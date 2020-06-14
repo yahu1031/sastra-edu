@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sastra_ebooks/Misc/textStyles.dart';
 import 'package:sastra_ebooks/Services/dialogs.dart';
 
@@ -19,7 +18,7 @@ Future<DialogAction> yesAbortDialog(
         ),
         title: Text(
           title,
-          style: headline5HighlightTextStyle,
+          style: headline3HighlightTextStyle,
         ),
         content: Text(
           body,

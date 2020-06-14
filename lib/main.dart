@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:sastra_ebooks/Home/searchBooks.dart';
+import 'file:///F:/OneDrive/Desktop/eBooks/sastra-edu/lib/Home/screens/searchBooks.dart';
 import 'package:sastra_ebooks/Login/forgotpassword.dart';
 import 'package:sastra_ebooks/Login/login.dart';
-import 'package:sastra_ebooks/Login/mailus.dart';
+import 'Misc/screens/mailUs.dart';
+import 'package:sastra_ebooks/Misc/textStyles.dart';
+import 'package:sastra_ebooks/Profile/Settings/about.dart';
+import 'package:sastra_ebooks/Profile/Settings/buyacoke.dart';
+import 'file:///F:/OneDrive/Desktop/eBooks/sastra-edu/lib/Profile/Settings/unused/support.dart';
+import 'package:sastra_ebooks/Profile/profile.dart';
 import 'package:sastra_ebooks/loadingScreen.dart';
-import 'package:sastra_ebooks/widgetTests.dart';
+
+import 'Home/HomeHandler.dart';
 import 'Services/Responsive/size_config.dart';
 import 'Services/auth.dart';
 import 'Services/user.dart';
@@ -16,7 +21,6 @@ import 'Services/wrapper.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
-  // This widget is the root of your application.
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -40,15 +44,19 @@ class _MyAppState extends State<MyApp> {
             return StreamProvider<User>.value(
               value: AuthServices().user,
               child: MaterialApp(
-                //home: WidgetTests(),
                 initialRoute: Wrapper.id,
                 routes: {
                   Wrapper.id: (context) => Wrapper(),
                   Login.id: (context) => Login(),
                   ForgotPassword.id: (context) => ForgotPassword(),
                   MailUs.id: (context) => MailUs(),
+                  HomeHandler.id: (context) => HomeHandler(),
                   SearchBooks.id: (context) => SearchBooks(),
-                  //Splash.id: (context) => Splash(),
+                  Profile.id: (context) => Profile(),
+                  Support.id: (context) => Support(),
+                  About.id: (context) => About(),
+                  BuyACoke.id: (context) => BuyACoke(),
+//                  Splash.id: (context) => Splash(),
                 },
                 onGenerateRoute: (settings) {
                   if (settings.name == LoadingScreen.id) {
@@ -59,27 +67,9 @@ class _MyAppState extends State<MyApp> {
                   }
                   return null;
                 },
-
                 theme: ThemeData(
                   textTheme: TextTheme(
-                    headline1: GoogleFonts.montserrat(
-                        fontSize: 20 * SizeConfig.widthMultiplier,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold),
-                    headline2: GoogleFonts.montserrat(
-                        fontSize: 50,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold),
-                    headline6: GoogleFonts.notoSans(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.lightBlueAccent,
-                    ),
-                    subtitle2: GoogleFonts.notoSans(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.lightBlueAccent,
-                    ),
+                    bodyText1: body1TextStyle,
                   ),
                 ),
               ),

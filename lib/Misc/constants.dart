@@ -14,6 +14,13 @@ const String kAllGoodQString = 'All good?';
 const String kLoginString = 'Login';
 const String kCantFindAccString = 'Can\'t you find your Account?';
 
+const String kSearchBooksString = 'Search for books';
+
+const String kNotificationsString = 'Notifications';
+const String kSupportString = 'Support';
+const String kAboutUsString = 'About Us';
+const String kDonationString = 'Buy us a coke';
+
 /// Name
 const String kNameString = 'Name';
 const String kNameFieldEmptyString = 'Please enter your Name';
@@ -43,7 +50,6 @@ const String kMailUsString = 'Mail Us';
 /// Password
 const String kPasswordString = 'Password';
 const String kPasswordFieldEmptyString = 'Please enter your Password';
-// const String kPasswordMissingExplainString = 'Please enter your Password';
 const String kPasswordTooShortString = 'Password is too short';
 const String kPasswordTooShortExplainString =
     'Your password must be more than 6 chasracters.';
@@ -57,5 +63,14 @@ const Color kDarkColor = Colors.black;
 const Color kLightColor = Colors.white;
 
 const Color kHighlightColor = Colors.lightBlueAccent;
+const Color kLightHighlightColor = Color(0x1440C4FF);
 
-const Color kLightTranslucentGrey = Color(0x269e9e9e);
+const Color kDarkGrey = Color(0xFF303030);
+const Color kMiddleGrey = Color(0xFFBDBDBD);
+const Color kLightGrey = Color(0xFFD6D6D6);
+const Color kVeryLightGrey = Color(0xFFEEEEEE);
+
+/// Dimensions ///
+const double kPadding = 15;
+const double kBottomPadding = 20;
+const double kRadius = 7;

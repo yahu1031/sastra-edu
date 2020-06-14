@@ -1,23 +1,20 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sastra_ebooks/Components/Buttons/roundedButton/roundedButton.dart';
-import 'package:sastra_ebooks/Components/customTextFormField/children/passwordTextFormField.dart';
-import 'package:sastra_ebooks/Components/customTextFormField/children/regNumTextFormField.dart';
-import 'package:sastra_ebooks/Components/largeHeading.dart';
-import 'package:sastra_ebooks/Components/tappableSubtitle.dart';
-import 'package:sastra_ebooks/Components/tappableText.dart';
-import 'package:sastra_ebooks/Dialogs/dialogs.dart' as Dialogs;
+import 'package:sastra_ebooks/Components/textFields/customTextFormField/children/passwordTextFormField.dart';
+import 'package:sastra_ebooks/Components/textFields/customTextFormField/children/regNumTextFormField.dart';
+import 'package:sastra_ebooks/Dialogs/dialogs.dart' as dialogs;
 import 'package:sastra_ebooks/Services/user.dart';
 import 'package:sastra_ebooks/loadingScreen.dart';
-import 'mailus.dart';
-import 'package:sastra_ebooks/Services/dialogs.dart';
-import '../Services/auth.dart';
-import '../Misc/constants.dart';
 
+import 'file:///F:/OneDrive/Desktop/eBooks/sastra-edu/lib/Components/Buttons/tappableSubtitle.dart';
+import 'file:///F:/OneDrive/Desktop/eBooks/sastra-edu/lib/Components/Buttons/tappableText.dart';
+import 'file:///F:/OneDrive/Desktop/eBooks/sastra-edu/lib/Components/Headings/largeHeading.dart';
+
+import '../Misc/constants.dart';
+import '../Services/auth.dart';
 import 'forgotpassword.dart';
+import '../Misc/screens/mailUs.dart';
 
 class Login extends StatefulWidget {
   static const id = '/loginScreen';
@@ -34,20 +31,20 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
 
   void logIn() async {
     if (_formKey.currentState.validate()) {
-      Dialogs.showLoadingDialog(context);
+      dialogs.showLoadingDialog(context);
       final User user = await _auth.signInWithEmailAndPassword(
         _regNum,
         _password,
       );
-      Navigator.pop(context);
+      Navigator.pop(context, true);
       if (_regNum.length < 9) {
-        Dialogs.yesAbortDialog(
+        dialogs.yesAbortDialog(
             context, kRegNumTooShortString, kRegNumTooShortExplainString);
       } else if (_password.length < 6) {
-        Dialogs.yesAbortDialog(
+        dialogs.yesAbortDialog(
             context, kPasswordTooShortString, kPasswordTooShortExplainString);
       } else if (user == null) {
-        Dialogs.yesAbortDialog(
+        dialogs.yesAbortDialog(
             context, kSorryString, kInvalidCredentialsExplainString);
       } else {
         Navigator.pushReplacementNamed(context, LoadingScreen.id,
@@ -64,7 +61,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
       ///*-----Login-Form-----*///
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.0),
+          padding: EdgeInsets.symmetric(horizontal: kPadding),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -73,7 +70,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
               LargeHeading(
                 text: 'Hello\nThere',
                 highlightText: ' .',
-                size: Heading.extraLarge,
+                size: HeadingSize.extraLarge,
               ),
 
               SizedBox(height: 40),
@@ -86,9 +83,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                   children: <Widget>[
                     ///*-----TextFormFields-----*///
                     RegNumTextFormField(
-                      onChanged: (String _input) => setState(
-                        () => _regNum = _input,
-                      ),
+                      onChanged: (String _input) => _regNum = _input,
                     ),
 
                     SizedBox(
@@ -97,11 +92,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
 
                     ///*-----Password-----*///
                     PasswordTextFormField(
-                      onChanged: (String _input) {
-                        setState(
-                          () => _password = _input,
-                        );
-                      },
+                      onChanged: (String _input) => _password = _input,
                     ),
 
                     SizedBox(height: 20),

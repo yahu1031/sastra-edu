@@ -1,12 +1,17 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sastra_ebooks/Components/AppBarTitles/appTitle.dart';
+import 'package:sastra_ebooks/Components/CustomScaffold.dart';
+import 'package:sastra_ebooks/Components/customAppBar.dart';
 import 'package:sastra_ebooks/Profile/Settings/buyacoke.dart';
 import 'package:sastra_ebooks/Services/paths.dart';
 import 'package:sastra_ebooks/Services/user.dart';
+
 import '../../Services/Responsive/size_config.dart';
 
 class About extends StatefulWidget {
+  static const id = '/about';
   @override
   _AboutState createState() => _AboutState();
 }
@@ -14,23 +19,20 @@ class About extends StatefulWidget {
 class _AboutState extends State<About> {
   List<Helpers> helpers = [
     Helpers(
-      picPath: Images.tonAn,
-      helperName: 'Ton An',
-      helperCountry: 'country 1',
-      level: 'Intermediate'
-    ),
+        picPath: Images.tonAn,
+        helperName: 'ton-An',
+        helperCountry: 'Germany',
+        level: 'Intermediate'),
     Helpers(
-      picPath: Images.tonAn,
-      helperName: 'name 2',
-      helperCountry: 'country 2',
-      level: 'Intermediate'
-    ),
+        picPath: Images.tonAn,
+        helperName: 'name 2',
+        helperCountry: 'country 2',
+        level: 'Intermediate'),
     Helpers(
-      picPath: Images.tonAn,
-      helperName: 'name 3',
-      helperCountry: 'country 3',
-      level: 'Intermediate'
-    ),
+        picPath: Images.tonAn,
+        helperName: 'name 3',
+        helperCountry: 'country 3',
+        level: 'Intermediate'),
   ];
 
   Widget helpersTemplate(helpers) {
@@ -54,7 +56,7 @@ class _AboutState extends State<About> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: CircleAvatar(
-                radius:40.0,
+                radius: 40.0,
                 backgroundImage: AssetImage(helpers.picPath),
               ),
             ),
@@ -88,20 +90,10 @@ class _AboutState extends State<About> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: new AppBar(
-        elevation: 0.0,
-        backgroundColor: Colors.transparent,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: Colors.lightBlueAccent,
-          ),
-        ),
+    return CustomScaffold(
+      appBar: CustomAppBar(
+        context,
+        backButton: true,
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -160,7 +152,7 @@ class _AboutState extends State<About> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Buyacoke()),
+                                        builder: (context) => BuyACoke()),
                                   );
                                 }),
                           TextSpan(

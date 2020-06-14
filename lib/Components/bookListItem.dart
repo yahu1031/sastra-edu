@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sastra_ebooks/Home/Books/book.dart';
-import 'package:sastra_ebooks/Home/Books/pdf.dart';
+import 'package:sastra_ebooks/Books/book.dart';
+import 'package:sastra_ebooks/Books/pdf.dart';
 import 'package:sastra_ebooks/Misc/constants.dart';
 
 class BookListItem extends StatelessWidget {
@@ -32,7 +32,7 @@ class BookListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 75,
-      margin: EdgeInsets.only(bottom: 20),
+      margin: EdgeInsets.only(bottom: kBottomPadding),
       child: InkWell(
         onTap: () {
           Navigator.push(
@@ -50,7 +50,7 @@ class BookListItem extends StatelessWidget {
               width: 75,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(7),
-                color: kLightTranslucentGrey,
+                color: kVeryLightGrey,
               ),
               child: Center(
                 child: CachedNetworkImage(

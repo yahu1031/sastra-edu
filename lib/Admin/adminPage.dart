@@ -1,12 +1,13 @@
-import 'package:sastra_ebooks/Home/Books/tabview.dart';
-
-import '../Profile/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../Services/Responsive/size_config.dart';
-import '../Services/paths.dart';
-import '../Services/auth.dart';
+import 'package:sastra_ebooks/Books/tabview.dart';
+import 'package:sastra_ebooks/Login/login.dart';
 import 'package:shimmer/shimmer.dart';
+
+import '../Profile/profile.dart';
+import '../Services/Responsive/size_config.dart';
+import '../Services/auth.dart';
+import '../Services/paths.dart';
 
 final Color backgroundColor = Colors.white;
 
@@ -204,10 +205,7 @@ class _AdminPageState extends State<AdminPage> with TickerProviderStateMixin {
                         onPressed: () async {
                           await _auth.signOut();
                           //!  have added a systemwide exit because if a user log out he doesn't want to use the app, the app is not faacebook that user have different ids
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Authenticate()));
+                          Navigator.pushReplacementNamed(context, Login.id);
 
                           print('Logged out');
                         },

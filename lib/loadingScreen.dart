@@ -8,12 +8,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:sastra_ebooks/Home/Books/book.dart';
-import 'package:sastra_ebooks/Home/Books/bookCategory.dart';
+import 'package:sastra_ebooks/Home/HomeHandler.dart';
 import 'package:sastra_ebooks/Services/Responsive/size_config.dart';
-import 'Profile/profilePicture.dart';
 
-import 'Home/Home.dart';
+import 'Books/book.dart';
+import 'Books/bookCategory.dart';
+import 'Components/profilePicture.dart';
 import 'Services/paths.dart';
 import 'Services/user.dart';
 
@@ -69,23 +69,31 @@ class _LoadingScreenState extends State<LoadingScreen> {
           }
 
           await getBooksJson();
-          //BookCategory(name: );
-
-//          var document = await Firestore.instance
-//              .collection('Data')
-//              .document(widget.user.uid)
-//              .get();
 
           fetchBooksFromJson();
 
+          DocumentSnapshot document = await Firestore.instance
+              .collection('Data')
+              .document(widget.user.uid)
+              .get();
+
+          UserData(
+            widget.user.uid,
+            document.data['name'],
+            document.data["branch"],
+            document.data['year'],
+            document.data['regNo'],
+          );
+
           ProfilePicture(
-            imageUrl:
-                'https://media.playcentral.de/wp-content/uploads/2019/11/03172349/newspic-81334-652x367.jpg',
-            //imageUrl: document.data['pro_pic'],
+//            imageUrl:
+//                'https://media.playcentral.de/wp-content/uploads/2019/11/03172349/newspic-81334-652x367.jpg',
+            imageUrl: document.data['pro_pic'],
           );
 
           print("Going to Wrapper");
-          goToWrapper();
+
+          Navigator.pushReplacementNamed(context, HomeHandler.id);
         }
       }
     }
@@ -189,12 +197,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
           ),
         ),
       ]),
-    );
-  }
-
-  goToWrapper() {
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => Home(data, context)),
     );
   }
 }
