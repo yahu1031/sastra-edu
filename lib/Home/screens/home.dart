@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sastra_ebooks/Books/book.dart';
 import 'package:sastra_ebooks/Books/bookCategory.dart';
+import 'package:sastra_ebooks/Components/AppBarTitles/appBarTitle.dart';
 import 'package:sastra_ebooks/Components/Headings/heading.dart';
 import 'package:sastra_ebooks/Components/bookListItem.dart';
 import 'package:sastra_ebooks/Components/studyTimeBanner.dart';
@@ -17,6 +18,7 @@ final Color backgroundColor = Colors.white;
 
 class Home extends StatefulWidget {
   static const String id = '/home';
+  final appBarTitle = AppBarTitle('M-Book Edu');
 
   @override
   _HomeState createState() => _HomeState();

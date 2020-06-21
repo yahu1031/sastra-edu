@@ -1,8 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sastra_ebooks/Components/AppBarTitles/appTitle.dart';
-import 'package:sastra_ebooks/Components/CustomScaffold.dart';
+import 'package:sastra_ebooks/Components/AppBarTitles/appBarTitle.dart';
+import 'package:sastra_ebooks/Components/customScaffold.dart';
 import 'package:sastra_ebooks/Components/customAppBar.dart';
 import 'package:sastra_ebooks/Profile/Settings/buyacoke.dart';
 import 'package:sastra_ebooks/Services/paths.dart';

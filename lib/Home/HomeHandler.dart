@@ -1,15 +1,16 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:sastra_ebooks/Components/AppBarTitles/appTitle.dart';
+import 'package:sastra_ebooks/Components/AppBarTitles/appBarTitle.dart';
 import 'package:sastra_ebooks/Components/AppBarTitles/bookmarkTitle.dart';
 import 'package:sastra_ebooks/Components/AppBarTitles/favoriteTitle.dart';
 import 'package:sastra_ebooks/Components/Buttons/hamburgerButton.dart';
-import 'package:sastra_ebooks/Components/CustomScaffold.dart';
+import 'package:sastra_ebooks/Components/customScaffold.dart';
 import 'package:sastra_ebooks/Components/customAppBar.dart';
 import 'package:sastra_ebooks/Components/navigationDrawer.dart';
 import 'package:sastra_ebooks/Home/screens/bookmark.dart';
 import 'package:sastra_ebooks/Home/screens/favorite.dart';
+import 'package:sastra_ebooks/Home/screens/home.dart';
 import 'package:sastra_ebooks/Misc/constants.dart';
 
 import 'drawerNavigator.dart';
@@ -54,15 +55,14 @@ class _HomeHandlerState extends State<HomeHandler>
     });
   }
 
-  Widget getAppBarTitle() {
-    if (DrawerNavigator.currentPageString == Bookmark.id) {
-      return BookmarkTitle();
-    } else if (DrawerNavigator.currentPageString == Favorite.id) {
-      return FavoriteTitle();
-    }
-
-    return AppTitle('M-Book Edu');
-  }
+//  Widget getAppBarTitle() {
+//    if (DrawerNavigator.currentPageString == Bookmark.id) {
+//      return BookmarkTitle();
+//    } else if (DrawerNavigator.currentPageString == Favorite.id) {
+//      return FavoriteTitle();
+//    }
+//    return AppTitle('M-Book Edu');
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +73,7 @@ class _HomeHandlerState extends State<HomeHandler>
     return CustomScaffold(
       appBar: CustomAppBar(
         context,
-        title: getAppBarTitle(),
+        title: DrawerNavigator.currentPage.appBarTitle,
         leading: HamburgerButton(
           onPressed: () {
             if (NavigationDrawer.isCollapsed) {
@@ -103,8 +103,8 @@ class _HomeHandlerState extends State<HomeHandler>
               left: NavigationDrawer.isCollapsed ? 0 : 150,
               right: NavigationDrawer.isCollapsed ? 0 : -150,
               child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
+                width: screenWidth,
+                height: screenHeight,
                 child: ScaleTransition(
                   scale: _scaleAnimation,
                   alignment: Alignment.centerLeft,

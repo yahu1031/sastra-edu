@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sastra_ebooks/Misc/constants.dart';
 
-import 'AppBarTitles/appTitle.dart';
+import 'AppBarTitles/appBarTitle.dart';
 
 class CustomAppBar extends PreferredSize {
   final bool backButton;
   final Widget leading;
-  final AppTitle title;
+  final Widget title;
   final BuildContext context;
 
   // ignore: missing_required_param

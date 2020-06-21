@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sastra_ebooks/Components/AppBarTitles/bookmarkTitle.dart';
 
 class Bookmark extends StatefulWidget {
-  static const id = '/bookmark';
+  static const String id = '/bookmark';
+  final appBarTitle = BookmarkTitle();
 
   @override
   _BookmarkState createState() => _BookmarkState();

@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sastra_ebooks/Components/Buttons/roundedButton/roundedButton.dart';
+import 'package:sastra_ebooks/Components/customScaffold.dart';
 import 'package:sastra_ebooks/Components/textFields/customTextFormField/children/passwordTextFormField.dart';
 import 'package:sastra_ebooks/Components/textFields/customTextFormField/children/regNumTextFormField.dart';
 import 'package:sastra_ebooks/Dialogs/dialogs.dart' as dialogs;
+import 'package:sastra_ebooks/Services/Responsive/size_config.dart';
 import 'package:sastra_ebooks/Services/user.dart';
 import 'package:sastra_ebooks/loadingScreen.dart';
 
@@ -55,8 +57,8 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomPadding: false,
+    return CustomScaffold(
+      resizeToAvoidBottomPadding: true,
 
       ///*-----Login-Form-----*///
       body: SafeArea(
@@ -86,16 +88,12 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                       onChanged: (String _input) => _regNum = _input,
                     ),
 
-                    SizedBox(
-                      height: 20,
-                    ),
+                    SizedBox(height: 20),
 
                     ///*-----Password-----*///
                     PasswordTextFormField(
                       onChanged: (String _input) => _password = _input,
                     ),
-
-                    SizedBox(height: 20),
 
                     ///*-----Forgot Password-----*///
                     Align(
@@ -120,9 +118,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                 ),
               ),
 
-              SizedBox(
-                height: 60,
-              ),
+              SizedBox(height: 60),
 
               ///*-----MailUs Account-----*///
               TappableSubtitle(

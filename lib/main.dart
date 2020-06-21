@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'file:///F:/OneDrive/Desktop/eBooks/sastra-edu/lib/Home/screens/searchBooks.dart';
 import 'package:sastra_ebooks/Login/forgotpassword.dart';
 import 'package:sastra_ebooks/Login/login.dart';
+import 'Home/screens/searchBooks.dart';
 import 'Misc/screens/mailUs.dart';
 import 'package:sastra_ebooks/Misc/textStyles.dart';
 import 'package:sastra_ebooks/Profile/Settings/about.dart';
 import 'package:sastra_ebooks/Profile/Settings/buyacoke.dart';
-import 'file:///F:/OneDrive/Desktop/eBooks/sastra-edu/lib/Profile/Settings/unused/support.dart';
 import 'package:sastra_ebooks/Profile/profile.dart';
 import 'package:sastra_ebooks/loadingScreen.dart';
 
 import 'Home/HomeHandler.dart';
+import 'Profile/Settings/unused/support.dart';
 import 'Services/Responsive/size_config.dart';
 import 'Services/auth.dart';
 import 'Services/user.dart';
@@ -20,17 +20,7 @@ import 'Services/wrapper.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([

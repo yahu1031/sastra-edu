@@ -116,7 +116,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
         },
       );
     } catch (e) {
-      //! Here write a dialog that your internet connection ain't working
+      // Todo: ! Here write a dialog that your internet connection ain't working
       print('OHOH!');
     }
 

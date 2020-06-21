@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sastra_ebooks/Components/Buttons/roundedButton/roundedButton.dart';
-import 'package:sastra_ebooks/Components/CustomScaffold.dart';
+import 'package:sastra_ebooks/Components/customScaffold.dart';
 import 'package:sastra_ebooks/Components/Headings/largeHeading.dart';
 import 'package:sastra_ebooks/Components/customAppBar.dart';
 import 'package:sastra_ebooks/Components/textFields/customTextFormField/children/regNumTextFormField.dart';

@@ -4,9 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sastra_ebooks/Misc/constants.dart';
 import 'package:shimmer/shimmer.dart';
 
-class AppTitle extends StatelessWidget {
+class AppBarTitle extends StatelessWidget {
   final String title;
-  AppTitle(this.title);
+  AppBarTitle(this.title);
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(

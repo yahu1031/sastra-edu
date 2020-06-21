@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sastra_ebooks/Components/AppBarTitles/appTitle.dart';
-import 'package:sastra_ebooks/Components/CustomScaffold.dart';
+import 'package:sastra_ebooks/Components/AppBarTitles/appBarTitle.dart';
+import 'package:sastra_ebooks/Components/customScaffold.dart';
 import 'package:sastra_ebooks/Components/customAppBar.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:upi_india/upi_india.dart';
@@ -127,7 +127,7 @@ class _BuyACokeState extends State<BuyACoke> {
       appBar: CustomAppBar(
         context,
         backButton: true,
-        title: AppTitle('Buy Us A Coke'),
+        title: AppBarTitle('Buy Us A Coke'),
       ),
       body: GestureDetector(
         behavior: HitTestBehavior.opaque,
