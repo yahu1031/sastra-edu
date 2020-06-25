@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sastra_ebooks/Components/Buttons/roundedButton/roundedButton.dart';
 import 'package:sastra_ebooks/Components/Buttons/tappableSubtitle.dart';
@@ -8,13 +7,12 @@ import 'package:sastra_ebooks/Components/customScaffold.dart';
 import 'package:sastra_ebooks/Components/textFields/customTextFormField/children/passwordTextFormField.dart';
 import 'package:sastra_ebooks/Components/textFields/customTextFormField/children/regNumTextFormField.dart';
 import 'package:sastra_ebooks/Dialogs/dialogs.dart' as dialogs;
+import 'package:sastra_ebooks/Login/forgotpassword.dart';
 import 'package:sastra_ebooks/Misc/constants.dart';
 import 'package:sastra_ebooks/Misc/screens/signup.dart';
 import 'package:sastra_ebooks/Services/auth.dart';
 import 'package:sastra_ebooks/Services/user.dart';
 import 'package:sastra_ebooks/loadingScreen.dart';
-
-import 'forgotpassword.dart';
 
 class Login extends StatefulWidget {
   static const id = '/loginScreen';
@@ -120,7 +118,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
 
                   SizedBox(height: 60),
 
-                  ///*-----MailUs Account-----*///
+                  ///*-----SignUp Account-----*///
                   TappableSubtitle(
                     descriptionText: kNoAccString,
                     actionText: kSignUpString,
