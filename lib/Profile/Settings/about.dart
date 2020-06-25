@@ -1,12 +1,26 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+<<<<<<< HEAD
 import 'package:sastra_ebooks/Profile/Settings/buyacoke.dart';
 import 'package:sastra_ebooks/Services/paths.dart';
 import 'package:sastra_ebooks/Services/user.dart';
 import '../../Services/Responsive/size_config.dart';
 
 class About extends StatefulWidget {
+=======
+import 'package:sastra_ebooks/Components/AppBarTitles/appBarTitle.dart';
+import 'package:sastra_ebooks/Components/customScaffold.dart';
+import 'package:sastra_ebooks/Components/customAppBar.dart';
+import 'package:sastra_ebooks/Profile/Settings/buyacoke.dart';
+import 'package:sastra_ebooks/Services/paths.dart';
+import 'package:sastra_ebooks/Services/user.dart';
+
+import '../../Services/Responsive/size_config.dart';
+
+class About extends StatefulWidget {
+  static const id = '/about';
+>>>>>>> master
   @override
   _AboutState createState() => _AboutState();
 }
@@ -14,6 +28,7 @@ class About extends StatefulWidget {
 class _AboutState extends State<About> {
   List<Helpers> helpers = [
     Helpers(
+<<<<<<< HEAD
       picPath: Images.profile,
       helperName: 'Minnu',
       level: 'Intermediate'
@@ -33,10 +48,27 @@ class _AboutState extends State<About> {
       helperName: 'Shankar Narayan',
       level: 'Intermediate'
     ),
+=======
+        picPath: Images.tonAn,
+        helperName: 'ton-An',
+        helperCountry: 'Germany',
+        level: 'Intermediate'),
+    Helpers(
+        picPath: Images.tonAn,
+        helperName: 'name 2',
+        helperCountry: 'country 2',
+        level: 'Intermediate'),
+    Helpers(
+        picPath: Images.tonAn,
+        helperName: 'name 3',
+        helperCountry: 'country 3',
+        level: 'Intermediate'),
+>>>>>>> master
   ];
 
   Widget helpersTemplate(helpers) {
     return Card(
+<<<<<<< HEAD
       color: Colors.white,
       shadowColor: const Color(0x29000000),
       elevation: 15.0,
@@ -57,12 +89,32 @@ class _AboutState extends State<About> {
 //            )
 //          ],
 //        ),
+=======
+      child: Container(
+        width: 100 * SizeConfig.widthMultiplier,
+        height: 100.0,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20.0),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0x29000000),
+              offset: Offset(3, 3),
+              blurRadius: 20,
+            )
+          ],
+        ),
+>>>>>>> master
         child: Row(
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: CircleAvatar(
+<<<<<<< HEAD
                 radius:40.0,
+=======
+                radius: 40.0,
+>>>>>>> master
                 backgroundImage: AssetImage(helpers.picPath),
               ),
             ),
@@ -75,15 +127,25 @@ class _AboutState extends State<About> {
                   child: Text(
                     helpers.helperName,
                     style: GoogleFonts.poppins(
+<<<<<<< HEAD
                         fontSize: 20.0, fontWeight: FontWeight.bold),
+=======
+                        fontSize: 12.0, fontWeight: FontWeight.bold),
+>>>>>>> master
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Text(
+<<<<<<< HEAD
                     helpers.level,
                     style: GoogleFonts.poppins(
                         fontSize: 14.0, color: Colors.lightBlueAccent, fontWeight: FontWeight.w400),
+=======
+                    helpers.helperCountry,
+                    style: GoogleFonts.poppins(
+                        fontSize: 12.0, fontWeight: FontWeight.normal),
+>>>>>>> master
                   ),
                 ),
               ],
@@ -96,6 +158,7 @@ class _AboutState extends State<About> {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: new AppBar(
@@ -110,6 +173,12 @@ class _AboutState extends State<About> {
             color: Colors.lightBlueAccent,
           ),
         ),
+=======
+    return CustomScaffold(
+      appBar: CustomAppBar(
+        context,
+        backButton: true,
+>>>>>>> master
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -168,7 +237,11 @@ class _AboutState extends State<About> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
+<<<<<<< HEAD
                                         builder: (context) => Buyacoke()),
+=======
+                                        builder: (context) => BuyACoke()),
+>>>>>>> master
                                   );
                                 }),
                           TextSpan(
@@ -182,6 +255,7 @@ class _AboutState extends State<About> {
                     ),
                   ),
                   SizedBox(height: 20.0),
+<<<<<<< HEAD
                   RichText(text: TextSpan(
                     children: <TextSpan>[
                       TextSpan(
@@ -199,6 +273,8 @@ class _AboutState extends State<About> {
                     ],
                   ),),
                   SizedBox(height: 20.0,),
+=======
+>>>>>>> master
                   Container(
                     width: 100 * SizeConfig.widthMultiplier,
                     child: Column(

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 import 'size_config.dart';
 
 class ResponsiveWidget extends StatelessWidget {
@@ -19,4 +23,8 @@ class ResponsiveWidget extends StatelessWidget {
       return landscapeLayout ?? portraitLayout;
     }
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> master

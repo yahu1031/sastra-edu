@@ -1,7 +1,12 @@
 import 'dart:io';
 
+<<<<<<< HEAD
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
+=======
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
+>>>>>>> master
 
 class ApiServiceProvider {
   final String url;

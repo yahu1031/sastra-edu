@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+<<<<<<< HEAD
 import 'package:upi_india/upi_india.dart';
 import '../../Services/Responsive/size_config.dart';
 import '../../Services/paths.dart';
@@ -15,6 +16,25 @@ class Buyacoke extends StatefulWidget {
 }
 
 class _BuyacokeState extends State<Buyacoke> {
+=======
+import 'package:sastra_ebooks/Components/AppBarTitles/appBarTitle.dart';
+import 'package:sastra_ebooks/Components/customScaffold.dart';
+import 'package:sastra_ebooks/Components/customAppBar.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:upi_india/upi_india.dart';
+
+import '../../Services/Responsive/size_config.dart';
+import '../../Services/dialogs.dart';
+import '../../Services/paths.dart';
+
+class BuyACoke extends StatefulWidget {
+  static const id = '/buyACoke';
+  @override
+  _BuyACokeState createState() => _BuyACokeState();
+}
+
+class _BuyACokeState extends State<BuyACoke> {
+>>>>>>> master
   var quantity = 1;
   var amount = 20;
   String _name, _comment = '';
@@ -118,6 +138,7 @@ class _BuyacokeState extends State<Buyacoke> {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       backgroundColor: Colors.white,
@@ -146,6 +167,13 @@ class _BuyacokeState extends State<Buyacoke> {
             color: Colors.lightBlueAccent,
           ),
         ),
+=======
+    return CustomScaffold(
+      appBar: CustomAppBar(
+        context,
+        backButton: true,
+        title: AppBarTitle('Buy Us A Coke'),
+>>>>>>> master
       ),
       body: GestureDetector(
         behavior: HitTestBehavior.opaque,
