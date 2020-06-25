@@ -1,34 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
 
-class Notifications extends StatefulWidget {
+class Favorite extends StatefulWidget {
   @override
-  _NotificationsState createState() => _NotificationsState();
+  _FavoriteState createState() => _FavoriteState();
 }
 
-class _NotificationsState extends State<Notifications> {
+class _FavoriteState extends State<Favorite> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       backgroundColor: Colors.white,
-<<<<<<< HEAD
       appBar: new AppBar(
-=======
-      appBar: AppBar(
->>>>>>> master
         elevation: 0.0,
         centerTitle: true,
         backgroundColor: Colors.transparent,
         title: Shimmer.fromColors(
-          baseColor: Colors.blue[500],
-          highlightColor: Colors.lightBlueAccent,
+          baseColor: Colors.red,
+          highlightColor: Colors.redAccent[100],
           child: Container(
-            child: new Text(
-              'Notifications',
-              style: GoogleFonts.pacifico(
-                fontSize: 30.0,
-              ),
+            child: new Icon(
+              Icons.favorite,
+              size: 30.0,
             ),
           ),
         ),
@@ -42,10 +36,6 @@ class _NotificationsState extends State<Notifications> {
           ),
         ),
       ),
-<<<<<<< HEAD
-
-=======
->>>>>>> master
     );
   }
 }

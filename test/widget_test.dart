@@ -7,6 +7,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+<<<<<<< HEAD
+
+=======
+>>>>>>> master
 import 'package:sastra_ebooks/main.dart';
 
 void main() {
