@@ -12,11 +12,7 @@ class _NotificationsState extends State<Notifications> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-<<<<<<< HEAD
-      appBar: new AppBar(
-=======
       appBar: AppBar(
->>>>>>> master
         elevation: 0.0,
         centerTitle: true,
         backgroundColor: Colors.transparent,
@@ -42,10 +38,6 @@ class _NotificationsState extends State<Notifications> {
           ),
         ),
       ),
-<<<<<<< HEAD
-
-=======
->>>>>>> master
     );
   }
 }
