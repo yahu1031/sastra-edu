@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sastra_ebooks/Misc/constants.dart';
-import 'package:sastra_ebooks/Misc/textStyles.dart';
 
 class SearchTextField extends StatelessWidget {
   final ValueChanged<String> onChanged;

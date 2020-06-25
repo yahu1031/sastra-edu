@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../Login/login.dart';
-import '../Misc/screens/mailUs.dart';
+import 'package:sastra_ebooks/Login/login.dart';
 
 class Authenticate extends StatefulWidget {
   @override

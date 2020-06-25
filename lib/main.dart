@@ -10,8 +10,8 @@ import 'package:sastra_ebooks/Profile/Settings/buyacoke.dart';
 import 'package:sastra_ebooks/Profile/profile.dart';
 import 'package:sastra_ebooks/loadingScreen.dart';
 
-import 'Home/HomeHandler.dart';
-import 'Home/screens/searchBooks.dart';
+import 'package:sastra_ebooks/Home/HomeHandler.dart';
+import 'package:sastra_ebooks/Home/screens/searchBooks.dart';
 import 'Misc/screens/mailUs.dart';
 import 'Profile/Settings/unused/support.dart';
 import 'Services/Responsive/size_config.dart';

@@ -7,12 +7,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
+import 'package:sastra_ebooks/Components/profilePicture.dart';
 import 'package:sastra_ebooks/Misc/constants.dart';
+import 'package:sastra_ebooks/Services/Responsive/size_config.dart';
+import 'package:sastra_ebooks/Services/user.dart';
 import 'package:shimmer/shimmer.dart';
-
-import '../../../Components/profilePicture.dart';
-import '../../../Services/Responsive/size_config.dart';
-import '../../../Services/user.dart';
 
 class YourSelf extends StatefulWidget {
   final BuildContext context;
@@ -50,6 +49,7 @@ class _YourSelfState extends State<YourSelf> {
   @override
   Widget build(BuildContext context) {
     Future getImage() async {
+      // ignore: deprecated_member_use
       var image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
       setState(() {

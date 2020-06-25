@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-
-import 'user.dart';
+import 'package:sastra_ebooks/Services/user.dart';
 
 class AuthServices {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -65,6 +64,7 @@ class AuthServices {
   }
 
   //Singin with mail & password
+  // ignore: missing_return
   Future<User> signInWithEmailAndPassword(
       String _email, String _password) async {
     try {

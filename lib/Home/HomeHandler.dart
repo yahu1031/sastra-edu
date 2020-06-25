@@ -1,19 +1,12 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:sastra_ebooks/Components/AppBarTitles/appBarTitle.dart';
-import 'package:sastra_ebooks/Components/AppBarTitles/bookmarkTitle.dart';
-import 'package:sastra_ebooks/Components/AppBarTitles/favoriteTitle.dart';
 import 'package:sastra_ebooks/Components/Buttons/hamburgerButton.dart';
-import 'package:sastra_ebooks/Components/customScaffold.dart';
 import 'package:sastra_ebooks/Components/customAppBar.dart';
+import 'package:sastra_ebooks/Components/customScaffold.dart';
 import 'package:sastra_ebooks/Components/navigationDrawer.dart';
-import 'package:sastra_ebooks/Home/screens/bookmark.dart';
-import 'package:sastra_ebooks/Home/screens/favorite.dart';
-import 'package:sastra_ebooks/Home/screens/home.dart';
+import 'package:sastra_ebooks/Home/drawerNavigator.dart';
 import 'package:sastra_ebooks/Misc/constants.dart';
-
-import 'drawerNavigator.dart';
 
 class HomeHandler extends StatefulWidget {
   static const String id = '/homeHandler';

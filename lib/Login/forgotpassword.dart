@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:sastra_ebooks/Components/Buttons/roundedButton/roundedButton.dart';
-import 'package:sastra_ebooks/Components/Buttons/tappableSubtitle.dart';
-import 'package:sastra_ebooks/Components/customScaffold.dart';
 import 'package:sastra_ebooks/Components/Headings/largeHeading.dart';
 import 'package:sastra_ebooks/Components/customAppBar.dart';
+import 'package:sastra_ebooks/Components/customScaffold.dart';
 import 'package:sastra_ebooks/Components/textFields/customTextFormField/customTextFormField.dart';
 import 'package:sastra_ebooks/Dialogs/loadingDialog.dart';
 import 'package:sastra_ebooks/Misc/constants.dart';
-
-import '../Services/auth.dart';
-import '../Services/dialogs.dart';
+import 'package:sastra_ebooks/Services/auth.dart';
+import 'package:sastra_ebooks/Services/dialogs.dart';
 
 class ForgotPassword extends StatefulWidget {
   static const String id = '/forgotPassword';

@@ -4,14 +4,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sastra_ebooks/Components/AppBarTitles/appBarTitle.dart';
-import 'package:sastra_ebooks/Components/customScaffold.dart';
 import 'package:sastra_ebooks/Components/customAppBar.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:sastra_ebooks/Components/customScaffold.dart';
+import 'package:sastra_ebooks/Services/Responsive/size_config.dart';
+import 'package:sastra_ebooks/Services/dialogs.dart';
+import 'package:sastra_ebooks/Services/paths.dart';
 import 'package:upi_india/upi_india.dart';
-
-import '../../Services/Responsive/size_config.dart';
-import '../../Services/dialogs.dart';
-import '../../Services/paths.dart';
 
 class BuyACoke extends StatefulWidget {
   static const id = '/buyACoke';

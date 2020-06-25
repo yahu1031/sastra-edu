@@ -7,10 +7,8 @@ import 'package:sastra_ebooks/Components/listItem.dart';
 import 'package:sastra_ebooks/Components/profileInfo.dart';
 import 'package:sastra_ebooks/Misc/constants.dart';
 import 'package:sastra_ebooks/Misc/screens/mailUs.dart';
-import 'package:sastra_ebooks/Services/auth.dart';
-
-import 'Settings/about.dart';
-import 'Settings/buyacoke.dart';
+import 'package:sastra_ebooks/Profile/Settings/about.dart';
+import 'package:sastra_ebooks/Profile/Settings/buyacoke.dart';
 
 class Profile extends StatefulWidget {
   static const String id = '/profile';
@@ -21,7 +19,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   bool switchState = false;
 
-  final AuthServices _auth = AuthServices();
+//  final AuthServices _auth = AuthServices();
 
   @override
   Widget build(BuildContext context) {

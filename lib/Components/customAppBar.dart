@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sastra_ebooks/Misc/constants.dart';
 
-import 'AppBarTitles/appBarTitle.dart';
-
 class CustomAppBar extends PreferredSize {
   final bool backButton;
   final Widget leading;
