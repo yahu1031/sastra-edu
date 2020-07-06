@@ -95,7 +95,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
       child: ScaleTransition(
         scale: _menuScaleAnimation,
         child: Container(
-          width: 150,
+          width: 100,
           //color: Colors.red,
           child: Center(
             child: FractionallySizedBox(

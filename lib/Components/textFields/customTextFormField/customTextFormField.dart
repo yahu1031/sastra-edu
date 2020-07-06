@@ -12,18 +12,22 @@ class CustomTextFormField extends StatefulWidget {
   final bool obscureText;
   final List<TextInputFormatter> inputFormatters;
   final String initialValue;
+  final String hintText;
   final Widget suffixIcon;
+  final String helperText;
 
   CustomTextFormField({
     @required this.onChanged,
-    @required this.labelText,
+    this.labelText,
     this.validator,
+    this.hintText,
     this.autovalidate = false,
     this.keyboardType,
     this.obscureText = false,
     this.inputFormatters,
     this.initialValue,
     this.suffixIcon,
+    this.helperText,
   });
 
   @override
@@ -33,6 +37,8 @@ class CustomTextFormField extends StatefulWidget {
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
   FocusNode _focusNode;
   bool wasNotEdited = true;
+  String helperText;
+  String hintText;
 
   @override
   void initState() {
@@ -68,14 +74,14 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         obscureText: widget.obscureText,
         inputFormatters: widget.inputFormatters,
         decoration: InputDecoration(
+          hintText: 'hintText',
+          filled: true,
+          fillColor: Colors.grey[200],
           labelText: widget.labelText,
+          contentPadding: EdgeInsets.all(15.0),
           labelStyle: body1HighlightTextStyle,
-          helperText: '',
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.lightBlueAccent,
-            ),
-          ),
+          helperText: helperText,
+          border: InputBorder.none,
           suffixIcon: widget.suffixIcon,
         ),
         //  focusNode: _focusNode,

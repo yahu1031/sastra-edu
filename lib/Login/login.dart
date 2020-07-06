@@ -4,12 +4,12 @@ import 'package:sastra_ebooks/Components/Buttons/tappableSubtitle.dart';
 import 'package:sastra_ebooks/Components/Buttons/tappableText.dart';
 import 'package:sastra_ebooks/Components/Headings/largeHeading.dart';
 import 'package:sastra_ebooks/Components/customScaffold.dart';
-import 'package:sastra_ebooks/Components/textFields/customTextFormField/children/passwordTextFormField.dart';
 import 'package:sastra_ebooks/Components/textFields/customTextFormField/children/regNumTextFormField.dart';
 import 'package:sastra_ebooks/Dialogs/dialogs.dart' as dialogs;
 import 'package:sastra_ebooks/Login/forgotpassword.dart';
 import 'package:sastra_ebooks/Misc/constants.dart';
-import 'package:sastra_ebooks/Misc/screens/signup.dart';
+import 'package:sastra_ebooks/Misc/screens/Signup/signup.dart';
+import 'package:sastra_ebooks/Services/Responsive/size_config.dart';
 import 'package:sastra_ebooks/Services/auth.dart';
 import 'package:sastra_ebooks/Services/user.dart';
 import 'package:sastra_ebooks/loadingScreen.dart';
@@ -54,81 +54,76 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      resizeToAvoidBottomPadding: true,
-
       ///*-----Login-Form-----*///
       body: SafeArea(
         child: Center(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: kPadding),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  ///*-----Title -----*///
-                  LargeHeading(
-                    text: 'Hello\nThere',
-                    highlightText: ' .',
-                    size: HeadingSize.extraLarge,
-                  ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: kPadding),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                ///*-----Title -----*///
+                LargeHeading(
+                  text: 'Hello\nThere',
+                  highlightText: ' .',
+                  size: HeadingSize.extraLarge,
+                ),
 
-                  SizedBox(height: 40),
+                SizedBox(height: 40),
 
-                  Form(
-                    key: _formKey,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        ///*-----TextFormFields-----*///
-                        RegNumTextFormField(
-                          onChanged: (String _input) => _regNum = _input,
-                        ),
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      ///*-----TextFormFields-----*///
+                      RegNumTextFormField(
+                        onChanged: (String _input) => _regNum = _input,
+                      ),
+                      SizedBox(height: 5 * SizeConfig.heightMultiplier),
 
-                        SizedBox(height: 20),
+                      ///*-----Password-----*///
+                      PasswordTextFormField(
+                        onChanged: (String _input) => _password = _input,
+                      ),
 
-                        ///*-----Password-----*///
-                        PasswordTextFormField(
-                          onChanged: (String _input) => _password = _input,
-                        ),
-
-                        ///*-----Forgot Password-----*///
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: TappableText(
-                            kForgotPasswordString,
-                            onTap: () => Navigator.pushNamed(
-                              context,
-                              ForgotPassword.id,
-                            ),
+                      ///*-----Forgot Password-----*///
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: TappableText(
+                          kForgotPasswordString,
+                          onTap: () => Navigator.pushNamed(
+                            context,
+                            ForgotPassword.id,
                           ),
                         ),
+                      ),
 
-                        SizedBox(height: 60),
+                      SizedBox(height: 60),
 
-                        ///*-----Login Button-----*///
-                        RoundedButton(
-                          onPressed: logIn,
-                          labelText: kLoginString,
-                        ),
-                      ],
-                    ),
+                      ///*-----Login Button-----*///
+                      RoundedButton(
+                        onPressed: logIn,
+                        labelText: kLoginString,
+                      ),
+                    ],
                   ),
+                ),
 
-                  SizedBox(height: 60),
+                SizedBox(height: 60),
 
-                  ///*-----SignUp Account-----*///
-                  TappableSubtitle(
-                    descriptionText: kNoAccString,
-                    actionText: kSignUpString,
-                    onActionTap: () => Navigator.pushNamed(
-                      context,
-                      SignUp.id,
-                    ),
+                ///*-----SignUp Account-----*///
+                TappableSubtitle(
+                  descriptionText: kNoAccString,
+                  actionText: kSignUpString,
+                  onActionTap: () => Navigator.pushNamed(
+                    context,
+                    SignUp.id,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

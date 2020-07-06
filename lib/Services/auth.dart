@@ -38,19 +38,6 @@ class AuthServices {
     return _firebaseAuth.onAuthStateChanged.map(_userFromFirebaseUser);
   }
 
-  //Register User (Admin Only)
-  Future registerWithEmailAndPassword(String _email, String _password) async {
-    try {
-      AuthResult result = await _firebaseAuth.createUserWithEmailAndPassword(
-          email: _email + "@sastra.ac.in", password: _password);
-      FirebaseUser user = result.user;
-      return _userFromFirebaseUser(user);
-    } catch (e) {
-      print(_email);
-      print(_password);
-    }
-  }
-
   //Sign in anonymously
   Future signInAnon() async {
     try {
@@ -74,6 +61,22 @@ class AuthServices {
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e);
+    }
+  }
+
+//Register User
+//ignore: missing_return
+  Future<User> registerWithEmailAndPassword(
+      String _email, String _password) async {
+    try {
+      AuthResult result = await _firebaseAuth.createUserWithEmailAndPassword(
+          email: _email + "@sastra.ac.in", password: _password);
+      FirebaseUser user = result.user;
+      return _userFromFirebaseUser(user);
+    } catch (e) {
+      print(e);
+      print(_email);
+      print(_password);
     }
   }
 

@@ -93,7 +93,7 @@ class _HomeHandlerState extends State<HomeHandler>
               duration: navigationDrawerDuration,
               top: NavigationDrawer.isCollapsed ? 0 : -0.09 * screenHeight,
               bottom: NavigationDrawer.isCollapsed ? 0 : -0.05 * screenHeight,
-              left: NavigationDrawer.isCollapsed ? 0 : 150,
+              left: NavigationDrawer.isCollapsed ? 0 : 100,
               right: NavigationDrawer.isCollapsed ? 0 : -150,
               child: Container(
                 width: screenWidth,
