@@ -5,24 +5,15 @@ import 'package:sastra_ebooks/Components/AppBarTitles/appBarTitle.dart';
 import 'package:sastra_ebooks/Components/customScaffold.dart';
 import 'package:sastra_ebooks/Components/customAppBar.dart';
 import 'package:sastra_ebooks/Components/listItem.dart';
-import 'package:sastra_ebooks/Components/profileInfo.dart';
+import 'SettingScreens/about.dart';
+import 'file:///F:/OneDrive/Desktop/eBooks/sastra-edu/lib/Components/profile/profileInfo.dart';
 import 'package:sastra_ebooks/Misc/constants.dart';
 import 'file:///F:/OneDrive/Desktop/eBooks/sastra-edu/lib/Misc/screens/mailUs.dart';
 import 'package:sastra_ebooks/Services/auth.dart';
+import 'SettingScreens/buyacoke.dart';
 
-import 'Settings/about.dart';
-import 'Settings/buyacoke.dart';
-
-class Profile extends StatefulWidget {
+class Profile extends StatelessWidget {
   static const String id = '/profile';
-  @override
-  _ProfileState createState() => _ProfileState();
-}
-
-class _ProfileState extends State<Profile> {
-  bool switchState = false;
-
-  final AuthServices _auth = AuthServices();
 
   @override
   Widget build(BuildContext context) {
@@ -39,31 +30,33 @@ class _ProfileState extends State<Profile> {
             child: Center(
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
+
+                // color: Colors.red,
                 child: ProfileInfo(),
               ),
             ),
           ),
           Column(
             children: <Widget>[
-              ListItem(
-//                    onPressed: () {
-//                      Navigator.push(
-//                          context,
-//                          MaterialPageRoute(
-//                              builder: (context) => Notifications()));
-//                      print('Notifications');
-//                      Dialogs.notfoundDialog(context);
-//                    },
-                title: kNotificationsString,
-                icon: Icons.notifications_active,
-              ),
+//              ListItem(
+////                    onPressed: () {
+////                      Navigator.push(
+////                          context,
+////                          MaterialPageRoute(
+////                              builder: (context) => Notifications()));
+////                      print('Notifications');
+////                      Dialogs.notfoundDialog(context);
+////                    },
+//                title: kNotificationsString,
+//                icon: Icons.notifications_active,
+//              ),
               ListItem(
                 onPressed: () => Navigator.pushNamed(context, MailUs.id),
                 title: kSupportString,
                 icon: Icons.feedback,
               ),
               ListItem(
-                onPressed: () => Navigator.pushNamed(context, About.id),
+                onPressed: () => Navigator.pushNamed(context, AboutUs.id),
                 title: kAboutUsString,
                 icon: Icons.person,
               ),

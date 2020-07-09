@@ -6,13 +6,13 @@ import 'package:sastra_ebooks/Login/login.dart';
 import 'Home/screens/searchBooks.dart';
 import 'Misc/screens/mailUs.dart';
 import 'package:sastra_ebooks/Misc/textStyles.dart';
-import 'package:sastra_ebooks/Profile/Settings/about.dart';
-import 'package:sastra_ebooks/Profile/Settings/buyacoke.dart';
 import 'package:sastra_ebooks/Profile/profile.dart';
 import 'package:sastra_ebooks/loadingScreen.dart';
 
 import 'Home/HomeHandler.dart';
-import 'Profile/Settings/unused/support.dart';
+import 'Profile/SettingScreens/about.dart';
+import 'Profile/SettingScreens/buyacoke.dart';
+import 'Profile/SettingScreens/unused/support.dart';
 import 'Services/Responsive/size_config.dart';
 import 'Services/auth.dart';
 import 'Services/user.dart';
@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
                   SearchBooks.id: (context) => SearchBooks(),
                   Profile.id: (context) => Profile(),
                   Support.id: (context) => Support(),
-                  About.id: (context) => About(),
+                  AboutUs.id: (context) => AboutUs(),
                   BuyACoke.id: (context) => BuyACoke(),
 //                  Splash.id: (context) => Splash(),
                 },

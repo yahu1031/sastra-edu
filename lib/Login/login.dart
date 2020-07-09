@@ -5,7 +5,6 @@ import 'package:sastra_ebooks/Components/customScaffold.dart';
 import 'package:sastra_ebooks/Components/textFields/customTextFormField/children/passwordTextFormField.dart';
 import 'package:sastra_ebooks/Components/textFields/customTextFormField/children/regNumTextFormField.dart';
 import 'package:sastra_ebooks/Dialogs/dialogs.dart' as dialogs;
-import 'package:sastra_ebooks/Services/Responsive/size_config.dart';
 import 'package:sastra_ebooks/Services/user.dart';
 import 'package:sastra_ebooks/loadingScreen.dart';
 

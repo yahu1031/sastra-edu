@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sastra_ebooks/Components/profilePicture.dart';
+import 'file:///F:/OneDrive/Desktop/eBooks/sastra-edu/lib/Components/profile/profilePicture.dart';
 import 'package:sastra_ebooks/Components/Buttons/MenuButton.dart';
+import 'package:sastra_ebooks/Components/profile/pictureProfile.dart';
 import 'package:sastra_ebooks/Home/drawerNavigator.dart';
 import 'package:sastra_ebooks/Home/screens/home.dart';
 import 'package:sastra_ebooks/Home/screens/bookmark.dart';
@@ -85,7 +86,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
 
   void onLogOutPressed() async {
     await _auth.signOut();
-    Navigator.pushReplacementNamed(context, Login.id);
+//    Navigator.pushNamedAndRemoveUntil(context, Login.id, (_) => false);
   }
 
   @override
@@ -114,7 +115,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                       child: ClipRRect(
                         clipBehavior: Clip.hardEdge,
                         borderRadius: BorderRadius.circular(100),
-                        child: ProfilePicture(),
+                        child: PictureProfile(),
                       ),
                     ),
                   ),
@@ -146,13 +147,13 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                                   ? true
                                   : false,
                         ),
-                        MenuButton(
-                          //onPressed: onChatPressed,
-                          icon: Icons.chat_bubble_outline,
-//                          selected: DrawerNavigator.currentPage == Chat.id
-//                              ? true
-//                              : false,
-                        ),
+//                        MenuButton(
+//                          //onPressed: onChatPressed,
+//                          icon: Icons.chat_bubble_outline,
+////                          selected: DrawerNavigator.currentPage == Chat.id
+////                              ? true
+////                              : false,
+//                        ),
                         MenuButton(
                           onPressed: onLogOutPressed,
                           icon: Icons.power_settings_new,

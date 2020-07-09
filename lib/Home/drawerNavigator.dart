@@ -6,6 +6,8 @@ import 'screens/home.dart';
 class DrawerNavigator {
   static String _currentPageString = Home.id;
 
+  static void reset() => _currentPageString = Home.id;
+
   static void toHome() => _currentPageString = Home.id;
 
   static void toFavorites() => _currentPageString = Favorite.id;

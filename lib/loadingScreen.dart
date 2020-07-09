@@ -13,7 +13,8 @@ import 'package:sastra_ebooks/Services/Responsive/size_config.dart';
 
 import 'Books/book.dart';
 import 'Books/bookCategory.dart';
-import 'Components/profilePicture.dart';
+import 'Components/profile/pictureProfile.dart';
+import 'Components/profile/profilePicture.dart';
 import 'Services/paths.dart';
 import 'Services/user.dart';
 
@@ -79,17 +80,14 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
           UserData(
             widget.user.uid,
+            document.data['pro_pic'],
             document.data['name'],
             document.data["branch"],
             document.data['year'],
             document.data['regNo'],
           );
 
-          ProfilePicture(
-//            imageUrl:
-//                'https://media.playcentral.de/wp-content/uploads/2019/11/03172349/newspic-81334-652x367.jpg',
-            imageUrl: document.data['pro_pic'],
-          );
+          PictureProfile.updateImage(UserData.proPicUrl);
 
           print("Going to Wrapper");
 

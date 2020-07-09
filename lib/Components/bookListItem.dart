@@ -31,7 +31,7 @@ class BookListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 75,
+      constraints: BoxConstraints(minHeight: 75),
       margin: EdgeInsets.only(bottom: kBottomPadding),
       child: InkWell(
         onTap: () {

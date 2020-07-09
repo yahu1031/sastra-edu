@@ -7,10 +7,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
+import 'package:sastra_ebooks/Components/profile/pictureProfile.dart';
 import 'package:sastra_ebooks/Misc/constants.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../../Components/profilePicture.dart';
+import '../../../Components/profile/profilePicture.dart';
 import '../../../Services/Responsive/size_config.dart';
 import '../../../Services/user.dart';
 
@@ -47,45 +48,48 @@ class _YourSelfState extends State<YourSelf> {
     print(imageUrl);
   }
 
+  Future getImage() async {
+    File image = await ImagePicker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 30,
+      maxHeight: 1000,
+      maxWidth: 1000,
+    );
+
+    setState(() {
+      _image = image;
+      print("Image path $_image.");
+    });
+    _image.delete();
+  }
+
+  Future uploadPic(BuildContext context) async {
+    String proPicUrl;
+    String fileName = basename(_image.path);
+    StorageReference firebaseStorageRef =
+        FirebaseStorage.instance.ref().child(fileName);
+    StorageUploadTask uploadTask = firebaseStorageRef.putFile(_image);
+    StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
+
+    if (taskSnapshot.error == null) {
+      String dwurl = await taskSnapshot.ref.getDownloadURL();
+      print(dwurl);
+      Firestore.instance
+          .document("Data/${user.uid}")
+          .updateData({"pro_pic": dwurl});
+      proPicUrl = (await Firestore.instance.document('Data/${user.uid}').get())
+          .data['pro_pic']
+          .toString();
+    }
+    setState(() {
+      print("Profile Picture uploaded");
+      imageUrl = proPicUrl;
+      PictureProfile.updateImage(imageUrl);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    Future getImage() async {
-      var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-
-      setState(() {
-        _image = image;
-        print("Image path $_image");
-      });
-    }
-
-    Future uploadPic(BuildContext context) async {
-      String proPicUrl;
-      String fileName = basename(_image.path);
-      StorageReference firebaseStorageRef =
-          FirebaseStorage.instance.ref().child(fileName);
-      StorageUploadTask uploadTask = firebaseStorageRef.putFile(_image);
-      StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
-
-      if (taskSnapshot.error == null) {
-        String dwurl = await taskSnapshot.ref.getDownloadURL();
-        print(dwurl);
-        Firestore.instance
-            .document("Data/${user.uid}")
-            .updateData({"pro_pic": dwurl});
-        proPicUrl =
-            (await Firestore.instance.document('Data/${user.uid}').get())
-                .data['pro_pic']
-                .toString();
-      }
-      setState(() {
-        print("Profile Picture uploaded");
-        imageUrl = proPicUrl;
-        ProfilePicture(
-          imageUrl: imageUrl,
-        );
-      });
-    }
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: new AppBar(
@@ -143,11 +147,11 @@ class _YourSelfState extends State<YourSelf> {
               padding: const EdgeInsets.only(top: 30.0),
               child: Center(
                 child: GestureDetector(
-                  onTap: () {
+                  onTap: () async {
                     print("Dp");
                     try {
                       isProfileUpdated = true;
-                      getImage();
+                      await getImage();
                     } catch (e) {
                       isProfileUpdated = false;
                     }
@@ -159,7 +163,7 @@ class _YourSelfState extends State<YourSelf> {
                       child: new SizedBox(
                         width: 190.0,
                         height: 190.0,
-                        child: ProfilePicture(),
+                        child: PictureProfile(),
                       ),
                     ),
                   ),
