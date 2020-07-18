@@ -41,6 +41,14 @@ dependencies:
   cloud_firestore: ^0.13.7
   firebase_messaging: ^6.0.16
   cupertino_icons: ^0.1.3
+  flutter_keyboard_visibility: ^3.2.1
+  workmanager: ^0.2.3
+  keyboard_utils: 1.2.4
+
+  keyboard_visibility:
+    git:
+      url: https://github.com/alex-thmv/flutter_keyboard_visibility.git
+
 
 dev_dependencies:
   flutter_test:

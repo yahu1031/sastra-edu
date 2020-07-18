@@ -1,27 +1,33 @@
-// import 'dart:async';
+/*
+ * Name: loadingScreen
+ * Use:
+ * TODO:    - Add Use of this file
+            - cleanup
+ */
+
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:sastra_ebooks/Home/HomeHandler.dart';
-import 'package:sastra_ebooks/Services/Responsive/size_config.dart';
+import 'package:sastra_ebooks/home/homeHandler.dart';
+import 'package:sastra_ebooks/services/responsive/sizeConfig.dart';
+import 'package:sastra_ebooks/components/profile/profilePicture.dart';
+import 'package:sastra_ebooks/services/user.dart';
 
-import 'Books/book.dart';
-import 'Books/bookCategory.dart';
-import 'Components/profile/pictureProfile.dart';
-import 'Components/profile/profilePicture.dart';
-import 'Services/paths.dart';
-import 'Services/user.dart';
+import 'books/book.dart';
+import 'books/bookCategory.dart';
+import 'services/images.dart';
 
 class LoadingScreen extends StatefulWidget {
   static const id = '/loadingScreen';
-  final User user;
-  LoadingScreen(this.user);
+  final FirebaseUser firebaseUser;
+  LoadingScreen(this.firebaseUser);
   @override
   _LoadingScreenState createState() => _LoadingScreenState();
 }
@@ -37,15 +43,14 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   void initState() {
     super.initState();
-    onLoad();
-    // Timer(Duration(milliseconds: 5000), () => goToWrapper());
+    load();
   }
 
-  void onLoad() async {
-    if (widget.user != null) {
+  void load() async {
+    if (widget.firebaseUser != null) {
       str = "";
-      for (int i = 0; i < (widget.user.email).length; i++) {
-        String char = widget.user.email.substring(i, (i + 1));
+      for (int i = 0; i < (widget.firebaseUser.email).length; i++) {
+        String char = widget.firebaseUser.email.substring(i, (i + 1));
         //        print(char);
         if (char != '@') {
           str = str + char;
@@ -75,11 +80,12 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
           DocumentSnapshot document = await Firestore.instance
               .collection('Data')
-              .document(widget.user.uid)
+              .document(widget.firebaseUser.uid)
               .get();
 
-          UserData(
-            widget.user.uid,
+          final user = User(
+            widget.firebaseUser.uid,
+            widget.firebaseUser.email,
             document.data['pro_pic'],
             document.data['name'],
             document.data["branch"],
@@ -87,11 +93,15 @@ class _LoadingScreenState extends State<LoadingScreen> {
             document.data['regNo'],
           );
 
-          PictureProfile.updateImage(UserData.proPicUrl);
+          print(user.name);
+
+          ProfilePicture.updateImage(user.proPicUrl);
 
           print("Going to Wrapper");
 
-          Navigator.pushReplacementNamed(context, HomeHandler.id);
+          Navigator.pushNamedAndRemoveUntil(
+              context, HomeHandler.id, (_) => false,
+              arguments: user);
         }
       }
     }
@@ -157,8 +167,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
         BookCategory(name: categoryName, books: booksOfCategory);
       },
     );
-//    print('bookCategories ' +
-//        BookCategory.bookCategoryInstancesList[1].books.toString());
   }
 
   @override
