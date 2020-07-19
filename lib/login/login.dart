@@ -60,6 +60,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
         dialogs.yesAbortDialog(
             context, Strings.sorryString, Strings.credentialsMissingString);
       }
+//      Navigator.pop(context, true);
       if (_regNum.length < 9) {
         print(1);
         dialogs.yesAbortDialog(context, Strings.regNumTooShortString,

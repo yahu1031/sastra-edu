@@ -12,5 +12,7 @@ class Dimensions {
   static const double largePadding = 20;
   static const double extraLargePadding = 30;
   static const double elevation = 7;
+  static final double borderRadiusDouble = 7;
+
   static final BorderRadius borderRadius = BorderRadius.circular(7);
 }

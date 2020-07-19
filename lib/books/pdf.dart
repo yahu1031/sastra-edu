@@ -10,10 +10,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:native_pdf_view/native_pdf_view.dart';
+import 'package:sastra_ebooks/components/buttons/iconButtons/floatingIconButton.dart';
 import 'package:sastra_ebooks/components/customAppBar.dart';
 import 'package:sastra_ebooks/components/customScaffold.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
-import 'package:sastra_ebooks/services/dialogs.dart';
 
 class PdfViewerPage extends StatefulWidget {
   final itemName;
@@ -92,36 +92,26 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
                     children: <Widget>[
                       Visibility(
                         visible: _currentPage > 1,
-                        child: FloatingActionButton.extended(
-                          backgroundColor: Colors.lightBlueAccent,
-                          label: Icon(
-                            Icons.keyboard_arrow_left,
-                            size: 30.0,
-                            color: Colors.white,
-                          ),
+                        child: FloatingIconButton(
                           onPressed: () {
                             pdfController.previousPage(
                               duration: Duration(milliseconds: 500),
                               curve: Curves.easeInOut,
                             );
                           },
+                          icon: Icons.keyboard_arrow_left,
                         ),
                       ),
                       Visibility(
                         visible: _currentPage + 1 < _totalPages,
-                        child: FloatingActionButton.extended(
-                          backgroundColor: Colors.lightBlueAccent,
-                          label: Icon(
-                            Icons.keyboard_arrow_right,
-                            size: 30.0,
-                            color: Colors.white,
-                          ),
+                        child: FloatingIconButton(
                           onPressed: () {
                             pdfController.nextPage(
                               duration: Duration(milliseconds: 500),
                               curve: Curves.easeInOut,
                             );
                           },
+                          icon: Icons.keyboard_arrow_right,
                         ),
                       ),
                     ],
