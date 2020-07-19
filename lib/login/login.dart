@@ -22,8 +22,8 @@ import 'package:sastra_ebooks/components/buttons/tappableSubtitle.dart';
 import 'package:sastra_ebooks/components/buttons/tappableText.dart';
 import 'package:sastra_ebooks/components/headings/largeHeading.dart';
 import 'package:sastra_ebooks/loadingScreen.dart';
-import 'package:sastra_ebooks/services/user.dart';
-
+import 'package:sastra_ebooks/dialogs/loadingDialog.dart' as dialogs;
+import 'package:sastra_ebooks/dialogs/dialogs.dart' as dialogs;
 import '../misc/screens/mailUs.dart';
 import '../services/auth.dart';
 import 'forgotpassword.dart';
@@ -37,7 +37,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   String _regNum, _password;
-
+  bool onEnableLogin = false;
   final _formKey = GlobalKey<FormState>();
   final AuthServices _auth = AuthServices();
 
@@ -48,26 +48,32 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
 
   void logIn() async {
     if (_formKey.currentState.validate()) {
-//      dialogs.showLoadingDialog(context);
+      dialogs.showLoadingDialog(context);
       final FirebaseUser _firebaseUser = await _auth.signInWithEmailAndPassword(
         _regNum,
         _password,
       );
       Navigator.pop(context, true);
+      if (_regNum == null ||
+          _password == null ||
+          _regNum == null && _password == null) {
+        dialogs.yesAbortDialog(
+            context, Strings.sorryString, Strings.credentialsMissingString);
+      }
       if (_regNum.length < 9) {
         print(1);
-//        dialogs.yesAbortDialog(context, Strings.regNumTooShortString,
-//            Strings.regNumTooShortExplainString);
+        dialogs.yesAbortDialog(context, Strings.regNumTooShortString,
+            Strings.regNumTooShortExplainString);
       } else if (_password.length < 6) {
         print(2);
 
-        //        dialogs.yesAbortDialog(context, Strings.passwordTooShortString,
-//            Strings.passwordTooShortExplainString);
+        dialogs.yesAbortDialog(context, Strings.passwordTooShortString,
+            Strings.passwordTooShortExplainString);
       } else if (FontAwesome.fire == null) {
         print(3);
 
-        //        dialogs.yesAbortDialog(context, Strings.sorryString,
-//            Strings.invalidCredentialsExplainString);
+        dialogs.yesAbortDialog(context, Strings.sorryString,
+            Strings.invalidCredentialsExplainString);
       } else {
         print(4);
 
@@ -105,7 +111,8 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
       ///*-----Login-Form-----*///
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: Dimensions.padding),
+          padding:
+              EdgeInsets.symmetric(horizontal: Dimensions.extraLargePadding),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -123,7 +130,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                             child: FittedBox(
                               child: LargeHeading(
                                 text: 'Hello\nThere',
-                                highlightText: '.',
+                                highlightText: ' .',
                                 size: HeadingSize.extraLarge,
                               ),
                             ),

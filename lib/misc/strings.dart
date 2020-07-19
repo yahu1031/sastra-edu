@@ -61,4 +61,7 @@ class Strings {
   static const String passwordResetSuccessfulString =
       'If this email address is valid, you will soon receive an email to reset your password.';
   static const String resetPasswordString = 'Reset Password';
+//Downloads
+
+  static const String kDownloadTitle = 'Download the Book';
 }

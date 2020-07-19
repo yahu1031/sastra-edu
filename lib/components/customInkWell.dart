@@ -11,12 +11,14 @@ import 'package:sastra_ebooks/misc/dimensions.dart';
 class CustomInkWell extends StatelessWidget {
   final Widget child;
   final GestureTapCallback onPressed;
+  final GestureLongPressCallback onLongPressed;
 
-  const CustomInkWell({@required this.onPressed, @required this.child});
+  const CustomInkWell({@required this.onPressed, @required this.child, this.onLongPressed});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onLongPress: onLongPressed,
       onTap: onPressed,
       borderRadius: Dimensions.borderRadius,
       child: child,

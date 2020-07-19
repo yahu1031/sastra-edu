@@ -18,10 +18,10 @@ dependencies:
   intl: ^0.16.1
   dio: ^3.0.9
   material_design_icons_flutter: ^4.0.5345
-  flutter_svg: ^0.17.4
+  flutter_svg: ^0.18.0
   path_provider: ^1.6.10
   animated_text_kit: ^2.2.0
-#  flutter_pdfview: ^1.0.2+3
+  #  flutter_pdfview: ^1.0.2+3
   upi_india: ^2.1.2
   http: ^0.12.1
   url_launcher: ^5.4.10
@@ -32,9 +32,9 @@ dependencies:
   font_awesome_flutter: ^8.8.1
   image_picker: ^0.6.7
 
-#  advance_pdf_viewer: ^1.1.6
-#  flutter_cached_pdfview: ^0.1.7
-#  flutter_cache_manager: ^1.4.1
+  #  advance_pdf_viewer: ^1.1.6
+  #  flutter_cached_pdfview: ^0.1.7
+  #  flutter_cache_manager: ^1.4.1
   native_pdf_view: ^3.6.2
   flutter_cache_manager: ^1.4.1
 
@@ -54,7 +54,6 @@ dependencies:
   keyboard_visibility:
     git:
       url: https://github.com/alex-thmv/flutter_keyboard_visibility.git
-
 
 dev_dependencies:
   flutter_test:

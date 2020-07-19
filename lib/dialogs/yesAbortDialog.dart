@@ -20,12 +20,16 @@ Future<DialogAction> yesAbortDialog(
     barrierDismissible: false,
     builder: (BuildContext context) {
       return AlertDialog(
+        titlePadding: EdgeInsets.fromLTRB(50, 30, 50, 10),
+        contentPadding: EdgeInsets.fromLTRB(50, 10, 50, 30),
+        actionsPadding: EdgeInsets.fromLTRB(50, 10, 50, 30),
         shape: RoundedRectangleBorder(
           borderRadius: Dimensions.borderRadius,
         ),
         title: Text(
           title,
-          style: headline3HighlightTextStyle,
+          // style: headline3HighlightTextStyle,
+          style: subtitle1HighlightTextStyle,
         ),
         content: Text(
           body,
@@ -36,6 +40,45 @@ Future<DialogAction> yesAbortDialog(
             onPressed: () => Navigator.of(context).pop(DialogAction.abort),
             child: const Text(
               'Ok',
+              style: TextStyle(color: Colors.lightBlue),
+            ),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+Future<DialogAction> downloadDialog(
+  BuildContext context,
+  String title,
+  String body,
+) async {
+  return showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        titlePadding: EdgeInsets.fromLTRB(50, 30, 50, 10),
+        contentPadding: EdgeInsets.fromLTRB(50, 10, 50, 30),
+        actionsPadding: EdgeInsets.fromLTRB(50, 10, 50, 30),
+        shape: RoundedRectangleBorder(
+          borderRadius: Dimensions.borderRadius,
+        ),
+        title: Text(
+          title,
+          // style: headline3HighlightTextStyle,
+          style: subtitle1HighlightTextStyle,
+        ),
+        content: Text(
+          body,
+          style: body1TextStyle,
+        ),
+        actions: <Widget>[
+          FlatButton(
+            onPressed: () => Navigator.of(context).pop(DialogAction.abort),
+            child: const Text(
+              'Download',
               style: TextStyle(color: Colors.lightBlue),
             ),
           ),

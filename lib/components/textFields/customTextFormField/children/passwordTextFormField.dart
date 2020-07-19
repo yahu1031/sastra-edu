@@ -47,7 +47,7 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
         return null;
       },
       autovalidate: true,
-      keyboardType: TextInputType.number,
+      keyboardType: TextInputType.text,
       obscureText: obscureText,
       suffixIcon: TextFieldButton(
         onPressed: () => setState(() {

@@ -34,7 +34,6 @@ class RegNumTextFormField extends StatelessWidget {
       inputFormatters: [
         LengthLimitingTextInputFormatter(9),
       ],
-      //initialValue: '121003219',
     );
   }
 }
