@@ -11,6 +11,7 @@ import 'package:sastra_ebooks/misc/customColors.dart';
 class CustomIconButton extends StatelessWidget {
   final GestureTapCallback onPressed;
   final IconData icon;
+
   const CustomIconButton({@required this.onPressed, @required this.icon});
 
   @override

@@ -1,10 +1,21 @@
+/*
+ * Name: bookListItem
+ * Use:
+ * TODO:    - Add Use of this file
+            - cleanup
+            - unify fonts
+ */
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sastra_ebooks/Books/book.dart';
-import 'package:sastra_ebooks/Books/pdf.dart';
-import 'package:sastra_ebooks/Misc/constants.dart';
+import 'package:sastra_ebooks/books/book.dart';
+import 'package:sastra_ebooks/books/pdf.dart';
+import 'package:sastra_ebooks/misc/customColors.dart';
+import 'package:sastra_ebooks/misc/dimensions.dart';
+
+import 'customInkWell.dart';
 
 class BookListItem extends StatelessWidget {
   static final List<BookListItem> bookListItems = [];
@@ -32,9 +43,9 @@ class BookListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       constraints: BoxConstraints(minHeight: 75),
-      margin: EdgeInsets.only(bottom: kBottomPadding),
-      child: InkWell(
-        onTap: () {
+      margin: EdgeInsets.only(bottom: Dimensions.largePadding),
+      child: CustomInkWell(
+        onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -42,20 +53,18 @@ class BookListItem extends StatelessWidget {
             ),
           );
         },
-        borderRadius: BorderRadius.circular(7),
         child: Row(
           children: <Widget>[
             Container(
               height: 75,
               width: 75,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(7),
-                color: kVeryLightGrey,
+                borderRadius: Dimensions.borderRadius,
+                color: CustomColors.veryLightGrey,
               ),
               child: Center(
                 child: CachedNetworkImage(
                   imageUrl: book.imgUrl,
-//                      'https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg',
                   width: 50,
                   height: 50,
                 ),

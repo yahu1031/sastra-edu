@@ -1,9 +1,17 @@
+/*
+ * Name: textStyles
+ * Use:
+ * TODO:    - Add Use of this file
+            - go over text styles
+            - maybe increase body font size
+            - re-evaluate headings
+ */
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sastra_ebooks/services/responsive/sizeConfig.dart';
 
-import 'package:sastra_ebooks/Misc/constants.dart';
-
-// Todo: maybe increase body font size
+import 'customColors.dart';
 
 /// TextStyles ///
 ///
@@ -11,68 +19,68 @@ import 'package:sastra_ebooks/Misc/constants.dart';
 final TextStyle body1TextStyle = GoogleFonts.notoSans(
   fontSize: 16,
   fontWeight: FontWeight.w400,
-  color: kDarkColor,
+  color: CustomColors.darkColor,
 );
 
 final TextStyle body1HighlightTextStyle = body1TextStyle.copyWith(
-  color: kHighlightColor,
+  color: CustomColors.highlightColor,
 );
 
 final TextStyle body1GreyTextStyle = body1TextStyle.copyWith(
-  color: kMiddleGrey,
+  color: CustomColors.middleGrey,
 );
 
 /// Headline1
 final TextStyle headline1TextStyle = GoogleFonts.montserrat(
-  fontSize: 100,
+  fontSize: SizeConfig.textMultiplier * 10,
   fontWeight: FontWeight.w700,
-  color: kDarkColor,
+  color: CustomColors.darkColor,
 );
 
 final TextStyle headline1HighlightTextStyle = headline1TextStyle.copyWith(
-  color: kHighlightColor,
+  color: CustomColors.highlightColor,
 );
 
 /// Headline2
 final TextStyle headline2TextStyle = GoogleFonts.montserrat(
   fontSize: 50,
   fontWeight: FontWeight.w700,
-  color: kDarkColor,
+  color: CustomColors.darkColor,
 );
 
 final TextStyle headline2HighlightTextStyle = headline2TextStyle.copyWith(
-  color: kHighlightColor,
+  color: CustomColors.highlightColor,
 );
 
 /// Headline3
 final TextStyle headline3TextStyle = GoogleFonts.montserrat(
   fontSize: 40,
   fontWeight: FontWeight.w700,
-  color: kDarkColor,
+  color: CustomColors.darkColor,
 );
 
 final TextStyle headline3HighlightTextStyle = headline3TextStyle.copyWith(
-  color: kHighlightColor,
+  color: CustomColors.highlightColor,
 );
 
 final TextStyle headline3ThinTextStyle = GoogleFonts.notoSans(
   fontSize: 40,
-  color: kDarkColor,
+  color: CustomColors.darkColor,
 );
 
 /// Headline4
 final TextStyle headline4TextStyle = GoogleFonts.montserrat(
   fontSize: 20,
   fontWeight: FontWeight.w600,
-  color: kDarkColor,
+  color: CustomColors.darkColor,
 );
 
 final TextStyle headline4HighlightTextStyle = headline4TextStyle.copyWith(
-  color: kHighlightColor,
+  color: CustomColors.highlightColor,
 );
 
 final TextStyle headline4GreyTextStyle = headline4TextStyle.copyWith(
-  color: kMiddleGrey,
+  color: CustomColors.middleGrey,
 );
 
 /// Subtitle1
@@ -82,22 +90,22 @@ final TextStyle subtitle1TextStyle = GoogleFonts.montserrat(
 );
 
 final TextStyle subtitle1HighlightTextStyle = subtitle1TextStyle.copyWith(
-  color: kHighlightColor,
+  color: CustomColors.highlightColor,
 );
 
 final TextStyle subtitle1LightTextStyle = subtitle1TextStyle.copyWith(
-  color: kLightColor,
+  color: CustomColors.lightColor,
 );
 
 final TextStyle subtitle1GreyTextStyle = subtitle1TextStyle.copyWith(
-  color: kDarkGrey,
+  color: CustomColors.darkGrey,
 );
 
 /// ButtonLabel
 final TextStyle buttonLabelTextStyle = GoogleFonts.notoSans(
   fontWeight: FontWeight.w700,
   fontSize: 20,
-  color: Colors.white,
+  color: CustomColors.lightColor,
 );
 
 final TextStyle tabTitleTextStyle = GoogleFonts.notoSans(

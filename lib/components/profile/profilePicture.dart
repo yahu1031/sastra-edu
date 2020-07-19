@@ -1,23 +1,29 @@
+/*
+ * Name: profilePicture
+ * Use:
+ * TODO:    - Add Use of this file
+ */
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class PictureProfile extends StatelessWidget {
+class ProfilePicture extends StatelessWidget {
   static String _imageUrl;
-  static PictureProfile _profilePicture;
+  static ProfilePicture _profilePicture;
 
-  factory PictureProfile() {
+  factory ProfilePicture() {
     if (_profilePicture != null) {
       return _profilePicture;
     }
     throw 'Can\'t retrive profile picture. _profilePicture = $_profilePicture';
   }
 
-  PictureProfile._internal();
+  ProfilePicture._internal();
 
   static updateImage(String imageUrl) {
     _imageUrl = imageUrl;
-    _profilePicture = PictureProfile._internal();
+    _profilePicture = ProfilePicture._internal();
   }
 
   @override

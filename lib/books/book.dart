@@ -1,3 +1,9 @@
+/*
+ * Name: book
+ * Use:
+ * TODO:    - Add Use of this file
+ */
+
 import 'package:flutter/cupertino.dart';
 
 class Book {

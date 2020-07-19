@@ -1,12 +1,17 @@
-import 'package:firebase_auth/firebase_auth.dart';
+/*
+ * Name: auth
+ * Use:
+ * TODO:    - Add Use of this file
+            - cleanup
+ */
 
-import 'user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sastra_ebooks/services/user.dart';
 
 class AuthServices {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   Stream<String> get onAuthStateChanged => _firebaseAuth.onAuthStateChanged.map(
-        // ignore: missing_return
         (FirebaseUser user) {
           user?.uid;
           user?.email;
@@ -26,12 +31,7 @@ class AuthServices {
   //Create user object based on FirebaseUser
   User _userFromFirebaseUser(FirebaseUser user) {
     // print(user.email);
-    return user != null
-        ? User(
-            uid: user.uid,
-            email: user.email,
-          )
-        : null;
+    return user != null ? User(user.uid, user.email, '', '', '', '', 1) : null;
   }
 
   //auth change user Stream
@@ -65,13 +65,13 @@ class AuthServices {
   }
 
   //Singin with mail & password
-  Future<User> signInWithEmailAndPassword(
+  Future<FirebaseUser> signInWithEmailAndPassword(
       String _email, String _password) async {
     try {
       AuthResult result = await _firebaseAuth.signInWithEmailAndPassword(
           email: _email + "@sastra.ac.in", password: _password);
       FirebaseUser user = result.user;
-      return _userFromFirebaseUser(user);
+      return user;
     } catch (e) {
       print(e);
     }

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sastra_ebooks/Books/tabview.dart';
-import 'package:sastra_ebooks/Login/login.dart';
+import 'package:sastra_ebooks/login/login.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../Profile/profile.dart';
-import '../Services/Responsive/size_config.dart';
-import '../Services/auth.dart';
-import '../Services/paths.dart';
+import '../profile/profile.dart';
+import '../services/Responsive/sizeConfig.dart';
+import '../services/auth.dart';
+import '../services/images.dart';
 
 final Color backgroundColor = Colors.white;
+
+/// ToDo: If used, needs cleanup
 
 class AdminPage extends StatefulWidget {
   final data;
@@ -27,7 +28,7 @@ class _AdminPageState extends State<AdminPage> with TickerProviderStateMixin {
   Animation<double> _menuScaleAnimation;
   Animation<Offset> _slideAnimation;
 
-  final AuthServices _auth = AuthServices();
+//  final AuthServices _auth = AuthServices();
   List<Tab> tab = [];
   List<Widget> tabItems = [];
   TabController tabController;
@@ -39,7 +40,7 @@ class _AdminPageState extends State<AdminPage> with TickerProviderStateMixin {
       tab.add(
         Tab(child: Text(widget.data["Tabs"][i])),
       );
-      tabItems.add(All(widget.data[(widget.data["Tabs"][i])]));
+//      tabItems.add(All(widget.data[(widget.data["Tabs"][i])]));
     }
     _controller = AnimationController(vsync: this, duration: duration);
     _scaleAnimation = Tween<double>(begin: 1, end: 0.8).animate(_controller);
@@ -133,10 +134,10 @@ class _AdminPageState extends State<AdminPage> with TickerProviderStateMixin {
                 new Container(
                   child: InkWell(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Profile()),
-                      );
+//                      Navigator.push(
+//                        context,
+//                        MaterialPageRoute(builder: (context) => Profile()),
+//                      );
                       print('Profile');
                     },
                     child: new CircleAvatar(
@@ -203,7 +204,7 @@ class _AdminPageState extends State<AdminPage> with TickerProviderStateMixin {
                         icon: Icon(Icons.power_settings_new),
                         color: Colors.lightBlueAccent,
                         onPressed: () async {
-                          await _auth.signOut();
+//                          await _auth.signOut();
                           //!  have added a systemwide exit because if a user log out he doesn't want to use the app, the app is not faacebook that user have different ids
                           Navigator.pushReplacementNamed(context, Login.id);
 

@@ -1,8 +1,14 @@
+/*
+ * Name: listItem
+ * Use:
+ * TODO:    - Add Use of this file
+ */
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:sastra_ebooks/Misc/constants.dart';
-import 'package:sastra_ebooks/Misc/textStyles.dart';
+import 'package:sastra_ebooks/misc/customColors.dart';
+import 'package:sastra_ebooks/misc/dimensions.dart';
+import 'package:sastra_ebooks/misc/textStyles.dart';
 
 class ListItem extends StatelessWidget {
   final VoidCallback onPressed;
@@ -17,23 +23,25 @@ class ListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: kPadding - (kPadding / 2),
+        horizontal: Dimensions.padding - (Dimensions.padding / 2),
       ),
-      margin: const EdgeInsets.only(bottom: kBottomPadding),
       child: InkWell(
-        borderRadius: BorderRadius.circular(kRadius),
+        borderRadius: Dimensions.borderRadius,
         onTap: onPressed,
         child: Container(
-          padding:
-              const EdgeInsets.symmetric(horizontal: kPadding - (kPadding / 2)),
           height: 50.0,
+          padding: const EdgeInsets.symmetric(
+            horizontal: Dimensions.padding - (Dimensions.padding / 2),
+          ),
           child: Row(
             children: [
               Icon(
                 icon,
-                color: onPressed != null ? kHighlightColor : kMiddleGrey,
+                color: onPressed != null
+                    ? CustomColors.highlightColor
+                    : CustomColors.middleGrey,
               ),
               SizedBox(width: 20.0),
               Text(

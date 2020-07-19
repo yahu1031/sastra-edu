@@ -1,7 +1,12 @@
+/*
+ * Name: heading
+ * Use:
+ * TODO:    - Add Use of this file
+ */
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:sastra_ebooks/Misc/textStyles.dart';
+import 'package:sastra_ebooks/misc/textStyles.dart';
 
 class Heading extends StatelessWidget {
   final String text;

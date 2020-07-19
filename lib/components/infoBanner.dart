@@ -1,11 +1,16 @@
+/*
+ * Name: infoBanner
+ * Use:
+ * TODO:    - Add Use of this file
+
+ */
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:sastra_ebooks/Misc/constants.dart';
-import 'package:sastra_ebooks/Misc/textStyles.dart';
-import 'package:sastra_ebooks/Services/paths.dart';
-
-// Todo: - decide if shadow or not
+import 'package:sastra_ebooks/misc/customColors.dart';
+import 'package:sastra_ebooks/misc/dimensions.dart';
+import 'package:sastra_ebooks/misc/textStyles.dart';
+import 'package:sastra_ebooks/services/images.dart';
 
 class InfoBanner extends StatelessWidget {
   final String message;
@@ -17,23 +22,27 @@ class InfoBanner extends StatelessWidget {
     return Container(
       height: 75,
       decoration: BoxDecoration(
-        image: DecorationImage(
-          alignment: Alignment.centerLeft,
-          image: AssetImage(
-            Images.read,
-          ),
-        ),
         color: Colors.lightBlueAccent,
-        borderRadius: BorderRadius.circular(7),
+        borderRadius: Dimensions.borderRadius,
       ),
       child: Container(
-        child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Text(
-              message,
-              style: subtitle1GreyTextStyle.copyWith(
-                  color: subtitle1GreyTextStyle.color.withOpacity(.8)),
-            )),
+        padding: const EdgeInsets.only(right: Dimensions.padding),
+        child: Row(
+          children: <Widget>[
+            Image.asset(
+              Images.read,
+            ),
+            Expanded(
+              child: Center(
+                child: Text(
+                  message,
+                  style: subtitle1TextStyle.copyWith(
+                      color: CustomColors.darkColor.withOpacity(.6)),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

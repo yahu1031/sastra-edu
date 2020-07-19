@@ -1,40 +1,39 @@
 import 'package:flutter/cupertino.dart';
 
+//class User {
+//  final String uid;
+//  final String email;
+//  User({this.uid, this.email});
+//}
+
 class User {
-  final String uid;
-  final String email;
-  User({this.uid, this.email});
-}
+  final String _uid;
+  final String _email;
+  String _proPicUrl;
+  final String _name;
+  final String _branch;
+  final String _year;
+  final int _regNo;
 
-class UserData {
-  static String _uid;
-  static String proPicUrl;
-  static String _name;
-  static String _branch;
-  static String _year;
-  static int _regNo;
+  User(
+    this._uid,
+    this._email,
+    this._proPicUrl,
+    this._name,
+    this._branch,
+    this._year,
+    this._regNo,
+  );
 
-  UserData(
-    String uid,
-    String proPicUrl,
-    String name,
-    String branch,
-    String year,
-    int regNo,
-  ) {
-    UserData._uid = uid;
-    UserData.proPicUrl = proPicUrl;
-    UserData._name = name;
-    UserData._branch = branch;
-    UserData._regNo = regNo;
-    UserData._year = year;
-  }
+  String get uid => _uid;
+  String get email => _email;
+  String get proPicUrl => _proPicUrl;
+  String get name => _name;
+  String get branch => _branch;
+  int get regNo => _regNo;
+  String get year => _year;
 
-  static String get uid => _uid;
-  static String get name => _name;
-  static String get branch => _branch;
-  static int get regNo => _regNo;
-  static String get year => _year;
+  set proPicUrl(proPicUrl) => _proPicUrl = proPicUrl;
 }
 
 class Developer {

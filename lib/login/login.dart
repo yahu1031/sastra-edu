@@ -1,21 +1,32 @@
+/*
+ * Name: login
+ * Use:
+ * TODO:    - Add Use of this file
+            - cleanup
+            - re-add dialogs
+ */
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sastra_ebooks/Components/Buttons/roundedButton/roundedButton.dart';
-import 'package:sastra_ebooks/Components/customScaffold.dart';
-import 'package:sastra_ebooks/Components/textFields/customTextFormField/children/passwordTextFormField.dart';
-import 'package:sastra_ebooks/Components/textFields/customTextFormField/children/regNumTextFormField.dart';
-import 'package:sastra_ebooks/Dialogs/dialogs.dart' as dialogs;
-import 'package:sastra_ebooks/Services/user.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:keyboard_visibility/keyboard_visibility.dart';
+import 'package:sastra_ebooks/components/buttons/roundedButton/roundedButton.dart';
+import 'package:sastra_ebooks/components/customScaffold.dart';
+import 'package:sastra_ebooks/components/textFields/customTextFormField/children/passwordTextFormField.dart';
+import 'package:sastra_ebooks/components/textFields/customTextFormField/children/regNumTextFormField.dart';
+import 'package:sastra_ebooks/misc/dimensions.dart';
+import 'package:sastra_ebooks/misc/strings.dart';
+import 'package:sastra_ebooks/services/responsive/sizeConfig.dart';
+import 'package:sastra_ebooks/components/buttons/tappableSubtitle.dart';
+import 'package:sastra_ebooks/components/buttons/tappableText.dart';
+import 'package:sastra_ebooks/components/headings/largeHeading.dart';
 import 'package:sastra_ebooks/loadingScreen.dart';
+import 'package:sastra_ebooks/services/user.dart';
 
-import 'file:///F:/OneDrive/Desktop/eBooks/sastra-edu/lib/Components/Buttons/tappableSubtitle.dart';
-import 'file:///F:/OneDrive/Desktop/eBooks/sastra-edu/lib/Components/Buttons/tappableText.dart';
-import 'file:///F:/OneDrive/Desktop/eBooks/sastra-edu/lib/Components/Headings/largeHeading.dart';
-
-import '../Misc/constants.dart';
-import '../Services/auth.dart';
+import '../misc/screens/mailUs.dart';
+import '../services/auth.dart';
 import 'forgotpassword.dart';
-import '../Misc/screens/mailUs.dart';
 
 class Login extends StatefulWidget {
   static const id = '/loginScreen';
@@ -30,28 +41,60 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   final AuthServices _auth = AuthServices();
 
+  KeyboardVisibilityNotification _keyboardVisibility =
+      new KeyboardVisibilityNotification();
+  int _keyboardVisibilitySubscriberId;
+  bool _keyboardVisible;
+
   void logIn() async {
     if (_formKey.currentState.validate()) {
-      dialogs.showLoadingDialog(context);
-      final User user = await _auth.signInWithEmailAndPassword(
+//      dialogs.showLoadingDialog(context);
+      final FirebaseUser _firebaseUser = await _auth.signInWithEmailAndPassword(
         _regNum,
         _password,
       );
       Navigator.pop(context, true);
       if (_regNum.length < 9) {
-        dialogs.yesAbortDialog(
-            context, kRegNumTooShortString, kRegNumTooShortExplainString);
+        print(1);
+//        dialogs.yesAbortDialog(context, Strings.regNumTooShortString,
+//            Strings.regNumTooShortExplainString);
       } else if (_password.length < 6) {
-        dialogs.yesAbortDialog(
-            context, kPasswordTooShortString, kPasswordTooShortExplainString);
-      } else if (user == null) {
-        dialogs.yesAbortDialog(
-            context, kSorryString, kInvalidCredentialsExplainString);
+        print(2);
+
+        //        dialogs.yesAbortDialog(context, Strings.passwordTooShortString,
+//            Strings.passwordTooShortExplainString);
+      } else if (FontAwesome.fire == null) {
+        print(3);
+
+        //        dialogs.yesAbortDialog(context, Strings.sorryString,
+//            Strings.invalidCredentialsExplainString);
       } else {
-        Navigator.pushReplacementNamed(context, LoadingScreen.id,
-            arguments: user);
+        print(4);
+
+        Navigator.pushNamedAndRemoveUntil(
+            context, LoadingScreen.id, (route) => false,
+            arguments: _firebaseUser);
       }
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _keyboardVisible = _keyboardVisibility.isKeyboardVisible;
+
+    _keyboardVisibilitySubscriberId = _keyboardVisibility.addNewListener(
+      onChange: (bool visible) {
+        setState(() {
+          _keyboardVisible = visible;
+        });
+      },
+    );
+  }
+
+  void dispose() {
+    super.dispose();
+    _keyboardVisibility.removeListener(_keyboardVisibilitySubscriberId);
   }
 
   @override
@@ -62,19 +105,36 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
       ///*-----Login-Form-----*///
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: kPadding),
+          padding: EdgeInsets.symmetric(horizontal: Dimensions.padding),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               ///*-----Title -----*///
-              LargeHeading(
-                text: 'Hello\nThere',
-                highlightText: ' .',
-                size: HeadingSize.extraLarge,
+              Container(
+                child: (SizeConfig.heightMultiplier < 7 && !_keyboardVisible) ||
+                        SizeConfig.heightMultiplier >= 7
+                    ? Expanded(
+                        flex: 10,
+                        child: Container(
+                          width: double.infinity,
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: FittedBox(
+                              child: LargeHeading(
+                                text: 'Hello\nThere',
+                                highlightText: '.',
+                                size: HeadingSize.extraLarge,
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    : Expanded(
+                        flex: 5,
+                        child: Container(),
+                      ),
               ),
-
-              SizedBox(height: 40),
 
               Form(
                 key: _formKey,
@@ -87,45 +147,82 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                       onChanged: (String _input) => _regNum = _input,
                     ),
 
-                    SizedBox(height: 20),
+                    SizedBox(
+                      height: 10,
+                    ),
 
                     ///*-----Password-----*///
                     PasswordTextFormField(
                       onChanged: (String _input) => _password = _input,
                     ),
-
-                    ///*-----Forgot Password-----*///
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: TappableText(
-                        kForgotPasswordString,
-                        onTap: () => Navigator.pushNamed(
-                          context,
-                          ForgotPassword.id,
-                        ),
-                      ),
-                    ),
-
-                    SizedBox(height: 60),
-
-                    ///*-----Login Button-----*///
-                    RoundedButton(
-                      onPressed: logIn,
-                      labelText: kLoginString,
-                    ),
                   ],
                 ),
               ),
 
-              SizedBox(height: 60),
+              Expanded(
+                flex: _keyboardVisible ? 5 : 10,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    ///*-----Forgot Password-----*///
+                    Container(
+                      child: !_keyboardVisible
+                          ? Expanded(
+                              flex: 4,
+                              child: Container(
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                      bottom: 1 * SizeConfig.heightMultiplier,
+                                    ),
+                                    child: TappableText(
+                                      Strings.forgotPasswordString,
+                                      onTap: () => Navigator.pushNamed(
+                                        context,
+                                        ForgotPassword.id,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          : null,
+                    ),
 
-              ///*-----MailUs Account-----*///
-              TappableSubtitle(
-                descriptionText: kCantFindAccString,
-                actionText: kMailUsString,
-                onActionTap: () => Navigator.pushNamed(
-                  context,
-                  MailUs.id,
+                    ///*-----Login Button-----*///
+                    Expanded(
+                      flex: 10,
+                      child: Center(
+                        child: Container(
+                          width: double.infinity,
+                          child: RoundedButton(
+                            onPressed: logIn,
+                            labelText: Strings.loginString,
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    ///*-----MailUs Account-----*///
+                    Container(
+                      child: !_keyboardVisible
+                          ? Expanded(
+                              flex: 7,
+                              child: Container(
+                                child: TappableSubtitle(
+                                  descriptionText: Strings.cantFindAccString,
+                                  actionText: Strings.mailUsString,
+                                  onActionTap: () => Navigator.pushNamed(
+                                    context,
+                                    MailUs.id,
+                                  ),
+                                ),
+                              ),
+                            )
+                          : null,
+                    ),
+                  ],
                 ),
               ),
             ],

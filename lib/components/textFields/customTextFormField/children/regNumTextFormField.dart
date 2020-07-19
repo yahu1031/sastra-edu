@@ -1,7 +1,13 @@
+/*
+ * Name: regNumTextFormField
+ * Use:
+ * TODO:    - Add Use of this file
+ */
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sastra_ebooks/Misc/constants.dart';
+import 'package:sastra_ebooks/misc/strings.dart';
 
 import '../customTextFormField.dart';
 
@@ -16,10 +22,10 @@ class RegNumTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomTextFormField(
       onChanged: onChanged,
-      labelText: kRegNumString,
+      labelText: Strings.regNumString,
       validator: (String _input) {
         if (_input.isEmpty) {
-          return kRegNumFieldEmptyString;
+          return Strings.regNumFieldEmptyString;
         }
         return null;
       },

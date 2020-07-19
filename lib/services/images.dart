@@ -9,6 +9,7 @@ class Images {
   Images._();
 
 //IMAGES
+  static const String appIcon = "assets/images/appIcon.png";
   static const String splashPic = "assets/images/splash.png";
   static const String book = "assets/images/book.png";
   static const String fetchError = "assets/images/fetchError.png";

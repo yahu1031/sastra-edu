@@ -1,14 +1,24 @@
+/*
+ * Name: mailUs
+ * Use:
+ * TODO:    - Add Use of this file
+            - cleanup
+ */
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sastra_ebooks/Components/Buttons/roundedButton/roundedButton.dart';
-import 'package:sastra_ebooks/Components/customScaffold.dart';
-import 'package:sastra_ebooks/Components/Headings/largeHeading.dart';
-import 'package:sastra_ebooks/Components/customAppBar.dart';
-import 'package:sastra_ebooks/Components/textFields/customTextFormField/children/regNumTextFormField.dart';
-import 'package:sastra_ebooks/Components/textFields/customTextFormField/customTextFormField.dart';
+import 'package:keyboard_visibility/keyboard_visibility.dart';
+import 'package:sastra_ebooks/components/buttons/roundedButton/roundedButton.dart';
+import 'package:sastra_ebooks/components/headings/largeHeading.dart';
+import 'package:sastra_ebooks/components/customAppBar.dart';
+import 'package:sastra_ebooks/components/customScaffold.dart';
+import 'package:sastra_ebooks/components/textFields/customTextFormField/children/regNumTextFormField.dart';
+import 'package:sastra_ebooks/components/textFields/customTextFormField/customTextFormField.dart';
+import 'package:sastra_ebooks/services/responsive/sizeConfig.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../constants.dart';
+import '../dimensions.dart';
+import '../strings.dart';
 
 /* Todo:  - Add real support email
           - Add error message if no email app can be opened
@@ -28,6 +38,11 @@ class _MailUsState extends State<MailUs> with SingleTickerProviderStateMixin {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   static const supportEmail = 'example@email.com';
 
+  KeyboardVisibilityNotification _keyboardVisibility =
+      new KeyboardVisibilityNotification();
+  int _keyboardVisibilitySubscriberId;
+  bool _keyboardVisible;
+
   void sendEmail() async {
     if (_formKey.currentState.validate()) {
       final String mailtoUrl =
@@ -42,64 +57,102 @@ class _MailUsState extends State<MailUs> with SingleTickerProviderStateMixin {
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    _keyboardVisible = _keyboardVisibility.isKeyboardVisible;
+
+    _keyboardVisibilitySubscriberId = _keyboardVisibility.addNewListener(
+      onChange: (bool visible) {
+        setState(() {
+          _keyboardVisible = visible;
+        });
+      },
+    );
+  }
+
+  void dispose() {
+    super.dispose();
+    _keyboardVisibility.removeListener(_keyboardVisibilitySubscriberId);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return CustomScaffold(
       appBar: CustomAppBar(
         context,
         backButton: true,
       ),
-      /*-----Form-----*/
+
+      ///*-----Form-----*///
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: kPadding),
+        padding: EdgeInsets.symmetric(horizontal: Dimensions.padding),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             ///*-----Title-----*///
-            LargeHeading(
-              text: 'Got\nTrouble',
-              highlightText: ' ?',
-              size: HeadingSize.large,
-            ),
 
-            SizedBox(height: 40),
+            Container(
+              child: (SizeConfig.heightMultiplier < 7 && !_keyboardVisible) ||
+                      SizeConfig.heightMultiplier >= 7
+                  ? Expanded(
+                      flex: 10,
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: LargeHeading(
+                          text: 'Got\nTrouble',
+                          highlightText: ' ?',
+                          size: HeadingSize.large,
+                        ),
+                      ),
+                    )
+                  : Expanded(
+                      flex: 5,
+                      child: Container(),
+                    ),
+            ),
 
             ///*-----MailUs Form-----*///
             Form(
               key: _formKey,
-              /*-----Column-----*/
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   ///*-----RegNum Input-----*///
                   RegNumTextFormField(
                     onChanged: (String _input) => _regNum = _input,
                   ),
-
-                  SizedBox(height: 20),
+                  SizedBox(
+                    height: 10,
+                  ),
 
                   ///*-----Name Input-----*///
                   CustomTextFormField(
                     onChanged: (String _input) => _name = _input,
-                    labelText: kNameString,
+                    labelText: Strings.nameString,
                     autovalidate: true,
                     validator: (String _input) {
                       if (_input.isEmpty) {
-                        return kNameFieldEmptyString;
+                        return Strings.nameFieldEmptyString;
                       }
                       return null;
                     },
                   ),
-
-                  SizedBox(height: 60),
-
-                  ///*-----MailUs Button-----*///
-                  RoundedButton(
-                    onPressed: sendEmail,
-                    labelText: kMailUsString,
-                  ),
                 ],
+              ),
+            ),
+
+            ///*-----MailUs Button-----*///
+            Expanded(
+              flex: 7,
+              child: Center(
+                child: Container(
+                  width: double.infinity,
+                  child: RoundedButton(
+                    onPressed: sendEmail,
+                    labelText: Strings.mailUsString,
+                  ),
+                ),
               ),
             ),
           ],

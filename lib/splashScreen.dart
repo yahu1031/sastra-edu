@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Center(
         child: FractionallySizedBox(
           widthFactor: .8,
-          child: Image.asset(Images.read),
+          child: Image.asset(Images.appIcon),
         ),
       ),
     );

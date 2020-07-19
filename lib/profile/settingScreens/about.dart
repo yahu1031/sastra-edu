@@ -1,17 +1,22 @@
+/*
+ * Name: about
+ * Use:
+ * TODO:    - Add Use of this file
+            - cleanup
+            - add attribution for icons
+ */
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sastra_ebooks/Components/AppBarTitles/appBarTitle.dart';
-import 'package:sastra_ebooks/Components/Headings/heading.dart';
-import 'package:sastra_ebooks/Components/Headings/largeHeading.dart';
-import 'package:sastra_ebooks/Components/customScaffold.dart';
-import 'package:sastra_ebooks/Components/customAppBar.dart';
-import 'package:sastra_ebooks/Components/helperCard.dart';
-import 'package:sastra_ebooks/Profile/SettingScreens/buyacoke.dart';
-import 'package:sastra_ebooks/Services/paths.dart';
-import 'package:sastra_ebooks/Services/user.dart';
-
-import '../../Services/Responsive/size_config.dart';
+import 'package:sastra_ebooks/components/headings/largeHeading.dart';
+import 'package:sastra_ebooks/components/customAppBar.dart';
+import 'package:sastra_ebooks/components/customScaffold.dart';
+import 'package:sastra_ebooks/components/helperCard.dart';
+import 'package:sastra_ebooks/misc/customColors.dart';
+import 'package:sastra_ebooks/profile/settingScreens/buyACoke.dart';
+import 'package:sastra_ebooks/services/images.dart';
+import 'package:sastra_ebooks/services/user.dart';
 
 class AboutUs extends StatefulWidget {
   static const id = '/about';
@@ -22,35 +27,39 @@ class AboutUs extends StatefulWidget {
 class _AboutUsState extends State<AboutUs> {
   List<Developer> devs = [
     Developer(
-        picPath: Images.tonAn,
-        name: 'ton-An',
-        country: 'Germany',
-        level: 'Intermediate'),
+      picPath: Images.tonAn,
+      name: 'ton-An',
+      country: 'Germany',
+      level: 'Intermediate',
+    ),
     Developer(
-        picPath: Images.tonAn,
-        name: 'Name',
-        country: 'Country',
-        level: 'Intermediate'),
+      picPath: Images.tonAn,
+      name: 'Name',
+      country: 'Country',
+      level: 'Intermediate',
+    ),
     Developer(
-        picPath: Images.tonAn,
-        name: 'Name',
-        country: 'Country',
-        level: 'Intermediate'),
+      picPath: Images.tonAn,
+      name: 'Name',
+      country: 'Country',
+      level: 'Intermediate',
+    ),
   ];
 
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      appBar: CustomAppBar(
-        context,
-        backButton: true,
-      ),
+      safeAreaTop: false,
+      appBar: CustomAppBar(context,
+          backButton: true,
+          backgroundColor: CustomColors.lightColor.withOpacity(.8)),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              SizedBox(height: 80.0),
               LargeHeading(
                 size: HeadingSize.large,
                 text: 'Who\nAre We',
@@ -102,6 +111,7 @@ class _AboutUsState extends State<AboutUs> {
                   ),
                 ),
               ),
+              SizedBox(height: 20.0),
             ],
           ),
         ),

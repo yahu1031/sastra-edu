@@ -1,3 +1,10 @@
+/*
+ * Name: sizeConfig
+ * Use:
+ * TODO:    - Add Use of this file
+            - cleanup
+ */
+
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 

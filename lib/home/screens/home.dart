@@ -1,16 +1,21 @@
-// Todo: - implement study timer
+/*
+ * Name: home
+ * Use:
+ * TODO:    - Add Use of this file
+ */
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sastra_ebooks/Books/book.dart';
-import 'package:sastra_ebooks/Books/bookCategory.dart';
-import 'package:sastra_ebooks/Components/AppBarTitles/appBarTitle.dart';
-import 'package:sastra_ebooks/Components/Headings/heading.dart';
-import 'package:sastra_ebooks/Components/bookListItem.dart';
-import 'package:sastra_ebooks/Components/studyTimeBanner.dart';
-import 'package:sastra_ebooks/Components/textFields/bookSearchTextField.dart';
-import 'package:sastra_ebooks/Misc/constants.dart';
-import 'package:sastra_ebooks/Misc/textStyles.dart';
+import 'package:sastra_ebooks/books/book.dart';
+import 'package:sastra_ebooks/books/bookCategory.dart';
+import 'package:sastra_ebooks/components/appBarTitles/appBarTitle.dart';
+import 'package:sastra_ebooks/components/headings/heading.dart';
+import 'package:sastra_ebooks/components/infoBanner.dart';
+import 'package:sastra_ebooks/components/bookListItem.dart';
+import 'package:sastra_ebooks/components/textFields/bookSearchTextField.dart';
+import 'package:sastra_ebooks/misc/customColors.dart';
+import 'package:sastra_ebooks/misc/dimensions.dart';
+import 'package:sastra_ebooks/misc/textStyles.dart';
 
 import 'searchBooks.dart';
 
@@ -55,7 +60,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       for (Book book in bookCategory.books) {
         bookListItems.add(
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: kPadding),
+            padding: const EdgeInsets.symmetric(horizontal: Dimensions.padding),
             child: BookListItem(
               book: book,
             ),
@@ -81,7 +86,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: kPadding),
+          padding: const EdgeInsets.symmetric(horizontal: Dimensions.padding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
@@ -102,22 +107,22 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 ),
               ),
 
-              SizedBox(height: 30.0),
+              SizedBox(height: 20),
 
               ///--- Study Time Banner ---///
-              StudyTimeBanner(
-                studyTime: 22,
+              InfoBanner(
+                message: 'This app is a WIP :)',
               ),
 
-              SizedBox(height: 30.0),
+              SizedBox(height: 10),
 
-              ///--- TabBar ---/
+              ///--- TabBar ---///
               TabBar(
                 controller: tabController,
                 isScrollable: true,
                 indicatorColor: Colors.transparent,
                 labelColor: Colors.lightBlueAccent,
-                unselectedLabelColor: kLightGrey,
+                unselectedLabelColor: CustomColors.lightGrey,
                 labelStyle: tabTitleTextStyle,
                 tabs: tabs,
               ),

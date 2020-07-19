@@ -1,5 +1,11 @@
-import 'package:sastra_ebooks/Home/screens/bookmark.dart';
-import 'package:sastra_ebooks/Home/screens/favorite.dart';
+/*
+ * Name: drawerNavigator
+ * Use:
+ * TODO:    - Add Use of this file
+ */
+
+import 'package:sastra_ebooks/home/screens/bookmark.dart';
+import 'package:sastra_ebooks/home/screens/favorite.dart';
 
 import 'screens/home.dart';
 

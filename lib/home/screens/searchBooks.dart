@@ -1,9 +1,15 @@
+/*
+ * Name: searchBooks
+ * Use:
+ * TODO:    - Add Use of this file
+ */
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sastra_ebooks/Books/book.dart';
-import 'package:sastra_ebooks/Books/bookCategory.dart';
-import 'package:sastra_ebooks/Components/bookListItem.dart';
-import 'package:sastra_ebooks/Components/textFields/bookSearchTextField.dart';
+import 'package:sastra_ebooks/books/book.dart';
+import 'package:sastra_ebooks/books/bookCategory.dart';
+import 'package:sastra_ebooks/components/bookListItem.dart';
+import 'package:sastra_ebooks/components/textFields/bookSearchTextField.dart';
 
 class SearchBooks extends StatefulWidget {
   static const id = '/searchBooks';

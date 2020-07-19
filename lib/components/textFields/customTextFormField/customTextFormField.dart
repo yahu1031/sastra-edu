@@ -1,7 +1,16 @@
+/*
+ * Name: customTextFormField
+ * Use:
+ * TODO:    - Add Use of this file
+            - cleanup
+ */
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sastra_ebooks/Misc/textStyles.dart';
+import 'package:sastra_ebooks/misc/customColors.dart';
+import 'package:sastra_ebooks/misc/dimensions.dart';
+import 'package:sastra_ebooks/misc/textStyles.dart';
 
 class CustomTextFormField extends StatefulWidget {
   final ValueChanged<String> onChanged;
@@ -13,6 +22,7 @@ class CustomTextFormField extends StatefulWidget {
   final List<TextInputFormatter> inputFormatters;
   final String initialValue;
   final Widget suffixIcon;
+  final FocusNode focusNode;
 
   CustomTextFormField({
     @required this.onChanged,
@@ -24,6 +34,7 @@ class CustomTextFormField extends StatefulWidget {
     this.inputFormatters,
     this.initialValue,
     this.suffixIcon,
+    this.focusNode,
   });
 
   @override
@@ -31,20 +42,7 @@ class CustomTextFormField extends StatefulWidget {
 }
 
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
-  FocusNode _focusNode;
   bool wasNotEdited = true;
-
-  @override
-  void initState() {
-    super.initState();
-    _focusNode = FocusNode();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _focusNode.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,19 +65,22 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         keyboardType: widget.keyboardType,
         obscureText: widget.obscureText,
         inputFormatters: widget.inputFormatters,
-        decoration: InputDecoration(
-          labelText: widget.labelText,
-          labelStyle: body1HighlightTextStyle,
-          helperText: '',
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.lightBlueAccent,
-            ),
-          ),
-          suffixIcon: widget.suffixIcon,
-        ),
-        //  focusNode: _focusNode,
+        focusNode: widget.focusNode,
         initialValue: widget.initialValue,
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.fromLTRB(12, 16, 12, 16),
+//          contentPadding: EdgeInsets.only(bottom: 50),
+          hintText: widget.labelText,
+          helperText: '',
+          filled: true,
+          fillColor: CustomColors.veryLightGrey,
+          border: OutlineInputBorder(
+            borderRadius: Dimensions.borderRadius,
+            borderSide: BorderSide.none,
+          ),
+          suffixIcon: Padding(
+              padding: EdgeInsets.only(bottom: 4), child: widget.suffixIcon),
+        ),
       ),
     );
   }

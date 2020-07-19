@@ -1,15 +1,24 @@
-import 'package:flutter/material.dart';
-import 'package:sastra_ebooks/Components/Buttons/roundedButton/roundedButton.dart';
-import 'package:sastra_ebooks/Components/Buttons/tappableSubtitle.dart';
-import 'package:sastra_ebooks/Components/customScaffold.dart';
-import 'package:sastra_ebooks/Components/Headings/largeHeading.dart';
-import 'package:sastra_ebooks/Components/customAppBar.dart';
-import 'package:sastra_ebooks/Components/textFields/customTextFormField/customTextFormField.dart';
-import 'package:sastra_ebooks/Dialogs/loadingDialog.dart';
-import 'package:sastra_ebooks/Misc/constants.dart';
+/*
+ * Name: forgotPassword
+ * Use:
+ * TODO:    - Add Use of this file
+            - cleanup
+ */
 
-import '../Services/auth.dart';
-import '../Services/dialogs.dart';
+import 'package:flutter/material.dart';
+import 'package:keyboard_visibility/keyboard_visibility.dart';
+import 'package:sastra_ebooks/components/buttons/roundedButton/roundedButton.dart';
+import 'package:sastra_ebooks/components/headings/largeHeading.dart';
+import 'package:sastra_ebooks/components/customAppBar.dart';
+import 'package:sastra_ebooks/components/customScaffold.dart';
+import 'package:sastra_ebooks/components/textFields/customTextFormField/customTextFormField.dart';
+import 'package:sastra_ebooks/dialogs/loadingDialog.dart';
+import 'package:sastra_ebooks/misc/dimensions.dart';
+import 'package:sastra_ebooks/misc/strings.dart';
+import 'package:sastra_ebooks/services/responsive/sizeConfig.dart';
+
+import '../services/auth.dart';
+import '../services/dialogs.dart';
 
 class ForgotPassword extends StatefulWidget {
   static const String id = '/forgotPassword';
@@ -24,11 +33,16 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   final AuthServices _auth = AuthServices();
   final _formKey = GlobalKey<FormState>();
 
+  KeyboardVisibilityNotification _keyboardVisibility =
+      new KeyboardVisibilityNotification();
+  int _keyboardVisibilitySubscriberId;
+  bool _keyboardVisible;
+
   void forgotPassword() async {
     if (_formKey.currentState.validate()) {
       if (!_email.contains('@gmail.com')) {
         Dialogs.yesAbortDialog(
-            context, kErrorString, kEmailDomainMissingString);
+            context, Strings.errorString, Strings.emailDomainMissingString);
       } else {
         showLoadingDialog(context);
         try {
@@ -38,59 +52,95 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         }
         Navigator.pop(context);
 
-        Dialogs.yesAbortDialog(
-            context, kSuccessString, kPasswordResetSuccessfulString);
+        Dialogs.yesAbortDialog(context, Strings.successString,
+            Strings.passwordResetSuccessfulString);
       }
     }
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    _keyboardVisible = _keyboardVisibility.isKeyboardVisible;
+
+    _keyboardVisibilitySubscriberId = _keyboardVisibility.addNewListener(
+      onChange: (bool visible) {
+        setState(() {
+          _keyboardVisible = visible;
+        });
+      },
+    );
+  }
+
+  void dispose() {
+    super.dispose();
+    _keyboardVisibility.removeListener(_keyboardVisibilitySubscriberId);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      resizeToAvoidBottomPadding: true,
       appBar: CustomAppBar(
         context,
         backButton: true,
       ),
       /*-----Form-----*/
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: kPadding),
+        padding: const EdgeInsets.symmetric(horizontal: Dimensions.padding),
         child: Form(
           key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               ///*-----Title-----*///
-              LargeHeading(
-                text: 'Lost\nPassword',
-                highlightText: ' ?',
-                size: HeadingSize.large,
-              ),
-
-              SizedBox(
-                height: 40,
+              Container(
+                child: (SizeConfig.heightMultiplier < 7 && !_keyboardVisible) ||
+                        SizeConfig.heightMultiplier >= 7
+                    ? Expanded(
+                        flex: 10,
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: LargeHeading(
+                            text: 'Lost\nPassword',
+                            highlightText: ' ?',
+                            size: HeadingSize.large,
+                          ),
+                        ),
+                      )
+                    : Expanded(
+                        flex: 5,
+                        child: Container(),
+                      ),
               ),
 
               ///*-----Container-----*///
               CustomTextFormField(
                 onChanged: (input) => setState(() => _email = input),
-                labelText: kEmailString,
+                labelText: Strings.emailString,
                 keyboardType: TextInputType.emailAddress,
                 autovalidate: true,
                 validator: (String _input) {
                   if (_input.isEmpty) {
-                    return kEmailFieldEmptyString;
+                    return Strings.emailFieldEmptyString;
                   }
                   return null;
                 },
               ),
 
-              SizedBox(height: 60.0),
-
               ///*-----Submit Button-----*///
-              RoundedButton(
-                onPressed: forgotPassword,
-                labelText: kResetPasswordString,
+              Expanded(
+                flex: 10,
+                child: Center(
+                  child: Container(
+                    width: double.infinity,
+                    child: RoundedButton(
+                      onPressed: forgotPassword,
+                      labelText: Strings.resetPasswordString,
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

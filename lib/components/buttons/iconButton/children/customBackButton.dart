@@ -5,19 +5,18 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:sastra_ebooks/Misc/customColors.dart';
 
-import 'customIconButton.dart';
+import '../customIconButton.dart';
 
 class CustomBackButton extends StatelessWidget {
-  final VoidCallback onPressed;
+  final GestureTapCallback onPressed;
 
   const CustomBackButton({@required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return CustomIconButton(
-      onPressed: () => Navigator.pop(context),
+      onPressed: onPressed,
       icon: Icons.arrow_back_ios,
     );
   }

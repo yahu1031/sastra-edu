@@ -1,7 +1,15 @@
+/*
+ * Name: helperCard
+ * Use:
+ * TODO:    - Add Use of this file
+            - cleanup
+ */
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sastra_ebooks/Services/user.dart';
+import 'package:sastra_ebooks/misc/dimensions.dart';
+import 'package:sastra_ebooks/services/user.dart';
 
 class DevCard extends StatelessWidget {
   final Developer helper;
@@ -14,7 +22,7 @@ class DevCard extends StatelessWidget {
       height: 100.0,
       margin: EdgeInsets.only(bottom: 15),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(7),
+        borderRadius: Dimensions.borderRadius,
         color: Colors.white,
         boxShadow: [
           BoxShadow(

@@ -1,5 +1,12 @@
+/*
+ * Name: textFieldButton
+ * Use:
+ * TODO:    - Add Use of this file
+ */
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sastra_ebooks/misc/dimensions.dart';
 
 class TextFieldButton extends StatefulWidget {
   final VoidCallback onPressed;
@@ -52,7 +59,7 @@ class _TextFieldButtonState extends State<TextFieldButton> {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: Dimensions.borderRadius,
                   color: _pressed ? widget.highlightColor : Colors.transparent,
                 ),
                 duration: Duration(milliseconds: 200),

@@ -1,7 +1,14 @@
+/*
+ * Name: yesAbortDialog
+ * Use:
+ * TODO:    - Add Use of this file
+ */
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sastra_ebooks/Misc/textStyles.dart';
-import 'package:sastra_ebooks/Services/dialogs.dart';
+import 'package:sastra_ebooks/misc/dimensions.dart';
+import 'package:sastra_ebooks/misc/textStyles.dart';
+import 'package:sastra_ebooks/services/dialogs.dart';
 
 Future<DialogAction> yesAbortDialog(
   BuildContext context,
@@ -14,7 +21,7 @@ Future<DialogAction> yesAbortDialog(
     builder: (BuildContext context) {
       return AlertDialog(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: Dimensions.borderRadius,
         ),
         title: Text(
           title,

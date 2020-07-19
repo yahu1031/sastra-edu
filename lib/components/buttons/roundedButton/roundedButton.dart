@@ -1,6 +1,12 @@
+/*
+ * Name: roundedButton
+ * Use:
+ * TODO:    - Add Use of this file
+ */
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sastra_ebooks/Misc/constants.dart';
+import 'package:sastra_ebooks/misc/dimensions.dart';
 
 import '../../../misc/textStyles.dart';
 
@@ -14,16 +20,16 @@ class RoundedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 50,
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: Dimensions.padding),
       child: RaisedButton(
         onPressed: onPressed,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: Dimensions.borderRadius,
         ),
         color: Colors.lightBlueAccent,
-        elevation: 7,
+        elevation: Dimensions.elevation,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: kPadding),
+          padding: const EdgeInsets.symmetric(horizontal: Dimensions.padding),
           child: Text(
             this.labelText,
             style: buttonLabelTextStyle,

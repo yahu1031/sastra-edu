@@ -1,108 +1,42 @@
-import 'dart:io';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:sastra_ebooks/Components/profile/pictureProfile.dart';
-import 'package:sastra_ebooks/Components/profile/profilePicture.dart';
-import 'package:sastra_ebooks/Components/profile/profilePicture.dart';
-import 'file:///F:/OneDrive/Desktop/eBooks/sastra-edu/lib/Components/profile/profilePicture.dart';
-import 'package:sastra_ebooks/Dialogs/areYouSureDialog.dart';
-import 'package:path/path.dart';
-
-import 'package:sastra_ebooks/Misc/constants.dart';
-import 'package:sastra_ebooks/Services/Responsive/size_config.dart';
-import 'package:sastra_ebooks/Services/user.dart';
+import 'package:sastra_ebooks/misc/customColors.dart';
+import 'package:sastra_ebooks/misc/dimensions.dart';
+import 'package:sastra_ebooks/services/responsive/sizeConfig.dart';
+import 'package:sastra_ebooks/components/profile/profilePicture.dart';
+import 'package:sastra_ebooks/services/user.dart';
 
 /* Todo:  - Add image cropper
           - prevent user from leaving app during up and download or continue process in the background
  */
 
 class ProfileInfoCard extends StatefulWidget {
+  final User user;
+  final Function getImage;
+
+  const ProfileInfoCard(this.user, this.getImage);
   @override
   _ProfileInfoCardState createState() => _ProfileInfoCardState();
 }
 
 class _ProfileInfoCardState extends State<ProfileInfoCard> {
-  Future<void> getImage(BuildContext context) async {
-    PickedFile pickedImage = await ImagePicker().getImage(
-      source: ImageSource.gallery,
-      imageQuality: 30,
-      maxHeight: 1000,
-      maxWidth: 1000,
-    );
-
-    if (pickedImage != null) {
-      print("Image path ${pickedImage.path}");
-
-      bool dialogResult = await areYouSureDialog(context,
-          title: 'Are you sure?',
-          description:
-              'You won\'t be able to recover your old profile picture');
-
-      if (dialogResult)
-        uploadPic(pickedImage);
-      else
-        File(pickedImage.path).delete();
-    }
-  }
-
-  Future uploadPic(PickedFile pickedImage) async {
-    setState(() => PictureProfile.updateImage('placeholder'));
-
-    String imagePath = 'images/proPics/${basename(pickedImage.path)}';
-    StorageReference oldProPicReference;
-
-    StorageReference firebaseStorageRef =
-        FirebaseStorage.instance.ref().child(imagePath);
-
-    StorageUploadTask uploadTask = firebaseStorageRef.putFile(
-      File(pickedImage.path),
-    );
-
-    StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
-
-    if (taskSnapshot.error == null) {
-      oldProPicReference = await FirebaseStorage.instance
-          .getReferenceFromUrl(UserData.proPicUrl);
-
-      UserData.proPicUrl = await taskSnapshot.ref.getDownloadURL();
-
-      Firestore.instance.document("Data/${UserData.uid}").updateData({
-        "pro_pic": UserData.proPicUrl,
-      });
-      print(UserData.proPicUrl);
-    }
-
-    print("Profile Picture uploaded");
-
-    setState(() {
-      PictureProfile.updateImage(UserData.proPicUrl);
-    });
-
-    oldProPicReference.delete();
-    File(pickedImage.path).delete();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 20),
       padding: EdgeInsets.symmetric(
         horizontal: 20,
       ),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(7),
-        color: kLightHighlightColor,
+        borderRadius: Dimensions.borderRadius,
+        color: CustomColors.lightHighlightColor,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.only(top: 10, bottom: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
@@ -110,17 +44,19 @@ class _ProfileInfoCardState extends State<ProfileInfoCard> {
                   children: <Widget>[
                     InkWell(
                       onTap: () {
-                        getImage(context);
+                        widget.getImage(context);
                       },
-                      borderRadius: BorderRadius.circular(7),
+                      borderRadius: Dimensions.borderRadius,
                       child: Container(
                         margin: EdgeInsets.all(10),
-                        width: 180,
-                        height: 180,
+                        width: 20 * SizeConfig.heightMultiplier,
+                        height: 20 * SizeConfig.heightMultiplier,
                         child: ClipRRect(
                           clipBehavior: Clip.hardEdge,
-                          borderRadius: BorderRadius.circular(100),
-                          child: PictureProfile(),
+                          borderRadius: BorderRadius.circular(
+                            20 * SizeConfig.heightMultiplier,
+                          ),
+                          child: ProfilePicture(),
                         ),
                       ),
                     ),
@@ -128,15 +64,15 @@ class _ProfileInfoCardState extends State<ProfileInfoCard> {
                       right: 10,
                       bottom: 10,
                       child: Container(
-                        width: 50,
-                        height: 50,
+                        width: 46,
+                        height: 46,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25),
-                          color: kHighlightColor,
+                          borderRadius: BorderRadius.circular(23),
+                          color: CustomColors.highlightColor,
                         ),
                         child: Icon(
                           Icons.camera_alt,
-                          color: kLightColor,
+                          color: CustomColors.lightColor,
                         ),
                       ),
                     )
@@ -144,36 +80,34 @@ class _ProfileInfoCardState extends State<ProfileInfoCard> {
                 ),
                 SizedBox(height: 20),
                 Text(
-                  UserData.name,
+                  widget.user.name,
                   style: GoogleFonts.notoSans(
                     fontSize: 3 * SizeConfig.textMultiplier,
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 1 * SizeConfig.heightMultiplier),
                 Text(
-                  UserData.year,
+                  widget.user.year,
                   style: GoogleFonts.notoSans(
-                      fontSize: 3 * SizeConfig.textMultiplier,
+                      fontSize: 18,
                       color: Colors.lightBlueAccent,
                       fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
-                  height: 10.0,
+                  height: 1 * SizeConfig.heightMultiplier,
                 ),
                 Text(
-                  UserData.branch,
-                  style: GoogleFonts.notoSans(
-                      fontSize: 2.2 * SizeConfig.textMultiplier,
-                      color: Colors.black),
+                  widget.user.branch,
+                  style:
+                      GoogleFonts.notoSans(fontSize: 16, color: Colors.black),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 1 * SizeConfig.heightMultiplier),
                 Text(
-                  UserData.regNo.toString(),
-                  style: GoogleFonts.notoSans(
-                      fontSize: 2.2 * SizeConfig.textMultiplier,
-                      color: Colors.black),
+                  widget.user.regNo.toString(),
+                  style:
+                      GoogleFonts.notoSans(fontSize: 16, color: Colors.black),
                 ),
               ],
             ),

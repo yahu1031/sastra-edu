@@ -1,6 +1,13 @@
+/*
+ * Name: menuButton
+ * Use:
+ * TODO:    - Add Use of this file
+ */
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sastra_ebooks/Misc/constants.dart';
+import 'package:sastra_ebooks/misc/customColors.dart';
+import 'package:sastra_ebooks/misc/dimensions.dart';
 
 class MenuButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -16,14 +23,14 @@ class MenuButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(Dimensions.smallPadding),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(50),
-        color: selected ? kLightHighlightColor : null,
+        color: selected ? CustomColors.lightHighlightColor : null,
       ),
       child: IconButton(
         icon: Icon(icon),
-        color: kHighlightColor,
+        color: CustomColors.highlightColor,
         onPressed: onPressed,
       ),
     );

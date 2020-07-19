@@ -1,22 +1,34 @@
+/*
+ * Name: homeHandler
+ * Use:
+ * TODO:    - Add Use of this file
+            - cleanup
+ */
+
+import 'dart:io';
 import 'dart:ui';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:sastra_ebooks/Components/AppBarTitles/appBarTitle.dart';
-import 'package:sastra_ebooks/Components/AppBarTitles/bookmarkTitle.dart';
-import 'package:sastra_ebooks/Components/AppBarTitles/favoriteTitle.dart';
-import 'package:sastra_ebooks/Components/Buttons/hamburgerButton.dart';
-import 'package:sastra_ebooks/Components/customScaffold.dart';
-import 'package:sastra_ebooks/Components/customAppBar.dart';
-import 'package:sastra_ebooks/Components/navigationDrawer.dart';
-import 'package:sastra_ebooks/Home/screens/bookmark.dart';
-import 'package:sastra_ebooks/Home/screens/favorite.dart';
-import 'package:sastra_ebooks/Home/screens/home.dart';
-import 'package:sastra_ebooks/Misc/constants.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
+import 'package:sastra_ebooks/components/customAppBar.dart';
+import 'package:sastra_ebooks/components/customScaffold.dart';
+import 'package:sastra_ebooks/components/navigationDrawer.dart';
+import 'package:sastra_ebooks/misc/customColors.dart';
+import 'package:sastra_ebooks/components/buttons/iconButton/children/hamburgerButton.dart';
+import 'package:sastra_ebooks/components/profile/profilePicture.dart';
+import 'package:sastra_ebooks/services/user.dart';
 
 import 'drawerNavigator.dart';
 
 class HomeHandler extends StatefulWidget {
   static const String id = '/homeHandler';
+
+  final User user;
+
+  const HomeHandler(this.user);
 
   @override
   _HomeHandlerState createState() => _HomeHandlerState();
@@ -55,14 +67,40 @@ class _HomeHandlerState extends State<HomeHandler>
     });
   }
 
-//  Widget getAppBarTitle() {
-//    if (DrawerNavigator.currentPageString == Bookmark.id) {
-//      return BookmarkTitle();
-//    } else if (DrawerNavigator.currentPageString == Favorite.id) {
-//      return FavoriteTitle();
-//    }
-//    return AppTitle('M-Book Edu');
-//  }
+  Future uploadPic(PickedFile pickedImage) async {
+    setState(() => ProfilePicture.updateImage('placeholder'));
+
+    String imagePath = 'images/proPics/${basename(pickedImage.path)}';
+    StorageReference oldProPicReference;
+
+    StorageReference firebaseStorageRef =
+        FirebaseStorage.instance.ref().child(imagePath);
+
+    StorageUploadTask uploadTask = firebaseStorageRef.putFile(
+      File(pickedImage.path),
+    );
+
+    StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
+
+    if (taskSnapshot.error == null) {
+      oldProPicReference = await FirebaseStorage.instance
+          .getReferenceFromUrl(widget.user.proPicUrl);
+
+      widget.user.proPicUrl = await taskSnapshot.ref.getDownloadURL();
+
+      Firestore.instance.document("Data/${widget.user.uid}").updateData({
+        "pro_pic": widget.user.proPicUrl,
+      });
+      print(widget.user.proPicUrl);
+    }
+
+    print("Profile Picture uploaded");
+
+    oldProPicReference.delete();
+    File(pickedImage.path).delete();
+
+    setState(() => ProfilePicture.updateImage(widget.user.proPicUrl));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +151,7 @@ class _HomeHandlerState extends State<HomeHandler>
                     child: Material(
                       animationDuration: navigationDrawerDuration,
                       elevation: 8,
-                      color: kLightColor,
+                      color: CustomColors.lightColor,
                       child: ScrollConfiguration(
                         behavior: ScrollBehavior(),
                         child: DrawerNavigator.currentPage,
@@ -126,8 +164,9 @@ class _HomeHandlerState extends State<HomeHandler>
 
             ///--- NavigationDrawer ---///
             NavigationDrawer(
-              collapseDrawer,
+              collapseDrawer: collapseDrawer,
               animationController: _controller,
+              user: widget.user,
             ),
           ],
         ),

@@ -1,5 +1,10 @@
-import 'package:flutter/cupertino.dart';
+/*
+ * Name: bookCategory
+ * Use:
+ * TODO:    - Add Use of this file
+ */
 
+import 'package:flutter/cupertino.dart';
 import 'book.dart';
 
 class BookCategory {
