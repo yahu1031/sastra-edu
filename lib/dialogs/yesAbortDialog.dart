@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/misc/textStyles.dart';
 import 'package:sastra_ebooks/services/dialogs.dart';
+import 'package:sastra_ebooks/books/downloadsPayment.dart';
 
 Future<DialogAction> yesAbortDialog(
   BuildContext context,
@@ -76,7 +77,10 @@ Future<DialogAction> downloadDialog(
         ),
         actions: <Widget>[
           FlatButton(
-            onPressed: () => Navigator.of(context).pop(DialogAction.abort),
+            onPressed: () => Navigator.pushNamed(
+              context,
+              DownloadPayment.id,
+            ),
             child: const Text(
               'Download',
               style: TextStyle(color: Colors.lightBlue),

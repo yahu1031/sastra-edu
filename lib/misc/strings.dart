@@ -64,4 +64,5 @@ class Strings {
 //Downloads
 
   static const String kDownloadTitle = 'Download the Book';
+  static const String kSubscription = 'Choose your plan';
 }
