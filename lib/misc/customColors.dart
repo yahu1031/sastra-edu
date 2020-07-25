@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 class CustomColors {
   static const Color darkColor = Colors.black;
   static const Color lightColor = Colors.white;
+  static final Color translucentLightColor = lightColor.withOpacity(.8);
 
   static const Color highlightColor = Colors.lightBlueAccent;
   static const Color lightHighlightColor = Color(0x1440C4FF);

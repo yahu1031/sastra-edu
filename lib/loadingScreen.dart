@@ -3,6 +3,7 @@
  * Use:
  * TODO:    - Add Use of this file
             - cleanup
+            - prevent app from loading if no internet connection and if not everything (except the pdfs) is loaded
  */
 
 import 'dart:convert';
@@ -16,12 +17,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sastra_ebooks/home/homeHandler.dart';
+import 'package:sastra_ebooks/misc/favoriteBooks.dart';
 import 'package:sastra_ebooks/services/responsive/sizeConfig.dart';
 import 'package:sastra_ebooks/components/profile/profilePicture.dart';
 import 'package:sastra_ebooks/services/user.dart';
 
 import 'books/book.dart';
 import 'books/bookCategory.dart';
+import 'misc/bookmarks.dart';
 import 'services/images.dart';
 
 class LoadingScreen extends StatefulWidget {
@@ -93,8 +96,12 @@ class _LoadingScreenState extends State<LoadingScreen> {
             document.data['regNo'],
           );
 
-          print(user.name);
+          FavoriteBooks.init(
+              user.uid, List<String>.from(document.data['favoriteBooks']));
 
+          print(document.data['bookmarks']);
+          Bookmarks.init(
+              user.uid, Map<String, List>.from(document.data['bookmarks']));
           ProfilePicture.updateImage(user.proPicUrl);
 
           print("Going to Wrapper");
@@ -154,7 +161,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
         for (Map book in booksJson) {
           booksOfCategory.add(
             Book(
-              id: book['id'],
+              id: book['id'].toString(),
               author: book['Author'],
               name: book["Name"],
               edition: book['Edition'],

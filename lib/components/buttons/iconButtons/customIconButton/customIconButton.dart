@@ -11,8 +11,13 @@ import 'package:sastra_ebooks/misc/customColors.dart';
 class CustomIconButton extends StatelessWidget {
   final GestureTapCallback onPressed;
   final IconData icon;
+  final Color color;
 
-  const CustomIconButton({@required this.onPressed, @required this.icon});
+  const CustomIconButton({
+    @required this.onPressed,
+    @required this.icon,
+    this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +26,7 @@ class CustomIconButton extends StatelessWidget {
       borderRadius: BorderRadius.circular(100),
       child: Icon(
         icon,
-        color: CustomColors.highlightColor,
+        color: color ?? CustomColors.highlightColor,
       ),
     );
     ;

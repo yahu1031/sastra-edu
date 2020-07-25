@@ -50,9 +50,11 @@ class _AboutUsState extends State<AboutUs> {
   Widget build(BuildContext context) {
     return CustomScaffold(
       safeAreaTop: false,
-      appBar: CustomAppBar(context,
-          backButton: true,
-          backgroundColor: CustomColors.lightColor.withOpacity(.8)),
+      appBar: CustomAppBar(
+        context,
+        backButton: true,
+        isTranslucent: true,
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),

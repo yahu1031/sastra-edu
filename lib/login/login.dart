@@ -68,8 +68,10 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
 
         //        dialogs.yesAbortDialog(context, Strings.sorryString,
 //            Strings.invalidCredentialsExplainString);
-      } else {
+      } else if (_firebaseUser == null) {
         print(4);
+      } else {
+        print(5);
 
         Navigator.pushNamedAndRemoveUntil(
             context, LoadingScreen.id, (route) => false,

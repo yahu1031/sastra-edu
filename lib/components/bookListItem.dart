@@ -49,7 +49,7 @@ class BookListItem extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => PdfViewerPage(book.name, book.url),
+              builder: (context) => PdfViewerPage(book),
             ),
           );
         },

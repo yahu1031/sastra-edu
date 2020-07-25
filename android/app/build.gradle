@@ -33,7 +33,8 @@ android {
     }
 
     lintOptions {
-        disable 'InvalidPackage'
+        checkReleaseBuilds false
+//        disable 'InvalidPackage'
     }
 
     defaultConfig {
