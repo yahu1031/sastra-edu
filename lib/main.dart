@@ -13,6 +13,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sastra_ebooks/books/downloadsPayment.dart';
 import 'package:sastra_ebooks/login/forgotpassword.dart';
 import 'package:sastra_ebooks/login/login.dart';
 import 'package:sastra_ebooks/misc/textStyles.dart';
@@ -81,6 +82,7 @@ class _MyAppState extends State<MyApp> {
                 SearchBooks.id: (context) => SearchBooks(),
                 AboutUs.id: (context) => AboutUs(),
                 BuyACoke.id: (context) => BuyACoke(),
+                DownloadPayment.id: (context) => DownloadPayment(),
               },
               onGenerateRoute: (args) {
                 if (args.name == LoadingScreen.id) {

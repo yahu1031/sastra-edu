@@ -14,8 +14,9 @@ import 'package:sastra_ebooks/books/book.dart';
 import 'package:sastra_ebooks/books/pdf.dart';
 import 'package:sastra_ebooks/misc/customColors.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
-
-import 'customInkWell.dart';
+import 'package:sastra_ebooks/dialogs/dialogs.dart' as dialogs;
+import 'package:sastra_ebooks/misc/strings.dart';
+import 'package:sastra_ebooks/components/customInkWell.dart';
 
 class BookListItem extends StatelessWidget {
   static final List<BookListItem> bookListItems = [];
@@ -45,6 +46,10 @@ class BookListItem extends StatelessWidget {
       constraints: BoxConstraints(minHeight: 75),
       margin: EdgeInsets.only(bottom: Dimensions.largePadding),
       child: CustomInkWell(
+        onLongPressed: () {
+          dialogs.downloadDialog(context, Strings.kDownloadTitle,
+              'So, you would like to download "${book.name}" ?');
+        },
         onPressed: () {
           Navigator.push(
             context,

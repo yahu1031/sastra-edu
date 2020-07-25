@@ -127,10 +127,10 @@ class _ProfileState extends State<Profile> {
           title: AppBarTitle('Profile'),
         ),
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Expanded(
-              flex: 10,
+              flex: 5,
               child: Center(
                 child: ProfileInfoCard(widget.user, getImage),
               ),

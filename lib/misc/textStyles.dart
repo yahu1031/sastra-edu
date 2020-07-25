@@ -32,7 +32,7 @@ final TextStyle body1GreyTextStyle = body1TextStyle.copyWith(
 
 /// Headline1
 final TextStyle headline1TextStyle = GoogleFonts.montserrat(
-  fontSize: SizeConfig.textMultiplier * 10,
+  fontSize: SizeConfig.textMultiplier * 11,
   fontWeight: FontWeight.w700,
   color: CustomColors.darkColor,
 );
