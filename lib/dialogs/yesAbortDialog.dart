@@ -8,8 +8,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/misc/textStyles.dart';
+import 'package:sastra_ebooks/profile/settingScreens/downloadsPayment.dart';
 import 'package:sastra_ebooks/services/dialogs.dart';
-import 'package:sastra_ebooks/books/downloadsPayment.dart';
 
 Future<DialogAction> yesAbortDialog(
   BuildContext context,

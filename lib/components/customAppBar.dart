@@ -24,7 +24,7 @@ class CustomAppBar extends PreferredSize {
     this.context, {
     this.backButton,
     this.onBackButtonPressed,
-    this.backButtonColor,
+    this.backButtonColor = CustomColors.highlightColor,
     this.leading,
     this.title,
     this.isTranslucent = false,

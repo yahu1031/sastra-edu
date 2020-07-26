@@ -13,7 +13,6 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sastra_ebooks/books/downloadsPayment.dart';
 import 'package:sastra_ebooks/login/forgotpassword.dart';
 import 'package:sastra_ebooks/login/login.dart';
 import 'package:sastra_ebooks/misc/textStyles.dart';
@@ -21,6 +20,7 @@ import 'package:sastra_ebooks/loadingScreen.dart';
 import 'package:sastra_ebooks/profile/profile.dart';
 import 'package:sastra_ebooks/profile/settingScreens/about.dart';
 import 'package:sastra_ebooks/profile/settingScreens/buyACoke.dart';
+import 'package:sastra_ebooks/profile/settingScreens/downloadsPayment.dart';
 import 'package:sastra_ebooks/services/responsive/sizeConfig.dart';
 import 'package:sastra_ebooks/splashScreen.dart';
 

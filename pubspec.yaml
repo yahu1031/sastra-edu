@@ -56,7 +56,7 @@ dependencies:
 
   keyboard_visibility:
     git:
-      url: https://github.com/alex-thmv/flutter_keyboard_visibility.git
+      url: https://github.com/ton-An/flutter_keyboard_visibility.git
 
 
 dev_dependencies:

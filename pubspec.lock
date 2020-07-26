@@ -364,8 +364,8 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "00e13fb917da699e65e7dd2dd87e86638426d6aa"
-      url: "https://github.com/alex-thmv/flutter_keyboard_visibility.git"
+      resolved-ref: "369b95a1595586664581d60fa55093cede90a8cb"
+      url: "https://github.com/ton-An/flutter_keyboard_visibility.git"
     source: git
     version: "0.5.6"
   matcher:

@@ -21,6 +21,7 @@ import 'package:sastra_ebooks/components/profile/profileInfoCard.dart';
 import 'package:sastra_ebooks/components/profile/profilePicture.dart';
 import 'package:sastra_ebooks/misc/screens/mailUs.dart';
 import 'package:sastra_ebooks/misc/strings.dart';
+import 'package:sastra_ebooks/profile/settingScreens/downloadsPayment.dart';
 import 'package:sastra_ebooks/services/responsive/sizeConfig.dart';
 import 'package:sastra_ebooks/services/user.dart';
 
@@ -155,9 +156,10 @@ class _ProfileState extends State<Profile> {
                   height: SizeConfig.heightMultiplier,
                 ),
                 ListItem(
-                  onPressed: () => Navigator.pushNamed(context, BuyACoke.id),
-                  title: Strings.donationString,
-                  icon: Icons.card_giftcard,
+                  onPressed: () =>
+                      Navigator.pushNamed(context, DownloadPayment.id),
+                  title: Strings.getPremiumString,
+                  icon: Icons.credit_card,
 //                    SvgPicture.asset(
 //                      Images.coke,
 //                      color: Colors.lightBlueAccent,

@@ -16,6 +16,7 @@ import 'package:sastra_ebooks/components/textFields/bookSearchTextField.dart';
 import 'package:sastra_ebooks/misc/customColors.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/misc/textStyles.dart';
+import 'package:sastra_ebooks/profile/settingScreens/downloadsPayment.dart';
 import 'package:sastra_ebooks/services/responsive/sizeConfig.dart';
 
 import 'searchBooks.dart';
@@ -102,7 +103,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
               ///--- BookSearchTextField Dummy ---///
               GestureDetector(
-                onTapDown: (_) => Navigator.pushNamed(context, SearchBooks.id),
+                onTap: () => Navigator.pushNamed(context, SearchBooks.id),
                 child: AbsorbPointer(
                   child: BookSearchTextField(),
                 ),
@@ -111,8 +112,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               SizedBox(height: 20),
 
               ///--- Study Time Banner ---///
-              InfoBanner(
-                message: 'This app is a WIP :)',
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, DownloadPayment.id);
+                },
+                child: InfoBanner(
+                  message: 'This app is a WIP :)',
+                ),
               ),
 
               SizedBox(height: 10),

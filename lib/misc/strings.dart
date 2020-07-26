@@ -21,6 +21,8 @@ class Strings {
   static const String supportString = 'Support';
   static const String aboutUsString = 'About Us';
   static const String donationString = 'Buy us a coke';
+  static const String getPremiumString = 'Get Premium - Downloads';
+  static const String premiumString = 'Premium';
 
   /// Name
   static const String nameString = 'Name';
