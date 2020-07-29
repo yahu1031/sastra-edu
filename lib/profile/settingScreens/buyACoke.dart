@@ -18,8 +18,6 @@ import 'package:sastra_ebooks/components/appBarTitles/appBarTitle.dart';
 import 'package:sastra_ebooks/components/buttons/roundedButton/roundedButton.dart';
 import 'package:sastra_ebooks/components/customAppBar.dart';
 import 'package:sastra_ebooks/components/customScaffold.dart';
-import 'package:sastra_ebooks/components/textFields/customTextFormField/children/passwordTextFormField.dart';
-import 'package:sastra_ebooks/components/textFields/customTextFormField/children/regNumTextFormField.dart';
 import 'package:sastra_ebooks/components/textFields/customTextFormField/customTextFormField.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/misc/strings.dart';
