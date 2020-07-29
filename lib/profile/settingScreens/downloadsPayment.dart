@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sastra_ebooks/components/appBarTitles/appBarTitle.dart';
-import 'package:sastra_ebooks/components/buttons/wrappedToggleButtons.dart';
+import 'package:sastra_ebooks/components/buttons/WrappedToggleButtons.dart';
 import 'package:sastra_ebooks/components/buttons/roundedButton/roundedButton.dart';
 import 'package:sastra_ebooks/components/customAppBar.dart';
 import 'package:sastra_ebooks/components/customScaffold.dart';
@@ -49,7 +49,7 @@ class _DownloadPaymentState extends State<DownloadPayment> {
             WrappedToggleButtons(
               onPressed: (int i) {
                 setState(() {
-                  if(currentPlan != null) {
+                  if (currentPlan != null) {
                     isSelected[currentPlan] = false;
                   }
                   isSelected[i] = true;
