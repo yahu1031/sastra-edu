@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_fullpdfview/flutter_fullpdfview.dart';
 import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:sastra_ebooks/components/customAppBar.dart';
 import 'package:sastra_ebooks/components/customScaffold.dart';
 import 'package:sastra_ebooks/components/outlineListItem.dart';
@@ -265,7 +266,6 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
                           },
                           onOutlinePressed: () {
                             if (bookOutline.isEmpty) _loadOutline();
-
                             showBarModalBottomSheet(
                               context: context,
                               builder: (context, scrollController) {
