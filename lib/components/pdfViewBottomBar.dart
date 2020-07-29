@@ -8,25 +8,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:outline_material_icons/outline_material_icons.dart';
-import 'package:sastra_ebooks/books/book.dart';
-import 'package:sastra_ebooks/components/iconToggleButton.dart';
-import 'package:sastra_ebooks/home/screens/bookmark.dart';
-import 'package:sastra_ebooks/misc/bookmarks.dart';
 import 'package:sastra_ebooks/misc/customColors.dart';
-import 'package:sastra_ebooks/misc/favoriteBooks.dart';
 import 'package:sastra_ebooks/misc/textStyles.dart';
 
 import 'buttons/iconButtons/iconToggleButton.dart';
 
-class PdfViewBottomBar extends StatefulWidget {
+class PdfViewBottomBar extends StatelessWidget {
   final int totalPages, totalPageLength, currentPage;
 
   final String bookId;
 
   final bool pageBookmarked, isFavorite;
 
-  final VoidCallback onBookmarkPressed, onFavoritePressed;
+  final VoidCallback onBookmarkPressed, onFavoritePressed, onOutlinePressed;
 
   final Function(String pageNumber) onPageNumberSubmit;
   final TextEditingController textEditingController;
@@ -39,16 +33,11 @@ class PdfViewBottomBar extends StatefulWidget {
     @required this.isFavorite,
     @required this.onBookmarkPressed,
     @required this.onFavoritePressed,
+    @required this.onOutlinePressed,
     @required this.onPageNumberSubmit,
     this.textEditingController,
   }) : totalPageLength = totalPages.toString().length;
 
-  @override
-  _PdfViewBottomBarState createState() => _PdfViewBottomBarState();
-}
-
-class _PdfViewBottomBarState extends State<PdfViewBottomBar> {
-  bool pageBookmarked = false;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -61,8 +50,8 @@ class _PdfViewBottomBarState extends State<PdfViewBottomBar> {
         children: <Widget>[
           IconToggleButton(
 //            isActive: FavoriteBooks.list.contains(widget.bookId),
-            onPressed: widget.onFavoritePressed,
-            isActive: widget.isFavorite,
+            onPressed: onFavoritePressed,
+            isActive: isFavorite,
             activeIcon: Icons.favorite,
             disabledIcon: Icons.favorite_border,
 //            onActivate: () {
@@ -75,8 +64,8 @@ class _PdfViewBottomBarState extends State<PdfViewBottomBar> {
 //            },
           ),
           IconToggleButton(
-            onPressed: widget.onBookmarkPressed,
-            isActive: widget.pageBookmarked,
+            onPressed: onBookmarkPressed,
+            isActive: pageBookmarked,
             activeIcon: Icons.bookmark,
             disabledIcon: Icons.bookmark_border,
 //            onActivate: () {
@@ -86,26 +75,26 @@ class _PdfViewBottomBarState extends State<PdfViewBottomBar> {
 //              Bookmarks.remove(widget.bookId, widget.currentPage);
 //            },
           ),
-          IconToggleButton(
-            activeIcon: Icons.cloud_download,
-            disabledIcon: OMIcons.cloudDownload,
-            isActive: false,
-            onPressed: () {},
+          IconButton(
+            icon: Icon(
+              Icons.assignment,
+            ),
+            onPressed: onOutlinePressed,
           ),
           Row(
             children: <Widget>[
               Container(
-                width: 10 * widget.totalPageLength.toDouble(),
+                width: 10 * totalPageLength.toDouble(),
                 child: Theme(
                   data: ThemeData(
                     primaryColor: CustomColors.darkColor,
                   ),
                   child: TextField(
-                    controller: widget.textEditingController,
-                    onSubmitted: widget.onPageNumberSubmit,
+                    controller: textEditingController,
+                    onSubmitted: onPageNumberSubmit,
                     inputFormatters: [
                       LengthLimitingTextInputFormatter(
-                        widget.totalPageLength,
+                        totalPageLength,
                       ),
                       WhitelistingTextInputFormatter.digitsOnly,
                     ],
@@ -114,14 +103,14 @@ class _PdfViewBottomBarState extends State<PdfViewBottomBar> {
                     minLines: 1,
                     maxLines: 1,
                     decoration: InputDecoration(
-                      hintText: widget.currentPage.toString(),
+                      hintText: currentPage.toString(),
                       isDense: true,
                     ),
                   ),
                 ),
               ),
               Text(
-                '/${widget.totalPages.toString()}',
+                '/${totalPages.toString()}',
                 style: body1TextStyle,
               ),
             ],

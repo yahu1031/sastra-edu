@@ -7,19 +7,18 @@
 
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_fullpdfview/flutter_fullpdfview.dart';
 import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
-import 'package:keyboard_visibility/keyboard_visibility.dart';
-import 'package:sastra_ebooks/components/buttons/iconButtons/floatingIconButton.dart';
 import 'package:sastra_ebooks/components/customAppBar.dart';
-import 'package:sastra_ebooks/components/pdfViewBottomBar.dart';
 import 'package:sastra_ebooks/components/customScaffold.dart';
+import 'package:sastra_ebooks/components/outlineListItem.dart';
+import 'package:sastra_ebooks/components/pdfViewBottomBar.dart';
 import 'package:sastra_ebooks/misc/bookmarks.dart';
 import 'package:sastra_ebooks/misc/customColors.dart';
+import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/misc/favoriteBooks.dart';
 
 import 'book.dart';
@@ -45,6 +44,45 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
 
   PDFViewController _pdfViewController;
 
+  List<Widget> bookOutline = [];
+
+  List outline = [
+    {
+      "page": 1,
+      "title": "Cover",
+    },
+    {
+      "page": 24,
+      "title": "Chapter 0 - Guide for Readers and Instructors",
+      "subs": [
+        {"page": 25, "title": "0.1 - Outline of this Book"},
+        {"page": 26, "title": "0.2 - A Roadmap for Readers and Instructors"},
+        {"page": 27, "title": "0.3 Internet and Web Resources"},
+        {"page": 28, "title": "0.4 Standards"}
+      ]
+    },
+    {
+      "page": 30,
+      "title": "Chapter 1 - Overview",
+      "subs": [
+        {"page": 32, "title": "1.1 Computer Security Concepts"},
+        {"page": 37, "title": "1.2 The OSI Security Architecture"},
+        {
+          "page": 38,
+          "title": "1.3 Security Attacks",
+          "subs": [
+            {"page": 38, "title": "1.3.1 Security Stuff"},
+          ]
+        },
+        {"page": 40, "title": "1.4 Security Services"},
+        {"page": 43, "title": "1.5 Security Mechanisms"},
+        {"page": 45, "title": "1.6 A Model for Network Security"},
+        {"page": 47, "title": "1.7 Recommended Reading"},
+        {"page": 48, "title": "1.8 Key Terms, Review Questions, and Problems"}
+      ]
+    }
+  ];
+
   final TextEditingController _textEditingController = TextEditingController();
 
   @override
@@ -62,10 +100,54 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
 
   loadPdf() async {
     _bookPdf = await DefaultCacheManager().getSingleFile(widget.book.url);
-//    pdfController = PdfController(document: PdfDocument.openFile(bookPdf.path));
+
     setState(() {
       _isLoading = false;
     });
+  }
+
+  _loadOutline() {
+    for (Map chapter in outline) {
+      List<OutlineListItem> chapterSubs = [];
+
+      if (chapter.containsKey('subs')) {
+        for (Map subChapter in chapter['subs']) {
+          List<OutlineListItem> subChapterSubs = [];
+
+          if (subChapter.containsKey('subs')) {
+            for (Map doubleSubChapter in subChapter['subs']) {
+              subChapterSubs.add(
+                OutlineListItem(
+                  title: doubleSubChapter['title'],
+                  page: doubleSubChapter['page'],
+                  pdfViewController: _pdfViewController,
+                ),
+              );
+            }
+          }
+
+          chapterSubs.add(
+            OutlineListItem(
+              title: subChapter['title'],
+              page: subChapter['page'],
+              pdfViewController: _pdfViewController,
+              children: subChapterSubs.isNotEmpty ? subChapterSubs : null,
+            ),
+          );
+//          chapterSubs.add(value)
+        }
+      }
+      bookOutline.add(
+        OutlineListItem(
+          title: chapter['title'],
+          page: chapter['page'],
+          pdfViewController: _pdfViewController,
+          children: chapterSubs.isNotEmpty ? chapterSubs : null,
+        ),
+      );
+    }
+    print(bookOutline);
+    print('bookOutline');
   }
 
   @override
@@ -75,26 +157,12 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
       child: CustomScaffold(
         safeAreaTop: false,
         resizeToAvoidBottomPadding: false,
-//        appBar: CustomAppBar(
-//          context,
-//          backButton: true,
-//          backButtonColor: CustomColors.darkColor,
-//          isTranslucent: true,
-//          title: Text(
-//            widget.book.name,
-//            style: TextStyle(color: Colors.black),
-//          ),
-//        ),
         body: _isLoading
             ? Center(child: CircularProgressIndicator())
             : Stack(
                 children: <Widget>[
-//                  GestureRecognizer
-//                  TapGestureRecognizer
                   PDFView(
-//                      nightMode: true,
                     filePath: _bookPdf.path,
-                    fitPolicy: FitPolicy.WIDTH,
                     swipeHorizontal: true,
                     fitEachPage: true,
                     pageFling: true,
@@ -135,7 +203,6 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
                       });
                     },
                   ),
-
                   AnimatedPositioned(
                     top: _showOverlay ? 0 : -80,
                     curve: Curves.easeInOut,
@@ -156,7 +223,6 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
                       ),
                     ),
                   ),
-
                   Consumer<ScreenHeight>(
                     builder: (context, _res, child) {
                       print(_res.keyboardHeight);
@@ -178,7 +244,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
                           bookId: widget.book.id,
                           pageBookmarked: pageBookmarked,
                           isFavorite: isFavorite,
-                          onBookmarkPressed: () {
+                          onBookmarkPressed: () async {
                             if (pageBookmarked)
                               Bookmarks.remove(widget.book.id, _currentPage);
                             else if (!pageBookmarked)
@@ -196,6 +262,62 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
                             setState(() {
                               isFavorite = !isFavorite;
                             });
+                          },
+                          onOutlinePressed: () {
+                            if (bookOutline.isEmpty) _loadOutline();
+
+                            showBarModalBottomSheet(
+                              context: context,
+                              builder: (context, scrollController) {
+                                return ScrollConfiguration(
+                                  behavior: ScrollBehavior(),
+                                  child: Material(
+                                    child: SingleChildScrollView(
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: Dimensions.padding),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            SizedBox(
+                                              height: Dimensions.padding,
+                                            ),
+                                            ...bookOutline
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+//                            showModalBottomSheet(
+//                              context: context,
+//                              backgroundColor:
+//                                  CustomColors.translucentLightColor,
+//                              shape: RoundedRectangleBorder(
+//                                borderRadius: BorderRadius.only(
+//                                  topLeft: Radius.circular(
+//                                      Dimensions.borderRadiusDouble),
+//                                  topRight: Radius.circular(
+//                                      Dimensions.borderRadiusDouble),
+//                                ),
+//                              ),
+//                              builder: (context) {
+//                                return Padding(
+//                                  padding: EdgeInsets.symmetric(
+//                                      horizontal: Dimensions.padding),
+//                                  child: SingleChildScrollView(
+//                                    child: Column(
+//                                      crossAxisAlignment:
+//                                          CrossAxisAlignment.start,
+//                                      children: bookOutline,
+//                                    ),
+//                                  ),
+//                                );
+//                              },
+//                            );
                           },
                         ),
                       );

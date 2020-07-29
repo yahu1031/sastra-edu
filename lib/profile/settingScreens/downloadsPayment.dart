@@ -20,6 +20,7 @@ class DownloadPayment extends StatefulWidget {
 }
 
 class _DownloadPaymentState extends State<DownloadPayment> {
+  int currentPlan;
   List<bool> isSelected = [
     false,
     false,
@@ -34,103 +35,106 @@ class _DownloadPaymentState extends State<DownloadPayment> {
         backButton: true,
         title: AppBarTitle(Strings.premiumString),
       ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        physics: BouncingScrollPhysics(),
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-              vertical: Dimensions.extraLargePadding,
-              horizontal: Dimensions.padding),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              LargeHeading(
-                text: 'Choose\nYour Plan',
-                highlightText: ' .',
-                size: HeadingSize.large,
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: Dimensions.padding),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            LargeHeading(
+              text: 'Choose\nYour Plan',
+              highlightText: ' .',
+              size: HeadingSize.large,
+            ),
+            WrappedToggleButtons(
+              onPressed: (int i) {
+                setState(() {
+                  if (currentPlan != null) {
+                    isSelected[currentPlan] = false;
+                  }
+                  isSelected[i] = true;
+                  currentPlan = i;
+                });
+              },
+              isSelected: isSelected,
+              children: <Widget>[
+                PlanCard(
+                  price: null,
+                  time: '7 days',
+                ),
+                PlanCard(
+                  price: 100,
+                  time: '1 month',
+                ),
+                PlanCard(
+                  price: 450,
+                  time: '6 months',
+                ),
+                PlanCard(
+                  price: 1000,
+                  time: '1 year',
+                ),
+              ],
+            ),
+            Container(
+              height: 50,
+              decoration: BoxDecoration(
+                borderRadius: Dimensions.borderRadius,
+                border: Border.all(
+                  color: CustomColors.veryLightGrey,
+                  width: 2,
+                ),
               ),
-              WrappedToggleButtons(
-                onPressed: (int i) {
-                  setState(() {
-                    isSelected[i] = true;
-                    for (int j = 0; j < isSelected.length; j++) {
-                      if (j != i) {
-                        isSelected[j] = false;
-                      }
-                    }
-                  });
-                },
-                isSelected: isSelected,
-                children: <Widget>[
-                  PlanCard(
-                    price: null,
-                    time: '7 days',
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: Dimensions.largePadding),
+              child: Container(
+                height: 50,
+                decoration: BoxDecoration(
+                  borderRadius: Dimensions.borderRadius,
+                  border: Border.all(
+                    color: CustomColors.veryLightGrey,
+                    width: 2,
                   ),
-                  PlanCard(
-                    price: 100,
-                    time: '1 month',
-                  ),
-                  PlanCard(
-                    price: 450,
-                    time: '6 months',
-                  ),
-                  PlanCard(
-                    price: 1000,
-                    time: '1 year',
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                    vertical: Dimensions.largePadding),
-                child: Container(
-                  height: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: Dimensions.borderRadius,
-                    border: Border.all(
-                      color: CustomColors.veryLightGrey,
-                      width: 2,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Image.asset(
+                      Images.upi,
+                      scale: 10,
                     ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Image.asset(
-                        Images.upi,
-                        scale: 10,
+                    Text(
+                      'Pay with UPI',
+                      style: GoogleFonts.baloo(
+                        color: Colors.grey,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w300,
                       ),
-                      Text(
-                        'Pay with UPI',
-                        style: GoogleFonts.baloo(
-                          color: Colors.grey,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
-                    ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.only(bottom: Dimensions.extraLargePadding),
+              child: Center(
+                child: Text(
+                  'See terms and conditions',
+                  style: GoogleFonts.baloo(
+                    fontWeight: FontWeight.w300,
+                    color: Colors.grey[300],
                   ),
                 ),
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.only(bottom: Dimensions.extraLargePadding),
-                child: Center(
-                  child: Text(
-                    'See terms and conditions',
-                    style: GoogleFonts.baloo(
-                      fontWeight: FontWeight.w300,
-                      color: Colors.grey[300],
-                    ),
-                  ),
-                ),
-              ),
-              RoundedButton(
-                labelText: 'Continue',
-                onPressed: () {},
-              ),
-            ],
-          ),
+            ),
+            RoundedButton(
+              labelText: 'Continue',
+              onPressed: () {},
+            ),
+          ],
         ),
       ),
     );

@@ -70,17 +70,18 @@ class _ToggleButton extends StatelessWidget {
       onTap: () => onTap(index),
       borderRadius: Dimensions.borderRadius,
       child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: active
-                  ? CustomColors.highlightColor
-                  : CustomColors.middleGrey,
-              width: 2,
-              style: BorderStyle.solid,
-            ),
-            borderRadius: Dimensions.borderRadius,
+        decoration: BoxDecoration(
+          color: active ? CustomColors.lightHighlightColor : null,
+          border: Border.all(
+            color:
+                active ? CustomColors.highlightColor : CustomColors.middleGrey,
+            width: 2,
+            style: BorderStyle.solid,
           ),
-          child: child),
+          borderRadius: Dimensions.borderRadius,
+        ),
+        child: child,
+      ),
     );
   }
 }

@@ -16,10 +16,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sastra_ebooks/components/profile/profilePicture.dart';
 import 'package:sastra_ebooks/home/homeHandler.dart';
 import 'package:sastra_ebooks/misc/favoriteBooks.dart';
 import 'package:sastra_ebooks/services/responsive/sizeConfig.dart';
-import 'package:sastra_ebooks/components/profile/profilePicture.dart';
 import 'package:sastra_ebooks/services/user.dart';
 
 import 'books/book.dart';
@@ -52,6 +52,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void load() async {
     if (widget.firebaseUser != null) {
       str = "";
+      Map bookList;
+
       for (int i = 0; i < (widget.firebaseUser.email).length; i++) {
         String char = widget.firebaseUser.email.substring(i, (i + 1));
         //        print(char);
@@ -63,9 +65,17 @@ class _LoadingScreenState extends State<LoadingScreen> {
                 "https://drive.google.com/u/0/uc?id=17X0oNQR9RFl4DJgwVE7Fjg-d4Fxr14QQ&export=download"; //! json url for Fourth Year books
           } else if (str.substring(0, 3) == "121") {
             debugPrint("Third year books");
+
+            bookList = await Firestore.instance
+                .collection('bookLists')
+                .document('firstYear')
+                .get()
+                .then((documentSnapshot) => documentSnapshot.data);
+
+//            print(bookList);
             url =
                 "https://1drv.ws/u/s!Ag5A1hcdHrA-jtUlGstoRsFgBPDNxQ?e=93mR3O"; //! json url for Third Year books
-            //"https://drive.google.com/u/0/uc?id=1IX8m8zKhu64fSlaSdbso3JJWolxGhMxV&export=download"; //! json url for Third Year books
+//            "https://drive.google.com/u/0/uc?id=1IX8m8zKhu64fSlaSdbso3JJWolxGhMxV&export=download"; //! json url for Third Year books
 
           } else if (str.substring(0, 3) == "122") {
             debugPrint("Second year books");
@@ -77,9 +87,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
                 "https://drive.google.com/u/0/uc?id=1kP_in6iL-xxOPC9OjNaOzHVtXy4bWkFe&export=download"; //! json url for first year
           }
 
-          await getBooksJson();
-
-          fetchBooksFromJson();
+//          await getBooksJson();
+          //          use this to upload json files to firebase
+//          await Firestore.instance
+//              .collection('bookLists')
+//              .document('firstYear')
+//              .setData(data);
+          await fetchBooks(bookList);
 
           DocumentSnapshot document = await Firestore.instance
               .collection('Data')
@@ -149,16 +163,17 @@ class _LoadingScreenState extends State<LoadingScreen> {
     }
   }
 
-  Future<void> fetchBooksFromJson() async {
-    final Map bookCategories = data["Categories"];
+  Future<void> fetchBooks(Map bookList) async {
+    final Map bookCategories = bookList["Categories"];
 
     bookCategories.forEach(
       (key, value) {
+        print(key);
         final String categoryName = key;
-        final List booksJson = value;
+        final List bookCategory = value;
         final List<Book> booksOfCategory = [];
 
-        for (Map book in booksJson) {
+        for (Map book in bookCategory) {
           booksOfCategory.add(
             Book(
               id: book['id'].toString(),
