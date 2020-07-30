@@ -29,6 +29,5 @@ class CustomIconButton extends StatelessWidget {
         color: color ?? CustomColors.highlightColor,
       ),
     );
-    ;
   }
 }

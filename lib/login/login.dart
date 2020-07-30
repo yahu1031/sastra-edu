@@ -9,7 +9,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:sastra_ebooks/components/buttons/roundedButton/roundedButton.dart';
 import 'package:sastra_ebooks/components/customScaffold.dart';

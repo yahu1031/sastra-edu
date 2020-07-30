@@ -66,6 +66,5 @@ class DevCard extends StatelessWidget {
         ],
       ),
     );
-    ;
   }
 }

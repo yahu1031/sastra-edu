@@ -17,7 +17,8 @@ dependencies:
   intl: ^0.16.1
   dio: ^3.0.9
   material_design_icons_flutter: ^4.0.5345
-  flutter_svg: ^0.18.0
+  flutter_svg: ^0.17.4
+
   path_provider: ^1.6.10
   animated_text_kit: ^2.2.0
   upi_india: ^2.1.2

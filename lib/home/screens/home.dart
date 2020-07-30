@@ -17,7 +17,6 @@ import 'package:sastra_ebooks/misc/customColors.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/misc/textStyles.dart';
 import 'package:sastra_ebooks/profile/settingScreens/downloadsPayment.dart';
-import 'package:sastra_ebooks/services/responsive/sizeConfig.dart';
 
 import 'searchBooks.dart';
 
