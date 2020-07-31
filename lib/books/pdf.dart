@@ -7,27 +7,38 @@
 
 import 'dart:io';
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_fullpdfview/flutter_fullpdfview.dart';
 import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:sastra_ebooks/components/buttons/roundedButton/roundedButton.dart';
 import 'package:sastra_ebooks/components/customAppBar.dart';
 import 'package:sastra_ebooks/components/customScaffold.dart';
 import 'package:sastra_ebooks/components/outlineListItem.dart';
 import 'package:sastra_ebooks/components/pdfViewBottomBar.dart';
+import 'package:sastra_ebooks/components/textFields/customTextFormField/customTextFormField.dart';
 import 'package:sastra_ebooks/misc/bookmarks.dart';
 import 'package:sastra_ebooks/misc/customColors.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/misc/favoriteBooks.dart';
+import 'package:sastra_ebooks/misc/strings.dart';
 
 import 'book.dart';
 
-class PdfViewerPage extends StatefulWidget {
-  final Book book;
+enum PageInChapter {
+  TRUE,
+  SubChapter,
+  FALSE,
+}
 
-  const PdfViewerPage(this.book);
+class PdfViewerPage extends StatefulWidget {
+  static const String id = '/pdf';
+
+  final Book book;
+  final int page;
+
+  const PdfViewerPage({@required this.book, this.page});
 
   @override
   _PdfViewerPageState createState() => _PdfViewerPageState();
@@ -45,51 +56,52 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
 
   PDFViewController _pdfViewController;
 
+  final _formKey = GlobalKey<FormState>();
+
   List<Widget> bookOutline = [];
 
-  List outline = [
-    {
-      "page": 1,
-      "title": "Cover",
-    },
-    {
-      "page": 24,
-      "title": "Chapter 0 - Guide for Readers and Instructors",
-      "subs": [
-        {"page": 25, "title": "0.1 - Outline of this Book"},
-        {"page": 26, "title": "0.2 - A Roadmap for Readers and Instructors"},
-        {"page": 27, "title": "0.3 Internet and Web Resources"},
-        {"page": 28, "title": "0.4 Standards"}
-      ]
-    },
-    {
-      "page": 30,
-      "title": "Chapter 1 - Overview",
-      "subs": [
-        {"page": 32, "title": "1.1 Computer Security Concepts"},
-        {"page": 37, "title": "1.2 The OSI Security Architecture"},
-        {
-          "page": 38,
-          "title": "1.3 Security Attacks",
-          "subs": [
-            {"page": 38, "title": "1.3.1 Security Stuff"},
-          ]
-        },
-        {"page": 40, "title": "1.4 Security Services"},
-        {"page": 43, "title": "1.5 Security Mechanisms"},
-        {"page": 45, "title": "1.6 A Model for Network Security"},
-        {"page": 47, "title": "1.7 Recommended Reading"},
-        {"page": 48, "title": "1.8 Key Terms, Review Questions, and Problems"}
-      ]
-    }
-  ];
+//  List widget.book.outline = [
+//    {
+//      "page": 1,
+//      "title": "Cover",
+//    },
+//    {
+//      "page": 24,
+//      "title": "Chapter 0 Guide for Readers and Instructors",
+//      "subs": [
+//        {"page": 25, "title": "0.1 widget.book.outline of this Book"},
+//        {"page": 26, "title": "0.2 A Roadmap for Readers and Instructors"},
+//        {"page": 27, "title": "0.3 Internet and Web Resources"},
+//        {"page": 28, "title": "0.4 Standards"}
+//      ]
+//    },
+//    {
+//      "page": 30,
+//      "title": "Chapter 1 Overview",
+//      "subs": [
+//        {"page": 32, "title": "1.1 Computer Security Concepts"},
+//        {"page": 37, "title": "1.2 The OSI Security Architecture"},
+//        {
+//          "page": 38,
+//          "title": "1.3 Security Attacks",
+//          "subs": [
+//            {"page": 38, "title": "1.3.1 Security Stuff"},
+//          ]
+//        },
+//        {"page": 40, "title": "1.4 Security Services"},
+//        {"page": 43, "title": "1.5 Security Mechanisms"},
+//        {"page": 45, "title": "1.6 A Model for Network Security"},
+//        {"page": 47, "title": "1.7 Recommended Reading"},
+//        {"page": 48, "title": "1.8 Key Terms, Review Questions, and Problems"}
+//      ]
+//    },
+//  ];
 
   final TextEditingController _textEditingController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-
     loadPdf();
   }
 
@@ -99,7 +111,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
     _textEditingController.dispose();
   }
 
-  loadPdf() async {
+  void loadPdf() async {
     _bookPdf = await DefaultCacheManager().getSingleFile(widget.book.url);
 
     setState(() {
@@ -107,8 +119,234 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
     });
   }
 
-  _loadOutline() {
-    for (Map chapter in outline) {
+  void _onViewCreated(PDFViewController pdfViewController) async {
+    _pdfViewController = pdfViewController;
+
+    setState(() {
+      isFavorite = FavoriteBooks.list.contains(widget.book.id);
+    });
+  }
+
+  void _onPageChanged(int currentPage, int totalPages) async {
+    setState(() {
+      _totalPages = totalPages;
+      _currentPage = currentPage + 1;
+
+      List bookmarks = Bookmarks.map[widget.book.id];
+
+      if (bookmarks != null) {
+        pageBookmarked = false;
+
+        for (Map bookmark in bookmarks) {
+          if (bookmark['page'] == _currentPage) {
+            pageBookmarked = true;
+            break;
+          }
+        }
+      } else
+        pageBookmarked = false;
+    });
+  }
+
+  void _onBookmarkPressed() async {
+    if (pageBookmarked)
+      Bookmarks.remove(widget.book.id, _currentPage);
+    else if (!pageBookmarked) {
+      await showBarModalBottomSheet(
+          isDismissible: false,
+          context: context,
+          shape: RoundedRectangleBorder(
+            borderRadius: Dimensions.borderRadius,
+          ),
+          builder: (context, _) {
+            String bookmarkName;
+            return Padding(
+              padding: MediaQuery.of(context).viewInsets,
+              child: Container(
+                height: 250,
+                width: double.infinity,
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      flex: 1,
+                      child: Container(),
+                    ),
+                    Expanded(
+                      flex: 8,
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            CustomTextFormField(
+                              onChanged: (String newString) {
+                                bookmarkName = newString;
+                              },
+                              autovalidate: true,
+                              validator: (String input) {
+                                if (input.isEmpty) {
+                                  return Strings.nameFieldEmptyString;
+                                }
+                                return null;
+                              },
+                              labelText: 'Bookmark Name',
+                            ),
+                            SizedBox(
+                              height: Dimensions.smallPadding,
+                            ),
+                            RoundedButton(
+                              onPressed: () {
+                                if (_formKey.currentState.validate()) {
+                                  String chapter;
+                                  PageInChapter pageInChapter;
+
+                                  OUTER:
+                                  for (int i = 0;
+                                      i < widget.book.outline.length;
+                                      i++) {
+                                    /// if loop reached last chapter or _currentPage lies between two chapters
+                                    pageInChapter = _pageInChapter(
+                                        i,
+                                        widget.book.outline.length,
+                                        widget.book.outline);
+
+                                    if (pageInChapter == PageInChapter.TRUE) {
+                                      chapter = widget.book.outline[i]['title'];
+                                      break OUTER;
+                                    } else if (pageInChapter ==
+                                        PageInChapter.SubChapter) {
+                                      for (int j = 0;
+                                          j <
+                                              widget.book.outline[i]['subs']
+                                                  .length;
+                                          j++) {
+                                        /// if loop reached last subChapter or _currentPage lies between two subChapters
+                                        pageInChapter = _pageInChapter(
+                                          j,
+                                          widget.book.outline[i]['subs'].length,
+                                          widget.book.outline[i]['subs'],
+                                        );
+
+                                        if (pageInChapter ==
+                                            PageInChapter.TRUE) {
+                                          chapter = widget.book.outline[i]
+                                              ['subs'][j]['title'];
+                                          break OUTER;
+                                        } else if (pageInChapter ==
+                                            PageInChapter.SubChapter) {
+                                          for (int k = 0;
+                                              k <
+                                                  widget
+                                                      .book
+                                                      .outline[i]['subs'][j]
+                                                          ['subs']
+                                                      .length;
+                                              k++) {
+                                            /// if _currentPage is part of doubleSubChapter k
+                                            pageInChapter = _pageInChapter(
+                                                k,
+                                                widget
+                                                    .book
+                                                    .outline[i]['subs'][j]
+                                                        ['subs']
+                                                    .length,
+                                                widget.book.outline[i]['subs']
+                                                    [j]['subs']);
+
+                                            if (pageInChapter ==
+                                                PageInChapter.TRUE) {
+                                              chapter = widget.book.outline[i]
+                                                      ['subs'][j]['subs'][k]
+                                                  ['title '];
+                                              break OUTER;
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                  Bookmarks.add(widget.book.id, _currentPage,
+                                      bookmarkName, chapter);
+                                  Navigator.pop(context);
+                                }
+                              },
+                              labelText: 'Go!',
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Container(),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          });
+    }
+    setState(() {
+      pageBookmarked = !pageBookmarked;
+    });
+  }
+
+  PageInChapter _pageInChapter(int i, outlineLength, List chapters) {
+    if (i == outlineLength - 1 ||
+        (_currentPage >= chapters[i]['page'] &&
+            _currentPage < chapters[i + 1]['page'])) {
+      if (chapters[i]['subs'] == null) {
+        return PageInChapter.TRUE;
+      }
+
+      return PageInChapter.SubChapter;
+    }
+    return PageInChapter.FALSE;
+  }
+
+  void _onFavoritePressed() {
+    if (isFavorite) {
+      FavoriteBooks.remove(widget.book.id);
+    } else if (!isFavorite) {
+      FavoriteBooks.add(widget.book.id);
+    }
+
+    setState(() {
+      isFavorite = !isFavorite;
+    });
+  }
+
+  void _onOutlinePressed() {
+    if (bookOutline.isEmpty) _loadOutline();
+    showBarModalBottomSheet(
+        context: context,
+        builder: (context, scrollController) {
+          return ScrollConfiguration(
+            behavior: ScrollBehavior(),
+            child: Material(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: Dimensions.padding,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: Dimensions.padding,
+                      ),
+                      ...bookOutline
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        });
+  }
+
+  void _loadOutline() {
+    for (Map chapter in widget.book.outline) {
       List<OutlineListItem> chapterSubs = [];
 
       if (chapter.containsKey('subs')) {
@@ -121,6 +359,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
                 OutlineListItem(
                   title: doubleSubChapter['title'],
                   page: doubleSubChapter['page'],
+                  chapterType: ChapterType.doubleSub,
                   pdfViewController: _pdfViewController,
                 ),
               );
@@ -131,29 +370,27 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
             OutlineListItem(
               title: subChapter['title'],
               page: subChapter['page'],
+              chapterType: ChapterType.sub,
               pdfViewController: _pdfViewController,
               children: subChapterSubs.isNotEmpty ? subChapterSubs : null,
             ),
           );
-//          chapterSubs.add(value)
         }
       }
       bookOutline.add(
         OutlineListItem(
           title: chapter['title'],
           page: chapter['page'],
+          chapterType: ChapterType.main,
           pdfViewController: _pdfViewController,
           children: chapterSubs.isNotEmpty ? chapterSubs : null,
         ),
       );
     }
-    print(bookOutline);
-    print('bookOutline');
   }
 
   @override
   Widget build(BuildContext context) {
-    print(widget.book.url);
     return KeyboardSizeProvider(
       child: CustomScaffold(
         safeAreaTop: false,
@@ -164,45 +401,13 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
                 children: <Widget>[
                   PDFView(
                     filePath: _bookPdf.path,
+                    defaultPage: widget.page - 1,
                     swipeHorizontal: true,
                     fitEachPage: true,
                     pageFling: true,
                     pageSnap: true,
-                    onViewCreated: (PDFViewController pdfViewController) async {
-                      _pdfViewController = pdfViewController;
-
-                      int _totalPagesTemp =
-                          await pdfViewController.getPageCount();
-                      int _currentPageTemp =
-                          await pdfViewController.getCurrentPage() + 1;
-                      setState(() {
-                        _totalPages = _totalPagesTemp;
-                        _currentPage = _currentPageTemp;
-
-                        List bookmarks = Bookmarks.map[widget.book.id];
-
-                        if (bookmarks != null)
-                          pageBookmarked = bookmarks.contains(_currentPage);
-                        else
-                          pageBookmarked = false;
-
-                        isFavorite =
-                            FavoriteBooks.list.contains(widget.book.id);
-                      });
-                    },
-                    onPageChanged: (int currentPage, int totalPages) async {
-                      setState(() {
-                        _totalPages = totalPages;
-                        _currentPage = currentPage + 1;
-
-                        List bookmarks = Bookmarks.map[widget.book.id];
-
-                        if (bookmarks != null)
-                          pageBookmarked = bookmarks.contains(_currentPage);
-                        else
-                          pageBookmarked = false;
-                      });
-                    },
+                    onViewCreated: _onViewCreated,
+                    onPageChanged: _onPageChanged,
                   ),
                   AnimatedPositioned(
                     top: _showOverlay ? 0 : -80,
@@ -211,7 +416,6 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
                     child: Container(
                       height: 80,
                       width: MediaQuery.of(context).size.width,
-//                    padding: EdgeInsets.only(top: 24),
                       child: CustomAppBar(
                         context,
                         backButton: true,
@@ -245,80 +449,9 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
                           bookId: widget.book.id,
                           pageBookmarked: pageBookmarked,
                           isFavorite: isFavorite,
-                          onBookmarkPressed: () async {
-                            if (pageBookmarked)
-                              Bookmarks.remove(widget.book.id, _currentPage);
-                            else if (!pageBookmarked)
-                              Bookmarks.add(widget.book.id, _currentPage);
-                            setState(() {
-                              pageBookmarked = !pageBookmarked;
-                            });
-                          },
-                          onFavoritePressed: () {
-                            if (isFavorite)
-                              FavoriteBooks.remove(widget.book.id);
-                            else if (!isFavorite)
-                              FavoriteBooks.add(widget.book.id);
-
-                            setState(() {
-                              isFavorite = !isFavorite;
-                            });
-                          },
-                          onOutlinePressed: () {
-                            if (bookOutline.isEmpty) _loadOutline();
-                            showBarModalBottomSheet(
-                              context: context,
-                              builder: (context, scrollController) {
-                                return ScrollConfiguration(
-                                  behavior: ScrollBehavior(),
-                                  child: Material(
-                                    child: SingleChildScrollView(
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: Dimensions.padding),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            SizedBox(
-                                              height: Dimensions.padding,
-                                            ),
-                                            ...bookOutline
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            );
-//                            showModalBottomSheet(
-//                              context: context,
-//                              backgroundColor:
-//                                  CustomColors.translucentLightColor,
-//                              shape: RoundedRectangleBorder(
-//                                borderRadius: BorderRadius.only(
-//                                  topLeft: Radius.circular(
-//                                      Dimensions.borderRadiusDouble),
-//                                  topRight: Radius.circular(
-//                                      Dimensions.borderRadiusDouble),
-//                                ),
-//                              ),
-//                              builder: (context) {
-//                                return Padding(
-//                                  padding: EdgeInsets.symmetric(
-//                                      horizontal: Dimensions.padding),
-//                                  child: SingleChildScrollView(
-//                                    child: Column(
-//                                      crossAxisAlignment:
-//                                          CrossAxisAlignment.start,
-//                                      children: bookOutline,
-//                                    ),
-//                                  ),
-//                                );
-//                              },
-//                            );
-                          },
+                          onBookmarkPressed: _onBookmarkPressed,
+                          onFavoritePressed: _onFavoritePressed,
+                          onOutlinePressed: _onOutlinePressed,
                         ),
                       );
                     },
@@ -327,12 +460,5 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
               ),
       ),
     );
-  }
-}
-
-class AllowMultipleGestureRecognizer extends TapGestureRecognizer {
-  @override
-  void rejectGesture(int pointer) {
-    acceptGesture(pointer);
   }
 }

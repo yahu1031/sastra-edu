@@ -9,15 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:sastra_ebooks/books/book.dart';
 import 'package:sastra_ebooks/books/bookCategory.dart';
 import 'package:sastra_ebooks/components/appBarTitles/appBarTitle.dart';
+import 'package:sastra_ebooks/components/bookListItem.dart';
 import 'package:sastra_ebooks/components/headings/heading.dart';
 import 'package:sastra_ebooks/components/infoBanner.dart';
-import 'package:sastra_ebooks/components/bookListItem.dart';
 import 'package:sastra_ebooks/components/textFields/bookSearchTextField.dart';
 import 'package:sastra_ebooks/misc/customColors.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/misc/textStyles.dart';
 import 'package:sastra_ebooks/profile/settingScreens/downloadsPayment.dart';
-import 'package:sastra_ebooks/services/responsive/sizeConfig.dart';
 
 import 'searchBooks.dart';
 
@@ -62,7 +61,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       for (Book book in bookCategory.books) {
         bookListItems.add(
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: Dimensions.padding),
+            padding: const EdgeInsets.only(
+              left: Dimensions.padding,
+              right: Dimensions.padding,
+              bottom: Dimensions.padding,
+            ),
             child: BookListItem(
               book: book,
             ),

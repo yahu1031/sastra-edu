@@ -8,6 +8,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:sastra_ebooks/misc/customColors.dart';
 import 'package:sastra_ebooks/misc/textStyles.dart';
 
@@ -77,7 +78,7 @@ class PdfViewBottomBar extends StatelessWidget {
           ),
           IconButton(
             icon: Icon(
-              Icons.assignment,
+              OMIcons.assignment,
             ),
             onPressed: onOutlinePressed,
           ),

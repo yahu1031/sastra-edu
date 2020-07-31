@@ -13,6 +13,8 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sastra_ebooks/books/book.dart';
+import 'package:sastra_ebooks/books/pdf.dart';
 import 'package:sastra_ebooks/loadingScreen.dart';
 import 'package:sastra_ebooks/login/forgotpassword.dart';
 import 'package:sastra_ebooks/login/login.dart';
@@ -96,17 +98,25 @@ class _MyAppState extends State<MyApp> {
                     return MaterialPageRoute(
                       builder: (context) => LoadingScreen(firebaseUser),
                     );
-                  }
-                  if (args.name == HomeHandler.id) {
+                  } else if (args.name == HomeHandler.id) {
                     final User user = args.arguments;
                     return MaterialPageRoute(
                       builder: (context) => HomeHandler(user),
                     );
-                  }
-                  if (args.name == Profile.id) {
+                  } else if (args.name == Profile.id) {
                     final User user = args.arguments;
                     return MaterialPageRoute(
                       builder: (context) => Profile(user),
+                    );
+                  } else if (args.name == PdfViewerPage.id) {
+                    final Map arguments = args.arguments;
+                    final Book book = arguments['book'];
+                    final int page = arguments['page'] ?? 0;
+                    return MaterialPageRoute(
+                      builder: (context) => PdfViewerPage(
+                        book: book,
+                        page: page,
+                      ),
                     );
                   }
                   return null;

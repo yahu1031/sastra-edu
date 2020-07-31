@@ -5,6 +5,7 @@
  */
 
 import 'package:flutter/cupertino.dart';
+
 import 'book.dart';
 
 class BookCategory {
@@ -27,7 +28,6 @@ class BookCategory {
       books: books,
     );
 
-    print(newBookCategory.name);
     bookCategoryInstancesList.add(newBookCategory);
     return bookCategoryInstancesList.last;
   }

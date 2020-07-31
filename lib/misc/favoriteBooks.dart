@@ -15,6 +15,10 @@ class FavoriteBooks {
     _list = favoriteBooks;
   }
 
+  static void update(List<String> favoriteBooks) {
+    _list = favoriteBooks;
+  }
+
   static void add(
     String bookId,
   ) async {

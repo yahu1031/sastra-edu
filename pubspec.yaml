@@ -17,7 +17,7 @@ dependencies:
   intl: ^0.16.1
   dio: ^3.0.9
   material_design_icons_flutter: ^4.0.5345
-  flutter_svg: ^0.18.0
+  flutter_svg: ^0.17.4
   path_provider: ^1.6.10
   animated_text_kit: ^2.2.0
   upi_india: ^2.1.2
@@ -49,6 +49,8 @@ dependencies:
   workmanager: ^0.2.3
   keyboard_utils: ^1.2.4
   modal_bottom_sheet: ^0.2.0+1
+  sticky_and_expandable_list: ^0.2.1
+  expandable: ^4.1.4
 
   keyboard_visibility:
     git:

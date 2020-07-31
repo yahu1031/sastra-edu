@@ -36,14 +36,18 @@ class _FavoriteState extends State<Favorite> {
             highlightText: ' .',
           ),
           SizedBox(
-            height: 20,
+            height: Dimensions.padding,
           ),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
                   for (String id in FavoriteBooks.list)
-                    BookListItem(book: Book.bookInstancesMap[id]),
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(bottom: Dimensions.padding),
+                      child: BookListItem(book: Book.bookInstancesMap[id]),
+                    ),
                 ],
               ),
             ),

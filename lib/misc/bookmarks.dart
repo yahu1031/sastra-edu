@@ -4,51 +4,70 @@
  * TODO:    - Add Use of this file
  */
 
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Bookmarks {
-  static Map<String, List> _map = {};
+  static Map _map = {};
   static String _userId;
 
-  static void init(String userId, Map<String, List> bookmarks) {
-    print(bookmarks);
+  static void init(String userId, Map bookmarks) {
     _userId = userId;
     _map = bookmarks;
   }
 
-  static void add(String bookId, int page) {
-    print(page.toString());
-
-    if (_map.containsKey(bookId)) {
-      if (_map[bookId].contains(page)) {
-      } else {
-        _map[bookId].add(page);
-        _map[bookId].sort();
-      }
-    } else {
-      _map[bookId] = [page];
-    }
-    _updateDB();
+  static void update(Map bookmarks) {
+    _map = bookmarks;
   }
 
-  static void remove(String bookId, int page) {
-    print(page.toString());
-    if (_map.containsKey(bookId)) {
-      if (_map[bookId].contains(page)) {
-        _map[bookId].remove(page);
-        if (_map[bookId].isEmpty) {
-          _map.remove(bookId);
-          _updateDB();
+  static void add(String bookId, int page, String name, String chapter) async {
+    DocumentSnapshot bookmarksSnapshot = await _getDB();
+
+    Map bookmarks = bookmarksSnapshot.data['bookmarks'] ?? {};
+    print(bookmarks);
+    if (bookmarks.containsKey(bookId)) {
+      for (Map bookmark in bookmarks[bookId]) {
+        if (bookmark.containsKey(page)) {
+          return;
+        }
+      }
+      bookmarks[bookId].add({'page': page, 'name': name, 'chapter': chapter});
+    } else {
+      bookmarks[bookId] = [
+        {'page': page, 'name': name, 'chapter': chapter}
+      ];
+    }
+
+    update(bookmarks);
+    _updateDB(bookmarks);
+  }
+
+  static void remove(String bookId, int page) async {
+    DocumentSnapshot bookmarksSnapshot = await _getDB();
+
+    Map bookmarks = bookmarksSnapshot.data['bookmarks'];
+
+    if (bookmarks[bookId] != null) {
+      if (bookmarks[bookId].length == 1) {
+        bookmarks.remove(bookId);
+      } else {
+        for (int i = 0; i < bookmarks[bookId].length; i++) {
+          if (bookmarks[bookId][i]['page'] == page) {
+            bookmarks[bookId].removeAt(i);
+            break;
+          }
         }
       }
     }
+    update(bookmarks);
+    _updateDB(bookmarks);
   }
 
-  static void _updateDB() async {
+  static Future<DocumentSnapshot> _getDB() async =>
+      await Firestore.instance.collection('Data').document(_userId).get();
+
+  static void _updateDB(Map bookmarks) async {
     await Firestore.instance.collection('Data').document(_userId).updateData({
-      'bookmarks': _map,
+      'bookmarks': bookmarks,
     });
   }
 

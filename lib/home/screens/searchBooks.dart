@@ -10,6 +10,7 @@ import 'package:sastra_ebooks/books/book.dart';
 import 'package:sastra_ebooks/books/bookCategory.dart';
 import 'package:sastra_ebooks/components/bookListItem.dart';
 import 'package:sastra_ebooks/components/textFields/bookSearchTextField.dart';
+import 'package:sastra_ebooks/misc/dimensions.dart';
 
 class SearchBooks extends StatefulWidget {
   static const id = '/searchBooks';
@@ -91,8 +92,12 @@ class _SearchBooksState extends State<SearchBooks> {
                       children: <Widget>[
                         SizedBox(height: 30),
                         for (Book book in _searchResults)
-                          BookListItem(
-                            book: book,
+                          Padding(
+                            padding:
+                                EdgeInsets.only(bottom: Dimensions.padding),
+                            child: BookListItem(
+                              book: book,
+                            ),
                           ),
                       ],
                     ),
