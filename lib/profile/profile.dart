@@ -26,7 +26,6 @@ import 'package:sastra_ebooks/services/responsive/sizeConfig.dart';
 import 'package:sastra_ebooks/services/user.dart';
 
 import 'settingScreens/about.dart';
-import 'settingScreens/buyACoke.dart';
 import '../services/dialogs.dart';
 
 class Profile extends StatefulWidget {

@@ -13,7 +13,6 @@ import 'package:sastra_ebooks/components/headings/largeHeading.dart';
 import 'package:sastra_ebooks/components/customAppBar.dart';
 import 'package:sastra_ebooks/components/customScaffold.dart';
 import 'package:sastra_ebooks/components/helperCard.dart';
-import 'package:sastra_ebooks/misc/customColors.dart';
 import 'package:sastra_ebooks/profile/settingScreens/buyACoke.dart';
 import 'package:sastra_ebooks/services/images.dart';
 import 'package:sastra_ebooks/services/user.dart';

@@ -70,17 +70,18 @@ class _MyAppState extends State<MyApp> {
       DeviceOrientation.portraitUp,
     ]);
 
-    return Wiredash(
-      projectId: Secret.projectID,
-      secret: Secret.secretKey,
-      navigatorKey: _navigatorKey,
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          return OrientationBuilder(
-            builder: (context, orientation) {
-              SizeConfig().init(constraints, orientation);
-              print(SizeConfig.heightMultiplier);
-              return MaterialApp(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return OrientationBuilder(
+          builder: (context, orientation) {
+            SizeConfig().init(constraints, orientation);
+            print(SizeConfig.heightMultiplier);
+            return Wiredash(
+              projectId: Secret.projectID,
+              secret: Secret.secretKey,
+              navigatorKey: _navigatorKey,
+              child: MaterialApp(
+                navigatorKey: _navigatorKey,
                 initialRoute: SplashScreen.id,
                 routes: {
                   SplashScreen.id: (context) => SplashScreen(),
@@ -126,11 +127,11 @@ class _MyAppState extends State<MyApp> {
                     bodyText1: body1TextStyle,
                   ),
                 ),
-              );
-            },
-          );
-        },
-      ),
+              ),
+            );
+          },
+        );
+      },
     );
   }
 }
