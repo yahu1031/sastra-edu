@@ -61,11 +61,11 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 35 * SizeConfig.widthMultiplier,
-      height: 40,
+      width: 40 * SizeConfig.widthMultiplier,
+      height: 50,
       decoration: BoxDecoration(
         color: buttonColor,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(50),
       ),
       child: FlatButton(
         color: Colors.transparent,
@@ -76,6 +76,7 @@ class CustomButton extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           text,
+          textAlign: TextAlign.center,
           style: GoogleFonts.lexendDeca(
             fontSize: fontSize,
             color: textColor,

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:sastra_ebooks/components/buttons/roundedButton/roundedButton.dart';
 import 'package:sastra_ebooks/components/buttons/tappableSubtitle.dart';
 import 'package:sastra_ebooks/components/buttons/tappableText.dart';
@@ -10,6 +11,7 @@ import 'package:sastra_ebooks/components/textFields/customTextFormField/children
 import 'package:sastra_ebooks/components/textFields/customTextFormField/customTextFormField.dart';
 import 'package:sastra_ebooks/dialogs/loadingDialog.dart';
 import 'package:sastra_ebooks/loadingScreen.dart';
+import 'package:sastra_ebooks/login/mailVerification.dart';
 import 'package:sastra_ebooks/misc/strings.dart';
 import 'package:sastra_ebooks/services/auth.dart';
 import 'package:sastra_ebooks/services/dialogs.dart';
@@ -30,6 +32,31 @@ class _LoginState extends State<Login> {
   bool onForgotPassword = false;
   final formKey = GlobalKey<FormState>();
   final AuthServices _auth = AuthServices();
+
+  KeyboardVisibilityNotification _keyboardVisibility =
+      new KeyboardVisibilityNotification();
+  int _keyboardVisibilitySubscriberId;
+  bool _keyboardVisible;
+
+  @override
+  void initState() {
+    super.initState();
+    _keyboardVisible = _keyboardVisibility.isKeyboardVisible;
+
+    _keyboardVisibilitySubscriberId = _keyboardVisibility.addNewListener(
+      onChange: (bool visible) {
+        setState(() {
+          _keyboardVisible = visible;
+        });
+      },
+    );
+  }
+
+  void dispose() {
+    super.dispose();
+    _keyboardVisibility.removeListener(_keyboardVisibilitySubscriberId);
+  }
+
   void logIn() async {
     if (formKey.currentState.validate()) {
       dialogs.showLoadingDialog(context);
@@ -54,11 +81,10 @@ class _LoginState extends State<Login> {
 
         dialogs.yesAbortDialog(context, Strings.passwordTooShortString,
             Strings.passwordTooShortExplainString);
-
-        //        dialogs.yesAbortDialog(context, Strings.sorryString,
-//            Strings.invalidCredentialsExplainString);
       } else if (_firebaseUser == null) {
         print(4);
+        dialogs.yesAbortDialog(context, Strings.sorryString,
+            Strings.invalidCredentialsExplainString);
       } else {
         print(5);
 
@@ -67,6 +93,11 @@ class _LoginState extends State<Login> {
             arguments: _firebaseUser);
       }
     }
+  }
+
+  void signup() {
+    print('Signup');
+    Navigator.pushNamed(context, EmailVerification.id);
   }
 
   void forgotPassword() async {
@@ -104,7 +135,7 @@ class _LoginState extends State<Login> {
             physics: BouncingScrollPhysics(),
             scrollDirection: Axis.vertical,
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 30, horizontal: 15.0),
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -243,7 +274,7 @@ class _LoginState extends State<Login> {
                                   : Strings.kLogin,
                           textColor: Colors.white,
                           fontSize: onForgotPassword
-                              ? 3.5 * SizeConfig.widthMultiplier
+                              ? 3 * SizeConfig.widthMultiplier
                               : 4.5 * SizeConfig.widthMultiplier,
                           buttonColor: Colors.lightBlueAccent,
                           onPressed: () {
@@ -294,10 +325,5 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
-  }
-
-  void signup() {
-    print('Signup');
-    // Navigator.pushNamed(context, EmailVerification.id);
   }
 }

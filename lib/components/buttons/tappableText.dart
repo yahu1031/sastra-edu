@@ -24,7 +24,8 @@ class TappableText extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         child: Text(
           data,
-          style: subtitle1HighlightTextStyle,
+          style:
+              subtitle1HighlightTextStyle.copyWith(fontWeight: FontWeight.bold),
         ),
       ),
     );

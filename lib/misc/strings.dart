@@ -96,4 +96,12 @@ class Strings {
   static const String kPasswordTooShort = 'Password is too short';
   static const String kPasswordTooShortExplain =
       'Your password must be more than 6 chasracters.';
+  static const String kOtpSent = 'Otp has been sent to your mail.';
+}
+
+class Jsons {
+  static const String kBookmarkJson = 'assets/Lottie/bookmark.json';
+  static const String kBooksLoadingJson = 'assets/Lottie/books_loading.json';
+  static const String kMailVerificationJson =
+      'assets/Lottie/emailVerification.json';
 }

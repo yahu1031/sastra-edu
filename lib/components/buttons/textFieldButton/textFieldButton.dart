@@ -53,18 +53,15 @@ class _TextFieldButtonState extends State<TextFieldButton> {
           return Container(
             width: constraints.minHeight,
             height: constraints.minHeight,
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: AnimatedContainer(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  borderRadius: Dimensions.borderRadius,
-                  color: _pressed ? widget.highlightColor : Colors.transparent,
-                ),
-                duration: Duration(milliseconds: 200),
-                child: widget.child,
+            child: AnimatedContainer(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                borderRadius: Dimensions.borderRadius,
+                color: _pressed ? widget.highlightColor : Colors.transparent,
               ),
+              duration: Duration(milliseconds: 200),
+              child: widget.child,
             ),
           );
         },

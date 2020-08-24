@@ -17,6 +17,7 @@ import 'package:sastra_ebooks/books/book.dart';
 import 'package:sastra_ebooks/books/pdf.dart';
 import 'package:sastra_ebooks/loadingScreen.dart';
 import 'package:sastra_ebooks/login/autentication.dart';
+import 'package:sastra_ebooks/login/mailVerification.dart';
 import 'package:sastra_ebooks/misc/secret.dart';
 import 'package:sastra_ebooks/misc/textStyles.dart';
 import 'package:sastra_ebooks/profile/profile.dart';
@@ -90,6 +91,7 @@ class _MyAppState extends State<MyApp> {
                   BuyACoke.id: (context) => BuyACoke(),
                   DownloadPayment.id: (context) => DownloadPayment(),
                   Credits.id: (context) => Credits(),
+                  EmailVerification.id: (context) => EmailVerification(),
                 },
                 onGenerateRoute: (args) {
                   if (args.name == LoadingScreen.id) {

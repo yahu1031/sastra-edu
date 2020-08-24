@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomTextField extends StatelessWidget {
   final ValueChanged<String> onChanged;
@@ -54,7 +55,7 @@ class CustomTextField extends StatelessWidget {
             textAlign: TextAlign.left,
             onChanged: onChanged,
             obscureText: isPassword,
-            style: TextStyle(
+            style: GoogleFonts.lexendDeca(
               fontSize: onOtp ? 25 : 18,
               fontWeight: onOtp ? FontWeight.bold : FontWeight.normal,
             ),
