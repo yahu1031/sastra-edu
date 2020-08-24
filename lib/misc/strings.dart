@@ -65,6 +65,7 @@ class Strings {
   static const String resetPasswordString = 'Reset Password';
 //Downloads
 
-  static const String kDownloadTitle = 'Download the Book';
+  static const String kDownloadTitle = 'Download your Book';
+  static const String kRemoveTitle = 'Remove your Book';
   static const String kSubscription = 'Choose your plan';
 }

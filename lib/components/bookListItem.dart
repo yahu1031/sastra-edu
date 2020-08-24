@@ -46,12 +46,12 @@ class BookListItem extends StatelessWidget {
       constraints: BoxConstraints(minHeight: 75),
       child: CustomInkWell(
         onLongPressed: () {
-          dialogs.downloadDialog(context, Strings.kDownloadTitle,
-              'So, you would like to download "${book.name}" ?');
+          dialogs.downloadDialog(context, book);
         },
         onPressed: () {
           Navigator.pushNamed(context, PdfViewerPage.id,
               arguments: {'book': book});
+
 //          Navigator.push(
 //            context,
 //            MaterialPageRoute(

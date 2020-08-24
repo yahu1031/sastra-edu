@@ -21,6 +21,8 @@ import 'package:sastra_ebooks/components/textFields/customTextFormField/customTe
 import 'package:sastra_ebooks/misc/bookmarks.dart';
 import 'package:sastra_ebooks/misc/customColors.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
+import 'package:sastra_ebooks/misc/downloadBook.dart';
+import 'package:sastra_ebooks/misc/errors.dart';
 import 'package:sastra_ebooks/misc/favoriteBooks.dart';
 import 'package:sastra_ebooks/misc/strings.dart';
 
@@ -112,7 +114,11 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
   }
 
   void loadPdf() async {
-    _bookPdf = await DefaultCacheManager().getSingleFile(widget.book.url);
+    try {
+      _bookPdf = await DownloadBook.get(widget.book);
+    } on FileNotFoundError {
+      _bookPdf = await DefaultCacheManager().getSingleFile(widget.book.url);
+    }
 
     setState(() {
       _isLoading = false;
