@@ -9,6 +9,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:sastra_ebooks/components/buttons/menuButton.dart';
 import 'package:sastra_ebooks/components/customInkWell.dart';
 import 'package:sastra_ebooks/home/drawerNavigator.dart';
@@ -96,6 +97,12 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
     closeNavDrawer();
   }
 
+  void onProfilePressed() async {
+    Navigator.pushNamed(context, Profile.id, arguments: widget.user);
+    await Future.delayed(Duration(milliseconds: 300));
+    closeNavDrawer();
+  }
+
   void onChatPressed() {
     Dialogs.codingDialog(context);
   }
@@ -124,19 +131,6 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    CustomInkWell(
-                      onPressed: onProfilePicturePressed,
-                      child: Container(
-                        margin: EdgeInsets.all(Dimensions.smallPadding),
-                        width: 100,
-                        height: 100,
-                        child: ClipRRect(
-                          clipBehavior: Clip.hardEdge,
-                          borderRadius: BorderRadius.circular(100),
-                          child: ProfilePicture(),
-                        ),
-                      ),
-                    ),
                     ExpandedPlaceholder(),
                     Expanded(
                       flex: 12,
@@ -145,7 +139,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                         children: [
                           MenuButton(
                             onPressed: onHomePressed,
-                            icon: Icons.home,
+                            icon: OMIcons.home,
                             selected:
                                 DrawerNavigator.currentPageString == Home.id
                                     ? true
@@ -166,6 +160,11 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                                 DrawerNavigator.currentPageString == Bookmark.id
                                     ? true
                                     : false,
+                          ),
+                          MenuButton(
+                            onPressed: onProfilePressed,
+                            icon: Icons.person_outline,
+                            selected: false,
                           ),
 //                          MenuButton(
 //                            //onPressed: onChatPressed,
