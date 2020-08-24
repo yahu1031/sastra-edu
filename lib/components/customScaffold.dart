@@ -35,6 +35,7 @@ class CustomScaffold extends StatelessWidget {
       floatingActionButton: floatingActionButton,
       body: SafeArea(
         top: safeAreaTop,
+        bottom: false,
         child: body,
       ),
     );

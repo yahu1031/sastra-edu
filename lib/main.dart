@@ -23,6 +23,7 @@ import 'package:sastra_ebooks/misc/textStyles.dart';
 import 'package:sastra_ebooks/profile/profile.dart';
 import 'package:sastra_ebooks/profile/settingScreens/about.dart';
 import 'package:sastra_ebooks/profile/settingScreens/buyACoke.dart';
+import 'package:sastra_ebooks/profile/settingScreens/credits.dart';
 import 'package:sastra_ebooks/profile/settingScreens/downloadsPayment.dart';
 import 'package:sastra_ebooks/services/responsive/sizeConfig.dart';
 import 'package:sastra_ebooks/services/user.dart';
@@ -92,6 +93,7 @@ class _MyAppState extends State<MyApp> {
                   AboutUs.id: (context) => AboutUs(),
                   BuyACoke.id: (context) => BuyACoke(),
                   DownloadPayment.id: (context) => DownloadPayment(),
+                  Credits.id: (context) => Credits(),
                 },
                 onGenerateRoute: (args) {
                   if (args.name == LoadingScreen.id) {

@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sastra_ebooks/login/login.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../services/Responsive/sizeConfig.dart';
+import '../services/responsive/sizeConfig.dart';
 import '../services/images.dart';
 
 final Color backgroundColor = Colors.white;

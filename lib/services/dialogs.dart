@@ -11,7 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/misc/textStyles.dart';
 
-import '../Services/images.dart';
+import '../services/images.dart';
 
 enum DialogAction { abort }
 
