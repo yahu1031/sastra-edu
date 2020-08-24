@@ -6,7 +6,9 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
+import 'package:sastra_ebooks/services/responsive/sizeConfig.dart';
 
 import '../../../misc/textStyles.dart';
 
@@ -33,6 +35,51 @@ class RoundedButton extends StatelessWidget {
           child: Text(
             this.labelText,
             style: buttonLabelTextStyle,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CustomButton extends StatelessWidget {
+  final Color buttonColor, textColor;
+  final String text;
+  final Function onPressed;
+  final double fontSize;
+  final FontWeight fontWeight;
+  const CustomButton({
+    Key key,
+    @required this.buttonColor,
+    @required this.text,
+    @required this.textColor,
+    @required this.onPressed,
+    this.fontWeight,
+    this.fontSize,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 35 * SizeConfig.widthMultiplier,
+      height: 40,
+      decoration: BoxDecoration(
+        color: buttonColor,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: FlatButton(
+        color: Colors.transparent,
+        splashColor: Colors.transparent,
+        focusColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        onPressed: onPressed,
+        child: Text(
+          text,
+          style: GoogleFonts.lexendDeca(
+            fontSize: fontSize,
+            color: textColor,
+            fontWeight: fontWeight ?? FontWeight.bold,
           ),
         ),
       ),

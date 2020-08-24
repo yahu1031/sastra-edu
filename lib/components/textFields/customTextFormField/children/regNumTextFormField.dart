@@ -6,7 +6,6 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:sastra_ebooks/misc/strings.dart';
 
 import '../customTextFormField.dart';
@@ -20,20 +19,18 @@ class RegNumTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomTextFormField(
+    return CustomTextField(
       onChanged: onChanged,
-      labelText: Strings.regNumString,
+      hint: Strings.regNumString,
+      onDigit: true,
+      isPassword: false,
       validator: (String _input) {
         if (_input.isEmpty) {
           return Strings.regNumFieldEmptyString;
         }
         return null;
       },
-      autovalidate: true,
-      keyboardType: TextInputType.number,
-      inputFormatters: [
-        LengthLimitingTextInputFormatter(9),
-      ],
+      textLimit: 9,
     );
   }
 }

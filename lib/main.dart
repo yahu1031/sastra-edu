@@ -16,8 +16,7 @@ import 'package:flutter/services.dart';
 import 'package:sastra_ebooks/books/book.dart';
 import 'package:sastra_ebooks/books/pdf.dart';
 import 'package:sastra_ebooks/loadingScreen.dart';
-import 'package:sastra_ebooks/login/forgotpassword.dart';
-import 'package:sastra_ebooks/login/login.dart';
+import 'package:sastra_ebooks/login/autentication.dart';
 import 'package:sastra_ebooks/misc/secret.dart';
 import 'package:sastra_ebooks/misc/textStyles.dart';
 import 'package:sastra_ebooks/profile/profile.dart';
@@ -32,7 +31,6 @@ import 'package:wiredash/wiredash.dart';
 
 import 'home/homeHandler.dart';
 import 'home/screens/searchBooks.dart';
-import 'misc/screens/mailUs.dart';
 
 void main() => runApp(MyApp());
 
@@ -87,8 +85,6 @@ class _MyAppState extends State<MyApp> {
                 routes: {
                   SplashScreen.id: (context) => SplashScreen(),
                   Login.id: (context) => Login(),
-                  ForgotPassword.id: (context) => ForgotPassword(),
-                  MailUs.id: (context) => MailUs(),
                   SearchBooks.id: (context) => SearchBooks(),
                   AboutUs.id: (context) => AboutUs(),
                   BuyACoke.id: (context) => BuyACoke(),

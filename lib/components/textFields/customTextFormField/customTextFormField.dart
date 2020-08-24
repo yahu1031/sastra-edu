@@ -1,84 +1,85 @@
-/*
- * Name: customTextFormField
- * Use:
- * TODO:    - Add Use of this file
-            - cleanup
- */
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sastra_ebooks/misc/customColors.dart';
-import 'package:sastra_ebooks/misc/dimensions.dart';
 
-class CustomTextFormField extends StatefulWidget {
+class CustomTextField extends StatelessWidget {
   final ValueChanged<String> onChanged;
-  final String labelText;
+  final TextEditingController textEditingController;
+  final bool autofocus;
+  final bool isPassword;
+  final String hint;
+  final bool onDigit;
+  final bool isEmail;
+  final Function onPressed;
   final FormFieldValidator<String> validator;
-  final bool autovalidate;
-  final TextInputType keyboardType;
-  final bool obscureText;
-  final List<TextInputFormatter> inputFormatters;
-  final String initialValue;
+  final int textLimit;
+  final bool onOtp;
+  final TextInputAction textInputAction;
   final Widget suffixIcon;
   final FocusNode focusNode;
-
-  CustomTextFormField({
+  CustomTextField({
     @required this.onChanged,
-    @required this.labelText,
-    this.validator,
-    this.autovalidate = false,
-    this.keyboardType,
-    this.obscureText = false,
-    this.inputFormatters,
-    this.initialValue,
+    @required this.isPassword,
     this.suffixIcon,
     this.focusNode,
+    this.validator,
+    this.onPressed,
+    this.textEditingController,
+    this.autofocus = false,
+    this.hint,
+    this.onDigit = false,
+    this.isEmail = false,
+    this.textLimit,
+    this.onOtp = false,
+    this.textInputAction,
   });
 
   @override
-  _CustomTextFormFieldState createState() => _CustomTextFormFieldState();
-}
-
-class _CustomTextFormFieldState extends State<CustomTextFormField> {
-  bool wasNotEdited = true;
-
-  @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        FocusScope.of(context).unfocus();
-        return true;
-      },
-      child: TextFormField(
-        onChanged: (String _input) {
-          widget.onChanged(_input);
-
-          if (wasNotEdited)
-            setState(() {
-              wasNotEdited = false;
-            });
-        },
-        validator: widget.validator,
-        autovalidate: wasNotEdited == true ? false : widget.autovalidate,
-        keyboardType: widget.keyboardType,
-        obscureText: widget.obscureText,
-        inputFormatters: widget.inputFormatters,
-        focusNode: widget.focusNode,
-        initialValue: widget.initialValue,
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(12, 16, 12, 16),
-//          contentPadding: EdgeInsets.only(bottom: 50),
-          hintText: widget.labelText,
-          helperText: '',
-          filled: true,
-          fillColor: CustomColors.veryLightGrey,
-          border: OutlineInputBorder(
-            borderRadius: Dimensions.borderRadius,
-            borderSide: BorderSide.none,
+    return GestureDetector(
+      onTap: onPressed,
+      child: Material(
+        borderRadius: BorderRadius.circular(7),
+        child: Container(
+          padding: EdgeInsets.only(left: 5.0),
+          decoration: BoxDecoration(
+            color: Colors.grey[100].withOpacity(1),
+            borderRadius: BorderRadius.circular(7),
           ),
-          suffixIcon: Padding(
-              padding: EdgeInsets.only(bottom: 4), child: widget.suffixIcon),
+          child: TextFormField(
+            validator: validator,
+            focusNode: focusNode,
+            autofocus: autofocus,
+            textInputAction: textInputAction,
+            controller: textEditingController,
+            textAlign: TextAlign.left,
+            onChanged: onChanged,
+            obscureText: isPassword,
+            style: TextStyle(
+              fontSize: onOtp ? 25 : 18,
+              fontWeight: onOtp ? FontWeight.bold : FontWeight.normal,
+            ),
+            decoration: InputDecoration(
+              contentPadding: onOtp ? EdgeInsets.all(5) : EdgeInsets.all(15),
+              hintText: hint,
+              border: InputBorder.none,
+              suffixIcon: suffixIcon,
+            ),
+            keyboardType: isEmail
+                ? TextInputType.emailAddress
+                : onDigit
+                    ? TextInputType.number
+                    : isPassword
+                        ? TextInputType.text
+                        : TextInputType.visiblePassword,
+            inputFormatters: <TextInputFormatter>[
+              LengthLimitingTextInputFormatter(textLimit),
+              onDigit
+                  ? FilteringTextInputFormatter.digitsOnly
+                  : FilteringTextInputFormatter.deny(
+                      RegExp("[/\\\\]"),
+                    ),
+            ],
+          ),
         ),
       ),
     );

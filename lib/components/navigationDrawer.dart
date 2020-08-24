@@ -15,7 +15,7 @@ import 'package:sastra_ebooks/home/drawerNavigator.dart';
 import 'package:sastra_ebooks/home/screens/bookmark.dart';
 import 'package:sastra_ebooks/home/screens/favorite.dart';
 import 'package:sastra_ebooks/home/screens/home.dart';
-import 'package:sastra_ebooks/login/login.dart';
+import 'package:sastra_ebooks/login/autentication.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/profile/profile.dart';
 import 'package:sastra_ebooks/services/auth.dart';

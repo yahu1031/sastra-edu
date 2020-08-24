@@ -21,7 +21,6 @@ import 'package:sastra_ebooks/components/customScaffold.dart';
 import 'package:sastra_ebooks/components/listItem.dart';
 import 'package:sastra_ebooks/components/profile/profileInfoCard.dart';
 import 'package:sastra_ebooks/components/profile/profilePicture.dart';
-import 'package:sastra_ebooks/misc/screens/mailUs.dart';
 import 'package:sastra_ebooks/misc/strings.dart';
 import 'package:package_info/package_info.dart';
 import 'package:sastra_ebooks/profile/settingScreens/credits.dart';
@@ -145,14 +144,14 @@ class _ProfileState extends State<Profile> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    ListItem(
-                      onPressed: () => Navigator.pushNamed(context, MailUs.id),
-                      title: Strings.supportString,
-                      icon: Icons.feedback,
-                    ),
-                    SizedBox(
-                      height: SizeConfig.heightMultiplier,
-                    ),
+                    // ListItem(
+                    //   onPressed: () => Navigator.pushNamed(context, MailUs.id),
+                    //   title: Strings.supportString,
+                    //   icon: Icons.feedback,
+                    // ),
+                    // SizedBox(
+                    //   height: SizeConfig.heightMultiplier,
+                    // ),
                     ListItem(
                       onPressed: () => Navigator.pushNamed(context, AboutUs.id),
                       title: Strings.aboutUsString,

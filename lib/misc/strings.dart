@@ -59,7 +59,7 @@ class Strings {
   static const String passwordTooShortString = 'Password is too short';
   static const String passwordTooShortExplainString =
       'Your password must be more than 6 chasracters.';
-  static const String forgotPasswordString = 'Forgot Password?';
+
   static const String passwordResetSuccessfulString =
       'If this email address is valid, you will soon receive an email to reset your password.';
   static const String resetPasswordString = 'Reset Password';
@@ -67,4 +67,33 @@ class Strings {
 
   static const String kDownloadTitle = 'Download the Book';
   static const String kSubscription = 'Choose your plan';
+
+  ///new Strings
+  static const String kNewHere = 'New Here ? 🤞';
+  static const String kHelloThere = 'Hello There 😉';
+  static const String kForgotPassword = 'Forgot Password ? 😅';
+  static const String forgotPasswordString = 'Forgot Password?';
+  static const String kName = 'Name';
+  static const String kRegNum = 'Register Number';
+  static const String kPassword = 'Password';
+  static const String kBranch = 'Branch';
+  static const String kYear = 'Year';
+  static const String kLogin = 'Login';
+  static const String kSignup = 'Signup';
+  static const String kResetPassword = 'Reset Password';
+  static const String kNewAcc = 'Don\'t have an account?';
+  static const String kOldAcc = 'Already have an account?';
+  static const String kKnowPassword = 'Oh! you know Password ?';
+  static const String kResetMessage = 'Don\'t worry we got your back 😂';
+  static const String kSearchBooks = 'Search for Books';
+  static const String kNameFieldEmpty = 'Please enter your Name';
+  static const String kSorry = 'Sorry';
+  static const String kCredentialsMissing =
+      'Your Credentials are missing, please enter them and try again.';
+  static const String kRegNumTooShort = 'Your register Number is too short';
+  static const String kRegNumTooShortExplain =
+      'It must be 9 digits, please enter check and try again.';
+  static const String kPasswordTooShort = 'Password is too short';
+  static const String kPasswordTooShortExplain =
+      'Your password must be more than 6 chasracters.';
 }

@@ -9,9 +9,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sastra_ebooks/components/customScaffold.dart';
 import 'package:sastra_ebooks/loadingScreen.dart';
+import 'package:sastra_ebooks/login/autentication.dart';
 import 'package:sastra_ebooks/services/images.dart';
-
-import 'login/login.dart';
 
 class SplashScreen extends StatefulWidget {
   static const id = '/';

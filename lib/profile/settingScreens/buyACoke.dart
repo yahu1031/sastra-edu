@@ -290,11 +290,11 @@ class _BuyACokeState extends State<BuyACoke> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   ///*-----TextFormFields-----*///
-                  CustomTextFormField(
-                    labelText: 'Enter your name',
+                  CustomTextField(
+                    hint: 'Enter your name',
                     onChanged: (input) => setState(() => _name = input),
-                    keyboardType: TextInputType.text,
-                    autovalidate: true,
+                    onDigit: false,
+                    isPassword: false,
                     validator: (String _input) {
                       if (_input.isEmpty) {
                         return Strings.nameFieldEmptyString;
@@ -307,10 +307,11 @@ class _BuyACokeState extends State<BuyACoke> {
                     height: 10,
                   ),
 
-                  CustomTextFormField(
+                  CustomTextField(
                     onChanged: (input) => setState(() => _comment = input),
-                    labelText: 'Feel free to comment',
-                    keyboardType: TextInputType.text,
+                    hint: 'Feel free to comment',
+                    isPassword: false,
+                    onDigit: false,
                   ),
                 ],
               ),

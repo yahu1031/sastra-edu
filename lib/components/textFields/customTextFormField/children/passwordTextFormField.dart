@@ -8,10 +8,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sastra_ebooks/components/buttons/textFieldButton/textFieldButton.dart';
+import 'package:sastra_ebooks/components/textFields/customTextFormField/customTextFormField.dart';
 import 'package:sastra_ebooks/misc/customColors.dart';
 import 'package:sastra_ebooks/misc/strings.dart';
-
-import '../customTextFormField.dart';
 
 class PasswordTextFormField extends StatefulWidget {
   final ValueChanged<String> onChanged;
@@ -37,18 +36,17 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomTextFormField(
+    return CustomTextField(
       onChanged: widget.onChanged,
-      labelText: Strings.passwordString,
+      hint: Strings.passwordString,
       validator: (String _input) {
         if (_input.isEmpty) {
           return Strings.passwordFieldEmptyString;
         }
         return null;
       },
-      autovalidate: true,
-      keyboardType: TextInputType.text,
-      obscureText: obscureText,
+      onDigit: false,
+      isPassword: obscureText,
       suffixIcon: TextFieldButton(
         onPressed: () => setState(() {
           obscureText = !obscureText;

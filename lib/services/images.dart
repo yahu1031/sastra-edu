@@ -28,4 +28,11 @@ class Images {
   static const String menu = "assets/icons/menu.svg";
   static const String coke = "assets/images/coke.svg";
   static const String info = "assets/icons/info.svg";
+
+  ///New Images
+
+  static const String kLoginPic = 'assets/images/login.webp';
+  static const String kSignupPic = 'assets/images/signup.webp';
+  static const String kAppIcon = 'assets/images/signup1.webp';
+  static const String kForgotpassPic = 'assets/images/forgotpassword.webp';
 }

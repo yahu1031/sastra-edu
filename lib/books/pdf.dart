@@ -178,18 +178,19 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            CustomTextFormField(
+                            CustomTextField(
                               onChanged: (String newString) {
                                 bookmarkName = newString;
                               },
-                              autovalidate: true,
+                              isPassword: false,
+                              onDigit: false,
                               validator: (String input) {
                                 if (input.isEmpty) {
                                   return Strings.nameFieldEmptyString;
                                 }
                                 return null;
                               },
-                              labelText: 'Bookmark Name',
+                              hint: 'Bookmark Name',
                             ),
                             SizedBox(
                               height: Dimensions.smallPadding,
