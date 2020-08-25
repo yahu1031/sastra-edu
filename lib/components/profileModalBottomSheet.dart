@@ -7,6 +7,7 @@ import 'package:sastra_ebooks/components/customInkWell.dart';
 import 'package:sastra_ebooks/login/login.dart';
 import 'package:sastra_ebooks/misc/customColors.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
+import 'package:sastra_ebooks/misc/screens/downloads.dart';
 import 'package:sastra_ebooks/misc/screens/mailUs.dart';
 import 'package:sastra_ebooks/profile/settingScreens/about.dart';
 import 'package:sastra_ebooks/services/images.dart';
@@ -145,7 +146,7 @@ class _ProfileModalBottomSheetState extends State<ProfileModalBottomSheet> {
               backgroundColor: Color(0xFF0084FF),
               onPressed: () {
                 Navigator.pop(context);
-                Navigator.pushNamed(context, AboutUs.id);
+                Navigator.pushNamed(context, Downloads.id);
               },
             ),
             SettingsContent(

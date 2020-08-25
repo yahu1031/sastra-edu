@@ -61,12 +61,9 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
         dialogs.yesAbortDialog(
             context, Strings.sorryString, Strings.credentialsMissingString);
       } else if (_regNum.length < 9) {
-        print(1);
         dialogs.yesAbortDialog(context, Strings.regNumTooShortString,
             Strings.regNumTooShortExplainString);
       } else if (_password.length < 6) {
-        print(2);
-
         dialogs.yesAbortDialog(context, Strings.passwordTooShortString,
             Strings.passwordTooShortExplainString);
       } else if (_firebaseUser == null) {

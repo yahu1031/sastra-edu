@@ -170,9 +170,9 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
                   ///*-----Title -----*///
                   if (!_keyboardVisible)
                     LargeHeading(
-                      text: 'SignUp ',
+                      text: 'Sign Up ',
                       highlightText: '.',
-                      size: HeadingSize.extraLarge,
+                      size: HeadingSize.large,
                     ),
 
                   Form(
@@ -222,35 +222,42 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            CustomDropDownButton<int>(
-                              onChanged: (int value) {
-                                setState(() {
-                                  _year = value;
-                                });
-                              },
-                              value: _year,
-                              items: schoolYears
-                                  .map<DropdownMenuItem<int>>((int value) {
-                                return DropdownMenuItem<int>(
-                                  value: value,
-                                  child: Text(value.toString()),
-                                );
-                              }).toList(),
+                            Expanded(
+                              child: CustomDropDownButton<int>(
+                                onChanged: (int value) {
+                                  setState(() {
+                                    _year = value;
+                                  });
+                                },
+                                value: _year,
+                                items: schoolYears
+                                    .map<DropdownMenuItem<int>>((int value) {
+                                  return DropdownMenuItem<int>(
+                                    value: value,
+                                    child: Text(value.toString()),
+                                  );
+                                }).toList(),
+                              ),
                             ),
-                            CustomDropDownButton<String>(
-                              onChanged: (String value) {
-                                setState(() {
-                                  _branch = value;
-                                });
-                              },
-                              value: _branch,
-                              items: branches.map<DropdownMenuItem<String>>(
-                                  (String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
+                            SizedBox(
+                              width: Dimensions.padding,
+                            ),
+                            Expanded(
+                              child: CustomDropDownButton<String>(
+                                onChanged: (String value) {
+                                  setState(() {
+                                    _branch = value;
+                                  });
+                                },
+                                value: _branch,
+                                items: branches.map<DropdownMenuItem<String>>(
+                                    (String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                              ),
                             )
                           ],
                         ),

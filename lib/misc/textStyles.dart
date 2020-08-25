@@ -43,7 +43,7 @@ final TextStyle headline1HighlightTextStyle = headline1TextStyle.copyWith(
 
 /// Headline2
 final TextStyle headline2TextStyle = GoogleFonts.lexendDeca(
-  fontSize: 5,
+  fontSize: 50,
   fontWeight: FontWeight.w700,
   color: CustomColors.darkColor,
 );

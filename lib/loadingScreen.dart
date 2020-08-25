@@ -6,11 +6,14 @@
             - prevent app from loading if no internet connection and if not everything (except the pdfs) is loaded
  */
 
+import 'dart:io';
+
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sastra_ebooks/home/homeHandler.dart';
 import 'package:sastra_ebooks/misc/favoriteBooks.dart';
 import 'package:sastra_ebooks/services/responsive/sizeConfig.dart';
@@ -46,7 +49,12 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void load() async {
     if (widget.firebaseUser != null) {
       Map bookList;
+      String appdirectoryPath = (await getApplicationDocumentsDirectory()).path;
+      Directory bookDirectory = Directory('$appdirectoryPath/books');
 
+      if (!await bookDirectory.exists()) {
+        bookDirectory.create();
+      }
       DocumentSnapshot document = await Firestore.instance
           .collection('userData')
           .document(widget.firebaseUser.uid)

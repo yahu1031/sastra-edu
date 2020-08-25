@@ -8,7 +8,7 @@ import 'package:sastra_ebooks/misc/errors.dart';
 class DownloadBook {
   static Future<File> get(Book book) async {
     final directory = await getApplicationDocumentsDirectory();
-    final filePath = '${directory.path}/${book.id}.pdf';
+    final filePath = '${directory.path}/books/${book.id}.pdf';
     if (await File(filePath).exists()) {
       return File(filePath);
     } else {
@@ -18,14 +18,14 @@ class DownloadBook {
 
   static Future<void> download(Book book) async {
     final directory = await getApplicationDocumentsDirectory();
-    final filePath = '${directory.path}/${book.id}.pdf';
+    final filePath = '${directory.path}/books/${book.id}.pdf';
     final File _bookPdf = await DefaultCacheManager().getSingleFile(book.url);
     _bookPdf.rename(filePath);
   }
 
   static Future<void> remove(Book book) async {
     final directory = await getApplicationDocumentsDirectory();
-    final filePath = '${directory.path}/${book.id}.pdf';
+    final filePath = '${directory.path}/books/${book.id}.pdf';
     await File(filePath).delete();
   }
 }

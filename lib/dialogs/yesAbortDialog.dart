@@ -62,7 +62,7 @@ Future<DialogAction> downloadDialog(
   bool loading = false;
   bool isDownloaded = false;
   final directory = await getApplicationDocumentsDirectory();
-  final filePath = '${directory.path}/${book.id}.pdf';
+  final filePath = '${directory.path}/books/${book.id}.pdf';
 
   if (await File(filePath).exists())
     isDownloaded = true;

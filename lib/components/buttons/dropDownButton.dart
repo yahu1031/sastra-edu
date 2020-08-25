@@ -13,7 +13,6 @@ class CustomDropDownButton<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 40 * SizeConfig.widthMultiplier,
       padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
         color: CustomColors.veryLightGrey,

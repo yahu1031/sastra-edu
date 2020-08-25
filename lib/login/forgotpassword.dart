@@ -5,17 +5,20 @@
             - cleanup
  */
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:sastra_ebooks/components/buttons/roundedButton/roundedButton.dart';
 import 'package:sastra_ebooks/components/headings/largeHeading.dart';
 import 'package:sastra_ebooks/components/customAppBar.dart';
 import 'package:sastra_ebooks/components/customScaffold.dart';
+import 'package:sastra_ebooks/components/textFields/customTextFormField/children/regNumTextFormField.dart';
 import 'package:sastra_ebooks/components/textFields/customTextFormField/customTextFormField.dart';
 import 'package:sastra_ebooks/dialogs/loadingDialog.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/misc/strings.dart';
 import 'package:sastra_ebooks/services/responsive/sizeConfig.dart';
+import 'package:sastra_ebooks/dialogs/dialogs.dart' as dialogs;
 
 import '../services/auth.dart';
 import '../services/dialogs.dart';
@@ -28,7 +31,7 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
-  String _email;
+  String _regNum;
 
   final AuthServices _auth = AuthServices();
   final _formKey = GlobalKey<FormState>();
@@ -40,16 +43,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
 
   void forgotPassword() async {
     if (_formKey.currentState.validate()) {
-      if (!_email.contains('@gmail.com')) {
-        Dialogs.yesAbortDialog(
-            context, Strings.errorString, Strings.emailDomainMissingString);
+      if (_regNum.length < 9) {
+        dialogs.yesAbortDialog(context, Strings.regNumTooShortString,
+            Strings.regNumTooShortExplainString);
       } else {
         showLoadingDialog(context);
         try {
-          await _auth.resetPassword(_email);
-        } catch (e) {
-          print(e);
-        }
+          await _auth.resetPassword(_regNum);
+        } catch (e) {}
         Navigator.pop(context);
 
         Dialogs.yesAbortDialog(context, Strings.successString,
@@ -116,17 +117,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               ),
 
               ///*-----Container-----*///
-              CustomTextFormField(
-                onChanged: (input) => setState(() => _email = input),
-                labelText: Strings.emailString,
-                keyboardType: TextInputType.emailAddress,
-                autovalidate: true,
-                validator: (String _input) {
-                  if (_input.isEmpty) {
-                    return Strings.emailFieldEmptyString;
-                  }
-                  return null;
-                },
+              RegNumTextFormField(
+                onChanged: (input) => setState(() => _regNum = input),
               ),
 
               ///*-----Submit Button-----*///

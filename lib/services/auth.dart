@@ -105,6 +105,6 @@ class AuthServices {
 
   //Forgot Password
   Future resetPassword(String _email) async {
-    await _firebaseAuth.sendPasswordResetEmail(email: _email);
+    await _firebaseAuth.sendPasswordResetEmail(email: '$_email@sastra.ac.in');
   }
 }
