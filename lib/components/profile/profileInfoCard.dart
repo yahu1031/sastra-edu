@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sastra_ebooks/misc/customColors.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/services/responsive/sizeConfig.dart';
-import 'package:sastra_ebooks/components/profile/profilePicture.dart';
 import 'package:sastra_ebooks/services/user.dart';
 
 /* Todo:  - Add image cropper

@@ -14,7 +14,6 @@ import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/misc/downloadBook.dart';
 import 'package:sastra_ebooks/misc/strings.dart';
 import 'package:sastra_ebooks/misc/textStyles.dart';
-import 'package:sastra_ebooks/profile/settingScreens/downloadsPayment.dart';
 import 'package:sastra_ebooks/services/dialogs.dart';
 
 Future<DialogAction> yesAbortDialog(

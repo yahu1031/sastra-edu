@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sastra_ebooks/misc/customColors.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
+import 'package:sastra_ebooks/services/responsive/sizeConfig.dart';
 
 class CustomDropDownButton<T> extends StatelessWidget {
   final T value;
@@ -12,6 +13,7 @@ class CustomDropDownButton<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 40 * SizeConfig.widthMultiplier,
       padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
         color: CustomColors.veryLightGrey,

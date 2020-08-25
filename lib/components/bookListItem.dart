@@ -16,7 +16,6 @@ import 'package:sastra_ebooks/components/customInkWell.dart';
 import 'package:sastra_ebooks/dialogs/dialogs.dart' as dialogs;
 import 'package:sastra_ebooks/misc/customColors.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
-import 'package:sastra_ebooks/misc/strings.dart';
 
 class BookListItem extends StatelessWidget {
   static final List<BookListItem> bookListItems = [];

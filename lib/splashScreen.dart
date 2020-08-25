@@ -9,10 +9,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sastra_ebooks/components/customScaffold.dart';
 import 'package:sastra_ebooks/loadingScreen.dart';
+import 'package:sastra_ebooks/misc/strings.dart';
 import 'package:sastra_ebooks/services/images.dart';
-
-import 'login/login.dart';
-import 'login/mailVerification.dart';
+import 'package:sastra_ebooks/dialogs/dialogs.dart' as dialogs;
+import 'package:sastra_ebooks/login/login.dart';
+import 'package:sastra_ebooks/login/mailVerification.dart';
 
 class SplashScreen extends StatefulWidget {
   static const id = '/';
@@ -46,7 +47,8 @@ class _SplashScreenState extends State<SplashScreen> {
           context, LoadingScreen.id, (route) => false,
           arguments: _firebaseUser);
     } else {
-      //TODO: showDialog something went terribly wrong
+      dialogs.yesAbortDialog(context, Strings.errorString,
+          "Ahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
     }
   }
 

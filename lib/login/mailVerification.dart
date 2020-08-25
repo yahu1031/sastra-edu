@@ -1,19 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sastra_ebooks/components/buttons/roundedButton/roundedButton.dart';
 import 'package:sastra_ebooks/components/buttons/tappableSubtitle.dart';
 import 'package:sastra_ebooks/components/customScaffold.dart';
-import 'package:sastra_ebooks/components/textFields/customTextFormField/customTextFormField.dart';
 import 'package:sastra_ebooks/loadingScreen.dart';
-import 'package:sastra_ebooks/login/login.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
-import 'package:sastra_ebooks/misc/strings.dart';
-import 'package:sastra_ebooks/services/dialogs.dart';
-import 'package:sastra_ebooks/services/responsive/sizeConfig.dart';
-import 'package:sastra_ebooks/services/user.dart';
-
 class EmailVerification extends StatefulWidget {
   static const id = '/mailVerification';
 

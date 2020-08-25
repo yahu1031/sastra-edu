@@ -5,34 +5,26 @@
             - cleanup
  */
 
-import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:path/path.dart';
 import 'package:sastra_ebooks/components/appBarTitles/appBarTitle.dart';
 import 'package:sastra_ebooks/components/customAboutDialog.dart';
 import 'package:sastra_ebooks/components/customAppBar.dart';
 import 'package:sastra_ebooks/components/customScaffold.dart';
 import 'package:sastra_ebooks/components/listItem.dart';
 import 'package:sastra_ebooks/components/profile/profileInfoCard.dart';
-import 'package:sastra_ebooks/components/profile/profilePicture.dart';
 import 'package:sastra_ebooks/misc/customColors.dart';
 import 'package:sastra_ebooks/misc/screens/mailUs.dart';
 import 'package:sastra_ebooks/misc/strings.dart';
 import 'package:package_info/package_info.dart';
-import 'package:sastra_ebooks/profile/settingScreens/credits.dart';
 import 'package:sastra_ebooks/profile/settingScreens/downloadsPayment.dart';
 import 'package:sastra_ebooks/services/images.dart';
 import 'package:sastra_ebooks/services/responsive/sizeConfig.dart';
 import 'package:sastra_ebooks/services/user.dart';
 
 import 'settingScreens/about.dart';
-import '../services/dialogs.dart';
 
 class Profile extends StatefulWidget {
   static const String id = '/profile';
