@@ -13,6 +13,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:package_info/package_info.dart';
 import 'package:path/path.dart';
@@ -145,12 +146,14 @@ class _HomeHandlerState extends State<HomeHandler>
         splashColor: Colors.transparent,
         backgroundColor: Colors.transparent,
         onPressed: () {
-          showModalBottomSheet(
+          showMaterialModalBottomSheet(
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(Dimensions.borderRadiusDouble))),
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(Dimensions.borderRadiusDouble),
+              ),
+            ),
             context: context,
-            builder: (BuildContext bc) {
+            builder: (BuildContext context, _) {
               return ProfileModalBottomSheet(user: widget.user);
             },
           );

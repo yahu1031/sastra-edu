@@ -56,106 +56,117 @@ class _ProfileModalBottomSheetState extends State<ProfileModalBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(top: 10, bottom: 20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
+    return Material(
+      color: CustomColors.lightColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(Dimensions.borderRadiusDouble),
         ),
       ),
-      child: Wrap(
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.symmetric(vertical: Dimensions.smallPadding),
-            decoration: BoxDecoration(borderRadius: Dimensions.borderRadius),
-            child: Row(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: Dimensions.padding,
-                    vertical: Dimensions.largePadding,
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: Dimensions.smallPadding),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.only(bottom: Dimensions.smallPadding),
+              decoration: BoxDecoration(borderRadius: Dimensions.borderRadius),
+              child: Row(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: Dimensions.padding,
+                      vertical: Dimensions.largePadding,
+                    ),
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.transparent,
+                      radius: 50,
+                      backgroundImage: AssetImage(Images.kLoginPic),
+                    ),
                   ),
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    foregroundColor: Colors.transparent,
-                    radius: 50,
-                    backgroundImage: AssetImage(Images.kLoginPic),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        widget.user.name,
+                        style: TextStyle(
+                          fontSize: 25,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        '${widget.user.regNo} - ${_getNumberWrittenOut(widget.user.year)} Year',
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.grey,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        widget.user.branch,
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.grey,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      widget.user.name,
-                      style: TextStyle(
-                        fontSize: 25,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      '${widget.user.regNo} - ${_getNumberWrittenOut(widget.user.year)} Year',
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.grey,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      widget.user.branch,
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.grey,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          SettingsContent(
-              content: "Support",
-              icon: Icons.help,
-              backgroundColor: Color(0xFF13CBFE),
+            SettingsContent(
+                content: "Support",
+                icon: Icons.help,
+                backgroundColor: Color(0xFF13CBFE),
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, MailUs.id);
+                }),
+            SettingsContent(
+              content: "About Us",
+              icon: Icons.person,
+              backgroundColor: Color(0xFF0084FF),
               onPressed: () {
                 Navigator.pop(context);
-                Navigator.pushNamed(context, MailUs.id);
-              }),
-          SettingsContent(
-            content: "About Us",
-            icon: Icons.person,
-            backgroundColor: Color(0xFF0084FF),
-            onPressed: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, AboutUs.id);
-            },
-          ),
-          SettingsContent(
-            content: "Log Out",
-            icon: Icons.exit_to_app,
-            backgroundColor: Color(0xFF114DA9),
-            onPressed: () async {
-              await FirebaseAuth.instance.signOut();
-              Navigator.pushNamedAndRemoveUntil(
-                  context, Login.id, (route) => false);
-            },
-          ),
-          Container(
-            height: 43,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 13),
+                Navigator.pushNamed(context, AboutUs.id);
+              },
+            ),
+            SettingsContent(
+              content: "Downlaods",
+              icon: Icons.cloud_download,
+              backgroundColor: Color(0xFF0084FF),
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, AboutUs.id);
+              },
+            ),
+            SettingsContent(
+              content: "Log Out",
+              icon: Icons.exit_to_app,
+              backgroundColor: Color(0xFF114DA9),
+              onPressed: () async {
+                await FirebaseAuth.instance.signOut();
+                Navigator.pushNamedAndRemoveUntil(
+                    context, Login.id, (route) => false);
+              },
+            ),
+            Container(
+              height: 35,
+              padding:
+                  const EdgeInsets.symmetric(horizontal: Dimensions.padding),
               child: Stack(
                 children: [
                   Align(
                     alignment: Alignment.centerRight,
-                    child: GestureDetector(
-                      onTap: () async {
+                    child: CustomInkWell(
+                      onPressed: () async {
                         PackageInfo packageInfo =
                             await PackageInfo.fromPlatform();
                         showDialog(
@@ -173,7 +184,7 @@ class _ProfileModalBottomSheetState extends State<ProfileModalBottomSheet> {
                         );
                       },
                       child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 12),
+                        margin: EdgeInsets.all(5),
                         width: 30,
                         height: 30,
                         child: SvgPicture.asset(
@@ -194,8 +205,8 @@ class _ProfileModalBottomSheetState extends State<ProfileModalBottomSheet> {
                 ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
