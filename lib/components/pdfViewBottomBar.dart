@@ -95,7 +95,7 @@ class PdfViewBottomBar extends StatelessWidget {
                     onSubmitted: onPageNumberSubmit,
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,
-                      WhitelistingTextInputFormatter.digitsOnly,
+                      FilteringTextInputFormatter.digitsOnly,
                     ],
                     keyboardType: TextInputType.number,
                     style: body1TextStyle,

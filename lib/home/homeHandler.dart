@@ -5,24 +5,14 @@
             - cleanup
  */
 
-import 'dart:io';
 import 'dart:ui';
 
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:package_info/package_info.dart';
-import 'package:path/path.dart';
-import 'package:sastra_ebooks/components/customAppBar.dart';
 import 'package:sastra_ebooks/components/customScaffold.dart';
-import 'package:sastra_ebooks/components/navigationDrawer.dart';
 import 'package:sastra_ebooks/components/profileModalBottomSheet.dart';
-import 'package:sastra_ebooks/misc/customColors.dart';
-import 'package:sastra_ebooks/components/buttons/iconButtons/customIconButton/children/hamburgerButton.dart';
-import 'package:sastra_ebooks/components/profile/profilePicture.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/services/images.dart';
 import 'package:sastra_ebooks/services/user.dart';
@@ -46,7 +36,6 @@ class _HomeHandlerState extends State<HomeHandler>
   final Duration navigationDrawerDuration = const Duration(milliseconds: 300);
 
   AnimationController _controller;
-  Animation<double> _scaleAnimation;
   PackageInfo packageInfo;
 
   @override

@@ -265,8 +265,6 @@ class Dialogs {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        bool choice = false;
-
         return AlertDialog(
           shape: RoundedRectangleBorder(
             borderRadius: Dimensions.borderRadius,

@@ -9,10 +9,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sastra_ebooks/components/customScaffold.dart';
 import 'package:sastra_ebooks/loadingScreen.dart';
+import 'package:sastra_ebooks/misc/strings.dart';
 import 'package:sastra_ebooks/services/images.dart';
-
-import 'login/login.dart';
-import 'login/mailVerification.dart';
+import 'package:sastra_ebooks/dialogs/dialogs.dart' as dialogs;
+import 'package:sastra_ebooks/login/login.dart';
+import 'package:sastra_ebooks/login/mailVerification.dart';
 
 class SplashScreen extends StatefulWidget {
   static const id = '/';
@@ -34,19 +35,21 @@ class _SplashScreenState extends State<SplashScreen> {
   authenticate() async {
     final FirebaseUser _firebaseUser = await _firebaseAuth.currentUser();
 
-    if (_firebaseUser == null) {
-      Navigator.pushNamedAndRemoveUntil(context, Login.id, (route) => false);
-    } else if (!_firebaseUser.isEmailVerified) {
-      Navigator.pushNamed(
-        context,
-        EmailVerification.id,
-      );
-    } else if (_firebaseUser != null) {
-      Navigator.pushNamedAndRemoveUntil(
-          context, LoadingScreen.id, (route) => false,
-          arguments: _firebaseUser);
-    } else {
-      //TODO: showDialog something went terribly wrong
+    try {
+      if (_firebaseUser == null) {
+        Navigator.pushNamedAndRemoveUntil(context, Login.id, (route) => false);
+      } else if (!_firebaseUser.isEmailVerified) {
+        Navigator.pushNamed(
+          context,
+          EmailVerification.id,
+        );
+      } else if (_firebaseUser != null) {
+        Navigator.pushNamedAndRemoveUntil(
+            context, LoadingScreen.id, (route) => false,
+            arguments: _firebaseUser);
+      }
+    } catch (e) {
+      dialogs.yesAbortDialog(context, Strings.errorString, e);
     }
   }
 

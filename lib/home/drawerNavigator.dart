@@ -21,10 +21,10 @@ class DrawerNavigator {
     else if (i == 2) _toBookmarks();
   }
 
-  static void _reset() {
-    _currentPageString = Home.id;
-    _currentPageIndex = 0;
-  }
+  // static void _reset() {
+  //   _currentPageString = Home.id;
+  //   _currentPageIndex = 0;
+  // }
 
   static void _toHome() {
     _currentPageString = Home.id;

@@ -24,7 +24,6 @@ import 'package:sastra_ebooks/components/headings/largeHeading.dart';
 import 'package:sastra_ebooks/loadingScreen.dart';
 import 'package:sastra_ebooks/dialogs/loadingDialog.dart' as dialogs;
 import 'package:sastra_ebooks/dialogs/dialogs.dart' as dialogs;
-import '../misc/screens/mailUs.dart';
 import '../services/auth.dart';
 import 'forgotpassword.dart';
 import 'mailVerification.dart';
@@ -70,10 +69,9 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
 
         dialogs.yesAbortDialog(context, Strings.passwordTooShortString,
             Strings.passwordTooShortExplainString);
-
-        //        dialogs.yesAbortDialog(context, Strings.sorryString,
-//            Strings.invalidCredentialsExplainString);
       } else if (_firebaseUser == null) {
+        dialogs.yesAbortDialog(context, Strings.sorryString,
+            Strings.invalidCredentialsExplainString);
         print('Invalid Credentials');
       } else if (!_firebaseUser.isEmailVerified) {
         Navigator.pushNamed(
@@ -133,9 +131,9 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                             alignment: Alignment.centerLeft,
                             child: FittedBox(
                               child: LargeHeading(
-                                text: 'Hello\nThere',
-                                highlightText: ' .',
-                                size: HeadingSize.extraLarge,
+                                text: 'Hello There ',
+                                highlightText: '.',
+                                size: HeadingSize.large,
                               ),
                             ),
                           ),

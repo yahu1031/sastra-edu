@@ -7,9 +7,7 @@
 
 import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
 import 'package:sastra_ebooks/services/user.dart';
 
 class AuthServices {
@@ -24,7 +22,6 @@ class AuthServices {
 
   // SIGN UP
   Future<FirebaseUser> signUpUser(String _regNumber, String _password) async {
-    bool verified = false;
     try {
       FirebaseUser firebaseUser = await _firebaseAuth
           .createUserWithEmailAndPassword(
@@ -93,6 +90,7 @@ class AuthServices {
     } catch (e) {
       print(e);
     }
+    return null;
   }
 
   //SignOut
