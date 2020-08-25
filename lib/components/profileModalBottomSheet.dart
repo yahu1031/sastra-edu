@@ -1,12 +1,24 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:package_info/package_info.dart';
+import 'package:sastra_ebooks/components/customInkWell.dart';
 import 'package:sastra_ebooks/login/login.dart';
+import 'package:sastra_ebooks/misc/customColors.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
+import 'package:sastra_ebooks/misc/screens/mailUs.dart';
+import 'package:sastra_ebooks/profile/settingScreens/about.dart';
 import 'package:sastra_ebooks/services/images.dart';
+import 'package:sastra_ebooks/services/user.dart';
+
+import 'customAboutDialog.dart';
 
 class ProfileModalBottomSheet extends StatefulWidget {
+  final User user;
+
+  const ProfileModalBottomSheet({Key key, this.user}) : super(key: key);
+
   @override
   _ProfileModalBottomSheetState createState() =>
       _ProfileModalBottomSheetState();
@@ -32,6 +44,16 @@ class _ProfileModalBottomSheetState extends State<ProfileModalBottomSheet> {
     });
   }
 
+  String _getNumberWrittenOut(int number) {
+    if (number == 1)
+      return 'First';
+    else if (number == 2)
+      return 'Second';
+    else if (number == 3)
+      return 'Third';
+    else if (number == 4) return 'Fourth';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -51,19 +73,15 @@ class _ProfileModalBottomSheetState extends State<ProfileModalBottomSheet> {
             child: Row(
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.all(20.0),
-                  child: Hero(
-                    tag: 'profilePic',
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      height: 100,
-                      child: Center(
-                        child: Image.asset(Images.kLoginPic),
-                      ),
-                    ),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: Dimensions.padding,
+                    vertical: Dimensions.largePadding,
+                  ),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.transparent,
+                    radius: 50,
+                    backgroundImage: AssetImage(Images.kLoginPic),
                   ),
                 ),
                 Column(
@@ -71,7 +89,7 @@ class _ProfileModalBottomSheetState extends State<ProfileModalBottomSheet> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      'R Yaswanth Kumar',
+                      widget.user.name,
                       style: TextStyle(
                         fontSize: 25,
                         color: Colors.black,
@@ -80,7 +98,7 @@ class _ProfileModalBottomSheetState extends State<ProfileModalBottomSheet> {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      'Fourth Year',
+                      '${widget.user.regNo} - ${_getNumberWrittenOut(widget.user.year)} Year',
                       style: TextStyle(
                         fontSize: 15,
                         color: Colors.grey,
@@ -89,16 +107,7 @@ class _ProfileModalBottomSheetState extends State<ProfileModalBottomSheet> {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      '121003219',
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.grey,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      'Computer Science',
+                      widget.user.branch,
                       style: TextStyle(
                         fontSize: 15,
                         color: Colors.grey,
@@ -111,19 +120,24 @@ class _ProfileModalBottomSheetState extends State<ProfileModalBottomSheet> {
             ),
           ),
           SettingsContent(
-            content: "Support",
-            icon: Icons.help,
-            backgroundColor: Color(0xFF13CBFE),
-            onPressed: () {},
-          ),
+              content: "Support",
+              icon: Icons.help,
+              backgroundColor: Color(0xFF13CBFE),
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, MailUs.id);
+              }),
           SettingsContent(
             content: "About Us",
             icon: Icons.person,
             backgroundColor: Color(0xFF0084FF),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, AboutUs.id);
+            },
           ),
           SettingsContent(
-            content: "Logout",
+            content: "Log Out",
             icon: Icons.exit_to_app,
             backgroundColor: Color(0xFF114DA9),
             onPressed: () async {
@@ -132,11 +146,52 @@ class _ProfileModalBottomSheetState extends State<ProfileModalBottomSheet> {
                   context, Login.id, (route) => false);
             },
           ),
-          Center(
-            child: Text(
-              'App version $_projectVersion',
-              style: TextStyle(
-                color: Colors.grey[400],
+          Container(
+            height: 43,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 13),
+              child: Stack(
+                children: [
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: GestureDetector(
+                      onTap: () async {
+                        PackageInfo packageInfo =
+                            await PackageInfo.fromPlatform();
+                        showDialog(
+                          context: context,
+                          child: CustomAboutDialog(
+                            applicationIcon: Image.asset(
+                              Images.appIcon,
+                              fit: BoxFit.fitWidth,
+                              width: 100,
+                            ),
+                            applicationName: packageInfo.appName,
+                            applicationVersion: packageInfo.version,
+                            applicationLegalese: 'IMPLEMENT',
+                          ),
+                        );
+                      },
+                      child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: 12),
+                        width: 30,
+                        height: 30,
+                        child: SvgPicture.asset(
+                          Images.info,
+                          color: CustomColors.highlightColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Center(
+                    child: Text(
+                      'Alpha - $_projectVersion',
+                      style: TextStyle(
+                        color: Colors.grey[400],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -167,10 +222,12 @@ class _SettingsContentState extends State<SettingsContent> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-      child: InkWell(
-        onTap: widget.onPressed,
-        child: Container(
+      padding: EdgeInsets.symmetric(
+          vertical: Dimensions.padding, horizontal: Dimensions.padding),
+      child: CustomInkWell(
+        onPressed: widget.onPressed,
+        child: Padding(
+          padding: EdgeInsets.all(5),
           child: Row(
             children: <Widget>[
               Container(

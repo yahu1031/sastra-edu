@@ -61,9 +61,9 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
   bool _keyboardVisible;
 
   void signUp() async {
-    dialogs.showLoadingDialog(context);
-
     if (_formKey.currentState.validate()) {
+      dialogs.showLoadingDialog(context);
+
       if (_regNum.length < 9) {
         Navigator.pop(context);
 
@@ -83,16 +83,17 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
 
         if (firebaseUser == null) {
           showDialog(
-              context: context,
-              child: AlertDialog(
-                title: Text('Something went wrong. Try again'),
-                actions: [
-                  FlatButton(
-                    child: Text('Close'),
-                    onPressed: () => Navigator.pop(context),
-                  )
-                ],
-              ));
+            context: context,
+            child: AlertDialog(
+              title: Text('Something went wrong. Try again'),
+              actions: [
+                FlatButton(
+                  child: Text('Close'),
+                  onPressed: () => Navigator.pop(context),
+                )
+              ],
+            ),
+          );
         } else if (firebaseUser != null && !firebaseUser.isEmailVerified) {
           await Firestore.instance
               .collection('userData')

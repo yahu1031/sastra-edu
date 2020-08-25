@@ -13,15 +13,19 @@ class CustomInkWell extends StatelessWidget {
   final GestureTapCallback onPressed;
   final GestureLongPressCallback onLongPressed;
 
-  const CustomInkWell({@required this.onPressed, @required this.child, this.onLongPressed});
+  const CustomInkWell(
+      {@required this.onPressed, @required this.child, this.onLongPressed});
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onLongPress: onLongPressed,
-      onTap: onPressed,
-      borderRadius: Dimensions.borderRadius,
-      child: child,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onLongPress: onLongPressed,
+        onTap: onPressed,
+        borderRadius: Dimensions.borderRadius,
+        child: child,
+      ),
     );
   }
 }

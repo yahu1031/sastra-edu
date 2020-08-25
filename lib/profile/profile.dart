@@ -135,18 +135,6 @@ class _ProfileState extends State<Profile> {
                       applicationLegalese: 'IMPLEMENT',
                     ),
                   );
-
-                  // showAboutDialog(
-                  //     context: context,
-                  //     applicationIcon: Image.asset(
-                  //       Images.appIcon,
-                  //       fit: BoxFit.fitWidth,
-                  //       width: 100,
-                  //     ),
-                  //     applicationName: packageInfo.appName,
-                  //     applicationVersion: packageInfo.version,
-                  //     applicationLegalese: 'IMPLEMENT',
-                  //     children: [Text('asdsd')]);
                 },
 
                 child: Container(

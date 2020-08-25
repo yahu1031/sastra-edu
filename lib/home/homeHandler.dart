@@ -67,10 +67,6 @@ class _HomeHandlerState extends State<HomeHandler>
     screenWidth = size.width;
 
     return CustomScaffold(
-      appBar: CustomAppBar(
-        context,
-        title: DrawerNavigator.currentPage.appBarTitle,
-      ),
       bottomNavigationBar: BubbleBottomBar(
         opacity: .2,
         currentIndex: DrawerNavigator.currentPageIndex,
@@ -140,7 +136,6 @@ class _HomeHandlerState extends State<HomeHandler>
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        heroTag: 'profilePic',
         highlightElevation: 0,
         hoverElevation: 0,
         elevation: 2,
@@ -156,7 +151,7 @@ class _HomeHandlerState extends State<HomeHandler>
                     top: Radius.circular(Dimensions.borderRadiusDouble))),
             context: context,
             builder: (BuildContext bc) {
-              return ProfileModalBottomSheet();
+              return ProfileModalBottomSheet(user: widget.user);
             },
           );
         },
@@ -174,7 +169,10 @@ class _HomeHandlerState extends State<HomeHandler>
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-      body: DrawerNavigator.currentPage,
+      body: Padding(
+        padding: EdgeInsets.only(top: Dimensions.padding),
+        child: DrawerNavigator.currentPage,
+      ),
     );
   }
 }
