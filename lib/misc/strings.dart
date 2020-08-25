@@ -13,7 +13,7 @@ class Strings {
   static const String allGoodQString = 'All good?';
 
   static const String loginString = 'Login';
-  static const String cantFindAccString = 'Can\'t you find your Account?';
+  static const String noAccount = 'You don\'t have an account?';
 
   static const String searchBooksString = 'Search for books';
 
@@ -37,7 +37,7 @@ class Strings {
       'Do you know your credentials?';
 
   /// Registration Number
-  static const String regNumString = 'Registration Number';
+  static const String regNumString = 'Univeristy Registration Number';
   static const String regNumFieldEmptyString =
       'Please enter your Registration Number';
   //const String kRegNumMissingExplainString =
@@ -68,4 +68,33 @@ class Strings {
   static const String kDownloadTitle = 'Download your Book';
   static const String kRemoveTitle = 'Remove your Book';
   static const String kSubscription = 'Choose your plan';
+
+  static const String kNewHere = 'New Here ? 🤞';
+  static const String kHelloThere = 'Hello There 😉';
+  static const String kForgotPassword = 'Forgot Password ? 😅';
+  static const String kName = 'Name';
+  static const String kPassword = 'Password';
+  static const String kBranch = 'Branch';
+  static const String kYear = 'Year';
+  static const String kLogin = 'Login';
+  static const String kSignup = 'Signup';
+  static const String kResetPassword = 'Reset Password';
+  static const String kNewAcc = 'Don\'t have an account?';
+  static const String kOldAcc = 'Already have an account?';
+  static const String kKnowPassword = 'Oh! you know Password ?';
+  static const String kResetMessage = 'Don\'t worry we got your back 😂';
+  static const String kSearchBooks = 'Search for Books';
+  static const String kNameFieldEmpty = 'Please enter your Name';
+  static const String kSorry = 'Sorry';
+  static const String kCredentialsMissing =
+      'Your Credentials are missing, please enter them and try again.';
+  static const String kRegNumTooShort = 'Your register Number is too short';
+  static const String kRegNumTooShortExplain =
+      'It must be 9 digits, please enter check and try again.';
+  static const String kPasswordTooShort = 'Password is too short';
+  static const String kPasswordTooShortExplain =
+      'Your password must be more than 6 chasracters.';
+  static const String kEnterOTP =
+      'Please enter the verification code sent to your university email';
+  static const String kOTP = 'Verification Code';
 }

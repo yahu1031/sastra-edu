@@ -12,6 +12,7 @@ import 'package:sastra_ebooks/loadingScreen.dart';
 import 'package:sastra_ebooks/services/images.dart';
 
 import 'login/login.dart';
+import 'login/mailVerification.dart';
 
 class SplashScreen extends StatefulWidget {
   static const id = '/';
@@ -33,12 +34,19 @@ class _SplashScreenState extends State<SplashScreen> {
   authenticate() async {
     final FirebaseUser _firebaseUser = await _firebaseAuth.currentUser();
 
-    if (_firebaseUser != null) {
+    if (_firebaseUser == null) {
+      Navigator.pushNamedAndRemoveUntil(context, Login.id, (route) => false);
+    } else if (!_firebaseUser.isEmailVerified) {
+      Navigator.pushNamed(
+        context,
+        EmailVerification.id,
+      );
+    } else if (_firebaseUser != null) {
       Navigator.pushNamedAndRemoveUntil(
           context, LoadingScreen.id, (route) => false,
           arguments: _firebaseUser);
     } else {
-      Navigator.pushNamedAndRemoveUntil(context, Login.id, (route) => false);
+      //TODO: showDialog something went terribly wrong
     }
   }
 

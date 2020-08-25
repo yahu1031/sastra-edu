@@ -13,9 +13,8 @@ import 'package:sastra_ebooks/services/user.dart';
 
 class ProfileInfoCard extends StatefulWidget {
   final User user;
-  final Function getImage;
 
-  const ProfileInfoCard(this.user, this.getImage);
+  const ProfileInfoCard(this.user);
   @override
   _ProfileInfoCardState createState() => _ProfileInfoCardState();
 }
@@ -43,9 +42,6 @@ class _ProfileInfoCardState extends State<ProfileInfoCard> {
                 Stack(
                   children: <Widget>[
                     InkWell(
-                      onTap: () {
-                        widget.getImage(context);
-                      },
                       borderRadius: Dimensions.borderRadius,
                       child: Container(
                         margin: EdgeInsets.all(10),
@@ -56,7 +52,9 @@ class _ProfileInfoCardState extends State<ProfileInfoCard> {
                           borderRadius: BorderRadius.circular(
                             20 * SizeConfig.heightMultiplier,
                           ),
-                          child: ProfilePicture(),
+                          child: Container(
+                            color: Colors.red,
+                          ),
                         ),
                       ),
                     ),
@@ -89,7 +87,7 @@ class _ProfileInfoCardState extends State<ProfileInfoCard> {
                 ),
                 SizedBox(height: 1 * SizeConfig.heightMultiplier),
                 Text(
-                  widget.user.year,
+                  widget.user.year.toString(),
                   style: GoogleFonts.notoSans(
                       fontSize: 18,
                       color: Colors.lightBlueAccent,

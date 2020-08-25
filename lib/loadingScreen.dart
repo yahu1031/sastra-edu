@@ -49,14 +49,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
       Map bookList;
 
       DocumentSnapshot document = await Firestore.instance
-          .collection('Data')
+          .collection('userData')
           .document(widget.firebaseUser.uid)
           .get();
-
+      print(document.data['year']);
       final user = User(
         widget.firebaseUser.uid,
         widget.firebaseUser.email,
-        document.data['pro_pic'],
         document.data['name'],
         document.data["branch"],
         document.data['year'],
@@ -68,11 +67,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
       Bookmarks.init(user.uid, document.data['bookmarks']);
 
-      ProfilePicture.updateImage(user.proPicUrl);
-
+      // Todo: need to change db from firstYear to
       bookList = await Firestore.instance
           .collection('bookLists')
-          .document(user.year)
+          .document('firstYear')
           .get()
           .then((documentSnapshot) => documentSnapshot.data);
 

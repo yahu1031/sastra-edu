@@ -18,6 +18,7 @@ import 'package:sastra_ebooks/books/pdf.dart';
 import 'package:sastra_ebooks/loadingScreen.dart';
 import 'package:sastra_ebooks/login/forgotpassword.dart';
 import 'package:sastra_ebooks/login/login.dart';
+import 'package:sastra_ebooks/login/signup.dart';
 import 'package:sastra_ebooks/misc/secret.dart';
 import 'package:sastra_ebooks/misc/textStyles.dart';
 import 'package:sastra_ebooks/profile/profile.dart';
@@ -32,6 +33,7 @@ import 'package:wiredash/wiredash.dart';
 
 import 'home/homeHandler.dart';
 import 'home/screens/searchBooks.dart';
+import 'login/mailVerification.dart';
 import 'misc/screens/mailUs.dart';
 
 void main() => runApp(MyApp());
@@ -87,6 +89,8 @@ class _MyAppState extends State<MyApp> {
                 routes: {
                   SplashScreen.id: (context) => SplashScreen(),
                   Login.id: (context) => Login(),
+                  SignUp.id: (context) => SignUp(),
+                  EmailVerification.id: (context) => EmailVerification(),
                   ForgotPassword.id: (context) => ForgotPassword(),
                   MailUs.id: (context) => MailUs(),
                   SearchBooks.id: (context) => SearchBooks(),

@@ -5,18 +5,36 @@
             - cleanup
  */
 
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:sastra_ebooks/services/user.dart';
 
 class AuthServices {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  Stream<String> get onAuthStateChanged => _firebaseAuth.onAuthStateChanged.map(
-        (FirebaseUser user) {
-          user?.uid;
-          user?.email;
-        },
-      );
+  // Stream<String> get onAuthStateChanged => _firebaseAuth.onAuthStateChanged.map(
+  //       (FirebaseUser user) {
+  //         user?.uid;
+  //         user?.email;
+  //       },
+  //     );
+
+  // SIGN UP
+  Future<FirebaseUser> signUpUser(String _regNumber, String _password) async {
+    bool verified = false;
+    try {
+      FirebaseUser firebaseUser = await _firebaseAuth
+          .createUserWithEmailAndPassword(
+              email: '$_regNumber@sastra.ac.in', password: _password)
+          .then((authResult) => authResult.user);
+      return firebaseUser;
+    } catch (e) {
+      return null;
+    }
+  }
 
   // GET UID
   Future<String> getCurrentUID() async {
@@ -31,7 +49,7 @@ class AuthServices {
   //Create user object based on FirebaseUser
   User _userFromFirebaseUser(FirebaseUser user) {
     // print(user.email);
-    return user != null ? User(user.uid, user.email, '', '', '', '', 1) : null;
+    return user != null ? User(user.uid, user.email, '', '', 1, '1') : null;
   }
 
   //auth change user Stream
@@ -43,7 +61,7 @@ class AuthServices {
   Future registerWithEmailAndPassword(String _email, String _password) async {
     try {
       AuthResult result = await _firebaseAuth.createUserWithEmailAndPassword(
-          email: _email + "@gmail.com", password: _password);
+          email: _email + "@sastra.ac.in", password: _password);
       FirebaseUser user = result.user;
       return _userFromFirebaseUser(user);
     } catch (e) {

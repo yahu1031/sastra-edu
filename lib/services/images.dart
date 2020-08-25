@@ -22,6 +22,12 @@ class Images {
   static const String rajibmall = "assets/images/rajibmall.jpeg";
   static const String read = "assets/images/read.png";
   static const String rspressman = "assets/images/RSPressman.jpeg";
+  static const String kLoginPic = 'assets/images/login.webp';
+  static const String kSignupPic = 'assets/images/signup.webp';
+  static const String kAppIcon = 'assets/images/signup1.webp';
+  static const String kForgotpassPic = 'assets/images/forgotpassword.webp';
+  static const String kPersonOutline =
+      'assets/images/outline_person_outline.png';
 
 //SVG
   static const String home = "assets/icons/home.svg";

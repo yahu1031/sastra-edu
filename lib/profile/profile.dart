@@ -21,6 +21,7 @@ import 'package:sastra_ebooks/components/customScaffold.dart';
 import 'package:sastra_ebooks/components/listItem.dart';
 import 'package:sastra_ebooks/components/profile/profileInfoCard.dart';
 import 'package:sastra_ebooks/components/profile/profilePicture.dart';
+import 'package:sastra_ebooks/misc/customColors.dart';
 import 'package:sastra_ebooks/misc/screens/mailUs.dart';
 import 'package:sastra_ebooks/misc/strings.dart';
 import 'package:package_info/package_info.dart';
@@ -47,70 +48,6 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   Future uploadingPicInProgress;
   bool isPopping = false;
-  Future<void> getImage(BuildContext context) async {
-    PickedFile pickedImage = await ImagePicker().getImage(
-      source: ImageSource.gallery,
-      imageQuality: 30,
-      maxHeight: 1000,
-      maxWidth: 1000,
-    );
-
-    if (pickedImage != null) {
-      print("Image path $pickedImage");
-
-      bool dialogResult = await Dialogs.areYouSureDialog(context,
-          title: 'Are you sure?',
-          description:
-              'You won\'t be able to recover your old profile picture');
-
-      if (dialogResult)
-        uploadingPicInProgress = uploadPic(pickedImage);
-      else
-        File(pickedImage.path).delete();
-    }
-  }
-
-  Future uploadPic(PickedFile pickedImage) async {
-    ProfilePicture.updateImage('placeholder');
-
-    if (!isPopping) {
-      setState(() {});
-    }
-    String imagePath = 'images/proPics/${basename(pickedImage.path)}';
-    StorageReference oldProPicReference;
-
-    StorageReference firebaseStorageRef =
-        FirebaseStorage.instance.ref().child(imagePath);
-
-    StorageUploadTask uploadTask = firebaseStorageRef.putFile(
-      File(pickedImage.path),
-    );
-
-    StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
-
-    if (taskSnapshot.error == null) {
-      oldProPicReference = await FirebaseStorage.instance
-          .getReferenceFromUrl(widget.user.proPicUrl);
-
-      widget.user.proPicUrl = await taskSnapshot.ref.getDownloadURL();
-
-      Firestore.instance.document("Data/${widget.user.uid}").updateData({
-        "pro_pic": widget.user.proPicUrl,
-      });
-      print(widget.user.proPicUrl);
-    }
-
-    print("Profile Picture uploaded");
-
-    oldProPicReference.delete();
-    File(pickedImage.path).delete();
-    print(isPopping);
-    ProfilePicture.updateImage(widget.user.proPicUrl);
-
-    if (!isPopping) {
-      setState(() {});
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +76,7 @@ class _ProfileState extends State<Profile> {
                 Expanded(
                   flex: 5,
                   child: Center(
-                    child: ProfileInfoCard(widget.user, getImage),
+                    child: ProfileInfoCard(widget.user),
                   ),
                 ),
                 Column(
@@ -218,7 +155,7 @@ class _ProfileState extends State<Profile> {
                   height: 30,
                   child: SvgPicture.asset(
                     Images.info,
-                    color: Colors.grey,
+                    color: CustomColors.highlightColor,
                   ),
                 ),
               ),

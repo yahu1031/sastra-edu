@@ -77,24 +77,24 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
   }
 
   void onHomePressed() {
-    setState(() {
-      DrawerNavigator.toHome();
-    });
-    closeNavDrawer();
+    // setState(() {
+    //   DrawerNavigator.toHome();
+    // });
+    // closeNavDrawer();
   }
 
   void onFavoritePressed() {
-    setState(() {
-      DrawerNavigator.toFavorites();
-    });
-    closeNavDrawer();
+    // setState(() {
+    //   DrawerNavigator.toFavorites();
+    // });
+    // closeNavDrawer();
   }
 
   void onBookmarksPressed() {
-    setState(() {
-      DrawerNavigator.toBookmarks();
-    });
-    closeNavDrawer();
+    // setState(() {
+    //   DrawerNavigator.toBookmarks();
+    // });
+    // closeNavDrawer();
   }
 
   void onProfilePressed() async {
@@ -110,7 +110,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
   void onLogOutPressed() async {
     await _auth.signOut();
     closeNavDrawer();
-    DrawerNavigator.reset();
+    // DrawerNavigator.reset();
     Navigator.pushNamedAndRemoveUntil(context, Login.id, (_) => false);
   }
 

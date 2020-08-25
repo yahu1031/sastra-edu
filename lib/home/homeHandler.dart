@@ -8,17 +8,23 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
+import 'package:package_info/package_info.dart';
 import 'package:path/path.dart';
 import 'package:sastra_ebooks/components/customAppBar.dart';
 import 'package:sastra_ebooks/components/customScaffold.dart';
 import 'package:sastra_ebooks/components/navigationDrawer.dart';
+import 'package:sastra_ebooks/components/profileModalBottomSheet.dart';
 import 'package:sastra_ebooks/misc/customColors.dart';
 import 'package:sastra_ebooks/components/buttons/iconButtons/customIconButton/children/hamburgerButton.dart';
 import 'package:sastra_ebooks/components/profile/profilePicture.dart';
+import 'package:sastra_ebooks/misc/dimensions.dart';
+import 'package:sastra_ebooks/services/images.dart';
 import 'package:sastra_ebooks/services/user.dart';
 
 import 'drawerNavigator.dart';
@@ -41,65 +47,17 @@ class _HomeHandlerState extends State<HomeHandler>
 
   AnimationController _controller;
   Animation<double> _scaleAnimation;
+  PackageInfo packageInfo;
 
   @override
   void initState() {
     super.initState();
-
-    initAnimations();
   }
 
   @override
   void dispose() {
     super.dispose();
     _controller.dispose();
-  }
-
-  void initAnimations() {
-    _controller =
-        AnimationController(vsync: this, duration: navigationDrawerDuration);
-    _scaleAnimation = Tween<double>(begin: 1, end: 0.8).animate(_controller);
-  }
-
-  void collapseDrawer() {
-    setState(() {
-      NavigationDrawer.isCollapsed = true;
-    });
-  }
-
-  Future uploadPic(PickedFile pickedImage) async {
-    setState(() => ProfilePicture.updateImage('placeholder'));
-
-    String imagePath = 'images/proPics/${basename(pickedImage.path)}';
-    StorageReference oldProPicReference;
-
-    StorageReference firebaseStorageRef =
-        FirebaseStorage.instance.ref().child(imagePath);
-
-    StorageUploadTask uploadTask = firebaseStorageRef.putFile(
-      File(pickedImage.path),
-    );
-
-    StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
-
-    if (taskSnapshot.error == null) {
-      oldProPicReference = await FirebaseStorage.instance
-          .getReferenceFromUrl(widget.user.proPicUrl);
-
-      widget.user.proPicUrl = await taskSnapshot.ref.getDownloadURL();
-
-      Firestore.instance.document("Data/${widget.user.uid}").updateData({
-        "pro_pic": widget.user.proPicUrl,
-      });
-      print(widget.user.proPicUrl);
-    }
-
-    print("Profile Picture uploaded");
-
-    oldProPicReference.delete();
-    File(pickedImage.path).delete();
-
-    setState(() => ProfilePicture.updateImage(widget.user.proPicUrl));
   }
 
   @override
@@ -112,65 +70,111 @@ class _HomeHandlerState extends State<HomeHandler>
       appBar: CustomAppBar(
         context,
         title: DrawerNavigator.currentPage.appBarTitle,
-        leading: HamburgerButton(
-          onPressed: () {
-            if (NavigationDrawer.isCollapsed) {
-              setState(() {
-                NavigationDrawer.isCollapsed = false;
-              });
-              _controller.forward();
-            } else {
-              setState(() {
-                NavigationDrawer.isCollapsed = true;
-              });
-              _controller.reverse();
-            }
-          },
-        ),
       ),
-      body: SizedBox(
-        width: screenWidth,
-        height: screenHeight,
-        child: Stack(
-          children: <Widget>[
-            ///--- Screens ---///
-            AnimatedPositioned(
-              duration: navigationDrawerDuration,
-              top: NavigationDrawer.isCollapsed ? 0 : -0.09 * screenHeight,
-              bottom: NavigationDrawer.isCollapsed ? 0 : -0.05 * screenHeight,
-              left: NavigationDrawer.isCollapsed ? 0 : 150,
-              right: NavigationDrawer.isCollapsed ? 0 : -150,
-              child: Container(
-                width: screenWidth,
-                height: screenHeight,
-                child: ScaleTransition(
-                  scale: _scaleAnimation,
-                  alignment: Alignment.centerLeft,
-                  child: IgnorePointer(
-                    ignoring: !NavigationDrawer.isCollapsed,
-                    child: Material(
-                      animationDuration: navigationDrawerDuration,
-                      elevation: 8,
-                      color: CustomColors.lightColor,
-                      child: ScrollConfiguration(
-                        behavior: ScrollBehavior(),
-                        child: DrawerNavigator.currentPage,
-                      ),
-                    ),
-                  ),
-                ),
+      bottomNavigationBar: BubbleBottomBar(
+        opacity: .2,
+        currentIndex: DrawerNavigator.currentPageIndex,
+        onTap: (index) {
+          setState(() {
+            DrawerNavigator.toIndex(index);
+          });
+        },
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+        elevation: 8,
+        fabLocation: BubbleBottomBarFabLocation.end, //new
+        hasNotch: true, //new
+        hasInk: true, //new, gives a cute ink effect
+        inkColor: Colors.black12, //optional, uses theme color if not specified
+        items: <BubbleBottomBarItem>[
+          BubbleBottomBarItem(
+            backgroundColor: Color(0xFF40C4FF),
+            icon: Icon(
+              OMIcons.home,
+              color: Colors.lightBlueAccent,
+            ),
+            activeIcon: Icon(
+              Icons.home,
+              color: Color(0xFF40C4FF),
+            ),
+            title: Text(
+              "Home",
+              style: TextStyle(
+                color: Color(0xFF40C4FF),
               ),
             ),
-
-            ///--- NavigationDrawer ---///
-            NavigationDrawer(
-              collapseDrawer: collapseDrawer,
-              animationController: _controller,
-              user: widget.user,
+          ),
+          BubbleBottomBarItem(
+            backgroundColor: Colors.redAccent,
+            icon: Icon(
+              Icons.favorite_border,
+              color: Colors.redAccent,
             ),
-          ],
+            activeIcon: Icon(
+              Icons.favorite,
+              color: Colors.redAccent,
+            ),
+            title: Text(
+              "Favorites",
+              style: TextStyle(
+                color: Colors.redAccent,
+              ),
+            ),
+          ),
+          BubbleBottomBarItem(
+            backgroundColor: Colors.blue,
+            icon: Icon(
+              Icons.bookmark_border,
+              color: Colors.blue,
+            ),
+            activeIcon: Icon(
+              Icons.bookmark,
+              color: Colors.blue,
+            ),
+            title: Text(
+              "Bookmarks",
+              style: TextStyle(
+                color: Colors.blue,
+              ),
+            ),
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        heroTag: 'profilePic',
+        highlightElevation: 0,
+        hoverElevation: 0,
+        elevation: 2,
+        foregroundColor: Colors.transparent,
+        focusColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        splashColor: Colors.transparent,
+        backgroundColor: Colors.transparent,
+        onPressed: () {
+          showModalBottomSheet(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(Dimensions.borderRadiusDouble))),
+            context: context,
+            builder: (BuildContext bc) {
+              return ProfileModalBottomSheet();
+            },
+          );
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+            borderRadius: BorderRadius.circular(50),
+          ),
+          child: CircleAvatar(
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.transparent,
+            radius: 30,
+            backgroundImage: AssetImage(Images.kLoginPic),
+          ),
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      body: DrawerNavigator.currentPage,
     );
   }
 }

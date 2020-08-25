@@ -155,9 +155,12 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
   }
 
   void _onBookmarkPressed() async {
-    if (pageBookmarked)
+    if (pageBookmarked) {
       Bookmarks.remove(widget.book.id, _currentPage);
-    else if (!pageBookmarked) {
+      setState(() {
+        pageBookmarked = false;
+      });
+    } else if (!pageBookmarked) {
       await showBarModalBottomSheet(
           isDismissible: false,
           context: context,
@@ -273,6 +276,9 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
                                   }
                                   Bookmarks.add(widget.book.id, _currentPage,
                                       bookmarkName, chapter);
+                                  setState(() {
+                                    pageBookmarked = true;
+                                  });
                                   Navigator.pop(context);
                                 }
                               },
@@ -292,9 +298,6 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
             );
           });
     }
-    setState(() {
-      pageBookmarked = !pageBookmarked;
-    });
   }
 
   PageInChapter _pageInChapter(int i, outlineLength, List chapters) {

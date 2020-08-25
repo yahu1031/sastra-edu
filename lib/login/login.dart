@@ -14,6 +14,7 @@ import 'package:sastra_ebooks/components/buttons/roundedButton/roundedButton.dar
 import 'package:sastra_ebooks/components/customScaffold.dart';
 import 'package:sastra_ebooks/components/textFields/customTextFormField/children/passwordTextFormField.dart';
 import 'package:sastra_ebooks/components/textFields/customTextFormField/children/regNumTextFormField.dart';
+import 'package:sastra_ebooks/login/signup.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/misc/strings.dart';
 import 'package:sastra_ebooks/services/responsive/sizeConfig.dart';
@@ -26,6 +27,7 @@ import 'package:sastra_ebooks/dialogs/dialogs.dart' as dialogs;
 import '../misc/screens/mailUs.dart';
 import '../services/auth.dart';
 import 'forgotpassword.dart';
+import 'mailVerification.dart';
 
 class Login extends StatefulWidget {
   static const id = '/loginScreen';
@@ -46,6 +48,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   bool _keyboardVisible;
 
   void logIn() async {
+    // TODO: add case for unverified email
     if (_formKey.currentState.validate()) {
       dialogs.showLoadingDialog(context);
       final FirebaseUser _firebaseUser = await _auth.signInWithEmailAndPassword(
@@ -58,9 +61,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
           _regNum == null && _password == null) {
         dialogs.yesAbortDialog(
             context, Strings.sorryString, Strings.credentialsMissingString);
-      }
-//      Navigator.pop(context, true);
-      if (_regNum.length < 9) {
+      } else if (_regNum.length < 9) {
         print(1);
         dialogs.yesAbortDialog(context, Strings.regNumTooShortString,
             Strings.regNumTooShortExplainString);
@@ -73,10 +74,13 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
         //        dialogs.yesAbortDialog(context, Strings.sorryString,
 //            Strings.invalidCredentialsExplainString);
       } else if (_firebaseUser == null) {
-        print(4);
+        print('Invalid Credentials');
+      } else if (!_firebaseUser.isEmailVerified) {
+        Navigator.pushNamed(
+          context,
+          EmailVerification.id,
+        );
       } else {
-        print(5);
-
         Navigator.pushNamedAndRemoveUntil(
             context, LoadingScreen.id, (route) => false,
             arguments: _firebaseUser);
@@ -211,18 +215,18 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                       ),
                     ),
 
-                    ///*-----MailUs Account-----*///
+                    ///*-----SignUp-----*///
                     Container(
                       child: !_keyboardVisible
                           ? Expanded(
                               flex: 7,
                               child: Container(
                                 child: TappableSubtitle(
-                                  descriptionText: Strings.cantFindAccString,
-                                  actionText: Strings.mailUsString,
+                                  descriptionText: Strings.noAccount,
+                                  actionText: Strings.kSignup,
                                   onActionTap: () => Navigator.pushNamed(
                                     context,
-                                    MailUs.id,
+                                    SignUp.id,
                                   ),
                                 ),
                               ),

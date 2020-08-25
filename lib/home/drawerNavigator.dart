@@ -11,18 +11,40 @@ import 'screens/home.dart';
 
 class DrawerNavigator {
   static String _currentPageString = Home.id;
+  static int _currentPageIndex = 0;
 
-  static void reset() => _currentPageString = Home.id;
+  static void toIndex(int i) {
+    if (i == 0)
+      _toHome();
+    else if (i == 1)
+      _toFavorites();
+    else if (i == 2) _toBookmarks();
+  }
 
-  static void toHome() => _currentPageString = Home.id;
+  static void _reset() {
+    _currentPageString = Home.id;
+    _currentPageIndex = 0;
+  }
 
-  static void toFavorites() => _currentPageString = Favorite.id;
+  static void _toHome() {
+    _currentPageString = Home.id;
+    _currentPageIndex = 0;
+  }
 
-  static void toBookmarks() => _currentPageString = Bookmark.id;
+  static void _toFavorites() {
+    _currentPageString = Favorite.id;
+    _currentPageIndex = 1;
+  }
+
+  static void _toBookmarks() {
+    _currentPageString = Bookmark.id;
+    _currentPageIndex = 2;
+  }
 
 //  static void toChat() => _currentPage = Chat.id;
 
-  static get currentPageString => _currentPageString;
+  static String get currentPageString => _currentPageString;
+  static int get currentPageIndex => _currentPageIndex;
 
   static get currentPage {
     if (_currentPageString == Home.id) {

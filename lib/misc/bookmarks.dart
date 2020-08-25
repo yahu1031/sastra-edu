@@ -63,10 +63,13 @@ class Bookmarks {
   }
 
   static Future<DocumentSnapshot> _getDB() async =>
-      await Firestore.instance.collection('Data').document(_userId).get();
+      await Firestore.instance.collection('userData').document(_userId).get();
 
   static void _updateDB(Map bookmarks) async {
-    await Firestore.instance.collection('Data').document(_userId).updateData({
+    await Firestore.instance
+        .collection('userData')
+        .document(_userId)
+        .updateData({
       'bookmarks': bookmarks,
     });
   }
