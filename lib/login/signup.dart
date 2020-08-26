@@ -11,7 +11,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
-import 'package:sastra_ebooks/components/buttons/dropDownButton.dart';
+import 'package:sastra_ebooks/components/buttons/dropDownButtun/customDropDownButton.dart';
+import 'package:sastra_ebooks/components/buttons/dropDownButtun/dropDownButton.dart'
+    as custom;
 import 'package:sastra_ebooks/components/buttons/roundedButton/roundedButton.dart';
 import 'package:sastra_ebooks/components/customScaffold.dart';
 import 'package:sastra_ebooks/components/textFields/customTextFormField/children/passwordTextFormField.dart';
@@ -231,8 +233,9 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
                                 },
                                 value: _year,
                                 items: schoolYears
-                                    .map<DropdownMenuItem<int>>((int value) {
-                                  return DropdownMenuItem<int>(
+                                    .map<custom.DropdownMenuItem<int>>(
+                                        (int value) {
+                                  return custom.DropdownMenuItem<int>(
                                     value: value,
                                     child: Text(value.toString()),
                                   );
@@ -250,15 +253,35 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
                                   });
                                 },
                                 value: _branch,
-                                items: branches.map<DropdownMenuItem<String>>(
-                                    (String value) {
-                                  return DropdownMenuItem<String>(
+                                items: branches
+                                    .map<custom.DropdownMenuItem<String>>(
+                                        (String value) {
+                                  return custom.DropdownMenuItem<String>(
                                     value: value,
                                     child: Text(value),
                                   );
                                 }).toList(),
                               ),
                             )
+                            // Expanded(
+                            //   child: test.DropdownButton<String>(
+                            //     innerItemAlignment: Alignment.centerRight,
+                            //     onChanged: (String value) {
+                            //       setState(() {
+                            //         _branch = value;
+                            //       });
+                            //     },
+                            //     value: _branch,
+                            //     items: branches
+                            //         .map<test.DropdownMenuItem<String>>(
+                            //             (String value) {
+                            //       return test.DropdownMenuItem<String>(
+                            //         value: value,
+                            //         child: Text(value),
+                            //       );
+                            //     }).toList(),
+                            //   ),
+                            // )
                           ],
                         ),
                       ],

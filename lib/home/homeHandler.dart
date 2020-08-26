@@ -9,6 +9,7 @@ import 'dart:ui';
 
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
@@ -156,8 +157,11 @@ class _HomeHandlerState extends State<HomeHandler>
           child: CircleAvatar(
             backgroundColor: Colors.white,
             foregroundColor: Colors.transparent,
-            radius: 30,
-            backgroundImage: AssetImage(Images.kLoginPic),
+            radius: 50,
+            child: Container(
+                width: 43,
+                height: 43,
+                child: SvgPicture.asset(Images.babyYoda)),
           ),
         ),
       ),

@@ -128,8 +128,8 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                             alignment: Alignment.centerLeft,
                             child: FittedBox(
                               child: LargeHeading(
-                                text: 'Hello There ',
-                                highlightText: '.',
+                                text: 'Hello There',
+                                highlightText: ' .',
                                 size: HeadingSize.large,
                               ),
                             ),

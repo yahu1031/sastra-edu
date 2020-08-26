@@ -7,6 +7,7 @@ class Credits extends StatelessWidget {
   static const String id = '/credits';
   static const List<String> credits = [
     'Icons made by Freepik from www.flaticon.com',
+    'Icons made by icons8',
   ];
 
   const Credits({Key key}) : super(key: key);

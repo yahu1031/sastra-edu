@@ -88,7 +88,10 @@ class _ProfileModalBottomSheetState extends State<ProfileModalBottomSheet> {
                       backgroundColor: Colors.white,
                       foregroundColor: Colors.transparent,
                       radius: 50,
-                      backgroundImage: AssetImage(Images.kLoginPic),
+                      child: Container(
+                          width: 75,
+                          height: 75,
+                          child: SvgPicture.asset(Images.babyYoda)),
                     ),
                   ),
                   Column(

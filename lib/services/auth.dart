@@ -43,17 +43,6 @@ class AuthServices {
     return _firebaseAuth.currentUser;
   }
 
-  // //Create user object based on FirebaseUser
-  // UserData _userFromFirebaseUser(User user) {
-  //   // print(user.email);
-  //   return user != null ? UserData(user.uid, user.email, '', '', 1, '1') : null;
-  // }
-
-  // //auth change user Stream
-  // Stream<UserData> get user {
-  //   return _firebaseAuth.onAuthStateChanged.map(_userFromFirebaseUser);
-  // }
-
   //Register User (Admin Only)
   Future<User> registerWithEmailAndPassword(
       String _email, String _password) async {
@@ -64,8 +53,7 @@ class AuthServices {
       User user = result.user;
       return user;
     } catch (e) {
-      print(_email);
-      print(_password);
+      return null;
     }
   }
 
