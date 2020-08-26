@@ -5,7 +5,6 @@
             - cleanup
  */
 
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -29,7 +28,7 @@ import 'settingScreens/about.dart';
 class Profile extends StatefulWidget {
   static const String id = '/profile';
 
-  final User user;
+  final UserData user;
 
   Profile(this.user);
 

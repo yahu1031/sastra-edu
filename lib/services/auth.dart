@@ -14,16 +14,16 @@ class AuthServices {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   // Stream<String> get onAuthStateChanged => _firebaseAuth.onAuthStateChanged.map(
-  //       (FirebaseUser user) {
+  //       (User user) {
   //         user?.uid;
   //         user?.email;
   //       },
   //     );
 
   // SIGN UP
-  Future<FirebaseUser> signUpUser(String _regNumber, String _password) async {
+  Future<User> signUpUser(String _regNumber, String _password) async {
     try {
-      FirebaseUser firebaseUser = await _firebaseAuth
+      User firebaseUser = await _firebaseAuth
           .createUserWithEmailAndPassword(
               email: '$_regNumber@sastra.ac.in', password: _password)
           .then((authResult) => authResult.user);
@@ -34,33 +34,35 @@ class AuthServices {
   }
 
   // GET UID
-  Future<String> getCurrentUID() async {
-    return (await _firebaseAuth.currentUser()).uid;
+  String getCurrentUID() {
+    return (_firebaseAuth.currentUser).uid;
   }
 
   // GET CURRENT USER
-  Future getCurrentUser() async {
-    return await _firebaseAuth.currentUser();
+  User getCurrentUser() {
+    return _firebaseAuth.currentUser;
   }
 
-  //Create user object based on FirebaseUser
-  User _userFromFirebaseUser(FirebaseUser user) {
-    // print(user.email);
-    return user != null ? User(user.uid, user.email, '', '', 1, '1') : null;
-  }
+  // //Create user object based on FirebaseUser
+  // UserData _userFromFirebaseUser(User user) {
+  //   // print(user.email);
+  //   return user != null ? UserData(user.uid, user.email, '', '', 1, '1') : null;
+  // }
 
-  //auth change user Stream
-  Stream<User> get user {
-    return _firebaseAuth.onAuthStateChanged.map(_userFromFirebaseUser);
-  }
+  // //auth change user Stream
+  // Stream<UserData> get user {
+  //   return _firebaseAuth.onAuthStateChanged.map(_userFromFirebaseUser);
+  // }
 
   //Register User (Admin Only)
-  Future registerWithEmailAndPassword(String _email, String _password) async {
+  Future<User> registerWithEmailAndPassword(
+      String _email, String _password) async {
     try {
-      AuthResult result = await _firebaseAuth.createUserWithEmailAndPassword(
-          email: _email + "@sastra.ac.in", password: _password);
-      FirebaseUser user = result.user;
-      return _userFromFirebaseUser(user);
+      UserCredential result =
+          await _firebaseAuth.createUserWithEmailAndPassword(
+              email: _email + "@sastra.ac.in", password: _password);
+      User user = result.user;
+      return user;
     } catch (e) {
       print(_email);
       print(_password);
@@ -68,11 +70,11 @@ class AuthServices {
   }
 
   //Sign in anonymously
-  Future signInAnon() async {
+  Future<User> signInAnon() async {
     try {
-      AuthResult result = await _firebaseAuth.signInAnonymously();
-      FirebaseUser user = result.user;
-      return _userFromFirebaseUser(user);
+      UserCredential result = await _firebaseAuth.signInAnonymously();
+      User user = result.user;
+      return user;
     } catch (e) {
       print(e.toString());
       return null;
@@ -80,12 +82,12 @@ class AuthServices {
   }
 
   //Singin with mail & password
-  Future<FirebaseUser> signInWithEmailAndPassword(
+  Future<User> signInWithEmailAndPassword(
       String _email, String _password) async {
     try {
-      AuthResult result = await _firebaseAuth.signInWithEmailAndPassword(
+      UserCredential result = await _firebaseAuth.signInWithEmailAndPassword(
           email: _email + "@sastra.ac.in", password: _password);
-      FirebaseUser user = result.user;
+      User user = result.user;
       return user;
     } catch (e) {
       print(e);

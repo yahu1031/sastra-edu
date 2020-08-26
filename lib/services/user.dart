@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 //  User({this.uid, this.email});
 //}
 
-class User {
+class UserData {
   final String _uid;
   final String _email;
   final String _name;
@@ -14,7 +14,7 @@ class User {
   final int _year;
   final String _regNo;
 
-  User(
+  UserData(
     this._uid,
     this._email,
     this._name,

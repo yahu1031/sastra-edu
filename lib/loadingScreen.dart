@@ -26,7 +26,7 @@ import 'services/images.dart';
 
 class LoadingScreen extends StatefulWidget {
   static const id = '/loadingScreen';
-  final FirebaseUser firebaseUser;
+  final User firebaseUser;
   LoadingScreen(this.firebaseUser);
   @override
   _LoadingScreenState createState() => _LoadingScreenState();
@@ -55,31 +55,31 @@ class _LoadingScreenState extends State<LoadingScreen> {
       if (!await bookDirectory.exists()) {
         bookDirectory.create();
       }
-      DocumentSnapshot document = await Firestore.instance
+      DocumentSnapshot document = await FirebaseFirestore.instance
           .collection('userData')
-          .document(widget.firebaseUser.uid)
+          .doc(widget.firebaseUser.uid)
           .get();
-      print(document.data['year']);
-      final user = User(
+
+      Map data = document.data();
+      final user = UserData(
         widget.firebaseUser.uid,
         widget.firebaseUser.email,
-        document.data['name'],
-        document.data["branch"],
-        document.data['year'],
-        document.data['regNo'],
+        data['name'],
+        data["branch"],
+        data['year'],
+        data['regNo'],
       );
 
-      FavoriteBooks.init(
-          user.uid, List<String>.from(document.data['favoriteBooks']));
+      FavoriteBooks.init(user.uid, List<String>.from(data['favoriteBooks']));
 
-      Bookmarks.init(user.uid, document.data['bookmarks']);
+      Bookmarks.init(user.uid, data['bookmarks']);
 
-      // Todo: need to change db from firstYear to
-      bookList = await Firestore.instance
-          .collection('bookLists')
-          .document('firstYear')
-          .get()
-          .then((documentSnapshot) => documentSnapshot.data);
+      // Todo: need to change db from firstYear to number
+      bookList = (await FirebaseFirestore.instance
+              .collection('bookLists')
+              .doc('firstYear')
+              .get())
+          .data();
 
       await fetchBooks(bookList);
 

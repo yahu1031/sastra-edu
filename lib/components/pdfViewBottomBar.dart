@@ -69,12 +69,6 @@ class PdfViewBottomBar extends StatelessWidget {
             isActive: pageBookmarked,
             activeIcon: Icons.bookmark,
             disabledIcon: Icons.bookmark_border,
-//            onActivate: () {
-//              Bookmarks.add(widget.bookId, widget.currentPage);
-//            },
-//            onPressed: () {
-//              Bookmarks.remove(widget.bookId, widget.currentPage);
-//            },
           ),
           IconButton(
             icon: Icon(

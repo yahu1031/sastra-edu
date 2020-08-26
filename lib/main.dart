@@ -11,6 +11,7 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sastra_ebooks/books/book.dart';
@@ -46,27 +47,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final _navigatorKey = GlobalKey<NavigatorState>();
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  StreamSubscription firebaseStreamSubscription;
-
-  @override
-  void initState() {
-    super.initState();
-    firebaseStreamSubscription =
-        _firebaseAuth.onAuthStateChanged.listen((user) {
-      if (user != null) {
-        print('logged in');
-      } else {
-        print('logged out');
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    firebaseStreamSubscription.cancel();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,17 +83,17 @@ class _MyAppState extends State<MyApp> {
                 },
                 onGenerateRoute: (args) {
                   if (args.name == LoadingScreen.id) {
-                    final FirebaseUser firebaseUser = args.arguments;
+                    final User firebaseUser = args.arguments;
                     return MaterialPageRoute(
                       builder: (context) => LoadingScreen(firebaseUser),
                     );
                   } else if (args.name == HomeHandler.id) {
-                    final User user = args.arguments;
+                    final UserData user = args.arguments;
                     return MaterialPageRoute(
                       builder: (context) => HomeHandler(user),
                     );
                   } else if (args.name == Profile.id) {
-                    final User user = args.arguments;
+                    final UserData user = args.arguments;
                     return MaterialPageRoute(
                       builder: (context) => Profile(user),
                     );

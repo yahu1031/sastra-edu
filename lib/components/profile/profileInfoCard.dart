@@ -11,7 +11,7 @@ import 'package:sastra_ebooks/services/user.dart';
  */
 
 class ProfileInfoCard extends StatefulWidget {
-  final User user;
+  final UserData user;
 
   const ProfileInfoCard(this.user);
   @override

@@ -53,13 +53,6 @@ class BookmarkListItem extends StatelessWidget {
                             'book': book,
                             'page': bookmarks[i]['page']
                           });
-//                      Navigator.push(
-//                        context,
-//                        MaterialPageRoute(
-//                          builder: (context) => PdfViewerPage(
-//                              book: book, page: bookmarks[i]['page']),
-//                        ),
-//                      );
                     },
                     borderRadius: Dimensions.borderRadius,
                     child: Padding(

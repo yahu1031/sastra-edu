@@ -86,7 +86,7 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
         dialogs.yesAbortDialog(context, Strings.passwordTooShortString,
             Strings.passwordTooShortExplainString);
       } else {
-        FirebaseUser firebaseUser = await _auth.signUpUser(
+        User firebaseUser = await _auth.signUpUser(
           _regNum,
           _password,
         );
@@ -105,11 +105,11 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
               ],
             ),
           );
-        } else if (firebaseUser != null && !firebaseUser.isEmailVerified) {
-          await Firestore.instance
+        } else if (firebaseUser != null && !firebaseUser.emailVerified) {
+          await FirebaseFirestore.instance
               .collection('userData')
-              .document(firebaseUser.uid)
-              .setData({
+              .doc(firebaseUser.uid)
+              .set({
             "name": _name,
             "branch": _branch,
             "year": _year,

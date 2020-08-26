@@ -4,7 +4,9 @@
  * TODO:    - Add Use of this file
  */
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sastra_ebooks/components/customScaffold.dart';
@@ -23,21 +25,23 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-
   bool isLoggedIn;
   @override
   void initState() {
     super.initState();
+
     authenticate();
   }
 
   authenticate() async {
-    final FirebaseUser _firebaseUser = await _firebaseAuth.currentUser();
+    await Firebase.initializeApp();
+
+    FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+    final User _firebaseUser = _firebaseAuth.currentUser;
 
     if (_firebaseUser == null) {
       Navigator.pushNamedAndRemoveUntil(context, Login.id, (route) => false);
-    } else if (!_firebaseUser.isEmailVerified) {
+    } else if (!_firebaseUser.emailVerified) {
       Navigator.pushNamed(
         context,
         EmailVerification.id,

@@ -16,11 +16,13 @@ import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 // ignore: public_member_api_docs
 void registerPlugins(PluginRegistry registry) {
-  FirestoreWeb.registerWith(registry.registrarFor(FirestoreWeb));
+  FirebaseFirestoreWeb.registerWith(
+      registry.registrarFor(FirebaseFirestoreWeb));
   ConnectivityPlugin.registerWith(registry.registrarFor(ConnectivityPlugin));
   FirebaseAuthWeb.registerWith(registry.registrarFor(FirebaseAuthWeb));
   FirebaseCoreWeb.registerWith(registry.registrarFor(FirebaseCoreWeb));
-  SharedPreferencesPlugin.registerWith(registry.registrarFor(SharedPreferencesPlugin));
+  SharedPreferencesPlugin.registerWith(
+      registry.registrarFor(SharedPreferencesPlugin));
   UrlLauncherPlugin.registerWith(registry.registrarFor(UrlLauncherPlugin));
   registry.registerMessageHandler();
 }

@@ -24,7 +24,7 @@ import 'drawerNavigator.dart';
 class HomeHandler extends StatefulWidget {
   static const String id = '/homeHandler';
 
-  final User user;
+  final UserData user;
 
   const HomeHandler(this.user);
 

@@ -16,7 +16,7 @@ import 'package:sastra_ebooks/services/user.dart';
 import 'customAboutDialog.dart';
 
 class ProfileModalBottomSheet extends StatefulWidget {
-  final User user;
+  final UserData user;
 
   const ProfileModalBottomSheet({Key key, this.user}) : super(key: key);
 
@@ -52,8 +52,11 @@ class _ProfileModalBottomSheetState extends State<ProfileModalBottomSheet> {
       return 'Second';
     else if (number == 3)
       return 'Third';
-    else if (number == 4) return 'Fourth';
-    return 'returning null';
+    else if (number == 4)
+      return 'Fourth';
+    else if (number == 5) return 'Fith';
+
+    return 'Best';
   }
 
   @override
@@ -134,7 +137,7 @@ class _ProfileModalBottomSheetState extends State<ProfileModalBottomSheet> {
             SettingsContent(
               content: "About Us",
               icon: Icons.person,
-              backgroundColor: Color(0xFF0084FF),
+              backgroundColor: Color(0xFF3a9efc),
               onPressed: () {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, AboutUs.id);
@@ -143,7 +146,7 @@ class _ProfileModalBottomSheetState extends State<ProfileModalBottomSheet> {
             SettingsContent(
               content: "Downlaods",
               icon: Icons.cloud_download,
-              backgroundColor: Color(0xFF0084FF),
+              backgroundColor: Color(0xFF0076e3),
               onPressed: () {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, Downloads.id);

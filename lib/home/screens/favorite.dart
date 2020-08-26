@@ -36,7 +36,7 @@ class _FavoriteState extends State<Favorite> {
             highlightText: ' .',
           ),
           SizedBox(
-            height: Dimensions.padding,
+            height: Dimensions.largePadding,
           ),
           Expanded(
             child: SingleChildScrollView(

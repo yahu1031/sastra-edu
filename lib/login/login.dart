@@ -50,7 +50,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
     // TODO: add case for unverified email
     if (_formKey.currentState.validate()) {
       dialogs.showLoadingDialog(context);
-      final FirebaseUser _firebaseUser = await _auth.signInWithEmailAndPassword(
+      final User _firebaseUser = await _auth.signInWithEmailAndPassword(
         _regNum,
         _password,
       );
@@ -70,7 +70,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
         dialogs.yesAbortDialog(context, Strings.sorryString,
             Strings.invalidCredentialsExplainString);
         print('Invalid Credentials');
-      } else if (!_firebaseUser.isEmailVerified) {
+      } else if (!_firebaseUser.emailVerified) {
         Navigator.pushNamed(
           context,
           EmailVerification.id,

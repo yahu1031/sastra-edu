@@ -190,6 +190,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
                             CustomTextFormField(
                               onChanged: (String newString) {
                                 bookmarkName = newString;
+                                print(bookmarkName);
                               },
                               autovalidate: true,
                               validator: (String input) {

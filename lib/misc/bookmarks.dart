@@ -21,8 +21,8 @@ class Bookmarks {
 
   static void add(String bookId, int page, String name, String chapter) async {
     DocumentSnapshot bookmarksSnapshot = await _getDB();
-
-    Map bookmarks = bookmarksSnapshot.data['bookmarks'] ?? {};
+    Map bookmarkData = bookmarksSnapshot.data();
+    Map bookmarks = bookmarkData['bookmarks'] ?? {};
     print(bookmarks);
     if (bookmarks.containsKey(bookId)) {
       for (Map bookmark in bookmarks[bookId]) {
@@ -43,8 +43,9 @@ class Bookmarks {
 
   static void remove(String bookId, int page) async {
     DocumentSnapshot bookmarksSnapshot = await _getDB();
+    Map bookmarkData = bookmarksSnapshot.data();
 
-    Map bookmarks = bookmarksSnapshot.data['bookmarks'];
+    Map bookmarks = bookmarkData['bookmarks'];
 
     if (bookmarks[bookId] != null) {
       if (bookmarks[bookId].length == 1) {
@@ -63,13 +64,16 @@ class Bookmarks {
   }
 
   static Future<DocumentSnapshot> _getDB() async =>
-      await Firestore.instance.collection('userData').document(_userId).get();
+      await (FirebaseFirestore.instance
+          .collection('userData')
+          .doc(_userId)
+          .get());
 
   static void _updateDB(Map bookmarks) async {
-    await Firestore.instance
+    await FirebaseFirestore.instance
         .collection('userData')
-        .document(_userId)
-        .updateData({
+        .doc(_userId)
+        .update({
       'bookmarks': bookmarks,
     });
   }
