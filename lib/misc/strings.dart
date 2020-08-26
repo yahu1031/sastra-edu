@@ -98,3 +98,9 @@ class Strings {
       'Please enter the verification code sent to your university email';
   static const String kOTP = 'Verification Code';
 }
+
+
+class Jsons{
+  static const String kLoading = 'assets/Lottie/booksloading.json';
+  static const String kemailVerification = 'assets/Lottie/emailVerification.json';
+}

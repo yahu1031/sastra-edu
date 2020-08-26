@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:sastra_ebooks/components/buttons/roundedButton/roundedButton.dart';
 import 'package:sastra_ebooks/components/buttons/tappableSubtitle.dart';
 import 'package:sastra_ebooks/components/customScaffold.dart';
 import 'package:sastra_ebooks/loadingScreen.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
+import 'package:sastra_ebooks/misc/strings.dart';
 
 class EmailVerification extends StatefulWidget {
   static const id = '/mailVerification';
@@ -48,12 +50,13 @@ class _EmailVerificationState extends State<EmailVerification> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Center(
-            child: CircularProgressIndicator(),
+            child: Lottie.asset(Jsons.kemailVerification,height: 100,),
           ),
           SizedBox(
             height: Dimensions.largePadding,
@@ -66,7 +69,7 @@ class _EmailVerificationState extends State<EmailVerification> {
             height: Dimensions.largePadding,
           ),
           TappableSubtitle(
-            descriptionText: 'Wrong Reg №?',
+            descriptionText: 'Wrong Reg Num?',
             actionText: 'Cancel',
             onActionTap: () async {
               await FirebaseFirestore.instance
@@ -74,8 +77,8 @@ class _EmailVerificationState extends State<EmailVerification> {
                   .doc(_firebaseUser.uid)
                   .delete();
               await _firebaseUser.delete();
-              // Navigator.pushNamedAndRemoveUntil(
-              //     context, Login.id, (route) => false);
+              Navigator.pop(
+                  context);
             },
           )
         ],

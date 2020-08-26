@@ -22,13 +22,13 @@ import 'package:sastra_ebooks/home/homeHandler.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/misc/favoriteBooks.dart';
 import 'package:sastra_ebooks/services/lottieAnimations.dart';
+import 'package:sastra_ebooks/misc/strings.dart';
 import 'package:sastra_ebooks/services/responsive/sizeConfig.dart';
 import 'package:sastra_ebooks/services/user.dart';
 
 import 'books/book.dart';
 import 'books/bookCategory.dart';
 import 'misc/bookmarks.dart';
-import 'services/images.dart';
 
 class LoadingScreen extends StatefulWidget {
   static const id = '/loadingScreen';

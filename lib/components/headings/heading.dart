@@ -6,17 +6,20 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sastra_ebooks/misc/customColors.dart';
 import 'package:sastra_ebooks/misc/textStyles.dart';
 
 class Heading extends StatelessWidget {
   final String text;
   final String text2;
   final String highlightText;
+  final Color highlightColor;
 
   const Heading({
     @required this.text,
     @required this.text2,
     @required this.highlightText,
+    this.highlightColor,
   });
 
   @override
@@ -32,7 +35,7 @@ class Heading extends StatelessWidget {
             text: text2,
             style: headline3TextStyle,
           ),
-          TextSpan(text: highlightText, style: headline3HighlightTextStyle),
+          TextSpan(text: highlightText, style: headline3HighlightTextStyle.copyWith(color: highlightColor ?? CustomColors.highlightColor),),
         ],
       ),
     );
