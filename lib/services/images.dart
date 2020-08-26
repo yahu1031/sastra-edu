@@ -35,4 +35,5 @@ class Images {
   static const String coke = "assets/images/coke.svg";
   static const String info = "assets/icons/info.svg";
   static const String babyYoda = "assets/icons/icons8-baby-yoda.svg";
+  static const String highFive = "assets/icons/high_five.svg";
 }

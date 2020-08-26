@@ -52,10 +52,12 @@ dependencies:
   sticky_and_expandable_list: ^0.2.1
   expandable: ^4.1.4
   bubble_bottom_bar: ^1.2.0
+  lokstory_flutter_lottie: ^0.0.4+10
 
   keyboard_visibility:
     git:
       url: https://github.com/ton-An/flutter_keyboard_visibility.git
+  lottie: ^0.6.0
 
 dev_dependencies:
   flutter_test:
@@ -69,4 +71,4 @@ flutter:
     - assets/images/
     - assets/images/helpers/
     - assets/icons/
-
+    - assets/lottie/

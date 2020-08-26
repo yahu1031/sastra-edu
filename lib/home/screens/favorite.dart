@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:sastra_ebooks/books/book.dart';
 import 'package:sastra_ebooks/components/appBarTitles/children/iconTitles/children/favoriteIconTitle.dart';
 import 'package:sastra_ebooks/components/bookListItem.dart';
+import 'package:sastra_ebooks/components/emptyListPlaceholder.dart';
 import 'package:sastra_ebooks/components/headings/heading.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/misc/favoriteBooks.dart';
@@ -27,30 +28,36 @@ class _FavoriteState extends State<Favorite> {
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: Dimensions.padding),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Heading(
-            text: 'Your',
-            text2: 'Favorites',
-            highlightText: ' .',
-          ),
-          SizedBox(
-            height: Dimensions.largePadding,
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  for (String id in FavoriteBooks.list)
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(bottom: Dimensions.padding),
-                      child: BookListItem(book: Book.bookInstancesMap[id]),
-                    ),
-                ],
+      child: Stack(
+        children: [
+          if (FavoriteBooks.list.isEmpty)
+            EmptyListPlaceholder('your favorite books'),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Heading(
+                text: 'Your',
+                text2: 'Favorites',
+                highlightText: ' .',
               ),
-            ),
+              SizedBox(
+                height: Dimensions.largePadding,
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      for (String id in FavoriteBooks.list)
+                        Padding(
+                          padding:
+                              const EdgeInsets.only(bottom: Dimensions.padding),
+                          child: BookListItem(book: Book.bookInstancesMap[id]),
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),

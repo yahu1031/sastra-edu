@@ -13,9 +13,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lokstory_flutter_lottie/lokstory_flutter_lottie.dart';
+import 'package:lottie/lottie.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sastra_ebooks/components/customLinearProgressIndicator.dart';
+import 'package:sastra_ebooks/components/customScaffold.dart';
 import 'package:sastra_ebooks/home/homeHandler.dart';
+import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/misc/favoriteBooks.dart';
+import 'package:sastra_ebooks/services/lottieAnimations.dart';
 import 'package:sastra_ebooks/services/responsive/sizeConfig.dart';
 import 'package:sastra_ebooks/services/user.dart';
 
@@ -32,13 +38,19 @@ class LoadingScreen extends StatefulWidget {
   _LoadingScreenState createState() => _LoadingScreenState();
 }
 
-class _LoadingScreenState extends State<LoadingScreen> {
+class _LoadingScreenState extends State<LoadingScreen>
+    with TickerProviderStateMixin {
 //  String url =
 //      "https://drive.google.com/u/0/uc?id=1kP_in6iL-xxOPC9OjNaOzHVtXy4bWkFe&export=download"; //! This is the default url if no condition matches below
   String progressString;
   bool isData = false;
   var dir;
   var data;
+
+  double loadingAnimationValue = 0, loadingProgressValue = 0;
+
+  bool loadingAnimationVisible = false, isLoadingFinished = false;
+
   String str;
   @override
   void initState() {
@@ -48,6 +60,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   void load() async {
     if (widget.firebaseUser != null) {
+      loadingAnimationVisible = true;
+
       Map bookList;
       String appdirectoryPath = (await getApplicationDocumentsDirectory()).path;
       Directory bookDirectory = Directory('$appdirectoryPath/books');
@@ -55,10 +69,15 @@ class _LoadingScreenState extends State<LoadingScreen> {
       if (!await bookDirectory.exists()) {
         bookDirectory.create();
       }
+
+      setLoadingProgress(.1);
+
       DocumentSnapshot document = await FirebaseFirestore.instance
           .collection('userData')
           .doc(widget.firebaseUser.uid)
           .get();
+
+      setLoadingProgress(.3);
 
       Map data = document.data();
       final user = UserData(
@@ -70,9 +89,15 @@ class _LoadingScreenState extends State<LoadingScreen> {
         data['regNo'],
       );
 
+      setLoadingProgress(.5);
+
       FavoriteBooks.init(user.uid, List<String>.from(data['favoriteBooks']));
 
+      setLoadingProgress(.6);
+
       Bookmarks.init(user.uid, data['bookmarks']);
+
+      setLoadingProgress(.7);
 
       // Todo: need to change db from firstYear to number
       bookList = (await FirebaseFirestore.instance
@@ -81,11 +106,31 @@ class _LoadingScreenState extends State<LoadingScreen> {
               .get())
           .data();
 
+      setLoadingProgress(.8);
+
       await fetchBooks(bookList);
+
+      setLoadingProgress(1);
+
+      await Future.doWhile(() async {
+        if (isLoadingFinished) {
+          return false;
+        }
+        await Future.delayed(Duration(milliseconds: 200));
+        return true;
+      });
 
       Navigator.pushNamedAndRemoveUntil(context, HomeHandler.id, (_) => false,
           arguments: user);
     }
+  }
+
+  void loadingFinished() {
+    isLoadingFinished = true;
+  }
+
+  void setLoadingProgress(double progress) {
+    loadingProgressValue = progress;
   }
 
   Future<void> fetchBooks(Map bookList) async {
@@ -117,38 +162,26 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Stack(fit: StackFit.expand, children: <Widget>[
-        Center(
-          child: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Image.asset(
-                  Images.splashPic,
-                  height: 250,
-                ),
-                SizedBox(
-                  height: 10 * SizeConfig.heightMultiplier,
-                ),
-                CircularProgressIndicator(),
-                SizedBox(
-                  height: 10 * SizeConfig.heightMultiplier,
-                ),
-                TyperAnimatedTextKit(
-                  text: [
-                    "We are fetching books for you...",
-                  ],
-                  textStyle: GoogleFonts.poppins(color: Colors.lightBlueAccent),
-                  textAlign: TextAlign.start,
-                  speed: Duration(milliseconds: 100),
-                ),
-              ],
+    return CustomScaffold(
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: Dimensions.extraLargePadding),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Lottie.asset(
+              LottieAnimations.welcomeLoading,
+              repeat: true,
             ),
-          ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: Dimensions.padding),
+              child: CustomLinearProgressIndicator(
+                value: loadingProgressValue,
+                loadingFinished: loadingFinished,
+              ),
+            ),
+          ],
         ),
-      ]),
+      ),
     );
   }
 }

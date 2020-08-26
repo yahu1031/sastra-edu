@@ -78,5 +78,5 @@ class Bookmarks {
     });
   }
 
-  static get map => _map;
+  static Map get map => _map;
 }
