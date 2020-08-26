@@ -76,6 +76,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       tabItems.add(
         ListView(
           scrollDirection: Axis.vertical,
+          physics: BouncingScrollPhysics(),
           children: bookListItems,
         ),
       );
@@ -100,6 +101,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 text: 'Your',
                 text2: 'Bookshelf',
                 highlightText: ' .',
+            highlightColor: Colors.lightBlueAccent,
               ),
 
               SizedBox(height: 20.0),
@@ -129,6 +131,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               ///--- TabBar ---///
               TabBar(
                 controller: tabController,
+                physics: BouncingScrollPhysics(),
                 isScrollable: true,
                 indicatorColor: Colors.transparent,
                 labelColor: Colors.lightBlueAccent,
@@ -143,6 +146,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         ///--- Tabs ---///
         Expanded(
           child: TabBarView(
+            physics: BouncingScrollPhysics(),
             controller: tabController,
             children: tabItems,
           ),

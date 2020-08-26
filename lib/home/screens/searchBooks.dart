@@ -89,6 +89,7 @@ class _SearchBooksState extends State<SearchBooks> {
                   child: ScrollConfiguration(
                     behavior: ScrollBehavior(),
                     child: ListView(
+                      physics: BouncingScrollPhysics(),
                       children: <Widget>[
                         SizedBox(height: 30),
                         for (Book book in _searchResults)

@@ -5,7 +5,6 @@
             - cleanup
  */
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:sastra_ebooks/components/buttons/roundedButton/roundedButton.dart';
@@ -13,7 +12,6 @@ import 'package:sastra_ebooks/components/headings/largeHeading.dart';
 import 'package:sastra_ebooks/components/customAppBar.dart';
 import 'package:sastra_ebooks/components/customScaffold.dart';
 import 'package:sastra_ebooks/components/textFields/customTextFormField/children/regNumTextFormField.dart';
-import 'package:sastra_ebooks/components/textFields/customTextFormField/customTextFormField.dart';
 import 'package:sastra_ebooks/dialogs/loadingDialog.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/misc/strings.dart';

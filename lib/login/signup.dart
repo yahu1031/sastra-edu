@@ -15,6 +15,7 @@ import 'package:sastra_ebooks/components/buttons/dropDownButtun/customDropDownBu
 import 'package:sastra_ebooks/components/buttons/dropDownButtun/dropDownButton.dart'
     as custom;
 import 'package:sastra_ebooks/components/buttons/roundedButton/roundedButton.dart';
+import 'package:sastra_ebooks/components/customAppBar.dart';
 import 'package:sastra_ebooks/components/customScaffold.dart';
 import 'package:sastra_ebooks/components/textFields/customTextFormField/children/passwordTextFormField.dart';
 import 'package:sastra_ebooks/components/textFields/customTextFormField/children/regNumTextFormField.dart';
@@ -98,7 +99,7 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
           showDialog(
             context: context,
             child: AlertDialog(
-              title: Text('Something went wrong. Try again'),
+              title: Text('User already exists, please Login.'),
               actions: [
                 FlatButton(
                   child: Text('Close'),
@@ -152,151 +153,153 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return CustomScaffold(
       resizeToAvoidBottomPadding: true,
+      appBar: CustomAppBar(
+        context,
+        backButton: true,),
 
       ///*-----SignUp-Form-----*///
-      body: SafeArea(
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Container(
+          height: MediaQuery.of(context).size.height -
+              MediaQuery.of(context).padding.top -
+              MediaQuery.of(context).padding.bottom -
+              MediaQuery.of(context).viewInsets.bottom,
+          constraints: BoxConstraints(minHeight: 416),
+          padding:
+              EdgeInsets.symmetric(horizontal: Dimensions.extraLargePadding),
           child: Container(
-            height: MediaQuery.of(context).size.height -
-                MediaQuery.of(context).padding.top -
-                MediaQuery.of(context).padding.bottom -
-                MediaQuery.of(context).viewInsets.bottom,
-            constraints: BoxConstraints(minHeight: 416),
-            padding:
-                EdgeInsets.symmetric(horizontal: Dimensions.extraLargePadding),
-            child: Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  ///*-----Title -----*///
-                  if (!_keyboardVisible)
-                    LargeHeading(
-                      text: 'Sign Up ',
-                      highlightText: '.',
-                      size: HeadingSize.large,
-                    ),
-
-                  Form(
-                    key: _formKey,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        SizedBox(
-                          height: 10,
-                        ),
-
-                        ///*-----TextFormFields-----*///
-                        RegNumTextFormField(
-                          onChanged: (String _input) => _regNum = _input,
-                        ),
-
-                        SizedBox(
-                          height: 10,
-                        ),
-
-                        ///*-----Password-----*///
-                        PasswordTextFormField(
-                          onChanged: (String _input) => _password = _input,
-                        ),
-
-                        SizedBox(
-                          height: 10,
-                        ),
-
-                        CustomTextFormField(
-                          onChanged: (String _input) => _name = _input,
-                          labelText: Strings.kName,
-                          validator: (String _input) {
-                            if (_input.isEmpty) {
-                              return Strings.nameFieldEmptyString;
-                            }
-                            return null;
-                          },
-                          autovalidate: true,
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: CustomDropDownButton<int>(
-                                onChanged: (int value) {
-                                  setState(() {
-                                    _year = value;
-                                  });
-                                },
-                                value: _year,
-                                items: schoolYears
-                                    .map<custom.DropdownMenuItem<int>>(
-                                        (int value) {
-                                  return custom.DropdownMenuItem<int>(
-                                    value: value,
-                                    child: Text(value.toString()),
-                                  );
-                                }).toList(),
-                              ),
-                            ),
-                            SizedBox(
-                              width: Dimensions.padding,
-                            ),
-                            Expanded(
-                              child: CustomDropDownButton<String>(
-                                onChanged: (String value) {
-                                  setState(() {
-                                    _branch = value;
-                                  });
-                                },
-                                value: _branch,
-                                items: branches
-                                    .map<custom.DropdownMenuItem<String>>(
-                                        (String value) {
-                                  return custom.DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value),
-                                  );
-                                }).toList(),
-                              ),
-                            )
-                            // Expanded(
-                            //   child: test.DropdownButton<String>(
-                            //     innerItemAlignment: Alignment.centerRight,
-                            //     onChanged: (String value) {
-                            //       setState(() {
-                            //         _branch = value;
-                            //       });
-                            //     },
-                            //     value: _branch,
-                            //     items: branches
-                            //         .map<test.DropdownMenuItem<String>>(
-                            //             (String value) {
-                            //       return test.DropdownMenuItem<String>(
-                            //         value: value,
-                            //         child: Text(value),
-                            //       );
-                            //     }).toList(),
-                            //   ),
-                            // )
-                          ],
-                        ),
-                      ],
-                    ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                ///*-----Title -----*///
+                if (!_keyboardVisible)
+                  LargeHeading(
+                    text: 'Sign Up ',
+                    highlightText: '.',
+                    size: HeadingSize.large,
                   ),
 
-                  RoundedButton(
-                    onPressed: signUp,
-                    labelText: Strings.kSignup,
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 10,
+                      ),
+
+                      ///*-----TextFormFields-----*///
+                      RegNumTextFormField(
+                        onChanged: (String _input) => _regNum = _input,
+                      ),
+
+                      SizedBox(
+                        height: 10,
+                      ),
+
+                      ///*-----Password-----*///
+                      PasswordTextFormField(
+                        onChanged: (String _input) => _password = _input,
+                      ),
+
+                      SizedBox(
+                        height: 10,
+                      ),
+
+                      CustomTextFormField(
+                        onChanged: (String _input) => _name = _input,
+                        labelText: Strings.kName,
+                        validator: (String _input) {
+                          if (_input.isEmpty) {
+                            return Strings.nameFieldEmptyString;
+                          }
+                          return null;
+                        },
+                        autovalidate: true,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: CustomDropDownButton<int>(
+                              onChanged: (int value) {
+                                setState(() {
+                                  _year = value;
+                                });
+                              },
+                              value: _year,
+                              items: schoolYears
+                                  .map<custom.DropdownMenuItem<int>>(
+                                      (int value) {
+                                return custom.DropdownMenuItem<int>(
+                                  value: value,
+                                  child: Text(value.toString()),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                          SizedBox(
+                            width: Dimensions.padding,
+                          ),
+                          Expanded(
+                            child: CustomDropDownButton<String>(
+                              onChanged: (String value) {
+                                setState(() {
+                                  _branch = value;
+                                });
+                              },
+                              value: _branch,
+                              items: branches
+                                  .map<custom.DropdownMenuItem<String>>(
+                                      (String value) {
+                                return custom.DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            ),
+                          )
+                          // Expanded(
+                          //   child: test.DropdownButton<String>(
+                          //     innerItemAlignment: Alignment.centerRight,
+                          //     onChanged: (String value) {
+                          //       setState(() {
+                          //         _branch = value;
+                          //       });
+                          //     },
+                          //     value: _branch,
+                          //     items: branches
+                          //         .map<test.DropdownMenuItem<String>>(
+                          //             (String value) {
+                          //       return test.DropdownMenuItem<String>(
+                          //         value: value,
+                          //         child: Text(value),
+                          //       );
+                          //     }).toList(),
+                          //   ),
+                          // )
+                        ],
+                      ),
+                    ],
                   ),
-                  // SizedBox(
-                  //   height: 10,
-                  // ),
-                ],
-              ),
+                ),
+
+                RoundedButton(
+                  onPressed: signUp,
+                  labelText: Strings.kSignup,
+                ),
+                // SizedBox(
+                //   height: 10,
+                // ),
+              ],
             ),
           ),
         ),

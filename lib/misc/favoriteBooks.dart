@@ -33,10 +33,10 @@ class FavoriteBooks {
   }
 
   static void _updateDB() async {
-    await Firestore.instance
+    await FirebaseFirestore.instance
         .collection('userData')
-        .document(_userId)
-        .updateData({
+        .doc(_userId)
+        .update({
       'favoriteBooks': _list,
     });
   }

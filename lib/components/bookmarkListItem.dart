@@ -23,13 +23,13 @@ class BookmarkListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.all(Dimensions.padding),
       decoration: BoxDecoration(
         borderRadius: Dimensions.borderRadius,
         border: Border.all(
           width: 2,
           color: CustomColors.veryLightGrey,
         ),
-//                        color: Colors.red,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

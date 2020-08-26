@@ -13,16 +13,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sastra_ebooks/home/homeHandler.dart';
 import 'package:sastra_ebooks/misc/favoriteBooks.dart';
+import 'package:sastra_ebooks/misc/strings.dart';
 import 'package:sastra_ebooks/services/responsive/sizeConfig.dart';
 import 'package:sastra_ebooks/services/user.dart';
 
 import 'books/book.dart';
 import 'books/bookCategory.dart';
 import 'misc/bookmarks.dart';
-import 'services/images.dart';
 
 class LoadingScreen extends StatefulWidget {
   static const id = '/loadingScreen';
@@ -125,14 +126,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Image.asset(
-                  Images.splashPic,
+                Lottie.asset(
+                  Jsons.kLoading,
                   height: 250,
                 ),
                 SizedBox(
                   height: 10 * SizeConfig.heightMultiplier,
                 ),
-                CircularProgressIndicator(),
                 SizedBox(
                   height: 10 * SizeConfig.heightMultiplier,
                 ),
@@ -140,7 +140,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                   text: [
                     "We are fetching books for you...",
                   ],
-                  textStyle: GoogleFonts.poppins(color: Colors.lightBlueAccent),
+                  textStyle: GoogleFonts.lexendDeca(color: Colors.lightBlueAccent,fontWeight: FontWeight.bold,),
                   textAlign: TextAlign.start,
                   speed: Duration(milliseconds: 100),
                 ),

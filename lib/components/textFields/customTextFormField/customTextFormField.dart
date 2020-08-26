@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sastra_ebooks/misc/customColors.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomTextFormField extends StatefulWidget {
   final ValueChanged<String> onChanged;
@@ -66,6 +67,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         inputFormatters: widget.inputFormatters,
         focusNode: widget.focusNode,
         initialValue: widget.initialValue,
+        style: GoogleFonts.lexendDeca(),
         decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(12, 16, 12, 16),
 //          contentPadding: EdgeInsets.only(bottom: 50),

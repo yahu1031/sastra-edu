@@ -34,12 +34,14 @@ class _BookmarkState extends State<Bookmark> {
             text: 'Your',
             text2: 'Bookmarks',
             highlightText: ' .',
+            highlightColor: Colors.blue,
           ),
           SizedBox(
             height: Dimensions.largePadding,
           ),
           Expanded(
             child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
               child: Column(
                 children: <Widget>[
                   ...Bookmarks.map.entries.map((entry) {

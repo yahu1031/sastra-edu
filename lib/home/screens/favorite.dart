@@ -34,12 +34,14 @@ class _FavoriteState extends State<Favorite> {
             text: 'Your',
             text2: 'Favorites',
             highlightText: ' .',
+            highlightColor: Colors.red,
           ),
           SizedBox(
             height: Dimensions.largePadding,
           ),
           Expanded(
             child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
               child: Column(
                 children: <Widget>[
                   for (String id in FavoriteBooks.list)
