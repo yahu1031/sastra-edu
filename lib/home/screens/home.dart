@@ -49,9 +49,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   }
 
   void loadBookTabs() {
+    print(BookCategory.bookCategoryInstancesList);
     for (BookCategory bookCategory in BookCategory.bookCategoryInstancesList) {
       final List<Widget> bookListItems = [];
-
+      print(1);
       tabs.add(
         Tab(
           child: Text(bookCategory.name),
@@ -59,6 +60,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       );
 
       for (Book book in bookCategory.books) {
+        print(book.isbn);
         bookListItems.add(
           Padding(
             padding: const EdgeInsets.only(
@@ -68,6 +70,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             ),
             child: BookListItem(
               book: book,
+              setStateParent: setState,
             ),
           ),
         );
@@ -101,7 +104,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 text: 'Your',
                 text2: 'Bookshelf',
                 highlightText: ' .',
-            highlightColor: Colors.lightBlueAccent,
+                highlightColor: Colors.lightBlueAccent,
               ),
 
               SizedBox(height: 20.0),

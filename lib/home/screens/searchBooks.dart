@@ -48,7 +48,7 @@ class _SearchBooksState extends State<SearchBooks> {
       for (BookCategory bookCategory
           in BookCategory.bookCategoryInstancesList) {
         for (Book book in bookCategory.books) {
-          final String bookName = book.name.toLowerCase();
+          final String bookName = book.title.toLowerCase();
           if (bookName.contains(searchQuery)) {
             if (bookName.startsWith(searchQuery)) {
               _searchResults.insert(0, book);
@@ -98,6 +98,7 @@ class _SearchBooksState extends State<SearchBooks> {
                                 EdgeInsets.only(bottom: Dimensions.padding),
                             child: BookListItem(
                               book: book,
+                              setStateParent: setState,
                             ),
                           ),
                       ],

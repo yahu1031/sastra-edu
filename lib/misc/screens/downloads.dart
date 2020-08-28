@@ -11,6 +11,7 @@ import 'package:path/path.dart';
 import 'package:sastra_ebooks/components/emptyListPlaceholder.dart';
 import 'package:sastra_ebooks/components/headings/heading.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
+import 'package:sastra_ebooks/misc/downloadBook.dart';
 
 class Downloads extends StatefulWidget {
   static const String id = '/downloads';
@@ -25,21 +26,6 @@ class _DownloadsState extends State<Downloads> {
   String directory;
   List<FileSystemEntity> files = [];
   bool filesLoaded = false;
-  @override
-  void initState() {
-    super.initState();
-    _listofFiles();
-  }
-
-  // Make New Function
-  void _listofFiles() async {
-    directory = (await getApplicationDocumentsDirectory()).path;
-    setState(() {
-      files = io.Directory("$directory/books/").listSync();
-      print(files);
-      filesLoaded = true;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +36,8 @@ class _DownloadsState extends State<Downloads> {
       ),
       body: Stack(
         children: [
-          if (files.isEmpty) EmptyListPlaceholder('downloads'),
+          if (DownloadBook.downloadedBooks.isEmpty)
+            EmptyListPlaceholder('downloads'),
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -67,20 +54,20 @@ class _DownloadsState extends State<Downloads> {
               ),
               Expanded(
                 child: ListView.builder(
-                    itemCount: files.length,
+                    itemCount: DownloadBook.downloadedBooks.length,
                     itemBuilder: (context, i) {
-                      String filename = basename(files[i].path);
-                      String bookId =
-                          filename.substring(0, filename.indexOf('.pdf'));
-
                       return Padding(
                         padding: const EdgeInsets.only(
                           left: Dimensions.padding,
                           right: Dimensions.padding,
                           bottom: Dimensions.padding,
                         ),
-                        child:
-                            BookListItem(book: Book.bookInstancesMap[bookId]),
+                        child: BookListItem(
+                          book: Book.bookInstancesMap[
+                              DownloadBook.downloadedBooks[i]],
+                          setStateParent: setState,
+                          isDownloadScreen: true,
+                        ),
                       );
                     }),
               ),

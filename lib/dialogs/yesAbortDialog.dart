@@ -62,7 +62,7 @@ Future<DialogAction> downloadDialog(
   bool loading = false;
   bool isDownloaded = false;
   final directory = await getApplicationDocumentsDirectory();
-  final filePath = '${directory.path}/books/${book.id}.pdf';
+  final filePath = '${directory.path}/books/${book.isbn}.pdf';
 
   if (await File(filePath).exists())
     isDownloaded = true;
@@ -88,8 +88,8 @@ Future<DialogAction> downloadDialog(
             ),
             content: Text(
               isDownloaded
-                  ? 'Would you like to remove "${book.name}" from your downloads?'
-                  : 'Would you like to download "${book.name}" ?',
+                  ? 'Would you like to remove "${book.title}" from your downloads?'
+                  : 'Would you like to download "${book.title}" ?',
               style: body1TextStyle,
             ),
             actions: <Widget>[

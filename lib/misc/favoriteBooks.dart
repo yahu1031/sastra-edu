@@ -20,15 +20,15 @@ class FavoriteBooks {
   }
 
   static void add(
-    String bookId,
+    String isbn,
   ) async {
-    if (_list.contains(bookId)) return;
-    _list.add(bookId);
+    if (_list.contains(isbn)) return;
+    _list.add(isbn);
     _updateDB();
   }
 
-  static void remove(String bookId) {
-    _list.remove(bookId);
+  static void remove(String isbn) {
+    _list.remove(isbn);
     _updateDB();
   }
 
@@ -41,5 +41,5 @@ class FavoriteBooks {
     });
   }
 
-  static get list => _list;
+  static List<String> get list => _list;
 }

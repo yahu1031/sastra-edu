@@ -35,7 +35,7 @@ class _EmailVerificationState extends State<EmailVerification> {
 
     while (!verified) {
       await _firebaseUser.reload();
-      _firebaseUser = await FirebaseAuth.instance.currentUser;
+      _firebaseUser = FirebaseAuth.instance.currentUser;
       print('1');
       if (_firebaseUser.emailVerified) {
         print('2');
@@ -50,13 +50,15 @@ class _EmailVerificationState extends State<EmailVerification> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Center(
-            child: Lottie.asset(Jsons.kemailVerification,height: 100,),
+            child: Lottie.asset(
+              Jsons.kemailVerification,
+              height: 100,
+            ),
           ),
           SizedBox(
             height: Dimensions.largePadding,
@@ -76,9 +78,8 @@ class _EmailVerificationState extends State<EmailVerification> {
                   .collection('userData')
                   .doc(_firebaseUser.uid)
                   .delete();
-              await _firebaseUser.delete();
-              Navigator.pop(
-                  context);
+              // ToDo: delete firebase user
+              Navigator.pop(context);
             },
           )
         ],

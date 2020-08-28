@@ -47,11 +47,15 @@ class _FavoriteState extends State<Favorite> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
-                      for (String id in FavoriteBooks.list)
+                      for (String isbn in FavoriteBooks.list)
                         Padding(
                           padding:
                               const EdgeInsets.only(bottom: Dimensions.padding),
-                          child: BookListItem(book: Book.bookInstancesMap[id]),
+                          child: BookListItem(
+                            book: Book.bookInstancesMap[isbn],
+                            setStateParent: setState,
+                            isFavoriteScreen: true,
+                          ),
                         ),
                     ],
                   ),

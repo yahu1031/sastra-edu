@@ -23,12 +23,15 @@ class EmptyListPlaceholder extends StatelessWidget {
             padding: const EdgeInsets.symmetric(
                 vertical: Dimensions.extraLargePadding),
             child: FractionallySizedBox(
-              widthFactor: .6,
+              widthFactor: .4,
               child: AspectRatio(
                 aspectRatio: 1,
-                child: SvgPicture.asset(Images.highFive),
+                child: SvgPicture.asset(Images.box),
               ),
             ),
+          ),
+          SizedBox(
+            height: 50,
           ),
           Text(
             'You are so close to adding $text ;)',

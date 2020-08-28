@@ -11,6 +11,7 @@ import 'dart:io';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokstory_flutter_lottie/lokstory_flutter_lottie.dart';
@@ -20,6 +21,7 @@ import 'package:sastra_ebooks/components/customLinearProgressIndicator.dart';
 import 'package:sastra_ebooks/components/customScaffold.dart';
 import 'package:sastra_ebooks/home/homeHandler.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
+import 'package:sastra_ebooks/misc/downloadBook.dart';
 import 'package:sastra_ebooks/misc/favoriteBooks.dart';
 import 'package:sastra_ebooks/services/lottieAnimations.dart';
 import 'package:sastra_ebooks/misc/strings.dart';
@@ -40,13 +42,6 @@ class LoadingScreen extends StatefulWidget {
 
 class _LoadingScreenState extends State<LoadingScreen>
     with TickerProviderStateMixin {
-//  String url =
-//      "https://drive.google.com/u/0/uc?id=1kP_in6iL-xxOPC9OjNaOzHVtXy4bWkFe&export=download"; //! This is the default url if no condition matches below
-  String progressString;
-  bool isData = false;
-  var dir;
-  var data;
-
   double loadingAnimationValue = 0, loadingProgressValue = 0;
 
   bool loadingAnimationVisible = false, isLoadingFinished = false;
@@ -89,6 +84,10 @@ class _LoadingScreenState extends State<LoadingScreen>
         data['regNo'],
       );
 
+      setLoadingProgress(.4);
+
+      DownloadBook.init();
+
       setLoadingProgress(.5);
 
       FavoriteBooks.init(user.uid, List<String>.from(data['favoriteBooks']));
@@ -101,14 +100,15 @@ class _LoadingScreenState extends State<LoadingScreen>
 
       // Todo: need to change db from firstYear to number
       bookList = (await FirebaseFirestore.instance
-              .collection('bookLists')
-              .doc('firstYear')
+              .collection('book_lists')
+              // .doc('${user.year}')
+              .doc('3')
               .get())
           .data();
 
       setLoadingProgress(.8);
 
-      await fetchBooks(bookList);
+      await fetchBooks(bookList['categories']);
 
       setLoadingProgress(1);
 
@@ -130,34 +130,50 @@ class _LoadingScreenState extends State<LoadingScreen>
   }
 
   void setLoadingProgress(double progress) {
-    loadingProgressValue = progress;
+    setState(() {
+      loadingProgressValue = progress;
+    });
   }
 
-  Future<void> fetchBooks(Map bookList) async {
-    final Map bookCategories = bookList["Categories"];
+  Future<void> fetchBooks(List categoryList) async {
+    for (DocumentReference categoryReference in categoryList) {
+      final List<Book> booksOfCategory = [];
 
-    bookCategories.forEach(
-      (key, value) {
-        final String categoryName = key;
-        final List bookCategory = value;
-        final List<Book> booksOfCategory = [];
+      final Map category = (await categoryReference.get()).data();
 
-        for (Map book in bookCategory) {
-          booksOfCategory.add(
-            Book(
-                id: book['id'].toString(),
-                author: book['Author'],
-                name: book["Name"],
-                edition: book['Edition'],
-                imgUrl: book['Images'],
-                url: book['Link'],
-                outline: book['outline']),
-          );
-        }
+      final List categoryList = category['books'];
 
-        BookCategory(name: categoryName, books: booksOfCategory);
-      },
-    );
+      for (DocumentReference bookReference in categoryList) {
+        final Map book = (await bookReference.get()).data();
+        final String bookStoragePath = '/books/${book['isbn']}';
+        print(bookStoragePath);
+        final coverRef =
+            FirebaseStorage.instance.ref().child('$bookStoragePath/cover.jpg');
+        final pdfRef =
+            FirebaseStorage.instance.ref().child('$bookStoragePath/book.pdf');
+        var coverUrl = await coverRef.getDownloadURL();
+        var pdfUrl = await pdfRef.getDownloadURL();
+
+        booksOfCategory.add(
+          Book(
+              isbn: book['isbn'],
+              author: book['author'],
+              title: book["title"],
+              edition: book['edition'],
+              imgUrl: coverUrl,
+              url: pdfUrl,
+              outline: book['outline']),
+        );
+      }
+
+      print(booksOfCategory);
+
+      BookCategory(name: category['title'], books: booksOfCategory);
+
+      print(BookCategory.bookCategoryInstancesList);
+      // print(BookCategory.bookCategoryInstancesList[0].books[0].isbn);
+
+    }
   }
 
   @override
@@ -168,9 +184,15 @@ class _LoadingScreenState extends State<LoadingScreen>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            Lottie.asset(
-              LottieAnimations.welcomeLoading,
-              repeat: true,
+            Container(
+              width: double.infinity,
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: Lottie.asset(
+                  LottieAnimations.welcomeLoading,
+                  repeat: true,
+                ),
+              ),
             ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: Dimensions.padding),

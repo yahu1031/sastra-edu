@@ -129,7 +129,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
     _pdfViewController = pdfViewController;
 
     setState(() {
-      isFavorite = FavoriteBooks.list.contains(widget.book.id);
+      isFavorite = FavoriteBooks.list.contains(widget.book.isbn);
     });
   }
 
@@ -138,7 +138,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
       _totalPages = totalPages;
       _currentPage = currentPage + 1;
 
-      List bookmarks = Bookmarks.map[widget.book.id];
+      List bookmarks = Bookmarks.map[widget.book.isbn];
 
       if (bookmarks != null) {
         pageBookmarked = false;
@@ -156,7 +156,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
 
   void _onBookmarkPressed() async {
     if (pageBookmarked) {
-      Bookmarks.remove(widget.book.id, _currentPage);
+      Bookmarks.remove(widget.book.isbn, _currentPage);
       setState(() {
         pageBookmarked = false;
       });
@@ -275,7 +275,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
                                       }
                                     }
                                   }
-                                  Bookmarks.add(widget.book.id, _currentPage,
+                                  Bookmarks.add(widget.book.isbn, _currentPage,
                                       bookmarkName, chapter);
                                   setState(() {
                                     pageBookmarked = true;
@@ -316,9 +316,9 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
 
   void _onFavoritePressed() {
     if (isFavorite) {
-      FavoriteBooks.remove(widget.book.id);
+      FavoriteBooks.remove(widget.book.isbn);
     } else if (!isFavorite) {
-      FavoriteBooks.add(widget.book.id);
+      FavoriteBooks.add(widget.book.isbn);
     }
 
     setState(() {
@@ -432,7 +432,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
                         backButtonColor: CustomColors.darkColor,
                         isTranslucent: true,
                         title: Text(
-                          widget.book.name,
+                          widget.book.title,
                           style: TextStyle(color: Colors.black),
                         ),
                       ),
@@ -456,7 +456,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
                           textEditingController: _textEditingController,
                           totalPages: _totalPages,
                           currentPage: _currentPage,
-                          bookId: widget.book.id,
+                          bookId: widget.book.isbn,
                           pageBookmarked: pageBookmarked,
                           isFavorite: isFavorite,
                           onBookmarkPressed: _onBookmarkPressed,

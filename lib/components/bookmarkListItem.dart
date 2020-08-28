@@ -14,78 +14,73 @@ import 'package:sastra_ebooks/misc/textStyles.dart';
 
 import 'bookListItem.dart';
 
-class BookmarkListItem extends StatelessWidget {
+class BookmarkListItem extends StatefulWidget {
   final Book book;
   final List bookmarks;
 
   const BookmarkListItem({Key key, this.book, this.bookmarks})
       : super(key: key);
+
+  @override
+  _BookmarkListItemState createState() => _BookmarkListItemState();
+}
+
+class _BookmarkListItemState extends State<BookmarkListItem> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(Dimensions.padding),
-      decoration: BoxDecoration(
-        borderRadius: Dimensions.borderRadius,
-        border: Border.all(
-          width: 2,
-          color: CustomColors.veryLightGrey,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        BookListItem(
+          book: widget.book,
+          setStateParent: setState,
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          BookListItem(
-            book: book,
-          ),
-          SizedBox(
-            height: Dimensions.smallPadding,
-          ),
-          for (int i = 0; i < bookmarks.length; i++)
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2.5),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, PdfViewerPage.id,
-                          arguments: {
-                            'book': book,
-                            'page': bookmarks[i]['page']
-                          });
-                    },
-                    borderRadius: Dimensions.borderRadius,
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 5, vertical: 2.5),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            '${bookmarks[i]['name']}',
-                            style: subtitle1TextStyle,
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            '${bookmarks[i]['page']} - ${bookmarks[i]['chapter']}',
-                            style: body1TextStyle,
-                          ),
-                        ],
-                      ),
+        SizedBox(
+          height: Dimensions.smallPadding,
+        ),
+        for (int i = 0; i < widget.bookmarks.length; i++)
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2.5),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, PdfViewerPage.id, arguments: {
+                      'book': widget.book,
+                      'page': widget.bookmarks[i]['page']
+                    });
+                  },
+                  borderRadius: Dimensions.borderRadius,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2.5),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          '${widget.bookmarks[i]['name']}',
+                          style: subtitle1TextStyle,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          '${widget.bookmarks[i]['page']} - ${widget.bookmarks[i]['chapter']}',
+                          style: body1TextStyle,
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                if (!(i == bookmarks.length - 1)) Divider(),
-                if (i == bookmarks.length - 1)
-                  SizedBox(
-                    height: 2.5,
-                  ),
-              ],
-            ),
-        ],
-      ),
+              ),
+              if (!(i == widget.bookmarks.length - 1)) Divider(),
+              if (i == widget.bookmarks.length - 1)
+                SizedBox(
+                  height: 2.5,
+                ),
+            ],
+          ),
+      ],
     );
   }
 }

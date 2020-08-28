@@ -1407,10 +1407,7 @@ class _DropdownButtonState<T> extends State<DropdownButton<T>>
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            if (widget.isExpanded)
-              Expanded(child: innerItemsWidget)
-            else
-              innerItemsWidget,
+            Expanded(child: innerItemsWidget),
             IconTheme(
               data: IconThemeData(
                 color: _iconColor,
