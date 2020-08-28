@@ -5,7 +5,7 @@ import 'package:sastra_ebooks/components/buttons/wrappedToggleButtons.dart';
 import 'package:sastra_ebooks/components/buttons/roundedButton/roundedButton.dart';
 import 'package:sastra_ebooks/components/customAppBar.dart';
 import 'package:sastra_ebooks/components/customScaffold.dart';
-import 'package:sastra_ebooks/components/headings/largeHeading.dart';
+import 'package:sastra_ebooks/components/headings/heading.dart';
 import 'package:sastra_ebooks/misc/customColors.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/misc/strings.dart';
@@ -37,59 +37,52 @@ class _DownloadPaymentState extends State<DownloadPayment> {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: Dimensions.padding),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            LargeHeading(
-              text: 'Choose\nYour Plan',
-              highlightText: ' .',
-              size: HeadingSize.large,
-            ),
-            WrappedToggleButtons(
-              onPressed: (int i) {
-                setState(() {
-                  if (currentPlan != null) {
-                    isSelected[currentPlan] = false;
-                  }
-                  isSelected[i] = true;
-                  currentPlan = i;
-                });
-              },
-              isSelected: isSelected,
-              children: <Widget>[
-                PlanCard(
-                  price: null,
-                  time: '7 days',
-                ),
-                PlanCard(
-                  price: 100,
-                  time: '1 month',
-                ),
-                PlanCard(
-                  price: 450,
-                  time: '6 months',
-                ),
-                PlanCard(
-                  price: 1000,
-                  time: '1 year',
-                ),
-              ],
-            ),
-            Container(
-              height: 50,
-              decoration: BoxDecoration(
-                borderRadius: Dimensions.borderRadius,
-                border: Border.all(
-                  color: CustomColors.veryLightGrey,
-                  width: 2,
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 20.0),
+                child: FittedBox(
+                  child: Heading(
+                    text2: 'Choose Your Plan',
+                    highlightText: ' .',
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: Dimensions.largePadding),
-              child: Container(
+              WrappedToggleButtons(
+                onPressed: (int i) {
+                  setState(() {
+                    if (currentPlan != null) {
+                      isSelected[currentPlan] = false;
+                    }
+                    isSelected[i] = true;
+                    currentPlan = i;
+                  });
+                },
+                isSelected: isSelected,
+                children: <Widget>[
+                  PlanCard(
+                    price: null,
+                    time: '7 days',
+                  ),
+                  PlanCard(
+                    price: 100,
+                    time: '1 month',
+                  ),
+                  PlanCard(
+                    price: 450,
+                    time: '6 months',
+                  ),
+                  PlanCard(
+                    price: 1000,
+                    time: '1 year',
+                  ),
+                ],
+              ),
+              Container(
                 height: 50,
                 decoration: BoxDecoration(
                   borderRadius: Dimensions.borderRadius,
@@ -98,43 +91,57 @@ class _DownloadPaymentState extends State<DownloadPayment> {
                     width: 2,
                   ),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Image.asset(
-                      Images.upi,
-                      scale: 10,
-                    ),
-                    Text(
-                      'Pay with UPI',
-                      style: GoogleFonts.baloo(
-                        color: Colors.grey,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                  ],
-                ),
               ),
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.only(bottom: Dimensions.extraLargePadding),
-              child: Center(
-                child: Text(
-                  'See terms and conditions',
-                  style: GoogleFonts.baloo(
-                    fontWeight: FontWeight.w300,
-                    color: Colors.grey[300],
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    vertical: Dimensions.largePadding),
+                child: Container(
+                  height: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: Dimensions.borderRadius,
+                    border: Border.all(
+                      color: CustomColors.veryLightGrey,
+                      width: 2,
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Image.asset(
+                        Images.upi,
+                        scale: 10,
+                      ),
+                      Text(
+                        'Pay with UPI',
+                        style: GoogleFonts.baloo(
+                          color: Colors.grey,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-            ),
-            RoundedButton(
-              labelText: 'Continue',
-              onPressed: () {},
-            ),
-          ],
+              Padding(
+                padding:
+                    const EdgeInsets.only(bottom: Dimensions.extraLargePadding),
+                child: Center(
+                  child: Text(
+                    'See terms and conditions',
+                    style: GoogleFonts.lexendDeca(
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey[300],
+                    ),
+                  ),
+                ),
+              ),
+              RoundedButton(
+                labelText: 'Pay',
+                onPressed: () {},
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -160,14 +167,14 @@ class PlanCard extends StatelessWidget {
         children: [
           Text(
             price != null ? '₹ $price' : 'Free',
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.lexendDeca(
               fontSize: 10 * SizeConfig.widthMultiplier,
               fontWeight: FontWeight.w500,
             ),
           ),
           Text(
             time,
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.lexendDeca(
               fontSize: 4.5 * SizeConfig.widthMultiplier,
               fontWeight: FontWeight.w400,
             ),

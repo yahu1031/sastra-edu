@@ -16,8 +16,8 @@ class Heading extends StatelessWidget {
   final Color highlightColor;
 
   const Heading({
-    @required this.text,
-    @required this.text2,
+    this.text = '',
+    this.text2,
     @required this.highlightText,
     this.highlightColor,
   });
@@ -35,7 +35,11 @@ class Heading extends StatelessWidget {
             text: text2,
             style: headline3TextStyle,
           ),
-          TextSpan(text: highlightText, style: headline3HighlightTextStyle.copyWith(color: highlightColor ?? CustomColors.highlightColor),),
+          TextSpan(
+            text: highlightText,
+            style: headline3HighlightTextStyle.copyWith(
+                color: highlightColor ?? CustomColors.highlightColor),
+          ),
         ],
       ),
     );
