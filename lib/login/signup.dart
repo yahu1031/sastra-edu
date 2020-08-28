@@ -42,7 +42,7 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
   final AuthServices _auth = AuthServices();
 
   // Todo: maybe put this in the cloud
-  static const List<int> schoolYears = [1, 2, 3, 4, 5];
+  static const List<int> semesters = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   static const List<String> branches = [
     'Aero Eng',
     'Bio Eng',
@@ -66,7 +66,7 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
     'Mec Eng (Digital Manuf)',
     'Mechatronics',
   ];
-  int _year = schoolYears[0];
+  int _semester = semesters[0];
   String _branch = branches[0];
 
   KeyboardVisibilityNotification _keyboardVisibility =
@@ -110,12 +110,12 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
           );
         } else if (firebaseUser != null && !firebaseUser.emailVerified) {
           await FirebaseFirestore.instance
-              .collection('userData')
+              .collection('user_data')
               .doc(firebaseUser.uid)
               .set({
             "name": _name,
             "branch": _branch,
-            "year": _year,
+            "semester": _semester,
             "regNo": _regNum,
             'favoriteBooks': [],
             'bookmarks': {},
@@ -232,11 +232,11 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
                           child: CustomDropDownButton<int>(
                             onChanged: (int value) {
                               setState(() {
-                                _year = value;
+                                _semester = value;
                               });
                             },
-                            value: _year,
-                            items: schoolYears
+                            value: _semester,
+                            items: semesters
                                 .map<custom.DropdownMenuItem<int>>((int value) {
                               return custom.DropdownMenuItem<int>(
                                 value: value,

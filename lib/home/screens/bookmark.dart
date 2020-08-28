@@ -13,6 +13,7 @@ import 'package:sastra_ebooks/components/appBarTitles/children/iconTitles/childr
 import 'package:sastra_ebooks/components/bookmarkListItem.dart';
 import 'package:sastra_ebooks/components/emptyListPlaceholder.dart';
 import 'package:sastra_ebooks/components/headings/heading.dart';
+import 'package:sastra_ebooks/listScreen.dart';
 import 'package:sastra_ebooks/misc/bookmarks.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/misc/textStyles.dart';
@@ -29,46 +30,23 @@ class Bookmark extends StatefulWidget {
 class _BookmarkState extends State<Bookmark> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: Dimensions.padding),
-      child: Stack(
-        children: [
-          if (Bookmarks.map.isEmpty) EmptyListPlaceholder('bookmarks'),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Heading(
-                text: 'Your',
-                text2: 'Bookmarks',
-                highlightText: ' .',
+    return ListScreen(
+        heading: Heading(
+          text: 'Your',
+          text2: 'Bookmarks',
+          highlightText: ' .',
+        ),
+        placeholderString: 'bookmarks',
+        isEmpty: Bookmarks.map.isEmpty,
+        listItems: [
+          for (var bookmarkedBook in Bookmarks.map.entries)
+            Padding(
+              padding: EdgeInsets.only(bottom: Dimensions.padding),
+              child: BookmarkListItem(
+                book: Book.bookInstancesMap[bookmarkedBook.key],
+                bookmarks: bookmarkedBook.value,
               ),
-              SizedBox(
-                height: Dimensions.largePadding,
-              ),
-              if (!Bookmarks.map.isEmpty)
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: <Widget>[
-                        ...Bookmarks.map.entries.map((entry) {
-                          Widget booksBookmarks = Padding(
-                            padding:
-                                EdgeInsets.only(bottom: Dimensions.padding),
-                            child: BookmarkListItem(
-                              book: Book.bookInstancesMap[entry.key],
-                              bookmarks: entry.value,
-                            ),
-                          );
-                          return booksBookmarks;
-                        }).toList(),
-                      ],
-                    ),
-                  ),
-                ),
-            ],
-          ),
-        ],
-      ),
-    );
+            ),
+        ]);
   }
 }

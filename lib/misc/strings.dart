@@ -75,7 +75,7 @@ class Strings {
   static const String kName = 'Name';
   static const String kPassword = 'Password';
   static const String kBranch = 'Branch';
-  static const String kYear = 'Year';
+  static const String kSemester = 'Semester';
   static const String kLogin = 'Login';
   static const String kSignup = 'Signup';
   static const String kResetPassword = 'Reset Password';
@@ -97,10 +97,4 @@ class Strings {
   static const String kEnterOTP =
       'Please enter the verification code sent to your university email';
   static const String kOTP = 'Verification Code';
-}
-
-
-class Jsons{
-  static const String kLoading = 'assets/Lottie/booksloading.json';
-  static const String kemailVerification = 'assets/Lottie/emailVerification.json';
 }

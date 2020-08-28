@@ -65,13 +65,13 @@ class Bookmarks {
 
   static Future<DocumentSnapshot> _getDB() async =>
       await (FirebaseFirestore.instance
-          .collection('userData')
+          .collection('user_data')
           .doc(_userId)
           .get());
 
   static void _updateDB(Map bookmarks) async {
     await FirebaseFirestore.instance
-        .collection('userData')
+        .collection('user_data')
         .doc(_userId)
         .update({
       'bookmarks': bookmarks,

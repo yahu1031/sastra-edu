@@ -10,6 +10,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'package:sastra_ebooks/components/emptyListPlaceholder.dart';
 import 'package:sastra_ebooks/components/headings/heading.dart';
+import 'package:sastra_ebooks/listScreen.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/misc/downloadBook.dart';
 
@@ -34,45 +35,24 @@ class _DownloadsState extends State<Downloads> {
         context,
         backButton: true,
       ),
-      body: Stack(
-        children: [
-          if (DownloadBook.downloadedBooks.isEmpty)
-            EmptyListPlaceholder('downloads'),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: Dimensions.padding),
-                child: Heading(
-                  text: 'Your',
-                  text2: 'Downloads',
-                  highlightText: ' .',
-                ),
+      body: ListScreen(
+        heading: Heading(
+          text: 'Your',
+          text2: 'Downloads',
+          highlightText: ' .',
+        ),
+        placeholderString: 'downloads',
+        isEmpty: DownloadBook.downloadedBooks.isEmpty,
+        listItems: [
+          for (String bookISBN in DownloadBook.downloadedBooks)
+            Padding(
+              padding: const EdgeInsets.only(bottom: Dimensions.padding),
+              child: BookListItem(
+                book: Book.bookInstancesMap[bookISBN],
+                setStateParent: setState,
+                isDownloadScreen: true,
               ),
-              SizedBox(
-                height: Dimensions.largePadding,
-              ),
-              Expanded(
-                child: ListView.builder(
-                    itemCount: DownloadBook.downloadedBooks.length,
-                    itemBuilder: (context, i) {
-                      return Padding(
-                        padding: const EdgeInsets.only(
-                          left: Dimensions.padding,
-                          right: Dimensions.padding,
-                          bottom: Dimensions.padding,
-                        ),
-                        child: BookListItem(
-                          book: Book.bookInstancesMap[
-                              DownloadBook.downloadedBooks[i]],
-                          setStateParent: setState,
-                          isDownloadScreen: true,
-                        ),
-                      );
-                    }),
-              ),
-            ],
-          ),
+            ),
         ],
       ),
     );

@@ -10,6 +10,7 @@ import 'package:sastra_ebooks/components/appBarTitles/children/iconTitles/childr
 import 'package:sastra_ebooks/components/bookListItem.dart';
 import 'package:sastra_ebooks/components/emptyListPlaceholder.dart';
 import 'package:sastra_ebooks/components/headings/heading.dart';
+import 'package:sastra_ebooks/listScreen.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/misc/favoriteBooks.dart';
 
@@ -26,45 +27,25 @@ class _FavoriteState extends State<Favorite> {
   Widget build(BuildContext context) {
     print(FavoriteBooks.list.length);
 
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: Dimensions.padding),
-      child: Stack(
-        children: [
-          if (FavoriteBooks.list.isEmpty)
-            EmptyListPlaceholder('your favorite books'),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Heading(
-                text: 'Your',
-                text2: 'Favorites',
-                highlightText: ' .',
-              ),
-              SizedBox(
-                height: Dimensions.largePadding,
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: <Widget>[
-                      for (String isbn in FavoriteBooks.list)
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(bottom: Dimensions.padding),
-                          child: BookListItem(
-                            book: Book.bookInstancesMap[isbn],
-                            setStateParent: setState,
-                            isFavoriteScreen: true,
-                          ),
-                        ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
+    return ListScreen(
+      heading: Heading(
+        text: 'Your',
+        text2: 'Favorites',
+        highlightText: ' .',
       ),
+      placeholderString: 'your favorite books',
+      isEmpty: FavoriteBooks.list.isEmpty,
+      listItems: [
+        for (String isbn in FavoriteBooks.list)
+          Padding(
+            padding: const EdgeInsets.only(bottom: Dimensions.padding),
+            child: BookListItem(
+              book: Book.bookInstancesMap[isbn],
+              setStateParent: setState,
+              isFavoriteScreen: true,
+            ),
+          ),
+      ],
     );
   }
 }

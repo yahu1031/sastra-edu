@@ -11,7 +11,7 @@ class UserData {
   final String _email;
   final String _name;
   final String _branch;
-  final int _year;
+  final int _semester;
   final String _regNo;
 
   UserData(
@@ -19,7 +19,7 @@ class UserData {
     this._email,
     this._name,
     this._branch,
-    this._year,
+    this._semester,
     this._regNo,
   );
 
@@ -28,7 +28,7 @@ class UserData {
   String get name => _name;
   String get branch => _branch;
   String get regNo => _regNo;
-  int get year => _year;
+  int get semester => _semester;
 }
 
 class Developer {

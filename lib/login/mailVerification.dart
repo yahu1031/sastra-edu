@@ -8,6 +8,7 @@ import 'package:sastra_ebooks/components/customScaffold.dart';
 import 'package:sastra_ebooks/loadingScreen.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/misc/strings.dart';
+import 'package:sastra_ebooks/services/lottieAnimations.dart';
 
 class EmailVerification extends StatefulWidget {
   static const id = '/mailVerification';
@@ -55,27 +56,29 @@ class _EmailVerificationState extends State<EmailVerification> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Center(
-            child: Lottie.asset(
-              Jsons.kemailVerification,
-              height: 100,
+            child: FractionallySizedBox(
+              widthFactor: .5,
+              child: Lottie.asset(
+                LottieAnimations.emailVerification,
+              ),
             ),
           ),
           SizedBox(
-            height: Dimensions.largePadding,
+            height: Dimensions.extraLargePadding * 2,
           ),
           RoundedButton(
             labelText: 'Re-Send Email',
             onPressed: () => _firebaseUser.sendEmailVerification(),
           ),
           SizedBox(
-            height: Dimensions.largePadding,
+            height: Dimensions.largePadding * 2,
           ),
           TappableSubtitle(
-            descriptionText: 'Wrong Reg Num?',
+            descriptionText: 'Wrong Reg №?',
             actionText: 'Cancel',
             onActionTap: () async {
               await FirebaseFirestore.instance
-                  .collection('userData')
+                  .collection('user_data')
                   .doc(_firebaseUser.uid)
                   .delete();
               // ToDo: delete firebase user

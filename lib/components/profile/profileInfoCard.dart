@@ -86,7 +86,7 @@ class _ProfileInfoCardState extends State<ProfileInfoCard> {
                 ),
                 SizedBox(height: 1 * SizeConfig.heightMultiplier),
                 Text(
-                  widget.user.year.toString(),
+                  widget.user.semester.toString(),
                   style: GoogleFonts.notoSans(
                       fontSize: 18,
                       color: Colors.lightBlueAccent,

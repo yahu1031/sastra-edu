@@ -54,7 +54,17 @@ class _ProfileModalBottomSheetState extends State<ProfileModalBottomSheet> {
       return 'Third';
     else if (number == 4)
       return 'Fourth';
-    else if (number == 5) return 'Fith';
+    else if (number == 5)
+      return 'Fith';
+    else if (number == 6)
+      return 'Sixth';
+    else if (number == 7)
+      return 'Seventh';
+    else if (number == 8)
+      return 'Eighth';
+    else if (number == 9)
+      return 'Ninth';
+    else if (number == 10) return 'Tenth';
 
     return 'Best';
   }
@@ -108,7 +118,7 @@ class _ProfileModalBottomSheetState extends State<ProfileModalBottomSheet> {
                       ),
                       SizedBox(height: 10),
                       Text(
-                        '${widget.user.regNo} - ${_getNumberWrittenOut(widget.user.year)} Year',
+                        '${widget.user.regNo} - ${_getNumberWrittenOut(widget.user.semester)} Semester',
                         style: TextStyle(
                           fontSize: 15,
                           color: Colors.grey,

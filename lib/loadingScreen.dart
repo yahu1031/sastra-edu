@@ -68,7 +68,7 @@ class _LoadingScreenState extends State<LoadingScreen>
       setLoadingProgress(.1);
 
       DocumentSnapshot document = await FirebaseFirestore.instance
-          .collection('userData')
+          .collection('user_data')
           .doc(widget.firebaseUser.uid)
           .get();
 
@@ -80,7 +80,7 @@ class _LoadingScreenState extends State<LoadingScreen>
         widget.firebaseUser.email,
         data['name'],
         data["branch"],
-        data['year'],
+        data['semester'],
         data['regNo'],
       );
 
@@ -97,8 +97,8 @@ class _LoadingScreenState extends State<LoadingScreen>
       // Todo: need to change db from firstYear to number
       bookList = (await FirebaseFirestore.instance
               .collection('book_lists')
-              // .doc('${user.year}')
               .doc('3')
+              // .doc('${user.semester}')
               .get())
           .data();
 
