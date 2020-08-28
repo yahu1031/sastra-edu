@@ -26,12 +26,12 @@ dependencies:
   flutter_offline: ^0.3.0
   cached_network_image: ^2.2.0+1
   wiredash: ^0.2.0
-  package_info: 0.4.3
+  package_info: ^0.4.3
   flutter_icons: ^1.1.0
   font_awesome_flutter: ^8.8.1
   image_picker: ^0.6.7
 
-  flutter_keyboard_size: 0.1.2+2
+  flutter_keyboard_size: ^0.1.2+2
   flutter_fullpdfview: ^1.1.3
   flutter_cache_manager: ^1.4.1
   outline_material_icons: ^0.1.1
@@ -58,6 +58,7 @@ dependencies:
     git:
       url: https://github.com/ton-An/flutter_keyboard_visibility.git
   lottie: ^0.6.0
+  flutter_upi: ^0.0.2
 
 dev_dependencies:
   flutter_test:
@@ -71,5 +72,4 @@ flutter:
     - assets/images/
     - assets/images/helpers/
     - assets/icons/
-    - assets/lottie/
     - assets/Lottie/
