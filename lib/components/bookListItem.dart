@@ -20,6 +20,7 @@ import 'package:sastra_ebooks/misc/customColors.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/misc/downloadBook.dart';
 import 'package:sastra_ebooks/misc/favoriteBooks.dart';
+import 'package:shimmer/shimmer.dart';
 
 class BookListItem extends StatefulWidget {
   static final List<BookListItem> bookListItems = [];
@@ -194,6 +195,18 @@ class _BookListItemState extends State<BookListItem> {
                     imageUrl: widget.book.imgUrl,
                     width: 50,
                     height: 50,
+                    placeholder: (context, string) {
+                      return Shimmer.fromColors(
+                        baseColor: CustomColors.veryLightGrey,
+                        highlightColor: CustomColors.veryVeryLightGrey,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: Dimensions.borderRadius,
+                            color: CustomColors.veryLightGrey,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),

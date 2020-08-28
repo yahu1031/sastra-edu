@@ -20,4 +20,5 @@ class CustomColors {
   static const Color middleGrey = Color(0xFFBDBDBD);
   static const Color lightGrey = Color(0xFFD6D6D6);
   static const Color veryLightGrey = Color(0xFFEEEEEE);
+  static const Color veryVeryLightGrey = Color(0xFFF7F7F7);
 }
