@@ -82,16 +82,7 @@ class _DownloadPaymentState extends State<DownloadPayment> {
                   ),
                 ],
               ),
-              Container(
-                height: 50,
-                decoration: BoxDecoration(
-                  borderRadius: Dimensions.borderRadius,
-                  border: Border.all(
-                    color: CustomColors.veryLightGrey,
-                    width: 2,
-                  ),
-                ),
-              ),
+              SizedBox(height: 50),
               Padding(
                 padding: const EdgeInsets.symmetric(
                     vertical: Dimensions.largePadding),
