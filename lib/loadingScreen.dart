@@ -72,7 +72,7 @@ class _LoadingScreenState extends State<LoadingScreen>
           .doc(widget.firebaseUser.uid)
           .get();
 
-      setLoadingProgress(.3);
+      setLoadingProgress(.2);
 
       Map data = document.data();
       final user = UserData(
@@ -88,15 +88,11 @@ class _LoadingScreenState extends State<LoadingScreen>
 
       DownloadBook.init();
 
-      setLoadingProgress(.5);
-
       FavoriteBooks.init(user.uid, List<String>.from(data['favoriteBooks']));
-
-      setLoadingProgress(.6);
 
       Bookmarks.init(user.uid, data['bookmarks']);
 
-      setLoadingProgress(.7);
+      setLoadingProgress(.5);
 
       // Todo: need to change db from firstYear to number
       bookList = (await FirebaseFirestore.instance
@@ -106,7 +102,7 @@ class _LoadingScreenState extends State<LoadingScreen>
               .get())
           .data();
 
-      setLoadingProgress(.8);
+      setLoadingProgress(.7);
 
       await fetchBooks(bookList['categories']);
 
@@ -125,6 +121,45 @@ class _LoadingScreenState extends State<LoadingScreen>
     }
   }
 
+  Future getBookCategory(Map bookCategory) async {
+    List bookReferences = bookCategory['books'];
+    List<Book> books = [];
+
+    List<Future Function()> futures = bookReferences.map((bookReference) {
+      Future<void> future() async {
+        Map book = (await bookReference.get()).data();
+        final String bookStoragePath = '/books/${book['isbn']}';
+        final coverRef =
+            FirebaseStorage.instance.ref().child('$bookStoragePath/cover.jpg');
+        final pdfRef =
+            FirebaseStorage.instance.ref().child('$bookStoragePath/book.pdf');
+
+        List bookUrls = await Future.wait(
+            [coverRef.getDownloadURL(), pdfRef.getDownloadURL()]);
+
+        books.add(
+          Book(
+            isbn: book['isbn'],
+            author: book['author'],
+            title: book["title"],
+            edition: book['edition'],
+            imgUrl: bookUrls[0],
+            url: bookUrls[1],
+            outline: book['outline'],
+          ),
+        );
+      }
+
+      return future;
+    }).toList();
+
+    await Future.wait([
+      for (var future in futures) future(),
+    ]);
+
+    BookCategory(name: bookCategory['title'], books: books);
+  }
+
   void loadingFinished() {
     isLoadingFinished = true;
   }
@@ -135,45 +170,65 @@ class _LoadingScreenState extends State<LoadingScreen>
     });
   }
 
-  Future<void> fetchBooks(List categoryList) async {
-    for (DocumentReference categoryReference in categoryList) {
-      final List<Book> booksOfCategory = [];
+  Future<void> fetchBooks(List bookList) async {
+    List categoryList = [];
+    List<Future Function()> bookListFutures = bookList.map((categoryReference) {
+      Future<void> future() async =>
+          categoryList.add((await categoryReference.get()).data());
+      return future;
+    }).toList();
 
-      final Map category = (await categoryReference.get()).data();
+    await Future.wait(
+      [
+        for (var future in bookListFutures) future(),
+      ],
+    );
 
-      final List categoryList = category['books'];
+    print('-----------------CATEGORIES-----------------------');
+    print(categoryList);
 
-      for (DocumentReference bookReference in categoryList) {
-        final Map book = (await bookReference.get()).data();
-        final String bookStoragePath = '/books/${book['isbn']}';
-        print(bookStoragePath);
-        final coverRef =
-            FirebaseStorage.instance.ref().child('$bookStoragePath/cover.jpg');
-        final pdfRef =
-            FirebaseStorage.instance.ref().child('$bookStoragePath/book.pdf');
-        var coverUrl = await coverRef.getDownloadURL();
-        var pdfUrl = await pdfRef.getDownloadURL();
+    List<Future Function()> categoryFutures = categoryList.map((category) {
+      Future containerFuture() async => await getBookCategory(category);
+      return containerFuture;
+    }).toList();
 
-        booksOfCategory.add(
-          Book(
-              isbn: book['isbn'],
-              author: book['author'],
-              title: book["title"],
-              edition: book['edition'],
-              imgUrl: coverUrl,
-              url: pdfUrl,
-              outline: book['outline']),
-        );
-      }
+    await Future.wait(
+      [
+        for (var future in categoryFutures) future(),
+      ],
+    );
 
-      print(booksOfCategory);
+    //   for (DocumentReference bookReference in categoryList) {
+    //     final Map book = (await bookReference.get()).data();
+    //     final String bookStoragePath = '/books/${book['isbn']}';
+    //     print(bookStoragePath);
+    //     final coverRef =
+    //         FirebaseStorage.instance.ref().child('$bookStoragePath/cover.jpg');
+    //     final pdfRef =
+    //         FirebaseStorage.instance.ref().child('$bookStoragePath/book.pdf');
+    //     var coverUrl = await coverRef.getDownloadURL();
+    //     var pdfUrl = await pdfRef.getDownloadURL();
 
-      BookCategory(name: category['title'], books: booksOfCategory);
+    //     booksOfCategory.add(
+    //       Book(
+    //           isbn: book['isbn'],
+    //           author: book['author'],
+    //           title: book["title"],
+    //           edition: book['edition'],
+    //           imgUrl: coverUrl,
+    //           url: pdfUrl,
+    //           outline: book['outline']),
+    //     );
+    //   }
 
-      print(BookCategory.bookCategoryInstancesList);
-      // print(BookCategory.bookCategoryInstancesList[0].books[0].isbn);
+    //   print(booksOfCategory);
 
-    }
+    //   BookCategory(name: category['title'], books: booksOfCategory);
+
+    //   print(BookCategory.bookCategoryInstancesList);
+    //   // print(BookCategory.bookCategoryInstancesList[0].books[0].isbn);
+
+    // }
   }
 
   @override
