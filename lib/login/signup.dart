@@ -10,6 +10,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:sastra_ebooks/components/buttons/dropDownButtun/customDropDownButton.dart';
 import 'package:sastra_ebooks/components/buttons/dropDownButtun/dropDownButton.dart'
@@ -42,7 +43,18 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
   final AuthServices _auth = AuthServices();
 
   // Todo: maybe put this in the cloud
-  static const List<int> semesters = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  static const List<String> semesters = [
+    '1st sem',
+    '2nd sem',
+    '3rd sem',
+    '4th sem',
+    '5th sem',
+    '6th sem',
+    '7th sem',
+    '8th sem',
+    '9th sem (M.Tech/Integrated)',
+    '10th sem (M.Tech/Integrated)'
+  ];
   static const List<String> branches = [
     'Aero Eng',
     'Bio Eng',
@@ -66,7 +78,7 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
     'Mec Eng (Digital Manuf)',
     'Mechatronics',
   ];
-  int _semester = semesters[0];
+  String _semester = semesters[0];
   String _branch = branches[0];
 
   KeyboardVisibilityNotification _keyboardVisibility =
@@ -229,18 +241,22 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Expanded(
-                          child: CustomDropDownButton<int>(
-                            onChanged: (int value) {
+                          child: CustomDropDownButton<String>(
+                            onChanged: (String value) {
                               setState(() {
                                 _semester = value;
                               });
                             },
                             value: _semester,
                             items: semesters
-                                .map<custom.DropdownMenuItem<int>>((int value) {
-                              return custom.DropdownMenuItem<int>(
+                                .map<custom.DropdownMenuItem<String>>(
+                                    (String value) {
+                              return custom.DropdownMenuItem<String>(
                                 value: value,
-                                child: Text(value.toString()),
+                                child: Text(
+                                  value,
+                                  style: GoogleFonts.lexendDeca(),
+                                ),
                               );
                             }).toList(),
                           ),
@@ -261,7 +277,10 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
                                     (String value) {
                               return custom.DropdownMenuItem<String>(
                                 value: value,
-                                child: Text(value),
+                                child: Text(
+                                  value,
+                                  style: GoogleFonts.lexendDeca(),
+                                ),
                               );
                             }).toList(),
                           ),
