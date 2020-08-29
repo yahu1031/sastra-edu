@@ -34,29 +34,8 @@ class HomeHandler extends StatefulWidget {
 
 class _HomeHandlerState extends State<HomeHandler>
     with TickerProviderStateMixin {
-  double screenWidth, screenHeight;
-  final Duration navigationDrawerDuration = const Duration(milliseconds: 300);
-
-  AnimationController _controller;
-  PackageInfo packageInfo;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    screenHeight = size.height;
-    screenWidth = size.width;
-
     return CustomScaffold(
       bottomNavigationBar: BubbleBottomBar(
         opacity: .2,
