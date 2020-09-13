@@ -1,7 +1,7 @@
 /*
- * Name: strings
- * Use:
- * TODO:    - Add Use of this file
+ Name: strings
+ Use:
+ Todo:    - Add Use of this file
  */
 
 class Strings {
@@ -97,4 +97,6 @@ class Strings {
   static const String kEnterOTP =
       'Please enter the verification code sent to your university email';
   static const String kOTP = 'Verification Code';
+  static const String kNoNetwork =
+      'We are facing network issue. Please do check your network connection.';
 }

@@ -1,7 +1,7 @@
 /*
- * Name: pdfViewBottomBar
- * Use: 
- * TODO:    - Add Use of this file
+ Name: pdfViewBottomBar
+ Use: 
+ Todo:    - Add Use of this file
             - handle submited pageNumber > totalPages
  */
 

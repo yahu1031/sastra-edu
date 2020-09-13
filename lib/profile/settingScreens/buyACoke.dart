@@ -1,7 +1,7 @@
 /*
- * Name: buyACoke
- * Use:
- * TODO:    - Add Use of this file
+ Name: buyACoke
+ Use:
+ Todo:    - Add Use of this file
             - clean up some more
             - add some padding etc.
             - e.g. between the text fields

@@ -1,7 +1,7 @@
 /*
- * Name: main
- * Use:
- * TODO:    - Add Use of this file
+  Name: main
+  Use:
+  Todo:    - Add Use of this file
             - cleanup
             - add splash screen
             - add reaction to onAuthStateChanged
@@ -19,24 +19,30 @@ import 'package:sastra_ebooks/login/login.dart';
 import 'package:sastra_ebooks/login/signup.dart';
 import 'package:sastra_ebooks/misc/screens/downloads.dart';
 import 'package:sastra_ebooks/misc/secret.dart';
+import 'package:sastra_ebooks/misc/strings.dart';
 import 'package:sastra_ebooks/misc/textStyles.dart';
 import 'package:sastra_ebooks/profile/profile.dart';
 import 'package:sastra_ebooks/profile/settingScreens/about.dart';
 import 'package:sastra_ebooks/profile/settingScreens/buyACoke.dart';
 import 'package:sastra_ebooks/profile/settingScreens/credits.dart';
 import 'package:sastra_ebooks/profile/settingScreens/downloadsPayment.dart';
+import 'package:sastra_ebooks/services/dialogs.dart';
 import 'package:sastra_ebooks/services/responsive/sizeConfig.dart';
 import 'package:sastra_ebooks/services/user.dart';
 import 'package:sastra_ebooks/splashScreen.dart';
 import 'package:wiredash/wiredash.dart';
+import 'package:data_connection_checker/data_connection_checker.dart';
 
 import 'home/homeHandler.dart';
 import 'home/screens/searchBooks.dart';
 import 'login/mailVerification.dart';
 import 'misc/screens/mailUs.dart';
 
-void main() => runApp(MyApp());
+main() {
+  runApp(MyApp());
+}
 
+// This is the root file of the app
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
@@ -50,6 +56,19 @@ class _MyAppState extends State<MyApp> {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
+
+    DataConnectionChecker().onStatusChange.listen((status) {
+      switch (status) {
+        case DataConnectionStatus.connected:
+          print('Data connection is available.');
+          break;
+        case DataConnectionStatus.disconnected:
+          print('You are disconnected from the internet.');
+          Dialogs.areYouSureDialog(context,
+              title: Strings.kSorry, description: null);
+          break;
+      }
+    });
 
     return LayoutBuilder(
       builder: (context, constraints) {

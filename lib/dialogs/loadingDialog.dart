@@ -1,7 +1,7 @@
 /*
- * Name: loadingDialog
- * Use:
- * TODO:    - Add Use of this file
+ Name: loadingDialog
+ Use:
+ Todo:    - Add Use of this file
  */
 
 import 'package:flutter/material.dart';

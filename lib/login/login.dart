@@ -1,7 +1,7 @@
 /*
- * Name: login
- * Use:
- * TODO:    - Add Use of this file
+ Name: login
+ Use:
+ Todo:    - Add Use of this file
             - cleanup
             - re-add dialogs
  */
@@ -47,7 +47,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   bool _keyboardVisible;
 
   void logIn() async {
-    // TODO: add case for unverified email
+    // Todo: add case for unverified email
     if (_formKey.currentState.validate()) {
       dialogs.showLoadingDialog(context);
       final User _firebaseUser = await _auth.signInWithEmailAndPassword(

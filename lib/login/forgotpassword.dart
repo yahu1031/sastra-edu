@@ -1,7 +1,7 @@
 /*
- * Name: forgotPassword
- * Use:
- * TODO:    - Add Use of this file
+ Name: forgotPassword
+ Use:
+ Todo:    - Add Use of this file
             - cleanup
  */
 

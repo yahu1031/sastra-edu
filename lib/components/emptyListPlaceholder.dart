@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lottie/lottie.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/misc/textStyles.dart';
-import 'package:sastra_ebooks/services/images.dart';
+import 'package:sastra_ebooks/services/lottieAnimations.dart';
 
 class EmptyListPlaceholder extends StatelessWidget {
   final String text;
-
   const EmptyListPlaceholder(this.text, {Key key}) : super(key: key);
 
   @override
@@ -26,7 +25,13 @@ class EmptyListPlaceholder extends StatelessWidget {
               widthFactor: .4,
               child: AspectRatio(
                 aspectRatio: 1,
-                child: SvgPicture.asset(Images.box),
+                child: Lottie.asset(
+                  text.contains('favorite')
+                      ? LottieAnimations.kFavorite
+                      : text.contains('bookmark')
+                          ? LottieAnimations.kBookmark
+                          : LottieAnimations.bookLoading,
+                ),
               ),
             ),
           ),
@@ -34,7 +39,7 @@ class EmptyListPlaceholder extends StatelessWidget {
             height: 50,
           ),
           Text(
-            'You are so close to adding $text ;)',
+            'You are so close to adding $text 😉',
             style: headline4TextStyle,
             textAlign: TextAlign.center,
           )

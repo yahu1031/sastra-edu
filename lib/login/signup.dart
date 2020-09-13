@@ -1,7 +1,7 @@
 /*
- * Name: login
- * Use:
- * TODO:    - Add Use of this file
+ Name: login
+ Use:
+ Todo:    - Add Use of this file
             - cleanup
             - re-add dialogs
  */

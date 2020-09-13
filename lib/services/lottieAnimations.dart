@@ -6,4 +6,6 @@ class LottieAnimations {
   static const bookTwoLoading = 'assets/lottie/18127_book_animation.json';
   static const String emailVerification =
       'assets/Lottie/emailVerification.json';
+  static const String kBookmark = "assets/lottie/bookmarks.json";
+  static const String kFavorite = "assets/lottie/favorite.json";
 }

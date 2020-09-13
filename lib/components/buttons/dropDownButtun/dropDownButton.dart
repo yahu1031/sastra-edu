@@ -1528,6 +1528,7 @@ class DropdownButtonFormField<T> extends FormField<T> {
           onSaved: onSaved,
           initialValue: value,
           validator: validator,
+          // ignore: deprecated_member_use
           autovalidate: autovalidate,
           builder: (FormFieldState<T> field) {
             final _DropdownButtonFormFieldState<T> state =

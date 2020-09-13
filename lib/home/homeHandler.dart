@@ -1,7 +1,7 @@
 /*
- * Name: homeHandler
- * Use:
- * TODO:    - Add Use of this file
+  Name: homeHandler
+  Use:
+  Todo:    - Add Use of this file
             - cleanup
  */
 
@@ -10,10 +10,9 @@ import 'dart:ui';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
-import 'package:package_info/package_info.dart';
 import 'package:sastra_ebooks/components/customScaffold.dart';
+import 'package:sastra_ebooks/components/modal_bottom_sheet/lib/src/bottom_sheets/material_bottom_sheet.dart';
 import 'package:sastra_ebooks/components/profileModalBottomSheet.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/services/images.dart';

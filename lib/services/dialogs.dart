@@ -1,7 +1,7 @@
 /*
- * Name: dialogs
- * Use:
- * TODO:    - Add Use of this file
+ Name: dialogs
+ Use:
+ Todo:    - Add Use of this file
             - cleanup
  */
 

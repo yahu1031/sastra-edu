@@ -1,12 +1,11 @@
 /*
- * Name: home
- * Use:
- * TODO:    - Add Use of this file
+ Name: home
+ Use:
+ Todo:    - Add Use of this file
  */
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:sastra_ebooks/books/book.dart';
 import 'package:sastra_ebooks/books/bookCategory.dart';
 import 'package:sastra_ebooks/components/appBarTitles/appBarTitle.dart';

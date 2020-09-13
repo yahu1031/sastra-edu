@@ -1,7 +1,7 @@
 /*
- * Name: sizeConfig
- * Use:
- * TODO:    - Add Use of this file
+ Name: sizeConfig
+ Use:
+ Todo:    - Add Use of this file
             - cleanup
  */
 

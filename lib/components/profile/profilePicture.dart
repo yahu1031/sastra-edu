@@ -1,7 +1,7 @@
 /*
- * Name: profilePicture
- * Use:
- * TODO:    - Add Use of this file
+ Name: profilePicture
+ Use:
+ Todo:    - Add Use of this file
  */
 
 import 'package:cached_network_image/cached_network_image.dart';

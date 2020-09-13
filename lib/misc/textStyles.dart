@@ -1,7 +1,7 @@
 /*
- * Name: textStyles
- * Use:
- * TODO:    - Add Use of this file
+ Name: textStyles
+ Use:
+ Todo:    - Add Use of this file
             - go over text styles
             - maybe increase body font size
             - re-evaluate headings

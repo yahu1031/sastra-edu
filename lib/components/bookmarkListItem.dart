@@ -1,17 +1,15 @@
 /*
- * Name: bookmarkListItem
- * Use:
- * TODO:    - Add Use of this file
+ Name: bookmarkListItem
+ Use:
+ Todo:    - Add Use of this file
  */
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sastra_ebooks/books/book.dart';
 import 'package:sastra_ebooks/books/pdf.dart';
-import 'package:sastra_ebooks/misc/customColors.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/misc/textStyles.dart';
-
 import 'bookListItem.dart';
 
 class BookmarkListItem extends StatefulWidget {

@@ -1,17 +1,13 @@
 /*
- * Name: favorite
- * Use:
- * TODO:    - Add Use of this file
+ Name: favorite
+ Use:
+ Todo:    - Add Use of this file
  */
 
 import 'package:flutter/material.dart';
-import 'package:sastra_ebooks/books/book.dart';
-import 'package:sastra_ebooks/components/appBarTitles/children/iconTitles/children/favoriteIconTitle.dart';
-import 'package:sastra_ebooks/components/bookListItem.dart';
 import 'package:sastra_ebooks/components/emptyListPlaceholder.dart';
 import 'package:sastra_ebooks/components/headings/heading.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
-import 'package:sastra_ebooks/misc/favoriteBooks.dart';
 
 class ListScreen extends StatefulWidget {
   static const String id = '/favorite';

@@ -1,7 +1,7 @@
 /*
- * Name: dimensions
- * Use:
- * TODO:    - Add Use of this file
+ Name: dimensions
+ Use:
+ Todo:    - Add Use of this file
  */
 
 import 'package:flutter/cupertino.dart';

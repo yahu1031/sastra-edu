@@ -1,7 +1,7 @@
 /*
- * Name: about
- * Use:
- * TODO:    - Add Use of this file
+ Name: about
+ Use:
+ Todo:    - Add Use of this file
             - cleanup
             - add attribution for icons
  */

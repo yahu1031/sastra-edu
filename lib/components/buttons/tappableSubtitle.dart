@@ -1,7 +1,7 @@
 /*
- * Name: tappableSubtitle
- * Use:
- * TODO:    - Add Use of this file
+ Name: tappableSubtitle
+ Use:
+ Todo:    - Add Use of this file
  */
 
 import 'package:flutter/cupertino.dart';

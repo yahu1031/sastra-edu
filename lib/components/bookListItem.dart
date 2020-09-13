@@ -1,7 +1,7 @@
 /*
- * Name: bookListItem
- * Use:
- * TODO:    - Add Use of this file
+  Name: bookListItem
+  Use:
+ Todo:    - Add Use of this file
             - cleanup
             - unify fonts
  */
@@ -11,11 +11,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:sastra_ebooks/books/book.dart';
 import 'package:sastra_ebooks/books/pdf.dart';
 import 'package:sastra_ebooks/components/customInkWell.dart';
-import 'package:sastra_ebooks/dialogs/dialogs.dart' as dialogs;
 import 'package:sastra_ebooks/misc/customColors.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/misc/downloadBook.dart';
@@ -61,7 +59,7 @@ class _BookListItemState extends State<BookListItem> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    // Todo: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       RenderBox box = key.currentContext.findRenderObject();

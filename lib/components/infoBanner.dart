@@ -1,7 +1,7 @@
 /*
- * Name: infoBanner
- * Use:
- * TODO:    - Add Use of this file
+ Name: infoBanner
+ Use:
+ Todo:    - Add Use of this file
 
  */
 

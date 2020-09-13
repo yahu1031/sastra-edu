@@ -1,7 +1,7 @@
 /*
- * Name: customTextFormField
- * Use:
- * TODO:    - Add Use of this file
+ Name: customTextFormField
+ Use:
+ Todo:    - Add Use of this file
             - cleanup
  */
 
@@ -61,6 +61,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             });
         },
         validator: widget.validator,
+        // ignore: deprecated_member_use
         autovalidate: wasNotEdited == true ? false : widget.autovalidate,
         keyboardType: widget.keyboardType,
         obscureText: widget.obscureText,

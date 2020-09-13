@@ -1,14 +1,13 @@
 /*
- * Name: splashScreen
- * Use: 
- * TODO:    - Add Use of this file
+ Name: splashScreen
+ Use: 
+ Todo:    - Add Use of this file
  */
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:sastra_ebooks/components/customScaffold.dart';
 import 'package:sastra_ebooks/loadingScreen.dart';
 import 'package:sastra_ebooks/misc/strings.dart';
@@ -16,7 +15,6 @@ import 'package:sastra_ebooks/services/images.dart';
 import 'package:sastra_ebooks/dialogs/dialogs.dart' as dialogs;
 import 'package:sastra_ebooks/login/login.dart';
 import 'package:sastra_ebooks/login/mailVerification.dart';
-import 'package:sastra_ebooks/services/lottieAnimations.dart';
 
 class SplashScreen extends StatefulWidget {
   static const id = '/';

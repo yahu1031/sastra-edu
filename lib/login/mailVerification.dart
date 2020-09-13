@@ -7,7 +7,6 @@ import 'package:sastra_ebooks/components/buttons/tappableSubtitle.dart';
 import 'package:sastra_ebooks/components/customScaffold.dart';
 import 'package:sastra_ebooks/loadingScreen.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
-import 'package:sastra_ebooks/misc/strings.dart';
 import 'package:sastra_ebooks/services/lottieAnimations.dart';
 
 class EmailVerification extends StatefulWidget {
@@ -31,7 +30,7 @@ class _EmailVerificationState extends State<EmailVerification> {
 
   void verifying() async {
     bool verified = false;
-    _firebaseUser = await _firebaseAuth.currentUser;
+    _firebaseUser = _firebaseAuth.currentUser;
     _firebaseUser.sendEmailVerification();
 
     while (!verified) {

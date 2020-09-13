@@ -1,7 +1,7 @@
 /*
- * Name: customInkWell
- * Use: 
- * TODO:    - Add Use of this file
+ Name: customInkWell
+ Use: 
+ Todo:    - Add Use of this file
  */
 
 import 'package:flutter/cupertino.dart';

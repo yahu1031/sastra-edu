@@ -1,20 +1,18 @@
 /*
- * Name: loadingScreen
- * Use:
- * TODO:    - Add Use of this file
+ Name: loadingScreen
+ Use:
+ Todo:    - Add Use of this file
             - cleanup
             - prevent app from loading if no internet connection and if not everything (except the pdfs) is loaded
  */
 
+import 'dart:async';
 import 'dart:io';
 
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:lokstory_flutter_lottie/lokstory_flutter_lottie.dart';
 import 'package:lottie/lottie.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sastra_ebooks/components/customLinearProgressIndicator.dart';
@@ -24,8 +22,6 @@ import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/misc/downloadBook.dart';
 import 'package:sastra_ebooks/misc/favoriteBooks.dart';
 import 'package:sastra_ebooks/services/lottieAnimations.dart';
-import 'package:sastra_ebooks/misc/strings.dart';
-import 'package:sastra_ebooks/services/responsive/sizeConfig.dart';
 import 'package:sastra_ebooks/services/user.dart';
 
 import 'books/book.dart';
@@ -43,7 +39,6 @@ class LoadingScreen extends StatefulWidget {
 class _LoadingScreenState extends State<LoadingScreen>
     with TickerProviderStateMixin {
   double loadingAnimationValue = 0, loadingProgressValue = 0;
-
   bool loadingAnimationVisible = false, isLoadingFinished = false;
 
   String str;

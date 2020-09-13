@@ -1,7 +1,7 @@
 /*
- * Name: customColors
- * Use:
- * TODO:    - Add Use of this file
+ Name: customColors
+ Use:
+ Todo:    - Add Use of this file
  */
 
 import 'dart:ui';

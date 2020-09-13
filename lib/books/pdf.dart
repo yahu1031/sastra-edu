@@ -1,7 +1,7 @@
 /*
- * Name: pdf
- * Use:
- * TODO:    - Add Use of this file
+ Name: pdf
+ Use:
+ Todo:    - Add Use of this file
             - clean up
  */
 
@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_fullpdfview/flutter_fullpdfview.dart';
 import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:sastra_ebooks/components/modal_bottom_sheet/lib/modal_bottom_sheet.dart';
 import 'package:sastra_ebooks/components/buttons/roundedButton/roundedButton.dart';
 import 'package:sastra_ebooks/components/customAppBar.dart';
 import 'package:sastra_ebooks/components/customScaffold.dart';

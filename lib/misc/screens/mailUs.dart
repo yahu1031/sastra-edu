@@ -1,7 +1,7 @@
 /*
- * Name: mailUs
- * Use:
- * TODO:    - Add Use of this file
+ Name: mailUs
+ Use:
+ Todo:    - Add Use of this file
             - cleanup
  */
 

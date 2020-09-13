@@ -1,7 +1,7 @@
 /*
- * Name: Images
- * Use:
- * TODO:    - Add Use of this file
+ Name: Images
+ Use:
+ Todo:    - Add Use of this file
             - cleanup
  */
 
@@ -36,5 +36,4 @@ class Images {
   static const String info = "assets/icons/info.svg";
   static const String babyYoda = "assets/icons/icons8-baby-yoda.svg";
   static const String highFive = "assets/icons/high_five.svg";
-  static const String box = "assets/icons/box.svg";
 }

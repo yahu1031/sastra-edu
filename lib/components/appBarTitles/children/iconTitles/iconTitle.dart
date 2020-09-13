@@ -1,7 +1,7 @@
 /*
- * Name: iconTitle
- * Use:
- * TODO:    - Add Use of this file
+ Name: iconTitle
+ Use:
+ Todo:    - Add Use of this file
             - clean up
  */
 
