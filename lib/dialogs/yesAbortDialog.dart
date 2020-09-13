@@ -15,6 +15,7 @@ import 'package:sastra_ebooks/misc/downloadBook.dart';
 import 'package:sastra_ebooks/misc/strings.dart';
 import 'package:sastra_ebooks/misc/textStyles.dart';
 import 'package:sastra_ebooks/services/dialogs.dart';
+import 'package:sastra_ebooks/services/responsive/sizeConfig.dart';
 
 Future<DialogAction> yesAbortDialog(
   BuildContext context,
@@ -26,9 +27,9 @@ Future<DialogAction> yesAbortDialog(
     barrierDismissible: false,
     builder: (BuildContext context) {
       return AlertDialog(
-        titlePadding: EdgeInsets.fromLTRB(50, 30, 50, 10),
-        contentPadding: EdgeInsets.fromLTRB(50, 10, 50, 30),
-        actionsPadding: EdgeInsets.fromLTRB(50, 10, 50, 30),
+        // titlePadding: EdgeInsets.fromLTRB(50, 30, 50, 10),
+        // contentPadding: EdgeInsets.fromLTRB(50, 10, 50, 30),
+        // actionsPadding: EdgeInsets.fromLTRB(50, 10, 50, 30),
         shape: RoundedRectangleBorder(
           borderRadius: Dimensions.borderRadius,
         ),
@@ -43,6 +44,7 @@ Future<DialogAction> yesAbortDialog(
         ),
         actions: <Widget>[
           FlatButton(
+            minWidth: 10 * SizeConfig.widthMultiplier,
             onPressed: () => Navigator.of(context).pop(DialogAction.abort),
             child: const Text(
               'Ok',

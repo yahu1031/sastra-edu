@@ -33,6 +33,7 @@ class RegNumTextFormField extends StatelessWidget {
       keyboardType: TextInputType.number,
       inputFormatters: [
         LengthLimitingTextInputFormatter(9),
+        FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
       ],
     );
   }

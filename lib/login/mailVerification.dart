@@ -73,7 +73,7 @@ class _EmailVerificationState extends State<EmailVerification> {
             height: Dimensions.largePadding * 2,
           ),
           TappableSubtitle(
-            descriptionText: 'Wrong Reg №?',
+            descriptionText: 'Wrong Reg Num?',
             actionText: 'Cancel',
             onActionTap: () async {
               await FirebaseFirestore.instance

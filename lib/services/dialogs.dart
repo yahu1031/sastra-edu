@@ -35,8 +35,8 @@ class Dialogs {
           ),
           content: Text(
             body,
-            style:
-                GoogleFonts.notoSans(fontSize: 18, fontWeight: FontWeight.w500),
+            style: GoogleFonts.lexendDeca(
+                fontSize: 18, fontWeight: FontWeight.w500),
           ),
           actions: <Widget>[
             FlatButton(

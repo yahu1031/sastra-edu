@@ -50,7 +50,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           await _auth.resetPassword(_regNum);
         } catch (e) {}
         Navigator.pop(context);
-
         Dialogs.yesAbortDialog(context, Strings.successString,
             Strings.passwordResetSuccessfulString);
       }
