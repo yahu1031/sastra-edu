@@ -11,7 +11,7 @@ import 'package:sastra_ebooks/misc/customColors.dart';
 class CustomScaffold extends StatelessWidget {
   final bool resizeToAvoidBottomPadding;
   final bool safeAreaTop;
-  final PreferredSize appBar;
+  final PreferredSizeWidget appBar;
   final Widget bottomNavigationBar;
   final Widget floatingActionButton;
   final FloatingActionButtonLocation floatingActionButtonLocation;

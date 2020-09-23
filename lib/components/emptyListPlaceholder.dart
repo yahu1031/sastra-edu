@@ -22,7 +22,7 @@ class EmptyListPlaceholder extends StatelessWidget {
             padding: const EdgeInsets.symmetric(
                 vertical: Dimensions.extraLargePadding),
             child: FractionallySizedBox(
-              widthFactor: .4,
+              widthFactor: .9,
               child: AspectRatio(
                 aspectRatio: 1,
                 child: Lottie.asset(

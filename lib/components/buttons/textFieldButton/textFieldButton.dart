@@ -54,7 +54,7 @@ class _TextFieldButtonState extends State<TextFieldButton> {
             width: constraints.minHeight,
             height: constraints.minHeight,
             child: Align(
-              alignment: Alignment.bottomCenter,
+              alignment: Alignment.center,
               child: AnimatedContainer(
                 width: 40,
                 height: 40,

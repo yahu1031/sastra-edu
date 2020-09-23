@@ -15,6 +15,7 @@ import 'package:sastra_ebooks/components/customScaffold.dart';
 import 'package:sastra_ebooks/components/textFields/customTextFormField/children/passwordTextFormField.dart';
 import 'package:sastra_ebooks/components/textFields/customTextFormField/children/regNumTextFormField.dart';
 import 'package:sastra_ebooks/login/signup.dart';
+import 'package:sastra_ebooks/misc/customColors.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/misc/strings.dart';
 import 'package:sastra_ebooks/services/responsive/sizeConfig.dart';
@@ -106,6 +107,15 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return CustomScaffold(
       resizeToAvoidBottomPadding: true,
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(top: 2 * SizeConfig.heightMultiplier),
+        child: FloatingActionButton(
+          backgroundColor: CustomColors.highlightColor,
+          child: Icon(Icons.person),
+          onPressed: () {},
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
 
       ///*-----Login-Form-----*///
       body: SafeArea(
@@ -130,7 +140,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                               child: LargeHeading(
                                 text: 'Hello There',
                                 highlightText: ' .',
-                                size: HeadingSize.large,
+                                size: HeadingSize.extraLarge,
                               ),
                             ),
                           ),

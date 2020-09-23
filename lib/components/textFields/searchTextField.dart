@@ -7,21 +7,29 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sastra_ebooks/components/buttons/textFieldButton/textFieldButton.dart';
 import 'package:sastra_ebooks/misc/customColors.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
 import 'package:sastra_ebooks/misc/strings.dart';
 
-class SearchTextField extends StatelessWidget {
+class SearchTextField extends StatefulWidget {
   final ValueChanged<String> onChanged;
   final TextEditingController textEditingController;
   final bool autofocus;
+  final TextFieldButton suffixIcon;
 
   SearchTextField({
     @required this.onChanged,
     this.textEditingController,
     this.autofocus,
+    this.suffixIcon,
   });
 
+  @override
+  _SearchTextFieldState createState() => _SearchTextFieldState();
+}
+
+class _SearchTextFieldState extends State<SearchTextField> {
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -33,10 +41,10 @@ class SearchTextField extends StatelessWidget {
           borderRadius: Dimensions.borderRadius,
         ),
         child: TextField(
-          autofocus: autofocus ?? false,
-          controller: textEditingController,
+          autofocus: widget.autofocus ?? false,
+          controller: widget.textEditingController,
           textAlign: TextAlign.left,
-          onChanged: onChanged,
+          onChanged: widget.onChanged,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.all(Dimensions.padding),
             hintText: Strings.searchBooksString,
@@ -45,6 +53,7 @@ class SearchTextField extends StatelessWidget {
               Icons.search,
               color: Colors.grey,
             ),
+            suffixIcon: widget.suffixIcon,
           ),
         ),
       ),

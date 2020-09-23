@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:sastra_ebooks/books/book.dart';
 import 'package:sastra_ebooks/books/bookCategory.dart';
 import 'package:sastra_ebooks/components/bookListItem.dart';
+import 'package:sastra_ebooks/components/buttons/textFieldButton/textFieldButton.dart';
 import 'package:sastra_ebooks/components/textFields/bookSearchTextField.dart';
 import 'package:sastra_ebooks/misc/dimensions.dart';
 
@@ -22,7 +23,6 @@ class SearchBooks extends StatefulWidget {
 class _SearchBooksState extends State<SearchBooks> {
   bool autofocusTextField = false;
   List<Book> _searchResults = [];
-
   @override
   void initState() {
     super.initState();
@@ -109,6 +109,14 @@ class _SearchBooksState extends State<SearchBooks> {
                   onChanged: (String searchQuery) =>
                       getSuggestions(searchQuery),
                   autofocus: autofocusTextField,
+                  suffixIcon: TextFieldButton(
+                    onPressed: () => Navigator.pop(context),
+                    highlightColor: Colors.blueAccent.withOpacity(.15),
+                    child: Icon(
+                      Icons.close,
+                      color: Colors.grey,
+                    ),
+                  ),
                 ),
               ],
             ),

@@ -31,8 +31,8 @@ final TextStyle body1GreyTextStyle = body1TextStyle.copyWith(
 );
 
 /// Headline1
-final TextStyle headline1TextStyle = GoogleFonts.lexendDeca(
-  fontSize: SizeConfig.textMultiplier * 11,
+final TextStyle headline1TextStyle = GoogleFonts.montserrat(
+  fontSize: SizeConfig.textMultiplier * 4,
   fontWeight: FontWeight.w700,
   color: CustomColors.darkColor,
 );
@@ -85,12 +85,13 @@ final TextStyle headline4GreyTextStyle = headline4TextStyle.copyWith(
 
 /// Subtitle1
 final TextStyle subtitle1TextStyle = GoogleFonts.lexendDeca(
-  fontSize: 16,
+  fontSize: SizeConfig.widthMultiplier * 3,
   fontWeight: FontWeight.w600,
 );
 
 final TextStyle subtitle1HighlightTextStyle = subtitle1TextStyle.copyWith(
   color: CustomColors.highlightColor,
+  fontWeight: FontWeight.bold,
 );
 
 final TextStyle subtitle1LightTextStyle = subtitle1TextStyle.copyWith(
