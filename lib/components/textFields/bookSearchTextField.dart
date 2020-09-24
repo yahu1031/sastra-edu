@@ -12,9 +12,8 @@ import 'package:sastra_ebooks/components/textFields/searchTextField.dart';
 class BookSearchTextField extends StatelessWidget {
   static TextEditingController textEditingController = TextEditingController();
   final ValueChanged<String> onChanged;
-  final bool autofocus;
   final TextFieldButton suffixIcon;
-  BookSearchTextField({this.onChanged, this.autofocus, this.suffixIcon});
+  BookSearchTextField({this.onChanged, this.suffixIcon});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,6 @@ class BookSearchTextField extends StatelessWidget {
       child: SearchTextField(
         onChanged: onChanged,
         textEditingController: BookSearchTextField.textEditingController,
-        autofocus: autofocus,
         suffixIcon: suffixIcon,
       ),
     );

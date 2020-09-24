@@ -6,6 +6,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:sastra_ebooks/books/book.dart';
 import 'package:sastra_ebooks/books/bookCategory.dart';
 import 'package:sastra_ebooks/components/bookListItem.dart';
@@ -21,21 +22,33 @@ class SearchBooks extends StatefulWidget {
 }
 
 class _SearchBooksState extends State<SearchBooks> {
-  bool autofocusTextField = false;
   List<Book> _searchResults = [];
+  KeyboardVisibilityNotification _keyboardVisibility =
+      new KeyboardVisibilityNotification();
+  int _keyboardVisibilitySubscriberId;
+  bool _keyboardState;
+
   @override
   void initState() {
     super.initState();
-
     final String searchQuery = BookSearchTextField.textEditingController.text;
 
     if (searchQuery.length != 0) getSuggestions(searchQuery);
+    _keyboardState = _keyboardVisibility.isKeyboardVisible;
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() {
-        autofocusTextField = true;
-      });
-    });
+    _keyboardVisibilitySubscriberId = _keyboardVisibility.addNewListener(
+      onChange: (bool visible) {
+        setState(() {
+          _keyboardState = visible;
+        });
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _keyboardVisibility.removeListener(_keyboardVisibilitySubscriberId);
   }
 
   void getSuggestions(String searchQuery) async {
@@ -72,53 +85,58 @@ class _SearchBooksState extends State<SearchBooks> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.only(
-            left: 15,
-            top: 20,
-            right: 15,
-          ),
-          child: Container(
-            height: MediaQuery.of(context).size.height,
-            child: Stack(
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+          print(_keyboardState);
+        },
+        child: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.only(
+              left: 15,
+              top: 20,
+              right: 15,
+            ),
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              child: Stack(
 //              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(top: 40),
-                  child: ScrollConfiguration(
-                    behavior: ScrollBehavior(),
-                    child: ListView(
-                      physics: BouncingScrollPhysics(),
-                      children: <Widget>[
-                        SizedBox(height: 30),
-                        for (Book book in _searchResults)
-                          Padding(
-                            padding:
-                                EdgeInsets.only(bottom: Dimensions.padding),
-                            child: BookListItem(
-                              book: book,
-                              setStateParent: setState,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(top: 40),
+                    child: ScrollConfiguration(
+                      behavior: ScrollBehavior(),
+                      child: ListView(
+                        physics: BouncingScrollPhysics(),
+                        children: <Widget>[
+                          SizedBox(height: 30),
+                          for (Book book in _searchResults)
+                            Padding(
+                              padding:
+                                  EdgeInsets.only(bottom: Dimensions.padding),
+                              child: BookListItem(
+                                book: book,
+                                setStateParent: setState,
+                              ),
                             ),
-                          ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                BookSearchTextField(
-                  onChanged: (String searchQuery) =>
-                      getSuggestions(searchQuery),
-                  autofocus: autofocusTextField,
-                  suffixIcon: TextFieldButton(
-                    onPressed: () => Navigator.pop(context),
-                    highlightColor: Colors.blueAccent.withOpacity(.15),
-                    child: Icon(
-                      Icons.close,
-                      color: Colors.grey,
+                  BookSearchTextField(
+                    onChanged: (String searchQuery) =>
+                        getSuggestions(searchQuery),
+                    suffixIcon: TextFieldButton(
+                      onPressed: () => Navigator.pop(context),
+                      highlightColor: Colors.blueAccent.withOpacity(.15),
+                      child: Icon(
+                        Icons.close,
+                        color: Colors.grey,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

@@ -15,13 +15,11 @@ import 'package:sastra_ebooks/misc/strings.dart';
 class SearchTextField extends StatefulWidget {
   final ValueChanged<String> onChanged;
   final TextEditingController textEditingController;
-  final bool autofocus;
   final TextFieldButton suffixIcon;
 
   SearchTextField({
     @required this.onChanged,
     this.textEditingController,
-    this.autofocus,
     this.suffixIcon,
   });
 
@@ -41,7 +39,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
           borderRadius: Dimensions.borderRadius,
         ),
         child: TextField(
-          autofocus: widget.autofocus ?? false,
+          autofocus: false,
           controller: widget.textEditingController,
           textAlign: TextAlign.left,
           onChanged: widget.onChanged,
