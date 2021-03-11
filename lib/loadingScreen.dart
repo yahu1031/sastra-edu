@@ -122,27 +122,35 @@ class _LoadingScreenState extends State<LoadingScreen>
 
     List<Future Function()> futures = bookReferences.map((bookReference) {
       Future<void> future() async {
-        Map book = (await bookReference.get()).data();
-        final String bookStoragePath = '/books/${book['isbn']}';
-        final coverRef =
-            FirebaseStorage.instance.ref().child('$bookStoragePath/cover.jpg');
-        final pdfRef =
-            FirebaseStorage.instance.ref().child('$bookStoragePath/book.pdf');
+        try {
+          Map book = (await bookReference.get()).data();
+          print(book);
+          final String bookStoragePath = '/books/${book['isbn']}';
+          print(book['title']);
+          print(book['isbn']);
+          final coverRef = FirebaseStorage.instance
+              .ref()
+              .child('$bookStoragePath/cover.jpg');
+          final pdfRef =
+              FirebaseStorage.instance.ref().child('$bookStoragePath/book.pdf');
 
-        List bookUrls = await Future.wait(
-            [coverRef.getDownloadURL(), pdfRef.getDownloadURL()]);
+          List bookUrls = await Future.wait(
+              [coverRef.getDownloadURL(), pdfRef.getDownloadURL()]);
 
-        books.add(
-          Book(
-            isbn: book['isbn'],
-            author: book['author'],
-            title: book["title"],
-            edition: book['edition'],
-            imgUrl: bookUrls[0],
-            url: bookUrls[1],
-            outline: book['outline'],
-          ),
-        );
+          books.add(
+            Book(
+              isbn: book['isbn'],
+              author: book['author'],
+              title: book["title"],
+              edition: book['edition'],
+              imgUrl: bookUrls[0],
+              url: bookUrls[1],
+              outline: book['outline'],
+            ),
+          );
+        } catch (e) {
+          print(e.message);
+        }
       }
 
       return future;

@@ -189,7 +189,7 @@ class _ProfileModalBottomSheetState extends State<ProfileModalBottomSheet> {
                             await PackageInfo.fromPlatform();
                         showDialog(
                           context: context,
-                          child: CustomAboutDialog(
+                          builder:(_) => new  CustomAboutDialog(
                             applicationIcon: Image.asset(
                               Images.appIcon,
                               fit: BoxFit.fitWidth,

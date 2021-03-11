@@ -65,7 +65,7 @@ class _AdminPageState extends State<AdminPage> with TickerProviderStateMixin {
     screenWidth = size.width;
 
     return Scaffold(
-        resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomInset: false,
         backgroundColor: backgroundColor,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(10 * SizeConfig.heightMultiplier),

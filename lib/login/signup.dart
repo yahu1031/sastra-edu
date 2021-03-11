@@ -110,7 +110,7 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
         if (firebaseUser == null) {
           showDialog(
             context: context,
-            child: AlertDialog(
+            builder: (_) => new AlertDialog(
               title: Text('User already exists, please Login.'),
               actions: [
                 FlatButton(

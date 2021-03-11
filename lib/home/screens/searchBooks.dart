@@ -84,7 +84,7 @@ class _SearchBooksState extends State<SearchBooks> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: false,
       body: GestureDetector(
         onTap: () {
           FocusScope.of(context).unfocus();
@@ -100,7 +100,6 @@ class _SearchBooksState extends State<SearchBooks> {
             child: Container(
               height: MediaQuery.of(context).size.height,
               child: Stack(
-//              mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.only(top: 40),

@@ -103,7 +103,7 @@ class _BuyACokeState extends State<BuyACoke> {
               showDialog(
                 barrierDismissible: false,
                 context: context,
-                child: Center(
+                builder: (_) => new Center(
                   child: AlertDialog(
                     shape: RoundedRectangleBorder(
                       borderRadius: Dimensions.borderRadius,

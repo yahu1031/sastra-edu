@@ -121,7 +121,7 @@ class _HomeHandlerState extends State<HomeHandler>
               ),
             ),
             context: context,
-            builder: (BuildContext context, _) {
+            builder: (BuildContext context) {
               return ProfileModalBottomSheet(user: widget.user);
             },
           );

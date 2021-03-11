@@ -167,7 +167,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
           shape: RoundedRectangleBorder(
             borderRadius: Dimensions.borderRadius,
           ),
-          builder: (context, _) {
+          builder: (context) {
             String bookmarkName;
             return Padding(
               padding: MediaQuery.of(context).viewInsets,
@@ -330,7 +330,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
     if (bookOutline.isEmpty) _loadOutline();
     showBarModalBottomSheet(
         context: context,
-        builder: (context, scrollController) {
+        builder: (context) {
           return ScrollConfiguration(
             behavior: ScrollBehavior(),
             child: Material(

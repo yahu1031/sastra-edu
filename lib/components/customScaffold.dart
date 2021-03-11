@@ -32,7 +32,7 @@ class CustomScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: resizeToAvoidBottomPadding,
+      resizeToAvoidBottomInset: resizeToAvoidBottomPadding,
       backgroundColor: backgroundColor ?? CustomColors.lightColor,
       extendBodyBehindAppBar: true,
       extendBody: true,

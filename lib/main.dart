@@ -48,16 +48,16 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final _navigatorKey = GlobalKey<NavigatorState>();
   @override
-  Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-    ]);
+Widget build(BuildContext context) {
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
 
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return OrientationBuilder(
-          builder: (context, orientation) {
-            SizeConfig().init(constraints, orientation);
+  return LayoutBuilder(
+    builder: (context, constraints) {
+      return OrientationBuilder(
+        builder: (context, orientation) {
+          SizeConfig().init(constraints, orientation);
             print(SizeConfig.heightMultiplier);
             return Wiredash(
               projectId: Secret.projectID,

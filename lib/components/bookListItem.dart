@@ -92,7 +92,7 @@ class _BookListItemState extends State<BookListItem> {
           showDialog(
             context: context,
             barrierColor: Colors.black.withOpacity(.1),
-            child: StatefulBuilder(
+            builder: (_) => new StatefulBuilder(
               builder: (context, setState) {
                 return Align(
                   alignment: Alignment.topLeft,

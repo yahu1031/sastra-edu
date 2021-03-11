@@ -1,4 +1,4 @@
-package com.example.sastra_ebooks
+package com.mbooks
 
 import io.flutter.embedding.android.FlutterActivity
 
