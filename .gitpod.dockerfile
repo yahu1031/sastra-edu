@@ -25,7 +25,7 @@ RUN set -ex; \
     flutter channel stable; \
     flutter upgrade; \
     flutter config --enable-windows-desktop; \
-    flutter config --enable-mac-desktop; \
+    flutter config --enable-macos-desktop; \
     flutter config --enable-linux-desktop; \
     flutter precache; \
     flutter doctor -v
